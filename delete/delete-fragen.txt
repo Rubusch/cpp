@@ -1,0 +1,41 @@
+Delete 
+
+Allg. gilt:
+
+// erzeugen:
+int x = 10;
+int* pX = x;
+int* pXArr = new int[5];
+(...)
+
+// deleten:
+delete pX;
+delete [] pXArr;
+
+
+
+Fragen zu delete:
+
+1. Frage:
+Ich erstelle einen Zeiger auf ein Array im Heap.
+	char *pHeap = new char[500];
+und lösche den Speicherplatz wieder mit
+	delete [] pHeap;
+
+Nehmen wir jetzt an, in dem reservierten Array auf dem 
+Heap befindet sich wiederum ein Zeiger auf einen anderen 
+Bereich im Heap, wird dann dieser Speicherplatz auf den 
+der Zeiger (im Array) zeigt, mitgelöscht? 
+
+Antwort: Nein, er bleibt weiterhin bestehen und bremst ggf. 
+die Maschine zur Laufzeit des Programmes ab oder beschneidet 
+dessen Ressourcen. Die einzelnen Elemente muessen 
+dementsprechend separat explizit deletet werden. 
+
+
+2. Frage
+Wird der Heap Speicher nach Beendigung des Programmes 
+automatisch wieder freigegeben?
+
+Antwort: IdR. bei Win o.ae. wohl schon, ist aber schlechter Stil und 
+auf anderen Systemen gilt evtl anderes.

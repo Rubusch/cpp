@@ -1,0 +1,14 @@
+The following operators MUST be member functions:
+    operator[] ()
+    operator= ()
+    operator() ()
+    operator->* ()
+    operator-> ()
+    operator type () // type conversion
+
+The following operators are not possible to be overloaded:
+    ? :
+    .* // use ->*
+    .
+    ::
+

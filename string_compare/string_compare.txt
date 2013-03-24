@@ -1,0 +1,329 @@
+compare strings in c++
+
+Q: how to compare strings case-INsensitive in c++?
+A: depends, some aspects to mention.
+
+
+
+
+
+
+RESOURCES
+
+
+http://fara.cs.uni-potsdam.de/~kaufmann/?page=GenCppFaqs&faq=stricmp#Answ
+* S. Meyers: "Effective STL" - Item 35
+* M. Austern: " How to do Case-Insensitive String Comparision" - C++ Report May 2000
+* H. Sutter: "Exceptional C++" - Item 2 und Item 3
+* N. Josuttis: "The C++ Standard Library" - Chapter 14: "Internationalization"
+
+
+
+
+
+VARIATION #1: string compare (equal sized strings)
+
+
+convert each letter to lower case and compare in a strcmp() like way, e.g. in
+C++
+
+    #include <string>
+    #include <iostream>
+    #include <algorithm>
+    using namespace std;
+    bool NoCaseEqual( string Str1, string Str2 )
+    {
+        transform( Str1.begin(), Str1.end(), Str1.begin(), tolower );
+        transform( Str2.begin(), Str2.end(), Str2.begin(), tolower );
+        return Str1 == Str2;
+    }
+
+    int main()
+    {
+        string Str1( "AlL work and No play makes Jack a dull boY." );
+        string Str2( "all work and NO play makes Jack a dull boy." );
+        if( NoCaseEqual( Str1, Str2 ) )
+        {
+            cout << "the strings are equal, but case-sensitivity" << endl;
+        }
+    }
+
+
+
+
+Unfortunately, only helps at a direct comparison of two strings. Strings varying
+in length are difficult to distinguish, even further it may become difficult to
+order strings within a(n associative) container in a STL context.
+
+The solution is not significantly efficient: a comparator should never change
+its arguments, thus it needs to copy its arguments because of the case
+transformation. Last, the solution does not even represent a valid solution to
+the problem.
+
+
+
+
+
+
+VARIATION #2: types instead of fuctions
+
+
+This approach makes three types out of a comparison function. Thus,
+compatibility with STL, or generic code, respectively, is pertained. It becomes
+possible to implement associative containers, which may order its elements by
+size, but case insensitive. As it also is common practice to apply the types as
+sorting criteria directly. Furthermore case insensitivity becomes a quality of
+the comparison. Yet another small example
+
+    // ...
+    namespace Caseinsensitive
+    {
+      /* types */
+
+        // lower-than-type - used in lexicographical_compare()
+        struct CharLess_t : std::binary_function< char, char, bool >
+        {
+            bool operator()( char ch1, char ch2 ) const
+            {
+                return  tolower( static_cast< unsigned char >( ch1 ) )
+                  < tolower( static_cast< unsigned char >( ch2 ) );
+            }
+        };
+
+        // equals-to-type - used in equal()
+        struct CharEq_t : std::binary_function< char, char, bool >
+        {
+            bool operator()( char ch1, char ch2 ) const
+            {
+                return  tolower( static_cast< unsigned char >( ch1 ) )
+                  == tolower( static_cast< unsigned char >( ch2 ) );
+            }
+        };
+
+      /* comparator and usage */
+
+        // equal() - returns true, if Str1 == Str2
+        struct NoCaseEqual_t : std::binary_function< std::string, std::string, bool >
+        {
+          // operator() definition
+            bool operator()( const std::string& Str1, const std::string& Str2 ) const
+            {
+              if( Str1.length() != Str2.length() ){
+                  return false;
+              }
+              return std::equal( Str1.begin(), Str1.end(), Str2.begin(), CharEq_t() );
+            }
+        };
+        // usage of equal's op()
+        bool NoCaseEqual(const std::string& Str1, const std::string& Str2)
+        {
+            return NoCaseEqual_t()(Str1, Str2);
+        }
+
+      /* operator for associative container */
+
+        // lexicographical_compare-type -
+        // used for associative container, e.g. set
+        // returns true, if Str1 lexicographical lower than Str2
+        struct NoCaseLess_t : std::binary_function< std::string, std::string, bool >
+        {
+            // op() definition
+            bool operator()( const std::string& Str1, const std::string& Str2 ) const
+            {
+                return std::lexicographical_compare( Str1.begin(), Str1.end()
+                                                     , Str2.begin(), Str2.end()
+                                                     , CharLess_t() );
+            }
+        };
+        //...
+    }
+
+    int main()
+    {
+        using namespace Caseinsensitive;
+        using namespace std;
+        set< string, NoCaseLess_t > AssociativeSet; // associative container
+        string Str1( "Gozilla" );
+        string Str2( "gozillA" );
+
+        AssociativeSet.insert( Str1 );
+
+        if( !AssociativeSet.insert(Str2).second ){
+            cout << "only one gozilla - set is unique!"
+                 << endl;
+        }
+
+        if( NoCaseEqual( Str1, Str2 ) ){
+            cout << Str1
+                 << " and "
+                 << Str2
+                 << " are equal up to case sensitivity"
+                 << endl;
+        }
+    }
+
+
+
+
+
+3. COMPARISON AND LOCALES
+
+
+There are still issues with the code, since the following code prints the error.
+
+    string Str1("gewürz");
+    string Str2("GEWÜRZ");
+    if (!NoCaseCompare::NoCaseEqual()(Str1, Str2))
+    {
+        cout << "Oups! Something's wrong.." << endl;
+    }
+
+Here only the German locale setting was missing
+    setlocale(LC_ALL, "german");
+
+To convert upper to lower case and vice versa, the functions need locale
+objects. The whole C-Library only has one locale objects, by default set to
+English. To set several locale objects is possible in C++ and for the like
+string comparisons, it is also recommended to avoid situations as before, i.e.
+since there is no 'ü' in English locale context, the comparison failes.
+
+Locales store language and culture specific settings. Every locale object is
+consists in facets, some are compile specific and not implemented in a
+standardized way, e.g. for the conversion of characters the ctype facet is
+needed. setlocale() may set locales.
+
+The following example should compile under a standard compiler
+
+    #include <string>
+    #include <locale>
+    #include <algorithm>
+
+
+    // type to be handled internally in equal(), needs to have a ctor, to
+    // transport the locale information into the associative container
+    // operations
+    struct LocCharEq_t
+    {
+        LocCharEq_t( const std::locale& loc = std::locale::classic() )
+          : m_Loc( loc )
+          , m_Ct( std::use_facet< std::ctype< char > >( m_Loc ) )
+        {}
+
+        bool operator()( char ch1, char ch2 ) const
+        {
+            return m_Ct.tolower(ch1) == m_Ct.tolower(ch2);
+        }
+
+        private:
+            const std::locale& m_Loc;
+            const std::ctype< char >& m_Ct;
+    };
+
+
+    // type to set ctor for taking locale, and op() to compare strings
+    struct LocNoCaseEqual_t
+    {
+        LocNoCaseEqual_t( const std::locale& loc = std::locale::classic() )
+        : m_Loc( loc )
+        {}
+
+        bool operator()( const std::string& Str1, const std::string& Str2 ) const
+        {
+            if( Str1.length() != Str2.length() ){
+                return false;
+            }
+            return std::equal( Str1.begin()
+                                , Str1.end()
+                                , Str2.begin()
+                                , LocCharEq_t(m_Loc) );
+        }
+        private:
+            const std::locale& m_Loc;
+    };
+
+
+    // front-end to the public
+    //
+    // usage of LocNoCaseEqual_t's op() to set to locale in ctor, and then to
+    // compare strings with op()
+    bool LocNoCaseEqual( const std::string& Str1
+                         , const std::string& Str2
+                         , const std::locale& loc
+                         )
+    {
+        // instanciates a object, by calling its ctor and passing the locale
+        // object; thereby calls the op() with two arguments for comparison -
+        // remark the brackets: ctor()() is a call to the op() via the ctor of
+        // the specified class
+        return LocNoCaseEqual_t( loc )( Str1, Str2 );
+    }
+
+    // application, set up locale; then call comparison function
+    int main()
+    {
+        using namespace std;
+        // CAUTION! String "german" is compiler dependent
+        locale loc("german");
+        string Str1("gewürz");
+        string Str2("GEWÜRZ");
+        if( LocNoCaseEqual( Str1, Str2, loc ) ){
+            cout << "Works out!" << endl;
+        }
+    }
+
+
+
+
+
+
+4. RESULT
+
+implementation for case insensitive comparison, file: stricmp.h; some example usage
+
+
+    #include "stricmp.h"
+    #include <string>
+    #include <iostream>
+    #include <algorithm>
+    #include <locale>
+    #include <set>
+
+    using namespace std;
+    using namespace IgnoreCase;
+
+    int main()
+    {
+        // comparator for an associative container
+        set< string, NoCaseLess_t > MySet;
+        string Str1("Foo");
+        string Str2("FOO");
+
+        MySet.insert(Str1);
+
+        if( !MySet.insert( Str2 ).second ){
+            cout << "container is unique, only one possible" << endl;
+        }
+
+        // simple comparison
+        string Str3("Hallo");
+        string Str4("HALLO");
+        if( NoCaseEqual( Str3, Str4 ) ){
+            cout << "strings are equal" << endl;
+        }
+
+        // comparison, refering to a locale object
+        string Str5("et voilà");
+        string Str6("ET VoIlà");
+        locale loc( "french" );
+        if( LocTableNoCaseEqual( Str5, Str6, loc ) ){
+            cout << "strings are equal" << endl;
+        }
+
+        // string objects not distinguishing upper and lower case letters
+        CIString Str7( "Hallo Welt" );
+        CIString::size_type Pos = Str7.find( "w" );
+        if( Pos != CIString::npos ){
+            cout << "there is a w at position " << Pos << endl;
+        }
+    }
+
