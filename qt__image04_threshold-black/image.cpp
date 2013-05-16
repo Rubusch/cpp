@@ -29,8 +29,6 @@ int main(int argc, char *argv[])
                         int gray  = qGray( pixel );
 
                         // filter black pieces, and invert colors
-//                        gray = 255 - gray;
-
                         if( 12 > gray ){ gray = 255-gray; }
                         else{ gray = 0; }
 
