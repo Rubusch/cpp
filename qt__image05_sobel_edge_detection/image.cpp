@@ -45,17 +45,18 @@ void sobel( QImage& image )
                         }else{
                                 for( int I=-1; I<=1; I++ ){
                                         for( int J=-1; J<=1; J++ ){
-//                                                int piX = J + xcoord;
-//                                                int piY = I + ycoord;
-//                                                QRgb currentPixel = image.pixel( QPoint( piX, piY ) );
 
                                                 QRgb currentPixel = image.pixel( QPoint( J + xcoord, I + ycoord ) );
 
-                                                int R = qRed( currentPixel );
-                                                int G = qGreen( currentPixel );
-                                                int B = qBlue( currentPixel );
+//                                                int R = qRed( currentPixel );
+//                                                int G = qGreen( currentPixel );
+//                                                int B = qBlue( currentPixel );
+//                                                int NC = (R+G+B) / 3;
 
-                                                int NC = (R+G+B) / 3;
+                                                int NC = ( qRed( currentPixel )
+                                                           + qGreen( currentPixel )
+                                                           + qBlue( currentPixel )
+                                                        ) / 3;
 
                                                 xsum = xsum + (NC) * GX(J+1, I+1);
                                                 ysum = ysum + (NC) * GY(J+1, I+1);
@@ -67,8 +68,8 @@ void sobel( QImage& image )
                         if(SUM > 255) SUM=255;
                         if(SUM < 0) SUM=0;
 
-//                        int newPixel = (255 - (unsigned char) (SUM) );
-                        int newPixel = (255 - (uchar) (SUM) );
+//                        int newPixel = (255 - (uchar) (SUM) );
+                        int newPixel = (uchar) (SUM);
                         image.setPixel( xcoord, ycoord, qRgb( newPixel, newPixel, newPixel ) );
                 }
         }
