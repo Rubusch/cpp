@@ -7,8 +7,7 @@
 #include <QtCore>
 #include <QCoreApplication>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
         // qt settings
         QApplication app( argc, argv );
 

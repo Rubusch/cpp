@@ -1,142 +1,75 @@
-// sobel edge detection
-#include "qimagehandler.h"
+// image.cpp
+/*
+ * @author: Lothar Rubusch
+ * @date: 2013-may-16
+ */
 
- 
-
-QImageHandler::QImageHandler(QImage *image) : m_Image(image)
-
+/*
+  Given image in source place Sobel edges in dest.
+  Grayscale sort of, with (255,255,255) as brightest edge.
+  sobelDestination should be same size and depth as source.
+*/
+void sobel( QImage& source, QImage& sobelDestination )
 {
+        int GX[3][3];
+        int GY[3][3];
 
-  this->start();
+        /* 3x3 GX Sobel mask.  Ref: www.cee.hw.ac.uk/hipr/html/sobel.html */
+        GX[0][0] = -1; GX[0][1] = 0; GX[0][2] = 1;
+        GX[1][0] = -2; GX[1][1] = 0; GX[1][2] = 2;
+        GX[2][0] = -1; GX[2][1] = 0; GX[2][2] = 1;
 
-}
+        /* 3x3 GY Sobel mask.  Ref: www.cee.hw.ac.uk/hipr/html/sobel.html */
+        GY[0][0] =  1; GY[0][1] =  2; GY[0][2] =  1;
+        GY[1][0] =  0; GY[1][1] =  0; GY[1][2] =  0;
+        GY[2][0] = -1; GY[2][1] = -2; GY[2][2] = -1;
 
- 
+        int width = source.width();
+        int height = source.height();
+        uint blackPixel = qRgb(0, 0, 0);
+        uchar **jumper = source.jumpTable();
+        uchar **destJumper = sobelDestination.jumpTable();
 
-QImageHandler::~QImageHandler()
+        int I, J;
+        long sumX, sumY;
+        int SUM;
+        uint rawColour;
 
-{
+        for( int y = 0; y < height; ++y ){
+                uint *p  = (uint*) jumper[y];
+                uint *dp = (uint*) destJumper[y];
+                for( int x = 0; x < width; ++x ){
+                        if( y == 0
+                            || y >= height-1
+                            || x == 0
+                            || x >= width-1 ){
+                                SUM = 0;
 
-  delete m_Image;
+                        }else{
+                                sumX = 0;
+                                sumY = 0;
 
-  this->quit();
+                                /*-------X and Y GRADIENT APPROXIMATION------*/
+                                for( I=-1; I<=1; I++ ){
+                                        for( J=-1; J<=1; J++ ){
+                                                rawColour = *((uint *)jumper[y + J] + x + I);
+                                                sumX = sumX + ((qRed(rawColour) + qGreen(rawColour) + qBlue(rawColour))/3) * GX[I+1][J+1];
+                                                sumY = sumY + ((qRed(rawColour) + qGreen(rawColour) + qBlue(rawColour))/3) * GY[I+1][J+1];
+                                                //sumX = sumX +(int)( (*(originalImage.data + X + I + (Y + J)*originalImage.cols)) * GX[I+1][J+1]);
+                                                //sumY = sumY + (int)( (*(originalImage.data + X + I + (Y + J)*originalImage.cols)) * GY[I+1][J+1]);
+                                        }
+                                }
+                                SUM = abs(sumX) + abs(sumY); /*---GRADIENT MAGNITUDE APPROXIMATION (Myler p.218)----*/
+                                if (SUM > 255)
+                                        SUM = 255;
 
-  this->wait();
-
-}
-
- 
-
- 
-
-void QImageHandler::run()
-
-{
-
-  qDebug() << "thread id " << (int) QThread::currentThreadId();
-
- 
-
-  quint32 kernelSize = 3;
-
-  qint32 kern = (kernelSize-1)/2.0;
-
-  quint32 r1=0, r2=0, g1=0, g2=0, b1=0, b2=0;
-
- 
-
-  int kernelx[] = {-1,0,1,-2,0,2,-1,0,1};
-
-  int kernely[] = {-1,-2,-1,0,0,0,1,2,1};
-
- 
-
-  quint8 z=0, r=0, g=0, b=0;
-
- 
-
-  m_Image->convertToFormat(QImage::Format_ARGB32);
-
- 
-
-  QRgb *peekScanLine;
-
-  QImage result(m_Image->width(), m_Image->height(), m_Image->format());
-
-  QPoint point;
-
- 
-
-  for (quint32 y = kern; y < m_Image->height() - kern; ++y) {
-
-    for (quint32 x = kern; x < m_Image->width() - kern; ++x) {
-
-      for(qint32 ky = -kern; ky <= kern; ++ky) {
-
-        // Could be optimized by keeping scanlines in memory and
-
-        // not calling scanLine ky times for each pixel
-
-        peekScanLine = (QRgb *)m_Image->scanLine(y+ky);
-
- 
-
-        for(qint32 kx = -kern; kx <= kern; ++kx) {
-
-          r1 += kernelx[z] * qRed(peekScanLine[x+kx]);
-
-          g1 += kernelx[z] * qGreen(peekScanLine[x+kx]);
-
-          b1 += kernelx[z] * qBlue(peekScanLine[x+kx]);
-
- 
-
-          r2 += kernely[z] * qRed(peekScanLine[x+kx]);
-
-          g2 += kernely[z] * qGreen(peekScanLine[x+kx]);
-
-          b2 += kernely[z] * qBlue(peekScanLine[x+kx]);
-
- 
-
-          z++;
-
+                        }
+                        *dp = qRgb( SUM, SUM, SUM );
+                        ++p;
+                        ++dp;
+                }
         }
-
-      }
-
- 
-
-      r = abs(r1) + abs(r2);
-
-      g = abs(g1) + abs(g2);
-
-      b = abs(b1) + abs(b2);
-
- 
-
-      r1=0, r2=0, g1=0, g2=0, b1=0, b2=0, z=0;
-
- 
-
-      point.setX(x);
-
-      point.setY(y);
-
- 
-
-      result.setPixel(point, qRgba(r,g,b,255));
-
-    }
-
-  }
-
- 
-
-  *m_Image = result.copy(0,0, result.width(), result.height());
-
-  emit manipulationDone();
-
 }
 
-// TODO
+
+int main( int argc, char *argv[] ){
