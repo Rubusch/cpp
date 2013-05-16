@@ -12,12 +12,12 @@ int main(int argc, char *argv[])
         // qt settings
         QApplication app( argc, argv );
 
-        // read image
+        // 1) read image: init png
         QImage png_orig( "a09.png" );
         QImage png = png_orig.convertToFormat( QImage::Format_RGB32 );
 
 
-        // preparation
+        // 2) preparation: set information to png
         for( int ycoord = 0; ycoord < png.height(); ++ycoord ){
                 for( int xcoord = 0; xcoord < png.width(); ++xcoord ){
 
@@ -36,11 +36,12 @@ int main(int argc, char *argv[])
                 }
         }
 
+        // 3) init result: set up a png_new by png data
         QPixmap png_new( png.width(), png.height() );
         png_new.fill();
 
 
-        // operation: take out colors
+        // 4) operation: write png_new
         QPainter painter;
         // init painter with png_new (where the result will be)
         painter.begin( &png_new );
@@ -49,8 +50,7 @@ int main(int argc, char *argv[])
         painter.drawImage( 0, 0, png );
         painter.end();
 
-
-        // display image
+        // 5) display image
         QLabel *label = new QLabel();
         label->setPixmap( png_new );
         label->show();
