@@ -38,12 +38,12 @@ void sobel( QImage& image )
                         xsum = 0;
                         ysum = 0;
                         if( ycoord == 0
-                            || ycoord == image.height()-1
+                            || ycoord == image.height() - 1
                             || xcoord == 0
                             || xcoord == image.width() - 1
                           ){
                                 // outside
-                                SUM = 0;
+                                SUM = 255;
                         }else{
                                 // inside - apply algorithm
                                 for( int idx=-1; idx<=1; idx++ ){
@@ -84,7 +84,7 @@ void sobel_handler( QString imgname ){
         sobel( png );
 
         // save
-        png_new.save( "sobel_" + imgname );
+        png.save( "sobel_" + imgname );
 
         // display image
         // ..back from QPixmap to QImage: pixmap.toImage()
