@@ -9,7 +9,8 @@
 #include <QCoreApplication>
 
 /*
- * resources:
+ * Resources:
+ *
  * Jeremy Fix, http://jeremy.fix.free.fr/spip.php?article21
  * Ken Earle, http://www.dewtell.com/code/cpp/sobel.htm
  * http://blog.moblivion.net/2011/02/05/3-channel-sobel-operator-in-qt/
@@ -75,20 +76,15 @@ void sobel( QImage& image )
         }
 }
 
-
-int main( int argc, char *argv[] ){
-        QApplication app( argc, argv );
-
-//        QImage png_orig( "a09_threshold_white.png" );
-        QImage png_orig( "a09_threshold_black.png" );
+void sobel_handler( QString imgname ){
+        QImage png_orig( imgname );
         QImage png = png_orig.convertToFormat( QImage::Format_RGB32 );
 
         // do the sobel..
         sobel( png );
 
         // save
-// TODO
-//        png_new.save( "a09_gray.png" );
+        png_new.save( "sobel_" + imgname );
 
         // display image
         // ..back from QPixmap to QImage: pixmap.toImage()
@@ -98,9 +94,19 @@ int main( int argc, char *argv[] ){
         painter.begin( &png_res );
         painter.drawImage( 0, 0, png );
         painter.end();
-
         QLabel *label = new QLabel();
         label->setPixmap( png_res );
         label->show();
+}
+
+
+int main( int argc, char *argv[] ){
+        QApplication app( argc, argv );
+
+        // convert white threshold image
+        sobel_handler( "a09_threshold_white.png" );
+
+        // convert black threshold image
+        sobel_handler( "a09_threshold_black.png" );
         return app.exec();
 };
