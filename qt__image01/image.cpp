@@ -49,10 +49,10 @@ int main(int argc, char *argv[]){
         painter.drawImage( 0, 0, png );
         painter.end();
 
-        // 6) save
+        // 5) save
         png_new.save( "a09_gray.png" );
 
-        // 5) display image
+        // 6) display image
         QLabel *label = new QLabel();
         label->setPixmap( png_new );
         label->show();

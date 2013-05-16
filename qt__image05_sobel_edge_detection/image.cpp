@@ -4,72 +4,101 @@
  * @date: 2013-may-16
  */
 
+#include <QtGui>
+#include <QtCore>
+#include <QCoreApplication>
+
 /*
-  Given image in source place Sobel edges in dest.
-  Grayscale sort of, with (255,255,255) as brightest edge.
-  sobelDestination should be same size and depth as source.
-*/
-void sobel( QImage& source, QImage& sobelDestination )
+ * resources:
+ * Jeremy Fix, http://jeremy.fix.free.fr/spip.php?article21
+ * Ken Earle, http://www.dewtell.com/code/cpp/sobel.htm
+ * http://blog.moblivion.net/2011/02/05/3-channel-sobel-operator-in-qt/
+ * http://en.wikipedia.org/wiki/Sobel_operator
+ */
+void sobel( QImage& image )
 {
-        int GX[3][3];
-        int GY[3][3];
+        // init
+        int xsum, ysum, SUM = 0;
 
-        /* 3x3 GX Sobel mask.  Ref: www.cee.hw.ac.uk/hipr/html/sobel.html */
-        GX[0][0] = -1; GX[0][1] = 0; GX[0][2] = 1;
-        GX[1][0] = -2; GX[1][1] = 0; GX[1][2] = 2;
-        GX[2][0] = -1; GX[2][1] = 0; GX[2][2] = 1;
+        // sobel matrix
+        QGenericMatrix< 3, 3, int > GX, GY;
 
-        /* 3x3 GY Sobel mask.  Ref: www.cee.hw.ac.uk/hipr/html/sobel.html */
-        GY[0][0] =  1; GY[0][1] =  2; GY[0][2] =  1;
-        GY[1][0] =  0; GY[1][1] =  0; GY[1][2] =  0;
-        GY[2][0] = -1; GY[2][1] = -2; GY[2][2] = -1;
+        GX(0,0) = -1; GX(0,1) = 0; GX(0,2) = 1;
+        GX(1,0) = -2; GX(1,1) = 0; GX(1,2) = 2;
+        GX(2,0) = -1; GX(2,1) = 0; GX(2,2) = 1;
 
-        int width = source.width();
-        int height = source.height();
-        uint blackPixel = qRgb(0, 0, 0);
-        uchar **jumper = source.jumpTable();
-        uchar **destJumper = sobelDestination.jumpTable();
+        GY(0,0) =  1; GY(0,1) = 2; GY(0,2) = 1;
+        GY(1,0) =  0; GY(1,1) = 0; GY(1,2) = 0;
+        GY(2,0) = -1; GY(2,1) = -2; GY(2,2) = -1;
 
-        int I, J;
-        long sumX, sumY;
-        int SUM;
-        uint rawColour;
-
-        for( int y = 0; y < height; ++y ){
-                uint *p  = (uint*) jumper[y];
-                uint *dp = (uint*) destJumper[y];
-                for( int x = 0; x < width; ++x ){
-                        if( y == 0
-                            || y >= height-1
-                            || x == 0
-                            || x >= width-1 ){
+        // apply
+        for( int ycoord=0; ycoord < image.height(); ycoord++ ){
+                for( int xcoord=0; xcoord < image.width(); xcoord++ ){
+                        xsum = 0;
+                        ysum = 0;
+                        if( ycoord == 0
+                            || ycoord == image.height()-1
+                            || xcoord == 0
+                            || xcoord == image.width() - 1
+                          ){
                                 SUM = 0;
-
                         }else{
-                                sumX = 0;
-                                sumY = 0;
+                                for( int I=-1; I<=1; I++ ){
+                                        for( int J=-1; J<=1; J++ ){
+//                                                int piX = J + xcoord;
+//                                                int piY = I + ycoord;
+//                                                QRgb currentPixel = image.pixel( QPoint( piX, piY ) );
 
-                                /*-------X and Y GRADIENT APPROXIMATION------*/
-                                for( I=-1; I<=1; I++ ){
-                                        for( J=-1; J<=1; J++ ){
-                                                rawColour = *((uint *)jumper[y + J] + x + I);
-                                                sumX = sumX + ((qRed(rawColour) + qGreen(rawColour) + qBlue(rawColour))/3) * GX[I+1][J+1];
-                                                sumY = sumY + ((qRed(rawColour) + qGreen(rawColour) + qBlue(rawColour))/3) * GY[I+1][J+1];
-                                                //sumX = sumX +(int)( (*(originalImage.data + X + I + (Y + J)*originalImage.cols)) * GX[I+1][J+1]);
-                                                //sumY = sumY + (int)( (*(originalImage.data + X + I + (Y + J)*originalImage.cols)) * GY[I+1][J+1]);
+                                                QRgb currentPixel = image.pixel( QPoint( J + xcoord, I + ycoord ) );
+
+                                                int R = qRed( currentPixel );
+                                                int G = qGreen( currentPixel );
+                                                int B = qBlue( currentPixel );
+
+                                                int NC = (R+G+B) / 3;
+
+                                                xsum = xsum + (NC) * GX(J+1, I+1);
+                                                ysum = ysum + (NC) * GY(J+1, I+1);
                                         }
                                 }
-                                SUM = abs(sumX) + abs(sumY); /*---GRADIENT MAGNITUDE APPROXIMATION (Myler p.218)----*/
-                                if (SUM > 255)
-                                        SUM = 255;
-
+                                SUM = abs(xsum) + abs(ysum);
                         }
-                        *dp = qRgb( SUM, SUM, SUM );
-                        ++p;
-                        ++dp;
+
+                        if(SUM > 255) SUM=255;
+                        if(SUM < 0) SUM=0;
+
+//                        int newPixel = (255 - (unsigned char) (SUM) );
+                        int newPixel = (255 - (uchar) (SUM) );
+                        image.setPixel( xcoord, ycoord, qRgb( newPixel, newPixel, newPixel ) );
                 }
         }
 }
 
 
 int main( int argc, char *argv[] ){
+        QApplication app( argc, argv );
+
+        QImage png_orig( "a09_gray.png" );
+        QImage png = png_orig.convertToFormat( QImage::Format_RGB32 );
+
+        // do the sobel..
+        sobel( png );
+
+        // save
+// TODO
+//        png_new.save( "a09_gray.png" );
+
+        // display image
+        // ..back from QPixmap to QImage: pixmap.toImage()
+        QPixmap png_res( png.width(), png.height() );
+        png_res.fill();
+        QPainter painter;
+        painter.begin( &png_res );
+        painter.drawImage( 0, 0, png );
+        painter.end();
+
+        QLabel *label = new QLabel();
+        label->setPixmap( png_res );
+        label->show();
+        return app.exec();
+};
