@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
         QApplication app( argc, argv );
 
         // 1) read image: init png
-        QImage png_orig( "a09.png" );
+        QImage png_orig( "a09_gray.png" );
         QImage png = png_orig.convertToFormat( QImage::Format_RGB32 );
 
 
@@ -27,6 +27,12 @@ int main(int argc, char *argv[])
                         //  Returns a gray value (0 to 255) from the (r, g, b) triplet.
                         //  The gray value is calculated using the formula (r * 11 + g * 16 + b * 5)/32.
                         int gray  = qGray( pixel );
+
+                        // filter black pieces, and invert colors
+//                        gray = 255 - gray;
+
+                        if( 12 > gray ){ gray = 255-gray; }
+                        else{ gray = 0; }
 
                         // Returns the alpha component of the ARGB quadruplet rgba
                         int alpha = qAlpha( pixel );
@@ -51,7 +57,7 @@ int main(int argc, char *argv[])
         painter.end();
 
         // 6) save
-        png_new.save( "a09_gray.png" );
+        png_new.save( "a09_threshold_black.png" );
 
         // 5) display image
         QLabel *label = new QLabel();
