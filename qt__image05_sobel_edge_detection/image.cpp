@@ -41,35 +41,35 @@ void sobel( QImage& image )
                             || xcoord == 0
                             || xcoord == image.width() - 1
                           ){
+                                // outside
                                 SUM = 0;
                         }else{
-                                for( int I=-1; I<=1; I++ ){
-                                        for( int J=-1; J<=1; J++ ){
+                                // inside - apply algorithm
+                                for( int idx=-1; idx<=1; idx++ ){
+                                        for( int jdx=-1; jdx<=1; jdx++ ){
 
-                                                QRgb currentPixel = image.pixel( QPoint( J + xcoord, I + ycoord ) );
-
-//                                                int R = qRed( currentPixel );
-//                                                int G = qGreen( currentPixel );
-//                                                int B = qBlue( currentPixel );
-//                                                int NC = (R+G+B) / 3;
+                                                QRgb currentPixel = image.pixel( QPoint( jdx + xcoord, idx + ycoord ) );
 
                                                 int NC = ( qRed( currentPixel )
                                                            + qGreen( currentPixel )
                                                            + qBlue( currentPixel )
                                                         ) / 3;
 
-                                                xsum = xsum + (NC) * GX(J+1, I+1);
-                                                ysum = ysum + (NC) * GY(J+1, I+1);
+                                                xsum = xsum + (NC) * GX(jdx+1, idx+1);
+                                                ysum = ysum + (NC) * GY(jdx+1, idx+1);
                                         }
                                 }
                                 SUM = abs(xsum) + abs(ysum);
                         }
 
+                        // borders
                         if(SUM > 255) SUM=255;
                         if(SUM < 0) SUM=0;
 
-//                        int newPixel = (255 - (uchar) (SUM) );
-                        int newPixel = (uchar) (SUM);
+                        // invert
+                        int newPixel = (255 - (uchar) (SUM) );
+
+                        // draw pixel
                         image.setPixel( xcoord, ycoord, qRgb( newPixel, newPixel, newPixel ) );
                 }
         }
@@ -79,7 +79,8 @@ void sobel( QImage& image )
 int main( int argc, char *argv[] ){
         QApplication app( argc, argv );
 
-        QImage png_orig( "a09_gray.png" );
+//        QImage png_orig( "a09_threshold_white.png" );
+        QImage png_orig( "a09_threshold_black.png" );
         QImage png = png_orig.convertToFormat( QImage::Format_RGB32 );
 
         // do the sobel..
