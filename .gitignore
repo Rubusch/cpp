@@ -3,11 +3,6 @@
 *~
 *.pro
 
-## some executables of qt projects
-qt__image03_threshold
-qt__image04_threshold-black
-qt__image05_sobel_edge_detection
-
 ## qt creater projects
 *.app
 
