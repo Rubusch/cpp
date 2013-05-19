@@ -93,7 +93,7 @@ int main(int argc, char* argv[]){
    	            qDebug( "ERROR: allocation failed\n" );
 	    }
 	    cvMoments( imgThresh, moments, 1 );
-	    
+
 	    // the actual moment value
 
 	    // the x-coord
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]){
 	    // the y-coord
 	    double moment01 = cvGetSpatialMoment( moments, 0, 1 );
 	    double area = cvGetCentralMoment( moments, 0, 0 );
-	    
+
 	    static int xpos = 0;
 	    static int ypos = 0;
 
