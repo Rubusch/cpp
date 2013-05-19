@@ -56,37 +56,87 @@ int main(int argc, char* argv[]){
       }
 
       // set up a window
-      cvNamedWindow( "target" );
+      cvNamedWindow( "threshed" );
 
       // iterate through each frames of the video
-      IplImage* imgScriple = NULL;
+      IplImage* imgScribble = NULL;
       IplImage* frame = NULL;
       while( true ){
 
-	// obtain a new frame
-	if( NULL == (frame = cvQueryFrame( capture ))){ break; }
+	    // obtain a new frame
+            if( NULL == (frame = cvQueryFrame( capture ))){ break; }
 
+
+	    // initialize scribble data for the moving target
+	    if( NULL == imgScribble ){
+                    imgScribble = cvCreateImage( cvGetSize( frame ), 8, 3 );
+	    }
+
+            // apply blurrer
             frame = cvCloneImage( frame );
             cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 ); // smooth the original image using Gaussian kernel
 
+	    // generate hsv image from rgb
             IplImage* imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
             cvCvtColor( frame, imgHSV, CV_BGR2HSV ); // Change the color format from BGR to HSV
-            IplImage* imgThresh = GetThresholdedImage(imgHSV);
 
+	    // get threshed image out of frame
+            IplImage* imgThresh = GetThresholdedImage(imgHSV);
             cvSmooth(imgThresh, imgThresh, CV_GAUSSIAN,3,3); //smooth the binary image using Gaussian kernel
 
-            // show image in window
-            cvShowImage("target", imgThresh);
 
-            //Clean up used images
+	    // filter to obtain only one target object
+
+	    // compute the moments to estimate the position of the target object
+	    CvMoments *moments = NULL;
+	    if( NULL == (moments = (CvMoments*) malloc( sizeof( CvMoments ) )) ){
+   	            qDebug( "ERROR: allocation failed\n" );
+	    }
+	    cvMoments( imgThresh, moments, 1 );
+	    
+	    // the actual moment value
+
+	    // the x-coord
+	    double moment10 = cvGetSpatialMoment( moments, 1, 0 );
+
+	    // the y-coord
+	    double moment01 = cvGetSpatialMoment( moments, 0, 1 );
+	    double area = cvGetCentralMoment( moments, 0, 0 );
+	    
+	    static int xpos = 0;
+	    static int ypos = 0;
+
+	    int xlast = moment10 / area;
+	    int ylast = moment01 / area;
+
+	    printf("position (%d, %d)\n", xpos, ypos );
+
+////////
+	    // draw a line if it is a valid position
+	    if( xlast > 0
+		&& ylast > 0
+		&& xpos > 0
+		&& ypos > 0
+		){
+	      // draw a yellow line, width 5 pixels
+	      cvLine( imgScribble, cvPoint( xpos, ypos ), cvPoint( xlast, ylast ), cvScalar( 0, 255, 255 ), 5 );
+	    }
+
+
+	    cvAdd( frame, imgScribble, frame );
+///////
+
+            // show image in window
+            cvShowImage("threshed", imgThresh);
+
+            // clean up used images
             cvReleaseImage(&imgHSV);
             cvReleaseImage(&imgThresh);
             cvReleaseImage(&frame);
+	    delete moments;
 
-            //Wait 50mS
-            int c = cvWaitKey(10);
-            //If 'ESC' is pressed, break the loop
-            if((char)c==27 ) break;
+            // wait 50ms; if 'ESC' is pressed, break the loop
+            if( 27 == (char) cvWaitKey(10) ){ break; }
       }
 
       cvDestroyAllWindows() ;
