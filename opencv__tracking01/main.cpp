@@ -30,10 +30,14 @@ int main(int argc, char *argv[])
 //This function threshold the HSV image and create a binary image
 IplImage* GetThresholdedImage( IplImage* imgHSV )
 {
-       IplImage* imgThresh = cvCreateImage( cvGetSize( imgHSV), IPL_DEPTH_8U, 1 );
+       IplImage* imgThresh = cvCreateImage( cvGetSize( imgHSV ), IPL_DEPTH_8U, 1 );
 
        /*
-        * HSV - Hue / Saturation / Value
+        * HSV (Hue / Saturation / Value)
+        *
+        * hue        - the color
+        * saturation - the "amount" of color
+        * value      - the brightness of the color
         */
        // red color sceme
 //       cvInRangeS( imgHSV, cvScalar( 170, 160, 60 ), cvScalar( 180, 256, 256 ), imgThresh );
@@ -42,6 +46,8 @@ IplImage* GetThresholdedImage( IplImage* imgHSV )
 //       cvInRangeS( imgHSV, cvScalar( 38, 70, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
 
        cvInRangeS( imgHSV, cvScalar( 38, 90, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
+
+
        return imgThresh;
 }
 
