@@ -31,7 +31,17 @@ int main(int argc, char *argv[])
 IplImage* GetThresholdedImage( IplImage* imgHSV )
 {
        IplImage* imgThresh = cvCreateImage( cvGetSize( imgHSV), IPL_DEPTH_8U, 1 );
-       cvInRangeS( imgHSV, cvScalar( 170,160,60 ), cvScalar( 180, 256, 256 ), imgThresh );
+
+       /*
+        * HSV - Hue / Saturation / Value
+        */
+       // red color sceme
+//       cvInRangeS( imgHSV, cvScalar( 170, 160, 60 ), cvScalar( 180, 256, 256 ), imgThresh );
+
+       // Hue for gree: 38 - 75 (by link)
+//       cvInRangeS( imgHSV, cvScalar( 38, 70, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
+
+       cvInRangeS( imgHSV, cvScalar( 38, 90, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
        return imgThresh;
 }
 
@@ -83,5 +93,11 @@ int main(int argc, char* argv[]){
       cvDestroyAllWindows() ;
       cvReleaseCapture(&capture);
 
+/*
+    QLabel *label = new QLabel();
+        label->setPixmap( png_new );
+        label->show();
+        return app.exec();
+*/
       return a.exec();
 }
