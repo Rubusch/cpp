@@ -18,10 +18,16 @@
 
 
 //This function threshold the HSV image and create a binary image
-IplImage* GetThresholdedImage( IplImage* imgHSV )
+// IplImage* GetThresholdedImage( IplImage* imgHSV )
+IplImage* GetThresholdedImage( IplImage* frame )
 {
+       // generate hsv image from rgb
+       IplImage* imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
+       cvCvtColor( frame, imgHSV, CV_BGR2HSV ); // Change the color format from BGR to HSV
+
+
        // create a threshed image copy
-       IplImage* imgThresh = cvCreateImage( cvGetSize( imgHSV ), IPL_DEPTH_8U, 1 );
+       IplImage* imgThresh = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 1 );
 
        /*
         * HSV (Hue / Saturation / Value)
@@ -39,7 +45,7 @@ IplImage* GetThresholdedImage( IplImage* imgHSV )
        cvInRangeS( imgHSV, cvScalar( 38, 90, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
 
 
-
+       cvReleaseImage( &imgHSV );
        return imgThresh;
 }
 
@@ -66,22 +72,32 @@ int main(int argc, char* argv[]){
 	    // obtain a new frame
             if( NULL == (frame = cvQueryFrame( capture ))){ break; }
 
+            // apply blurrer
+            frame = cvCloneImage( frame );
+            cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 ); // smooth the original image using Gaussian kernel
+
+
+            /*
+	    // generate hsv image from rgb 
+            IplImage* imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 ); 
+            cvCvtColor( frame, imgHSV, CV_BGR2HSV ); // Change the color format from BGR to HSV 
+            //*/
+
+	    // get threshed image out of frame
+            //            IplImage* imgThresh = GetThresholdedImage(imgHSV);
+            IplImage* imgThresh = GetThresholdedImage( frame );
+
+
+            
 
 	    // initialize scribble data for the moving target
 	    if( NULL == imgScribble ){
                     imgScribble = cvCreateImage( cvGetSize( frame ), 8, 3 );
 	    }
 
-            // apply blurrer
-            frame = cvCloneImage( frame );
-            cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 ); // smooth the original image using Gaussian kernel
 
-	    // generate hsv image from rgb
-            IplImage* imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
-            cvCvtColor( frame, imgHSV, CV_BGR2HSV ); // Change the color format from BGR to HSV
+            
 
-	    // get threshed image out of frame
-            IplImage* imgThresh = GetThresholdedImage(imgHSV);
             cvSmooth(imgThresh, imgThresh, CV_GAUSSIAN,3,3); //smooth the binary image using Gaussian kernel
 
 
