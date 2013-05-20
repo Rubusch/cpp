@@ -60,7 +60,7 @@ void track_object( IplImage *imgThresh )
 	  if the area is <1000, area is considered noise and ignored
 	*/
 	if( 1000 >= area ){
-		printf("too small\n");
+		printf("area too small\n");
 		return;
 	}
 
@@ -107,6 +107,7 @@ int main( int argc, char *argv[] )
 	cvZero( imgTracking ); // convert imgTracking to black
 //*/
 	cvNamedWindow( "target" );
+	cvNamedWindow( "video" );
 
 	// over each frame
 	while( true ){
@@ -136,6 +137,7 @@ int main( int argc, char *argv[] )
 		cvAdd( frame, imgTracking, frame );
 //*/
 		cvShowImage( "target", imgThresh );
+		cvShowImage( "Video", frame );  
 
 		// cleanup
 //		cvReleaseImage( &imgHSV );
