@@ -1,7 +1,6 @@
 *.o
 *.exe
 *~
-*.pro
 
 ## qt creater projects
 *.app
