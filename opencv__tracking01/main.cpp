@@ -1,4 +1,3 @@
-#include <QCoreApplication>
 /*
  * @author: Lothar Rubusch
  * @date: 2013-may-18
