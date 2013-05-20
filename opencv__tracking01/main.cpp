@@ -42,7 +42,7 @@ IplImage* GetThresholdedImage( IplImage* frame )
        // Hue for gree: 38 - 75 (by link)
 //       cvInRangeS( imgHSV, cvScalar( 38, 70, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
 
-       cvInRangeS( imgHSV, cvScalar( 38, 140, 100 ), cvScalar( 75, 256, 256 ), imgThresh );
+       cvInRangeS( imgHSV, cvScalar( 38, 100, 90 ), cvScalar( 75, 256, 256 ), imgThresh );
 
        cvReleaseImage( &imgHSV );
        return imgThresh;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]){
       /*
        * initialize capturing live feed from the camera
        */
-      CvCapture *capture = 0;
+      CvCapture *capture = NULL;
       if( NULL == (capture = cvCaptureFromCAM( 0 ))){
             qDebug( "Capture failure" );
             return -1;
