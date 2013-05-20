@@ -27,9 +27,7 @@ int ylast = -1;
 // threshold hsv image
 IplImage* get_threshold_image( IplImage *frame )
 {
-//	cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 );
-//	IplImage *imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
-//	cvCvtColor( frame, imgHSV, CV_BGR2HSV );
+	cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 );
 
 	// generate hsv image from rgb
 	IplImage* imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
@@ -74,7 +72,7 @@ void track_object( IplImage *imgThresh )
 	    && 0 <= ypos
 	){
 		// draw trace..
-		printf("xpos - ypos: %d - %d\n", xpos, ypos);   
+		printf("x:y - %d:%d\n", xpos, ypos);
 		cvLine( imgTracking, cvPoint( xpos, ypos ), cvPoint( xlast, ylast ), cvScalar( 0, 0, 255), 5 );
 	}
 
@@ -94,7 +92,8 @@ int main( int argc, char *argv[] )
 		QMessageBox::critical( 0, QString( "ERROR" ), QString( "capture failed." ));
 		return -1;
 	}
-//*
+
+
 	// fetch first frame
 	IplImage *frame = NULL;
 	if( NULL == (frame = cvQueryFrame( capture )) ){
@@ -105,42 +104,35 @@ int main( int argc, char *argv[] )
 	// create a blank image and assigned to "imgTracking"
 	imgTracking = cvCreateImage( cvGetSize(frame), IPL_DEPTH_8U, 3 );
 	cvZero( imgTracking ); // convert imgTracking to black
-//*/
-	cvNamedWindow( "target" );
-	cvNamedWindow( "video" );
 
-	// over each frame
+
+	cvNamedWindow( "target" );
 	while( true ){
 
 		// fetch regular frames
 		IplImage *frame = NULL;
 		frame = NULL;
-		if( NULL == (frame = cvQueryFrame( capture )) ){ break; }
+		if( NULL == (frame = cvQueryFrame( capture )) ){
+			QMessageBox::critical( 0, QString( "Error" ), QString( "frame query failed." ));
+			break;
+		}
 		frame = cvCloneImage( frame );
-
-/*
-// FIXME
-                // blur the original, using gaussian kernel
-		cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 );
-		IplImage *imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
-		cvCvtColor( frame, imgHSV, CV_BGR2HSV ); // change from RGB to HSV
-		IplImage *imgThresh = get_threshold_image( imgHSV );
-/*/
 		IplImage *imgThresh = get_threshold_image( frame );
-//*/
 
-//*
                 // blur binary image, using gaussian kernel
 		cvSmooth( imgThresh, imgThresh, CV_GAUSSIAN, 3, 3 );
 
 		track_object( imgThresh );
+/*
 		cvAdd( frame, imgTracking, frame );
+/*/
+  // DEBUG: nice to have: how to draw within imgThresh? Anyway coords are printed
+//		cvAdd( imgThresh, imgTracking, imgThresh );
 //*/
+
 		cvShowImage( "target", imgThresh );
-		cvShowImage( "Video", frame );  
 
 		// cleanup
-//		cvReleaseImage( &imgHSV );
 		cvReleaseImage( &imgThresh );
 		cvReleaseImage( &frame );
 
