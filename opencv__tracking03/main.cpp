@@ -11,7 +11,7 @@
  */
 
 // Qt
-#include <QtGui>
+//#include <QtGui>
 #include <QtCore>
 #include <QCoreApplication>
 
@@ -19,10 +19,10 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
+// c
+#include <cstdlib>
 
 IplImage *imgTracking = NULL;
-int xlast = -1;
-int ylast = -1;
 
 // threshold hsv image
 IplImage* get_threshold_image( IplImage *frame )
@@ -56,7 +56,8 @@ void track_object( IplImage *imgThresh )
     // compute the "moments" in imgThresh
     CvMoments *moments = NULL;
     if( NULL == (moments = (CvMoments *) malloc( sizeof(*moments) )) ){
-        QMessageBox::critical(0, QString( "ERROR" ), QString( "Allocation failed." ));
+//        QMessageBox::critical(0, QString( "ERROR" ), QString( "Allocation failed." ));
+        printf("ERROR: allocation failed\n");
         return;
     }
     cvMoments( imgThresh, moments, 1 );
@@ -69,7 +70,7 @@ void track_object( IplImage *imgThresh )
       if the area is <1000, area is considered noise and ignored
     */
     if( 1000 >= area ){
-        qDebug("area too small");
+        qDebug("DEBUG: area too small");
         return;
     }
 
@@ -77,18 +78,25 @@ void track_object( IplImage *imgThresh )
     int xpos = moment10 / area;
     int ypos = moment01 / area;
 
-    if( 0 <= xlast
-        && 0 <= ylast
-        && 0 <= xpos
+    if( 0 <= xpos
         && 0 <= ypos
     ){
         // draw trace..
-        printf("x:y - %d:%d\n", xpos, ypos); // XXX
-        cvLine( imgTracking, cvPoint( xpos, ypos ), cvPoint( xlast, ylast ), cvScalar( 0, 0, 255), 5 );
-    }
+//        printf("x:y - %d:%d\n", xpos, ypos); // XXX
+        char rc5_id[] = "7";
+        char rc5_xpos[8]; sprintf( rc5_xpos, "%d", xpos );
+        char rc5_ypos[8]; sprintf( rc5_ypos, "%d", ypos );
+        char rc5_xtarget[] = "600";
+        char rc5_ytarget[] = "350";
+        char rc5_cmd[64]; sprintf( rc5_cmd, "/opt/git_cpp/irtransclientmac/sendpackets %s %s %s %s %s", rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget);
 
-    xlast = xpos;
-    ylast = ypos;
+//        char rc5_cmd[] = "/opt/git_cpp/irtransclientmac/sendpackets";
+//        char* rc5_cmdargs[] = {rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget};
+//        printf("'%s' %s' '%s' '%s' '%s' '%s'\n", rc5_cmd, rc5_cmdargs[0], rc5_cmdargs[1], rc5_cmdargs[2], rc5_cmdargs[3], rc5_cmdargs[4]); // XXX
+
+        // no waitpid needed here
+        system( rc5_cmd );
+    }
 }
 
 
@@ -97,15 +105,16 @@ int main( int argc, char *argv[] )
     QCoreApplication a(argc, argv);
     CvCapture *capture = 0;
     if( NULL == (capture = cvCaptureFromCAM( 0 )) ){
-        QMessageBox::critical( 0, QString( "ERROR" ), QString( "capture failed." ));
+ //       QMessageBox::critical( 0, QString( "ERROR" ), QString( "capture failed." ));
+        printf( "ERROR: capture failed\n");
         return -1;
     }
-
 
     // fetch first frame
     IplImage *frame = NULL;
     if( NULL == (frame = cvQueryFrame( capture )) ){
-        QMessageBox::critical( 0, QString( "Error" ), QString( "frame query failed." ));
+//        QMessageBox::critical( 0, QString( "Error" ), QString( "frame query failed." ));
+        printf( "ERROR: frame query failed.\n" );
         return -1;
     }
 
@@ -116,12 +125,14 @@ int main( int argc, char *argv[] )
 
     cvNamedWindow( "target" );
     while( true ){
+        sleep(1);
 
         // fetch regular frames
         IplImage *frame = NULL;
         frame = NULL;
         if( NULL == (frame = cvQueryFrame( capture )) ){
-            QMessageBox::critical( 0, QString( "Error" ), QString( "frame query failed." ));
+ //           QMessageBox::critical( 0, QString( "Error" ), QString( "frame query failed." ));
+            printf( "ERROR: frame query failed\n");
             break;
         }
         frame = cvCloneImage( frame );
@@ -131,12 +142,6 @@ int main( int argc, char *argv[] )
         cvSmooth( imgThresh, imgThresh, CV_GAUSSIAN, 3, 3 );
 
         track_object( imgThresh );
-/*
-        cvAdd( frame, imgTracking, frame );
-/*/
-  // DEBUG: nice to have: how to draw within imgThresh? Anyway coords are printed
-//		cvAdd( imgThresh, imgTracking, imgThresh );
-//*/
 
         cvShowImage( "target", imgThresh );
 
