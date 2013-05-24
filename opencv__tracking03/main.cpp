@@ -85,13 +85,10 @@ void track_object( IplImage *imgThresh )
         char rc5_ypos[8]; sprintf( rc5_ypos, "%d", ypos );
         char rc5_xtarget[] = "600";
         char rc5_ytarget[] = "350";
-        char rc5_cmd[64]; sprintf( rc5_cmd, "/opt/git_cpp/irtransclientmac/sendpackets %s %s %s %s %s", rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget);
-
-//        char rc5_cmd[] = "/opt/git_cpp/irtransclientmac/sendpackets";
-//        char* rc5_cmdargs[] = {rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget};
-//        printf("'%s' %s' '%s' '%s' '%s' '%s'\n", rc5_cmd, rc5_cmdargs[0], rc5_cmdargs[1], rc5_cmdargs[2], rc5_cmdargs[3], rc5_cmdargs[4]); // XXX
 
         // no exec because, in Qt no fork() possible, thus should be at least some qthread...
+        char rc5_cmd[64]; sprintf( rc5_cmd, "/opt/git_cpp/irtransclientmac/sendpackets %s %s %s %s %s", rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget);
+        printf( "'%s'\n", rc5_cmd);
         system( rc5_cmd );
     }
 }
@@ -120,7 +117,6 @@ int main( int argc, char *argv[] )
 
     cvNamedWindow( "target" );
     while( true ){
-        sleep(1);
 
         // fetch regular frames
         IplImage *frame = NULL;
