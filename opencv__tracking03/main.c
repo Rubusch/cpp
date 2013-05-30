@@ -10,23 +10,26 @@
  *
  */
 
-// Qt
-#include <QtCore>
-#include <QCoreApplication>
-
 // openCV
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
 // c
-#include <cstdlib>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 IplImage *imgTracking = NULL;
+
 
 // threshold hsv image
 IplImage* get_threshold_image( IplImage *frame )
 {
-    cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3 );
+    cvSmooth( frame, frame, CV_GAUSSIAN, 3, 3, 0, 0 );
 
     // generate hsv image from rgb
     IplImage* imgHSV = cvCreateImage( cvGetSize( frame ), IPL_DEPTH_8U, 3 );
@@ -42,7 +45,7 @@ IplImage* get_threshold_image( IplImage *frame )
 
 
     // lab
-    cvInRangeS( imgHSV, cvScalar( 38, 100, 70 ), cvScalar( 75, 256, 256 ), imgThresh );
+    cvInRangeS( imgHSV, cvScalar( 38, 100, 70, 0 ), cvScalar( 75, 256, 256, 0 ), imgThresh );
 
 
     cvReleaseImage( &imgHSV );
@@ -55,7 +58,7 @@ void track_object( IplImage *imgThresh )
     // compute the "moments" in imgThresh
     CvMoments *moments = NULL;
     if( NULL == (moments = (CvMoments *) malloc( sizeof(*moments) )) ){
-        printf("ERROR: allocation failed\n");
+        perror("ERROR: allocation failed");
         return;
     }
     cvMoments( imgThresh, moments, 1 );
@@ -68,7 +71,7 @@ void track_object( IplImage *imgThresh )
       if the area is <1000, area is considered noise and ignored
     */
     if( 1000 >= area ){
-        qDebug("DEBUG: area too small");
+        puts("DEBUG: area too small");
         return;
     }
 
@@ -76,37 +79,61 @@ void track_object( IplImage *imgThresh )
     int xpos = moment10 / area;
     int ypos = moment01 / area;
 
-    if( 0 <= xpos
-        && 0 <= ypos
-    ){
+    // for waitpid
+    int childExitStatus = 0;
+    pid_t pid_wait=-1;
+
+    if( 0 <= xpos && 0 <= ypos ){
         // draw trace..
+        char rc5_prg[] = "./irtransclientmac/sendpackets";
         char rc5_id[] = "7";
         char rc5_xpos[8]; sprintf( rc5_xpos, "%d", xpos );
         char rc5_ypos[8]; sprintf( rc5_ypos, "%d", ypos );
         char rc5_xtarget[] = "600";
         char rc5_ytarget[] = "350";
 
-        // no exec because, in Qt no fork() possible, thus should be at least some qthread...
-        char rc5_cmd[64]; sprintf( rc5_cmd, "/opt/git_cpp/irtransclientmac/sendpackets %s %s %s %s %s", rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget);
-        printf( "'%s'\n", rc5_cmd);
-        system( rc5_cmd );
+	char *rc5_args[16] = { rc5_prg, rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget, (char*) 0 };
+
+        /*
+          since we don't want to mess with syncing, etc. avoid pthreads,
+          and choose fork/waitpid solution executing an execv call, else
+          waiting untill it's pid has expired ( = that is, when the external
+          program has executed )
+         */
+        pid_t pid=0;
+        if( 0 != waitpid( pid_wait, &childExitStatus, WNOHANG ) ){
+            if( 0 > (pid = fork()) ){
+                perror( "fork() failed" );
+                exit( EXIT_FAILURE );
+
+            }else if( pid == 0 ){
+                // child
+                printf( "%s %s %s %s %s %s\n", rc5_prg, rc5_id, rc5_xpos, rc5_ypos, rc5_xtarget, rc5_ytarget );
+                execv( rc5_prg, rc5_args );
+                exit( EXIT_SUCCESS );
+            }else{
+                // parent
+                pid_wait = pid;
+            }
+        }else{
+            puts( "...skipping, sending busy" );
+        }
     }
 }
 
 
 int main( int argc, char *argv[] )
 {
-    QCoreApplication a(argc, argv);
     CvCapture *capture = 0;
     if( NULL == (capture = cvCaptureFromCAM( 0 )) ){
-        printf( "ERROR: capture failed\n");
+        perror( "capture failed\n");
         return -1;
     }
 
     // fetch first frame
     IplImage *frame = NULL;
     if( NULL == (frame = cvQueryFrame( capture )) ){
-        printf( "ERROR: frame query failed.\n" );
+        perror( "frame query failed." );
         return -1;
     }
 
@@ -115,21 +142,22 @@ int main( int argc, char *argv[] )
     cvZero( imgTracking ); // convert imgTracking to black
 
 
-    cvNamedWindow( "target" );
-    while( true ){
+    //    cvNamedWindow( "target" );
+    cvNamedWindow( "target", CV_WINDOW_NORMAL );  
+    while( 1 ){
 
         // fetch regular frames
         IplImage *frame = NULL;
         frame = NULL;
         if( NULL == (frame = cvQueryFrame( capture )) ){
-            printf( "ERROR: frame query failed\n");
+            perror( "frame query failed");
             break;
         }
         frame = cvCloneImage( frame );
         IplImage *imgThresh = get_threshold_image( frame );
 
                 // blur binary image, using gaussian kernel
-        cvSmooth( imgThresh, imgThresh, CV_GAUSSIAN, 3, 3 );
+        cvSmooth( imgThresh, imgThresh, CV_GAUSSIAN, 3, 3, 0, 0 );
 
         track_object( imgThresh );
 
@@ -149,5 +177,5 @@ int main( int argc, char *argv[] )
     cvReleaseImage( &imgTracking );
     cvReleaseCapture( &capture );
 
-    return a.exec();
+    exit( EXIT_SUCCESS );
 }
