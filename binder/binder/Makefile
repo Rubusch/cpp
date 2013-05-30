@@ -1,6 +1,8 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# @author Lothar Rubusch
+#
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = functorbinder.cpp
@@ -19,7 +21,7 @@ functorbinder.exe: ${OBJECTS}
 
 all: functorbinder.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) functorbinder.exe *~ core
 
 
