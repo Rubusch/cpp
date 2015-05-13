@@ -2,4 +2,12 @@ C++ 14
 
 needs g++-5 installed (debian), in case still in 'sid'
 
+* Another alternative for type inference which will allow you to use decltype
+  inference rules for auto variables.
+* Aggregate initialization will work for classes with in-class member
+  initializers.
+* Built-in binary literals prefixed with 0b.
+* It’ll be possible to separate digits in a numeric literal with a single quote.
+* Another standard attribute called [[deprecated]] will be added with the
+  purpose of marking deprecated parts of the code. [/list]
 
