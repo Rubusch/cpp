@@ -17,4 +17,4 @@ beta.o: beta.cpp beta.h
 all: start
 
 clean :
-	rm *.o start
+	rm -f *.o *~ start

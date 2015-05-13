@@ -2,16 +2,16 @@
 SOURCE	= main.cpp alpha.cpp\
 	beta.cpp
 HEADERS	= alpha.h beta.h
-OBJECTS	= ${SOURCE:.c=.o}
+OBJECTS	= ${SOURCE:.cpp=.o}
 
-.PREFIXES	= .c .o
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -funsigned-char
 RM		= rm -f
 MV		= mv -f
 CP		= cp -f
 
-.c.o:
+.cpp.o:
 	${CC} -c ${CPPFLAGS} $<
 
 start: ${OBJECTS}
@@ -19,5 +19,5 @@ start: ${OBJECTS}
 
 all: start
 
-clean: 
-	-${RM} start *.o core
+clean:
+	-${RM} start *.o *~ core

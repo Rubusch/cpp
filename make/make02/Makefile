@@ -11,4 +11,4 @@ Start.o: Start.cpp Start.h
 all: Start
 
 clean :
-	rm *.o Start
+	rm -f *.o *~ Start

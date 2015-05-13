@@ -5,4 +5,4 @@ CPPFLAGS = -g -Wall
 start : start.cpp
 
 clean :
-	rm *.o start
+	rm -f *.o *~ start

@@ -1,23 +1,26 @@
 # Makefile for C++ Class
-SOURCE	= main.cpp alpha.cpp\
-	beta.cpp
-HEADERS	= alpha.h beta.h
-OBJECTS	= ${SOURCE:.c=.o}
+SOURCE	= main.cc
+#HEADERS	=
+OBJECTS	= ${SOURCE:.cc=.o}
 
-.PREFIXES	= .c .o
-CC		= g++-5
-CPPFLAGS	= -g -Wall -funsigned-char
+.PREFIXES	= .cc .o
+CXX		= g++-5
+CXXFLAGS	= -std=c++14 -g -Wall #-funsigned-char
 RM		= rm -f
-MV		= mv -f
-CP		= cp -f
 
-.c.o:
-	${CC} -c ${CPPFLAGS} $<
+## TODO multi file case
+## TODO update make templates to .cc !!!
+# .cc.o:
+# 	${CXX} -c ${CXXFLAGS} $<
 
-start: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+# main: ${OBJECTS}
+# 	${CXX} -o $@ ${OBJECTS} -lm
 
-all: start
 
-clean: 
-	-${RM} start *.o core
+main: ${OBJECTS}
+	${CXX} -o $@ ${CXXFLAGS} $<
+
+all: main
+
+clean:
+	-${RM} main *.o *~ core
