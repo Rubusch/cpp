@@ -1,7 +1,8 @@
 /*
- * constexpr variable templates example
+ * c++14: constexpr variable templates example
+ *
+ * author: Lothar Rubusch
  */
-
 #include <iostream>
 
 using namespace std;
@@ -24,7 +25,7 @@ T area_of_circle_with_radius(T radius)
 /*
   usage
 */
-int main(int argc, char** argv)
+int main()
 {
   int radint = 7;
   cout << "radius = " << radint << endl;
