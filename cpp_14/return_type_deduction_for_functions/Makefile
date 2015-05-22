@@ -13,14 +13,14 @@ RM		= rm -f
 # .cc.o:
 # 	${CXX} -c ${CXXFLAGS} $<
 
-# main: ${OBJECTS}
+# main.exe: ${OBJECTS}
 # 	${CXX} -o $@ ${OBJECTS} -lm
 
 
-main: ${OBJECTS}
+main.exe: ${OBJECTS}
 	${CXX} -o $@ ${CXXFLAGS} $<
 
-all: main
+all: main.exe
 
 clean:
-	-${RM} main *.o *~ core
+	-${RM} main.exe *.o *~ core

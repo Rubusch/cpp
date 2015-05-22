@@ -19,8 +19,17 @@ make: *** [typelist.o] Error 1
 
 Error: NoDuplicates
 
-we ran Replace on MyTypelist and got a list that probably contains duplicates: MyReplacedTypelist,
-running NoDuplicates seems to not remove the duplicates.
+we ran Replace on MyTypelist and got a list that probably contains duplicates:
+MyReplacedTypelist, running NoDuplicates seems to not remove the duplicates.
 
-problem: we ran NoDuplicates< MyTypelist > but have to apply it on MyReplacedTypelist
+problem: we ran NoDuplicates< MyTypelist > but have to apply it on
+MyReplacedTypelist
 
+
+
+Error: non-literal type ‘Classname’ in ‘constexpr’ function
+
+make every funktion in the class "Classname" prefixed with the word "constexpr",
+in some cases this won't compile, e.g. when complex types such as "string" are
+used inside functions, then the class cannot be made "non-literal" easily
+   
