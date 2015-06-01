@@ -1,6 +1,9 @@
 /*
  * c++14: constexpr variable templates example
  *
+ * compiler support
+ * Clang 3.4 (ref. as "Relaxing requirements on constexpr functions", N3652) TODO check    
+ *
  * author: Lothar Rubusch
  */
 #include <iostream>

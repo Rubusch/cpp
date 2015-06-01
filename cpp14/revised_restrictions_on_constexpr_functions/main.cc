@@ -1,6 +1,9 @@
 /*
  * c++14: revised restrictions on constexpr functions example
  *
+ * compiler support
+ * Clang 3.4 (ref. as "Relaxing requirements on constexpr functions", N3652) TODO check    
+ *
  * modified example taken from:
  * http://en.cppreference.com/w/cpp/language/constexpr
  *

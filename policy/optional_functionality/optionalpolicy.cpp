@@ -1,12 +1,12 @@
 // optionalpolicy.cpp
 /*
   It gets even better. C++ contributes to the power of policies by providing an 
-  interesting feature. If a member function of a class template is never used, it 
-  is not even instantiated - the compiler does not look at it at all, except 
+  interesting feature. If a member function of a class template is never used,
+  it is not even instantiated - the compiler does not look at it at all, except
   perhaps for syntax checking.
 
-  The policies must stand in front of the UserClass in this case. It is not possible
-  to replace them here using forward declarations.
+  The policies must stand in front of the UserClass in this case. It is not
+  possible to replace them here using forward declarations.
 
   Taken from "Modern C++ Design", Alexandrescu
 //*/
@@ -16,7 +16,7 @@
 #include <cstdlib>
 
 
-/***************************************************************************************/
+/******************************************************************************/
 
 
 /*
@@ -92,7 +92,7 @@ protected:
 };
     
 
-/***************************************************************************************/
+/******************************************************************************/
 
 
 /*
@@ -139,10 +139,10 @@ public:
 
 /*
   Remark:
-  This can be implemented using "std::string", but remember that "std::string" is
-  "const char*", which makes "std::string* equal to "const char**" as also "T*",
-  this means using malloc, we might have to allocate char* AND char**. Or we get 
-  a signal 11 / SIGSEGV!!!
+  This can be implemented using "std::string", but remember that "std::string"
+  is "const char*", which makes "std::string* equal to "const char**" as also
+  "T*", this means using malloc, we might have to allocate char* AND char**. Or
+  we get a signal 11 / SIGSEGV!!!
 
   To avoid hasseling with this issues and getting even more cryptic code, here
   only a simple example using "char" instead of "std::string" ;)
@@ -190,7 +190,7 @@ public:
 };
 
 
-/***************************************************************************************/
+/******************************************************************************/
 
 
 /*

@@ -1,6 +1,10 @@
 /*
  * c++14: extended capturing in lambdas example
  *
+ * compiler support
+ *
+ * Clang 3.4 (ref. as "Initialized lambda captures", N3648) TODO check    
+ *
  * author: Lothar Rubusch
  */
 #include <iostream>
@@ -17,8 +21,8 @@ int main()
    * in C++14, cpatured variables can have an initializing expression
    */
   auto timer = [val = system_clock::now()]{ return system_clock::now() - val; };
-  timer();
-
-  // TODO no fancy output, is there a easy way to make it nicer?    
+  auto diff = timer();
+  // TODO check context for timer()
+  cout << "some timer value: " << diff.count() << endl;
   return 0;
 }

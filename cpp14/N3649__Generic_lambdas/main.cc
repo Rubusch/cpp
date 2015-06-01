@@ -1,5 +1,12 @@
 /*
- * c++14: generic lambdas example
+ * c++14: N3649 "Generic (Polymorphic) Lambda Expressions (Revision 3)"
+ *
+ * resource:
+ * http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3649.html
+ *
+ * compiler support:
+ * gcc 4.9 (GNU)
+ * Clang 3.4
  *
  * author: Lothar Rubusch
  */
@@ -18,7 +25,6 @@ struct lambda1
 
 int main()
 {
-
   auto lambda = lambda1();
 
   cout << lambda(7, 3) << endl;
