@@ -26,7 +26,7 @@ int main()
     the referred example provided by the document
     (just the wording changes and becomes more distinct)
   */
-  // TODO in case stress more on the particular change here    
+// TODO in case stress more on the particular change here    
   int x = 4;
   cout << "x was " << x << endl;
 

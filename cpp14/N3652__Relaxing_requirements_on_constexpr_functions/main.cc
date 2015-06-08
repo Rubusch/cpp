@@ -1,11 +1,12 @@
 /*
- * c++14: revised restrictions on constexpr functions example
+ * c++14: N3652 "Relaxing constraints on constexpr functions"
  *
- * compiler support
- * Clang 3.4 (ref. as "Relaxing requirements on constexpr functions", N3652) TODO check    
+ * resource:
+ * http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3652.html
  *
- * modified example taken from:
- * http://en.cppreference.com/w/cpp/language/constexpr
+ * compiler support:
+ * gcc 5 (GNU)
+ * Clang 3.4
  *
  * author: Lothar Rubusch
  */
