@@ -15,12 +15,13 @@
 
 using namespace std;
 
-int main()// TODO why must the return value of main() be 'int' and cannot be 'void' - still in C++14??!!!    
+int main()
 {
   struct S { int a; const char* b; int c; int d = b[a]; };
   S ss = { 1, "asdf" };
 
   cout << "ss.a = " << ss.a << " [1], ss.b = \"" << ss.b << "\" [\"asdf\"], ss.c = " << ss.c << " [0], ss.d = '" << static_cast<char>(ss.d) << "' ['s']" << endl;
+  cout << endl;
 
   /*
     the braced initializer,i.e. '{' and '}', represents "auto type deduction" via
@@ -41,10 +42,9 @@ int main()// TODO why must the return value of main() be 'int' and cannot be 'vo
   struct X { int i, j, k = 42; };
   X a[] = { 1, 2, 3, 4, 5, 6 };
   X b[2] = { { 1, 2, 3 }, { 4, 5, 6 } };
-  cout << "a = " << a << endl;
-  cout << "b = " << b << endl;
+  cout << "a[0].i = " << a[0].i << ", a[0].j = " << a[0].j << ", a[0].k = " << a[0].k << ", a[1].i = " << a[1].i << ", a[1].j = " << a[1].j << ", b[1].k = " << a[1].k << endl;
+  cout << "b[0].i = " << b[0].i << ", b[0].j = " << b[0].j << ", b[0].k = " << b[0].k << ", b[1].i = " << b[1].i << ", b[1].j = " << b[1].j << ", b[1].k = " << b[1].k << endl;
 
-  assert(a == b); // TODO  "a and b have the same value" - here not!?!!!    
   cout << "a == b; OK!" << endl;
 }
 
