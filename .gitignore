@@ -1,0 +1,11 @@
+*.o
+*.exe
+*~
+*.autosave
+
+## qt creater projects
+*.app
+
+## mac settings
+.DS_Store
+
