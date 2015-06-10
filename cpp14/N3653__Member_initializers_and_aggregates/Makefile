@@ -5,7 +5,7 @@ OBJECTS	= ${SOURCE:.cc=.o}
 .PREFIXES	= .cc .o
 #CXX		= g++-5
 CXX		= clang++-3.5
-CXXFLAGS	= -std=c++14 -g -Wall #-funsigned-char
+CXXFLAGS	= -std=c++14 -g -Wall
 RM		= rm -f
 
 main.exe: ${OBJECTS}

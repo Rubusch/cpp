@@ -18,7 +18,7 @@ using namespace std;
   applying the already existing template syntax to a variable.
 */
 template<typename T>
-constexpr T pi = T(3.1415926535897932385);
+constexpr T pi = T(3.1415926535897932385); // the variable template
 
 /*
   use of such a variable in generic functions

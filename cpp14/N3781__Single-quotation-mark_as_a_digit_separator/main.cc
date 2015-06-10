@@ -14,4 +14,12 @@
 
 using namespace std;
 
-TODO
+int main()
+{
+  int x[3]; // cannot be auto
+
+  x[1] = { 1'2'3 }; // wonderfull C++14
+
+  cout << "x[1] = " << x[1] << endl;
+}
+
