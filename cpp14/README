@@ -5,11 +5,6 @@ http://cpprocks.com/an-overview-of-c14-language-features/
 http://en.wikipedia.org/wiki/C%2B%2B14
 
 
-
-TODO
-
-
-
 needs g++-5 installed (debian), in case still in 'sid'
 
 * Another alternative for type inference which will allow you to use decltype
@@ -80,44 +75,6 @@ Digit separators                              No      No
 
 
 
-TODO arrange the following asorted list...
-
-write code snippets, test and extend booklet - for the following features
-
-Tweak to certain C++ contextual conversions
-Binary literals
-decltype(auto)
-Variable templates
-Member initializers and aggregates
-Clarifying memory allocation
-[[deprecated]] attribute
-Single quotation mark as digit separator
-C++ Sized Deallocation
-
-
-
-TODO check if this is already done
-
-Initialized lambda captures / extended capturing (TODO check, is the same?)
-Return type deduction for normal functions
-Generic lambdas
-Relaxing requirements on constexpr functions (TODO check, variable templates also contained?)
-
-DONE
-N3472 - binary literal
-N3323 - Tweak to certain C++ contextual conversions
-
- Return type deduction for functions
- Generic lambdas
- Extended capturing in lambdas
- Revised restrictions on constexpr functions
- constexpr variable templates
-
-
-
-
-
-    
 
 1 New language features
 
