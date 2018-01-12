@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = opassignment.cpp
@@ -19,7 +19,7 @@ opassignment.exe: ${OBJECTS}
 
 all: opassignment.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) opassignment.exe *~ core
 
 

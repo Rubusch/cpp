@@ -1,6 +1,6 @@
 // opassignment.cpp
 /*
-  demonstrates a overloaded copy assignment operator working in a derived class in conjunction with a 
+  demonstrates a overloaded copy assignment operator working in a derived class in conjunction with a
   overloaded assignment operator of a base class.
 //*/
 
@@ -112,14 +112,14 @@ Base<T>& Base<T>::operator=(const Base<T>& deepcopy)
 template<class T>
 class Derived : public Base<T>
 {
-private: 
+private:
   int derivedValue;
   T *derivedPointer;
 
 public:
   Derived(int initVal, T initPtr, int initBaseVal, T initBasePtr);
   ~Derived(); // dtor because we use pointers
- 
+
   // copy assignment operator
   Derived& operator=(const Derived& deepcopy);
 
@@ -170,7 +170,7 @@ void Derived<T>::getAll()
 {
   Base<T>::getAll();
 
-  std::cout << "derived class:\t" << derivedValue << " \"" << *derivedPointer << "\"" << std::endl; 
+  std::cout << "derived class:\t" << derivedValue << " \"" << *derivedPointer << "\"" << std::endl;
 }
 
 /*
@@ -180,9 +180,9 @@ template<class T>
 Derived<T>& Derived<T>::operator=(const Derived<T>& deepcopy)
 {
   if(this == &deepcopy) return *this;
-  
+
   // initializing a base class
-  Base<T>::operator=(deepcopy); 
+  Base<T>::operator=(deepcopy);
 
   // ...or hack for old compilers
   //static_cast<Base<T>&>(*this) = deepcopy;
@@ -196,7 +196,7 @@ Derived<T>& Derived<T>::operator=(const Derived<T>& deepcopy)
     // alloc new memory
     T* tmp = new T;
     *tmp = *(deepcopy.getDerivedPointer());
-		    
+
     // discard old memory
     delete derivedPointer; derivedPointer = NULL;
 
@@ -204,7 +204,7 @@ Derived<T>& Derived<T>::operator=(const Derived<T>& deepcopy)
     derivedPointer = tmp;
   }
 
-  return *this;  
+  return *this;
 }
 
 
@@ -217,7 +217,7 @@ Derived<T>& Derived<T>::operator=(const Derived<T>& deepcopy)
 int main()
 {
   // init
-  Derived<std::string> op1(12, "buckle my shoe", 34, "knock at the door");  
+  Derived<std::string> op1(12, "buckle my shoe", 34, "knock at the door");
   Derived<std::string> op2(0, "", 0, "");
 
   // output - before
@@ -230,7 +230,7 @@ int main()
   std::cout << std::endl;
 
 
-  // usage: assignment operator 
+  // usage: assignment operator
   std::cout << "object 2 = object 1\n\n";
   op2 = op1;
 
