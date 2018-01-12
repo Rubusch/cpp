@@ -1,6 +1,6 @@
 # Makefile for C++ Class
 SOURCE	= Main.cpp
-HEADERS	= 
+#HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
 .PREFIXES	= .c .o
@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-prog: ${OBJECTS}
+prog.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: prog
+all: prog.exe
 
-clean: 
-	-${RM} prog *.o core
+clean:
+	-${RM} prog.exe *.o core
