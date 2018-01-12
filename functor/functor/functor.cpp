@@ -35,7 +35,7 @@ void doSort(int* arr, unsigned int arr_size, CompareFunctor comparator)
   int tmp=0;
   unsigned idx=arr_size-2;
 
-  bool swapped = true; 
+  bool swapped = true;
 
   do{
     if(idx == arr_size-2){
@@ -48,7 +48,7 @@ void doSort(int* arr, unsigned int arr_size, CompareFunctor comparator)
       tmp = arr[idx];
       arr[idx] = arr[idx+1];
       arr[idx+1] = tmp;
-      
+
       swapped = true;
     }
 
