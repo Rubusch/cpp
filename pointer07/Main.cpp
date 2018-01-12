@@ -4,63 +4,40 @@
 using namespace std;
 
 int main()
-{    
-    // a ist 5
+{
+    // a is 5
     int a = 5;
-    
-    // Ausgabe 5
     cout << a << endl;
-    
-    // Zeiger pa ist Adresse von a
+
+    // pointer pa points to address of a
     int *pa = &a;
 
-    // Inhalt von pa ist 6
-    *pa = 6;
-    
-    // Ausgabe 6
-    cout << a << endl;
-    
-    // a ist 7
-    a = 7;
+    *pa = 6;                  // assign *pa, pa has memory - the variable 'a' - to be assigned
+    cout << "a: " << a << " [6]" << endl;        // a prints '6'
 
-    // Ausgabe 7
-    cout << *pa << endl;
- 
+    a = 7;                    // assign a
+    cout << "*pa: " << *pa << " [7]" << endl;      // *pa prints '7'
 
-   
-    // b ist 8
-    int b = 8;
-    
-    // Zeiger pb ist pa, pb zeigt jetzt auch auf a
+    // pointer pb is now pa, pb points also to a
     int *pb = pa;
-    
-    // Ausgabe 7
     cout << *pb << endl;
-    
-    // Zeiger Zeiger ppa = Adresse von pa
+
+    // pointer to pointer ppa points to address of pa
     int **ppa = &pa;
-    
-    // Ausgabe 7
     cout << **ppa << endl;
-    
-    // Inhalt von ppa ist Adresse von pb
+
+    // assign the address of pb to the content of ppa
     ppa = &pb;
-    
-    // Ausgabe 7
-    cout << **ppa << endl;
-    
-    // pb ist Adresse von b
+    cout << "**ppa: " << **ppa << " [7]" << endl;
+
+    // pb points now to the address of b
+    int b = 8;
     pb = &b;
-    
-    // Ausgabe 8
-    cout << **ppa << endl;
-    
-    //
+    cout << "**ppa: " << **ppa << " [8]" << endl;    // pointer of pointer ppa prints 8 [b]
+
     int c = 9;
-    
-    // int Referenz rc ist c
-    int &rc = c;
-    
+    int &rc = c;              // int reference to c which is 9
+
     cout << "c: " << c << ", rc: " << rc << endl;
     rc = 2;
     cout << "c: " << a << endl;
