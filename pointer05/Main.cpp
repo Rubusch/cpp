@@ -12,9 +12,9 @@ using namespace std;
 
 int main()
 {
-    int var = 7;  
+    int var = 7;
     int &rVar = var;
-    
+
     cout << "var: " << var << ", rVar: " << rVar << endl;
     cout << "&var: " << &var << ", &rVar: " << &rVar << endl;
 
@@ -22,6 +22,6 @@ int main()
     rVar = 666;
 
     cout << "var: " << var << endl;
-    
+
     return 0;
 };
