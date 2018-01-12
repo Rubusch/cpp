@@ -1,8 +1,8 @@
 // mediator.cpp
 /*
-  Define an object that encapsulates how a set of objects interact. 
-  Mediator promotes loose coupling by keeping objects from refering 
-  to each other explicitly, and it lets you vary their interaction 
+  Define an object that encapsulates how a set of objects interact.
+  Mediator promotes loose coupling by keeping objects from refering
+  to each other explicitly, and it lets you vary their interaction
   independently.
 
   +---------------------+                      +---------------------+
@@ -52,9 +52,9 @@ Mediator::~Mediator()
 
 /*
   Collegue
-  
+
   - each Collegue class knows its Mediator object.
-  - each Collegue communicates with its mediator whenever it 
+  - each Collegue communicates with its mediator whenever it
   would have otherwise communicated with another Collegue.
 //*/
 class Collegue
@@ -90,7 +90,7 @@ private:
   Collegue *pCollegue1_;
   Collegue *pCollegue2_;
 
-public:  
+public:
   ConcreteMediator()
     : pCollegue1_(NULL), pCollegue2_(NULL)
   {
@@ -120,7 +120,7 @@ public:
     std::cout << "\tConcreteMediator::setCollegue1( ConcreteColleuge1*)\n";
     pCollegue1_ = collegue1;
   }
-  
+
   void setCollegue2( Collegue* collegue2)
   {
     std::cout << "\tConcreteMediator::setCollegue2( ConcreteCollegue2*)\n";
@@ -142,8 +142,8 @@ public:
   {
     std::cout << "\tConcreteCollegue1::requestSomething()\n";
     if(NULL == pMediator_) return;
-    std::cout << "collegue 1 asks collegue 2 - answer: \"" 
-              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue2() 
+    std::cout << "collegue 1 asks collegue 2 - answer: \""
+              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue2()
               << "\"\n";
   }
 
@@ -168,8 +168,8 @@ public:
   {
     std::cout << "\tConcreteCollegue2::requestSomething()\n";
     if(NULL == pMediator_) return;
-    std::cout << "collegue 2 asks collegue 1 - answer: \"" 
-              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue1() 
+    std::cout << "collegue 2 asks collegue 1 - answer: \""
+              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue1()
               << "\"\n";
   }
 

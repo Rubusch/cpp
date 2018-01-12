@@ -1,8 +1,8 @@
 // mediator.cpp
 /*
-  Define an object that encapsulates how a set of objects interact. 
-  Mediator promotes loose coupling by keeping objects from refering 
-  to each other explicitly, and it lets you vary their interaction 
+  Define an object that encapsulates how a set of objects interact.
+  Mediator promotes loose coupling by keeping objects from refering
+  to each other explicitly, and it lets you vary their interaction
   independently.
 
   +---------------------+                      +---------------------+
@@ -50,8 +50,8 @@ public:
   virtual void requestSomething() = 0;
   virtual std::string handleSomething() = 0;
   virtual void setMediator(Mediator* mediator)
-  { 
-    pMediator_ = mediator; 
+  {
+    pMediator_ = mediator;
   }
 };
 
@@ -62,7 +62,7 @@ private:
   Collegue *pCollegue1_;
   Collegue *pCollegue2_;
 
-public:  
+public:
   ConcreteMediator()
     : pCollegue1_(NULL), pCollegue2_(NULL)
   {}
@@ -87,7 +87,7 @@ public:
   {
     pCollegue1_ = collegue1;
   }
-  
+
   void setCollegue2( Collegue* collegue2)
   {
     pCollegue2_ = collegue2;
@@ -100,8 +100,8 @@ struct ConcreteCollegue1 : public Collegue
   void requestSomething()
   {
     if(NULL == pMediator_) return;
-    std::cout << "collegue 1 asks collegue 2 - answer: \"" 
-              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue2() 
+    std::cout << "collegue 1 asks collegue 2 - answer: \""
+              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue2()
               << "\"\n";
   }
 
@@ -117,8 +117,8 @@ struct ConcreteCollegue2 : public Collegue
   void requestSomething()
   {
     if(NULL == pMediator_) return;
-    std::cout << "collegue 2 asks collegue 1 - answer: \"" 
-              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue1() 
+    std::cout << "collegue 2 asks collegue 1 - answer: \""
+              << (dynamic_cast< ConcreteMediator* >(pMediator_))->askCollegue1()
               << "\"\n";
   }
 

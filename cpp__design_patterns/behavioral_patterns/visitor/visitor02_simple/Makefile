@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = binder.cpp
@@ -19,7 +19,7 @@ binder.exe: ${OBJECTS}
 
 all: binder.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) binder.exe *~ core
 
 

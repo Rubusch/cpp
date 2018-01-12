@@ -26,7 +26,8 @@ int main()
     (1) Embarcadero currently implements the pre-N3067 C++0x attribute syntax.
  */
 
-  __attribute__((deprecated)) int something = 777; // warning as deprecated
+  //  __attribute__((deprecated)) int something = 777; // warning as deprecated
+  [[deprecated]] int something = 777; // warning as deprecated
 
   /*
     [[deprecated]] is either evaluated by the compiler or ignored similar to a

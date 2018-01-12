@@ -1,7 +1,7 @@
 // prototype.cpp
 /*
-  Specify the kinds of objects to create using a prototypical instance, 
-  and create new objects by copying this prototype.  
+  Specify the kinds of objects to create using a prototypical instance,
+  and create new objects by copying this prototype.
 
 
   +--------+        +---------------------+
@@ -42,13 +42,13 @@ protected:
 public:
   Prototype() : data_("")
   {}
-  
+
   Prototype( Prototype const& pt)
   {
     data_ = pt.data_;
   }
 
-  virtual Prototype* clone() const = 0; 
+  virtual Prototype* clone() const = 0;
   virtual void show() = 0;
 
   void setData(const std::string data)
@@ -100,7 +100,7 @@ class ConcretePrototype2
 {
 private:
   int cnt_;
-  
+
 public:
   ConcretePrototype2() : cnt_(22)
   {}
@@ -178,7 +178,7 @@ int main()
   cout << "init...\n";
   const int FIRST_FORM = 1;
   const int SECOND_FORM = 2;
-  Client cl;  
+  Client cl;
   ConcretePrototype1 *pUsage1 = NULL;
   ConcretePrototype2 *pUsage2 = NULL;
   cout << endl;
@@ -197,7 +197,6 @@ int main()
   delete pUsage1; pUsage1 = NULL;
   delete pUsage2; pUsage2 = NULL;
   cout << endl;
-  
 
   cout << "READY.\n";
   return 0;

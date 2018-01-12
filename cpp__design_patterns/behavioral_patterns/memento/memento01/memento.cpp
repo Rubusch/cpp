@@ -6,8 +6,8 @@
   +---------------------+           +---------------------+  memento  +---------------------+
   | Originator          |---------->| Memento             |<--------<>| Caretaker           |
   +=====================+           +=====================+           +---------------------+
-  | setMemento(Memento) o---+       | getState() : State  |  
-  | createMemento()   o |   |       | setState( State)    | 
+  | setMemento(Memento) o---+       | getState() : State  |
+  | createMemento()   o |   |       | setState( State)    |
   +-------------------|-+   |       +---------------------+
   | state : State     | |   |
   +-------------------|-+   |
@@ -20,7 +20,7 @@
                       +--------| return new Memento(state)   +-+
                                |                               |
                                +-------------------------------+
-                               
+
   (GoF, 1995)
 //*/
 
@@ -51,9 +51,9 @@ public:
   {}
 
   State(int i, std::string s)
-    : i_(i), str_(s) 
+    : i_(i), str_(s)
   {}
-  
+
   friend
   std::ostream& operator<<(std::ostream&, State&);
 };
@@ -67,22 +67,22 @@ std::ostream& operator<<(std::ostream& os, State &state)
 /*
   Memento
 
-  - stores internal state of the Originator object. The memento 
-  may store as much or as little of the originator's internal 
+  - stores internal state of the Originator object. The memento
+  may store as much or as little of the originator's internal
   state as necessary at its Originator's discretion.
 
-  - protects against access by ojects other than the originator. 
-  Mementos have effectively two interfaces. Caretaker sees a 
-  narrow interface to the Memento - it can only pass the memento 
-  to other objects. Originator, in contrast, sees a wide 
-  interface, one that lets it access all the data necessary to 
-  restore itself to its previous state. Ideally, only the 
-  Originator that produced the memento would be permitted to 
+  - protects against access by ojects other than the originator.
+  Mementos have effectively two interfaces. Caretaker sees a
+  narrow interface to the Memento - it can only pass the memento
+  to other objects. Originator, in contrast, sees a wide
+  interface, one that lets it access all the data necessary to
+  restore itself to its previous state. Ideally, only the
+  Originator that produced the memento would be permitted to
   access the memento's internal state.
 //*/
 class Memento
 {
-private: 
+private:
   State *state_;
 
 public:
@@ -99,7 +99,7 @@ private:
   {
     std::cout << "\tMemento::Memento() - ctor\n";
   }
-  
+
   void setState(State* state)
   {
     std::cout << "\tMemento::setState( State*);\n";
@@ -122,7 +122,7 @@ private:
 /*
   Originator / Constraint Solver
 
-  - creates a memento containing a snapshot of its current internal state  
+  - creates a memento containing a snapshot of its current internal state
   - uses the memento to restore its internal state
 //*/
 class Originator
@@ -157,9 +157,9 @@ public:
     std::cout << *state_ << std::endl;
 
     /*
-      memento is instantiated on the heap, in order to control the 
-      creation and destruction of the object. 
-      Never return local variables (only new/delete enables to explicitly 
+      memento is instantiated on the heap, in order to control the
+      creation and destruction of the object.
+      Never return local variables (only new/delete enables to explicitly
       control this)
     //*/
     Memento *pMemento = NULL;
@@ -172,7 +172,7 @@ public:
 
     // copies deep copy to the memento
     pMemento->setState(state_);
-    
+
     return pMemento;
   }
 
@@ -204,7 +204,7 @@ public:
   {
     std::cout << "\t\tchanges in Originator...\n";
     std::cout << *state_ << std::endl;
- 
+
     std::cout << "\t\tdeleting...\n";
     delete state_; state_ = NULL;
 
@@ -244,7 +244,7 @@ int main()
   // do something
   anOriginator.changeState();
   cout << endl;
-  
+
   // caretaker: set the menento (Caretaker deletes Memento!)
   // to e.g. reset the Originator to the state before
   anOriginator.setMemento(pMemento);

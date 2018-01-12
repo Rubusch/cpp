@@ -1,6 +1,6 @@
 // inerpreter.cpp
 /*
-  Given a language, define a representation for its grammar along with an 
+  Given a language, define a representation for its grammar along with an
   interpreter that uses the representation to interpret sentences in the language.
 
                          +---------------------+
@@ -34,7 +34,7 @@
           +---------------------+       +---------------------+
 
   Indications:
-  - the grammar is simple (for complex grammars parser generators are more 
+  - the grammar is simple (for complex grammars parser generators are more
   usefull)
   - efficiency is not a critical concern.
 
@@ -77,8 +77,8 @@ public:
 
 /*
   AbstractExpression
-  
-  - declares an abstract Interpret operation that is common to all nodes in the 
+
+  - declares an abstract Interpret operation that is common to all nodes in the
   abstract syntax tree
 //*/
 class AbstractExpression
@@ -90,8 +90,8 @@ public:
 
 /*
   TerminalExpression / LiteralExpression
-  
-  - implements an Interpret operation associated with terminal symbols 
+
+  - implements an Interpret operation associated with terminal symbols
   in the grammar
   - an instance is required for every terminal symbol in a sentence
 //*/
@@ -112,12 +112,12 @@ public:
 
 /*
   NonterminalExpression / AlternationExpression
-  
+
   - one such class is required for every rule R ::= R1 R2 ... Rn in the grammar
-  - maintains instance variables of type AbstractExpression for each of the 
+  - maintains instance variables of type AbstractExpression for each of the
   symbols R1 through Rn
-  - implements an Interpret operation for nonterminal symbols in the grammar. 
-  Interpret typically calls itself recursively on the variables representing 
+  - implements an Interpret operation for nonterminal symbols in the grammar.
+  Interpret typically calls itself recursively on the variables representing
   R1 through Rn
 //*/
 class NonterminalExpression_equals
@@ -125,7 +125,7 @@ class NonterminalExpression_equals
 {
 private:
   AbstractExpression *pOperand1_, *pOperand2_;
-  
+
 public:
   NonterminalExpression_equals()
   {
@@ -133,7 +133,7 @@ public:
     pOperand1_ = new TerminalExpression_bool;
     pOperand2_ = new TerminalExpression_bool;
   }
-  
+
   ~NonterminalExpression_equals()
   {
     std::cout << "\tNonterminalExpression_equals::~NonterminalExpression_equals() - dtor\n";
@@ -144,7 +144,7 @@ public:
   bool interpret( Context* context)
   {
     std::cout << "\tNonterminalExpression_equals::interpret( Context*)\n";
-    return (pOperand1_->interpret(context) == pOperand2_->interpret(context)); 
+    return (pOperand1_->interpret(context) == pOperand2_->interpret(context));
   }
 };
 
@@ -152,9 +152,9 @@ public:
 /*
   Client
 
-  - builds (or is given) an abstract syntax tree representing a particular 
+  - builds (or is given) an abstract syntax tree representing a particular
   sentence in the language that the grammar defines. The abstract syntax tree
-  is assembled from instances of the NonterminalExpression and TerminalExpression 
+  is assembled from instances of the NonterminalExpression and TerminalExpression
   classes.
   - invokes the Interpret operation
 //*/

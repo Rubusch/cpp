@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  mediator.cpp
@@ -19,7 +19,7 @@ mediator.exe: ${OBJECTS}
 
 all: mediator.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) mediator.exe *~ core
 
 

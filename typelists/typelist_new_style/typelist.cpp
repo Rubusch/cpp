@@ -1,6 +1,6 @@
 // typelist.cpp
 /*
-  "everything related to typelist, except the definition of typelist itself,
+  "Everything related to typelist, except the definition of typelist itself,
   lives in the TL namespace."
 
   the linearization works like the following:

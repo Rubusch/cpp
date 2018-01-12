@@ -1,6 +1,6 @@
 // builder.cpp
 /*
-  Separate the construction of a complex object from its representation so 
+  Separate the construction of a complex object from its representation so
   that the same construction process can create different representations.
 
   +---------------------+                       +---------------------+
@@ -15,7 +15,7 @@
                                                            |
                     |                                      |
   +---------------------+                       +---------------------+           +-----------+
-  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   | 
+  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   |
   | structure           | \                     +=====================+           +===========+
   | {                   +--+                    |                     |           |           |
   |   builder->buildPart() |                    +---------------------+           +-----------+
@@ -24,13 +24,13 @@
                                                 +---------------------+
 
   Collaboration:
-                                                
+
   - The client creates the Director object and configures it with the desired Buidler object
   - Director notifies the builder whenever a part of the product should be built
   - Builder handles requests from the director and adds parts to the product
   - The client retrieves the product from the builder
 
-  (GoF, 1995)    
+  (GoF, 1995)
 //*/
 
 
@@ -41,15 +41,15 @@
 
 /*
   Product
-  
+
   - represents the complex object under construction. ConcreteBuilder builds the
   product's internal representation and defines the process by which it's assembled
-  - includes classes that define the constituent parts, including interfaces for 
+  - includes classes that define the constituent parts, including interfaces for
   assembling the parts into the final result
 //*/
 class Product
 {
-private: 
+private:
   std::string part_a;
   std::string part_b;
 
@@ -67,7 +67,7 @@ public:
   void setPartA(const std::string& a)
   {
     std::cout << "\t\t\tProduct::setPartA()\n";
-    part_a = a; 
+    part_a = a;
   }
 
   void setPartB(const std::string& b)
@@ -93,7 +93,7 @@ class Builder
 {
 protected:
   std::auto_ptr< Product > product_;
-  
+
 public:
   Builder()
   {
@@ -146,7 +146,7 @@ public:
   void buildPartA()
   {
     std::cout << "\t\tConcreteBuilderA::buildPartA()\n";
-    product_->setPartA("TCP"); 
+    product_->setPartA("TCP");
   }
 
   void buildPartB()
@@ -190,14 +190,14 @@ public:
 
 /*
   Director
-  
+
   - constructs an object using the Builder interface
 //*/
 class Director
 {
-private: 
+private:
   Builder* builder_;
-  
+
 public:
   Director()
     :builder_(NULL)
@@ -210,7 +210,7 @@ public:
     std::cout << "\tDirector::~Director() - dtor\n";
     builder_ = NULL;
   }
-  
+
   void setBuilder(Builder* builder)
   {
     std::cout << "\tDirector::setBuilder()\n";
@@ -261,7 +261,7 @@ int main()
   director.setBuilder( &concBuilderB);
   director.construct();
   product = director.getProduct();
-  product->showProduct();  
+  product->showProduct();
   cout << endl;
 
   cout << "READY.\n";

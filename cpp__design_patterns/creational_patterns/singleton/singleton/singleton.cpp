@@ -17,22 +17,22 @@
 
   Destruction of the Singelton
 
-  The Singleton should not be destroyed by the user! The only correct 
-  way to avoid resource leaks is to delete the Singleton object during 
-  the application's shutdown. 
+  The Singleton should not be destroyed by the user! The only correct
+  way to avoid resource leaks is to delete the Singleton object during
+  the application's shutdown.
 
   No Memory leak?
   Actually, if Singleton is not deleted, that's not a memory leak. Memory
-  leaks appear when you allocate accumulating data and lose all references 
+  leaks appear when you allocate accumulating data and lose all references
   to it. This is not the caase here: Nothing is accumulating, and we hold
   knowledge about the allocated memory until the end of the application.
-  Furthermore, all modern operating systems take care of completely 
-  deallocating a process's memory upon termination. (For an interesting 
-  discussion on what is and is not a memory leak, refer to Item 10 in 
+  Furthermore, all modern operating systems take care of completely
+  deallocating a process's memory upon termination. (For an interesting
+  discussion on what is and is not a memory leak, refer to Item 10 in
   Effective C++, Meyers, 1998).
 
   However, there is a leak, and a more insidious one: a resource leak.
-  
+
   To achieve this the following strategies are possible:
    - return a reference instead of a pointer:
 
@@ -47,10 +47,10 @@
 
     the local instance dies out due to language ruels.
 
-   - return a pointer and make the destructor private, to 
+   - return a pointer and make the destructor private, to
      avoid deleting the instance.
 
-  (GoF, 1995)  
+  (GoF, 1995)
 //*/
 
 
@@ -106,11 +106,11 @@ int main()
       break;
     }
     cout << endl;
-  
+
     cout << "use the Singleton\n";
     ptr->doSomething();
     cout << endl;
-  
+
     cout << "destroy Singleton.. - is not permitted!\n";
   }while(false);
 

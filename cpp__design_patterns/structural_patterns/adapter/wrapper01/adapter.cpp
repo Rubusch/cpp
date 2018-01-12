@@ -13,7 +13,7 @@
                     +---------------------+
                     | virtual request()   |
                     +---------------------+
-                              /_\          
+                              /_\
                                |
   +---------+       +---------------------+       +---------------------+
   | Client  |------>| Adapter             |<>-----| Adaptee             |
@@ -101,7 +101,7 @@ int main()
   cout << "init..\n";
   Adapter adapter;
   cout << endl;
-  
+
   cout << "call..\n";
   adapter.request("foo");
   cout << endl;

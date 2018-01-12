@@ -1,7 +1,7 @@
 // templatemethod.cpp
 /*
-  Define the skeleton of an algorithm in an operation, deferring some steps 
-  to subclasses. 
+  Define the skeleton of an algorithm in an operation, deferring some steps
+  to subclasses.
   Template Method lets a subclasses redefine certain steps in an algorithm
   without changing the algorithm's structure.
 
@@ -13,12 +13,12 @@
   | templateMethod() - - - - -| operation1()        +-+
   | operation1()        |     | operation2()          |
   | operation2()        |     | ...                   |
-  +---------------------+     +-----------------------+ 
+  +---------------------+     +-----------------------+
            /_\
             |
             |
             |
-  +---------------------+    
+  +---------------------+
   | ConcreteClass       |
   +=====================+
   |                     |
@@ -29,11 +29,11 @@
 
   template methods call the following kinds of operations:
   - concrete operations (either on the ConcreteClass or on client classes)
-  - concrete AbstractClass operations (i.e., operations that are generally 
+  - concrete AbstractClass operations (i.e., operations that are generally
   useful to subclasses)
   - primitive operations (i.e., abstract operations)
   - factory methods
-  - hook operations which provide default behavior that subclasses can 
+  - hook operations which provide default behavior that subclasses can
   extend if necessary. A hook operation often does nothing by default.
 
   (GoF, 1995)
@@ -43,12 +43,12 @@
 
 
 /*
-  AbstractClasss 
+  AbstractClasss
 
-  - defines abstract primitive operations that concrete subclasses define to 
+  - defines abstract primitive operations that concrete subclasses define to
   implement steps of an algorithm.
 
-  - implements a template method defining the skeleton of an algorithm. The 
+  - implements a template method defining the skeleton of an algorithm. The
   template method calls primitive operations as well as operations defined in
   AbstractClass or those of other objects.
 //*/
@@ -71,7 +71,7 @@ public:
     return arg;
   }
 
-protected:  
+protected:
   virtual void operation1(int& arg)
   {
     std::cout << "\tAbstractClass::operation1( int&)\n";
@@ -88,14 +88,14 @@ protected:
   {
     std::cout << "\tAbstractClass::operation3(int&) - do nothing or default\n";
     std::cout << "\t\t...do nothing or default\n";
-  }      
+  }
 };
 
 
 /*
   ConcreteClass1 - a ConcreteClass
-  
-  - implements the primitive operations to carry out subclass-specific steps of 
+
+  - implements the primitive operations to carry out subclass-specific steps of
   the algorithm.
 //*/
 class ConcreteClass1
@@ -109,7 +109,7 @@ protected:
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
-  
+
   void operation2(int& arg)
   {
     std::cout << "\tConcreteClass1::operation2( int&)\n";
@@ -130,8 +130,8 @@ protected:
 
 /*
   ConcreteClass2 - a ConcreteClass
-  
-  - implements the primitive operations to carry out subclass-specific steps of 
+
+  - implements the primitive operations to carry out subclass-specific steps of
   the algorithm.
 //*/
 class ConcreteClass2
@@ -145,7 +145,7 @@ protected:
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
-  
+
   void operation3(int& arg)
   {
     std::cout << "\tConcreteClass2::operation3( int&)\n";

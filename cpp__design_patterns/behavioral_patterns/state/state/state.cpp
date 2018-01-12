@@ -4,7 +4,7 @@
   The object will appear to change its class.
 
 
-  +---------------------+                     +---------------------+    
+  +---------------------+                     +---------------------+
   | Context             |<>------------------>| State               |
   +=====================+                     +=====================+
   | request()           |                     | handleRequest()     |
@@ -13,12 +13,12 @@
       |                                            |           |
                                            +-------+           +-------+
       |                                    |                           |
-  +-----------------------+\   +---------------------+     +---------------------+ 
-  | state.handleRequest() +-+  | StateA              |     | StateB      |
+  +-----------------------+\   +---------------------+     +---------------------+
+  | state.handleRequest() +-+  | StateA              |     | StateB              |
   |                         |  +=====================+     +=====================+
   +-------------------------+  | handleRequest()     |     | handleRequest()     |
                                +---------------------+     +---------------------+
-               
+
  (GoF, 1995)
 
  The 'State' pattern can be used to replace 'switch' (extendibility!) and
@@ -43,7 +43,7 @@ private:
   State* state_;
 
 public:
-  Context();  
+  Context();
   ~Context();
 
 
@@ -111,7 +111,7 @@ public:
     std::cout << "<< close device and go standby\n";
 
     // state transition from StateB to StateA
-    changeState( pContext, StateA::instance()); 
+    changeState( pContext, StateA::instance());
   }
 };
 
@@ -120,7 +120,7 @@ Context::Context()
 {
   state_ = StateB::instance();  // init with StateB
 }
-  
+
 Context::~Context()
 {
   delete state_; state_ = NULL;

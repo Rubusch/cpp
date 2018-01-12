@@ -1,13 +1,13 @@
 // chainofresponsibility.cpp
 /*
-  Avoid coupling the sender of a request to its receiver by giving more than one object a 
-  chance to handle the request. Chain the receiving objects and pass the request along 
+  Avoid coupling the sender of a request to its receiver by giving more than one object a
+  chance to handle the request. Chain the receiving objects and pass the request along
   the chain until an object handles it.
 
   +--------+                       +---------------------+
   | Client |---------------------->| Handler             |<--+
   +--------+                       +=====================+   | pSuccessor_
-                                   | pSuccessor_         |---+ 
+                                   | pSuccessor_         |---+
                                    +---------------------+
                                    | handleRequest(      |
                                    |   Request*)         |
@@ -25,7 +25,7 @@
                     |   Request*)         |       |   Request*)         |
                     +---------------------+       +---------------------+
 
-                    
+
   There are two possibile ways to implement the successor chain:
   a) define new links (usually in the handler, but ConcreteHandler could define them instead)
   b) use existing links
@@ -61,14 +61,14 @@ public:
 
   void drop()
   {
-    std::cout << "-> Request \'" << getKindOfRequest()  << "\' dropped!!\n";    
+    std::cout << "-> Request \'" << getKindOfRequest()  << "\' dropped!!\n";
   }
 };
 
 
 /*
   Handler
-  
+
   - defines an interface for handling requests
   - (optional) implements the successor link
 //*/
@@ -93,13 +93,13 @@ public:
 
   - handles request it is repsonsible for
   - can access its successor
-  - if the ConcreteHandler can handle the request, it does so; otherwise it 
+  - if the ConcreteHandler can handle the request, it does so; otherwise it
   forwards the request to its successor
 //*/
 class ConcreteHandler1
   : public Handler
 {
-public:  
+public:
   ConcreteHandler1( Handler* successor)
     : Handler(successor)
   {
@@ -117,7 +117,7 @@ public:
       pSuccessor_->handleRequest(request);
     }else{
       request->drop();
-    }    
+    }
   }
 };
 
@@ -176,7 +176,7 @@ int main()
   // a "head" pointer for the list
   cout << endl;
 
-  
+
   cout << "pass request 1..\n";
   pHead->handleRequest(&request1);
   cout << endl;
@@ -186,7 +186,7 @@ int main()
   pHead->handleRequest(&request2);
   cout << endl;
 
-  
+
   cout << "pass request 3 (no handler in list)..\n";
   pHead->handleRequest(&request3);
   cout << endl;

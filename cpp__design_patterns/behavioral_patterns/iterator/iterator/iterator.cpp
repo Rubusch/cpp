@@ -1,13 +1,13 @@
 // iterator.cpp
 /*
-  Provide a way to access the elements of an aggregate Object sequentially 
+  Provide a way to access the elements of an aggregate Object sequentially
   without exposing its underlying representation.
 
   +---------------------+       +--------+       +---------------------+
   | Aggregate           |<------| Client |------>| Iterator            |
   +=====================+       +--------+       +=====================+
   | createIterator()    |                        | first()             |
-  +---------------------+                        | next()              | 
+  +---------------------+                        | next()              |
            /_\                                   | isDone()            |
             |                                    | currentItem()       |
             |                                    +---------------------+
@@ -56,8 +56,8 @@ public:
   Aggregate(const signed long size)
     : pItems_(NULL), pIter_(NULL), size_(size), count_(0)
   {
-    try{    
-      pItems_ = new Item[size_+1];     
+    try{
+      pItems_ = new Item[size_+1];
     }catch(std::bad_alloc&){
       std::cerr << "Allocation failed!\n";
     }
@@ -118,7 +118,7 @@ struct ConcreteAggregate
 template< class Item >
 struct Iterator
 {
-  virtual void first() = 0; 
+  virtual void first() = 0;
   virtual void next() = 0;
   virtual bool isDone() const = 0;
   virtual Item currentItem() const = 0;
@@ -129,7 +129,7 @@ template< class Item >
 class ConcreteIterator
   : public Iterator< Item >
 {
-private: 
+private:
   const ConcreteAggregate< Item >* concAggregate_;
   signed long current_;
 

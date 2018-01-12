@@ -13,7 +13,7 @@
                     +---------------------+
                     | virtual request()   |
                     +---------------------+
-                              /_\          
+                              /_\
                                |
   +---------+       +---------------------+       +---------------------+
   | Client  |------>| Adapter             |<>-----| Adaptee             |
@@ -63,7 +63,7 @@ class Adapter
 private:
   /*
     Adaptee
-    
+
     - defines an existing interface that needs adapting
   //*/
   class Adaptee
@@ -82,7 +82,7 @@ public:
   {
     std::cout << "\tAdapter::request(std::string)\n";
     std::string str2 = "bar";
-    adaptee.specificRequest(str1, str2); 
+    adaptee.specificRequest(str1, str2);
   }
 };
 
@@ -99,7 +99,7 @@ int main()
   cout << "init..\n";
   Adapter adapter;
   cout << endl;
-  
+
   cout << "call..\n";
   adapter.request("foo");
   cout << endl;

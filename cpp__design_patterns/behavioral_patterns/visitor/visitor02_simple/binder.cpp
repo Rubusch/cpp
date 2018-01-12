@@ -53,7 +53,7 @@ int main()
   vec.push_back(&elem1);
   vec.push_back(&elem2);
   vec.push_back(&elem3);
-  
+
   Visitor visitor;
   visitor.visitAll(vec);
   cout << "READY.\n";

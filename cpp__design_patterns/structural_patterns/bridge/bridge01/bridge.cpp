@@ -11,7 +11,7 @@
   +-----------------|---+                       +---------------------+
            /_\                                            /_\
             |       |   +-----------------------------+    |
-            |           | this->impl.functionImpl()   |\   |      
+            |           | this->impl.functionImpl()   |\   |
             |       +- -+                             +-+  |
             |           +-------------------------------+  |
             |                                              |
@@ -33,14 +33,14 @@
 /*
   Implementor
 
-  - defines the interface for implementation classes. This interface doesn't have to 
-  correspond exactly to Abstraction's interface; in fact the two interfaces can be 
-  quite different. Typically the Implementor interface provides only primitive 
+  - defines the interface for implementation classes. This interface doesn't have to
+  correspond exactly to Abstraction's interface; in fact the two interfaces can be
+  quite different. Typically the Implementor interface provides only primitive
   operations, and Abstraction defines higher-level operations based on these primitives.
 //*/
 class Implementor
 {
-protected: 
+protected:
   std::string data;
 
 public:
@@ -60,7 +60,7 @@ public:
 
 /*
   Concrete Implementor
-  
+
   - implements the Implementor interface and defines its concrete impelementation
 //*/
 class ConcreteImplementor
@@ -93,7 +93,7 @@ public:
   {}
 
   virtual void function() = 0;
- 
+
   virtual void show()
   {
     std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n";
@@ -103,14 +103,14 @@ public:
 
 /*
   Concrete Concept Class
-  
+
   - Extends the interface defined by Abstraction
 //*/
 class ConcreteConcept
   : public Concept
 {
 public:
-  ConcreteConcept( Implementor& implementor) 
+  ConcreteConcept( Implementor& implementor)
     : Concept(implementor)
   {}
 

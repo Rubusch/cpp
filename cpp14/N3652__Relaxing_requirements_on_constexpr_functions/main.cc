@@ -125,7 +125,6 @@ int main()
 //  int check = pow(4.0, 13.0);
   // C++14: more complex operation possible within constexpr function
   cout << "4^13 = " << squareandmultipy<int>(4, 13, 0)
-//       << " [" << check << "] "
        << endl;
 
   cout << "Number of lowercase letters in \"Hello, world!\" is ";

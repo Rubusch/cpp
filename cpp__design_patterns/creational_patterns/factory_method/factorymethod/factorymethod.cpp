@@ -1,7 +1,7 @@
 // factorymethod.cpp
 /*
-  Define an interface for creating an object, but let the subclasses decide 
-  which class to instantiate. The factory method lets a class defer 
+  Define an interface for creating an object, but let the subclasses decide
+  which class to instantiate. The factory method lets a class defer
   instantiation to its subclasses.
 
   +---------------------+                      +---------------------+
@@ -15,7 +15,7 @@
              |                                           /_\
              |                                            |
              |                                            |
-             |                                            |  
+             |                                            |
   +---------------------+                      +---------------------+
   | ConcreteProduct     |                      | ConcreteCreator     |
   +=====================+                      +=====================+
@@ -32,10 +32,10 @@
                                      | return new ConcreteProduct   +-+
                                      +--------------------------------+
 
- 
+
   (GoF, 1995)
 
-  The Product in the below example could also consist of two different classes 
+  The Product in the below example could also consist of two different classes
   and not only two different constructors.
 //*/
 

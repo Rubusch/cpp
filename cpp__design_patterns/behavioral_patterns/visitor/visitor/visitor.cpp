@@ -78,7 +78,7 @@ public:
   {
     std::cout << "\t\t\"Hello, from Element1!\"\n";
   }
-  
+
   void accept(Visitor* visitor);
 };
 
@@ -190,7 +190,7 @@ int main()
 
   cout << "do visits\n";
   ConcreteVisitor concVisitor;
-  concVisitor.visitAll(&os);  
+  concVisitor.visitAll(&os);
   cout << endl;
 
   cout << "READY.\n";

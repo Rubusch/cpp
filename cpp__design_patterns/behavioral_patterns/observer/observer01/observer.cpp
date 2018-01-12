@@ -1,9 +1,9 @@
 // observer.cpp
 /*
-  Define a one-to-many dependency between objects so that 
-  when one object changes state, all its dependents are 
+  Define a one-to-many dependency between objects so that
+  when one object changes state, all its dependents are
   notified and updated automatically.
-                        
+
   +---------------------+ observers                                       +---------------------+
   | Subject             |------------------------------------------------>| Observer            |
   +=====================+                                                 +=====================+
@@ -21,9 +21,9 @@
   | getState() o - - - - - - - - | return subjectState; +-+               | observerState    |  |
   | setState()          |        |                        |               +------------------ --+
   +---------------------+        +------------------------+                                  |
-  | subjectState_       |                                                                            
+  | subjectState_       |                                                                    |
   +---------------------+                                                                    |
-                                                                      +-------------------------+   
+                                                                      +-------------------------+
                                                                       | observerState =         | \
                                                                       |   subject->getState()   +--+
                                                                       |                            |
@@ -62,9 +62,9 @@ public:
   {}
 
   State(int val, std::string s)
-    : val_(val), str_(s) 
+    : val_(val), str_(s)
   {}
-  
+
   friend
   std::ostream& operator<<(std::ostream&, State&);
 };
@@ -78,13 +78,13 @@ std::ostream& operator<<(std::ostream& os, State &state)
 /*
   Observer
 
-  - defines an updating interface for objects that should be notified 
+  - defines an updating interface for objects that should be notified
   of changes in a subject.
 //*/
 class Observer
 {
 public:
-  virtual void update() = 0; 
+  virtual void update() = 0;
 };
 
 
@@ -111,7 +111,7 @@ public:
     if(!pObserver) return;
     lst_.push_back(pObserver);
   }
-  
+
   void detach(Observer* pObserver)
   {
     std::cout << "\tSubject::detach( Observer)\n";
@@ -180,9 +180,9 @@ public:
 /*
   ConcreteObserver
 
-  - maintains a reference to a ConcreteSubject object. 
+  - maintains a reference to a ConcreteSubject object.
   - stores state that should stay consistent with the subject's.
-  - implements the Observer updating interface to keep its state consistent with 
+  - implements the Observer updating interface to keep its state consistent with
   the subject's.
 //*/
 class ConcreteObserver
@@ -203,7 +203,7 @@ public:
       std::cerr << "Allocation of observer state failed!\n";
       std::exit(-2);
     }
-    
+
     std::cout << *observerState_ << std::endl;
   }
 
@@ -220,7 +220,7 @@ public:
       delete observerState_; observerState_ = NULL;
     }
     observerState_ = new State(*subject_->getState());
-    
+
     std::cout << *observerState_ << std::endl;
   }
 };
@@ -239,7 +239,7 @@ int main()
   subject.attach(&observer_a);
   subject.attach(&observer_b);
   cout << endl;
-  
+
   cout << "notify subject and update observers\n";
   subject.notify();
   cout << endl;

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  strategy.cpp
@@ -19,7 +19,7 @@ strategy.exe: ${OBJECTS}
 
 all: strategy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) strategy.exe *~ core
 
 

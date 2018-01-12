@@ -1,16 +1,16 @@
 // visitor.cpp
 /*
-  Represent an operation to be performed on the elements of an object 
-  structure. Visitor lets you define a new operation without changing 
+  Represent an operation to be performed on the elements of an object
+  structure. Visitor lets you define a new operation without changing
   the classes of the elements on which it operates.
 
-     +---------------------+                     +---------------------+    
+     +---------------------+                     +---------------------+
   +--| Client              |-------------------->| Visitor             |
-  |  +---------------------+                     +=====================+   
+  |  +---------------------+                     +=====================+
   |                                              |                     |
   |                                              +---------------------+
-  |                                              | visit(Element1)     | 
-  |                                              | visit(Element2)     | 
+  |                                              | visit(Element1)     |
+  |                                              | visit(Element2)     |
   |                                              +---------------------+
   |                                                        /_\
   |                                                         |
@@ -24,7 +24,7 @@
   |                                              | visit(Element1)      |
   |                                              | visit(Element2)      |
   |                                              +----------------------+
-  |                                              
+  |
   |
   |  +---------------------+                     +---------------------+
   +->| ObjectStructure     |<>------------------>| Element             |
@@ -66,7 +66,7 @@ class Visitor;
 
 /*
   Element
-  
+
   - defines an Accept operation that takes a visitor as an argument.
 //*/
 class Element
@@ -78,7 +78,7 @@ public:
 
 /*
   Element1 - a ConcreteElement
-  
+
   - impelments an accept operation that takes a visistor as an argument.
 //*/
 class Element1
@@ -90,7 +90,7 @@ public:
     std::cout << "\tElement1::sayHello()\n";
     std::cout << "\t\t\"Hello, from Element1!\"\n";
   }
-  
+
   void accept(Visitor* visitor);
 };
 
@@ -145,10 +145,10 @@ public:
 /*
   Visitor
 
-  - declares a Visit operation for each class of ConcreteElement in the object structure. 
-  The operation's name and signature identifies the class that sends the Visit request to 
-  the visitor. That lets the visitor determine the concrete class of the element being 
-  visited. Then the visitor can access the element directly through its particular 
+  - declares a Visit operation for each class of ConcreteElement in the object structure.
+  The operation's name and signature identifies the class that sends the Visit request to
+  the visitor. That lets the visitor determine the concrete class of the element being
+  visited. Then the visitor can access the element directly through its particular
   interface.
 //*/
 class Visitor
@@ -164,7 +164,7 @@ public:
 /*
   ConcreteVisitor
 
-  - implements each operation declared by Visitor. Each operation implements a fragment of the 
+  - implements each operation declared by Visitor. Each operation implements a fragment of the
   algorithm defined for the corresponding class of object in the structure. ConcreteVisitor
   provides the context for the algorithm and stores its local state. This state often accumulates
   results during the traversal of the structure.
@@ -194,7 +194,7 @@ public:
     std::vector< Element* >& elements = os->elements();
     for( std::vector< Element* >::iterator iter = elements.begin(); iter != elements.end(); ++iter){
        (*iter)->accept(*this);
-    }         
+    }
     //*/
   }
 };
@@ -246,7 +246,7 @@ int main()
 
   cout << "do visits\n";
   ConcreteVisitor concVisitor;
-  concVisitor.visitAll(&os);  
+  concVisitor.visitAll(&os);
   cout << endl;
 
   cout << "READY.\n";

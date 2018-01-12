@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  interpreter.cpp
@@ -19,7 +19,7 @@ interpreter.exe: ${OBJECTS}
 
 all: interpreter.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) interpreter.exe *~ core
 
 

@@ -1,6 +1,6 @@
 // inerpreter.cpp
 /*
-  Given a language, define a representation for its grammar along with an 
+  Given a language, define a representation for its grammar along with an
   interpreter that uses the representation to interpret sentences in the language.
 
                          +---------------------+
@@ -34,7 +34,7 @@
           +---------------------+       +---------------------+
 
   Indications:
-  - the grammar is simple (for complex grammars parser generators are more 
+  - the grammar is simple (for complex grammars parser generators are more
   usefull)
   - efficiency is not a critical concern.
 
@@ -92,14 +92,14 @@ class NonterminalExpression_equals
 {
 private:
   AbstractExpression *pOperand1_, *pOperand2_;
-  
+
 public:
   NonterminalExpression_equals()
   {
     pOperand1_ = new TerminalExpression_bool;
     pOperand2_ = new TerminalExpression_bool;
   }
-  
+
   ~NonterminalExpression_equals()
   {
     delete pOperand1_; pOperand1_ = NULL;
@@ -108,7 +108,7 @@ public:
 
   bool interpret( Context* context)
   {
-    return (pOperand1_->interpret(context) == pOperand2_->interpret(context)); 
+    return (pOperand1_->interpret(context) == pOperand2_->interpret(context));
   }
 };
 

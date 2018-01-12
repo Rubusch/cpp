@@ -2,11 +2,11 @@
 /*
   demonstrates the factory method pattern
 
-  Define an interface for creating an object, but let the subclasses decide 
-  which class to instantiate. The factory method lets a class defer 
+  Define an interface for creating an object, but let the subclasses decide
+  which class to instantiate. The factory method lets a class defer
   instantiation to its subclasses.
 
-  In C++ this is realized through a protocol class (in java this would be an 
+  In C++ this is realized through a protocol class (in java this would be an
   "Interface") and a static function, as also virtual functions to the content,
   to be implemented in the derived "real" instances.
 
@@ -22,7 +22,7 @@
                                                          /_\
                                                           |
                                                           |
-                                                          |  
+                                                          |
   +---------------------+                      +---------------------+
   | Product             |                      | ConcreteCreator     |
   +=====================+                      +=====================+
@@ -30,7 +30,7 @@
   +---------------------+                      +---------------------+
   |                     |                      | facotryMethod()     |
   +---------------------+                      |  : Product          |
-                                               +---------------------+ 
+                                               +---------------------+
   (GoF, 1995)
 
 //*/
@@ -57,8 +57,8 @@ ostream& operator<<(ostream& out, MonsterProtocol<T>& rhs);
 /*------------------------------------------------------------------------------*/
 
 /*
-  qualities - here these clases have to provide at least one mechanism that 
-  returns a string variable (since T already will be string we're on the safe 
+  qualities - here these clases have to provide at least one mechanism that
+  returns a string variable (since T already will be string we're on the safe
   side already ;-)
 //*/
 template<class T>
@@ -134,7 +134,7 @@ public:
                                       , const Color_type<T>& color)
     throw (BadMonsterException);
 
-  friend 
+  friend
   ostream& operator<< <T>(ostream& out, MonsterProtocol<T>& rhs);
 };
 
@@ -143,7 +143,7 @@ template<class T>
 inline
 ostream& operator<<(ostream& out, MonsterProtocol<T>& rhs)
 {
-  return out << "name\t= " << rhs.getName() 
+  return out << "name\t= " << rhs.getName()
              << "\nsize\t= " << rhs.getSize()
              << "\ncolor\t= " << rhs.getColor();
 }
@@ -211,7 +211,7 @@ string RealMonster<T>::getSize() const
 
 
 template<class T>
-string RealMonster<T>::getColor() const 
+string RealMonster<T>::getColor() const
 {
   return color_.getColor();
 }

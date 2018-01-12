@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = adapter.cpp
@@ -19,7 +19,5 @@ adapter.exe: ${OBJECTS}
 
 all: adapter.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) adapter.exe *~ core
-
-

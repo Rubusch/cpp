@@ -1,13 +1,13 @@
 // iterator.cpp
 /*
-  Provide a way to access the elements of an aggregate Object sequentially 
+  Provide a way to access the elements of an aggregate Object sequentially
   without exposing its underlying representation.
 
   +---------------------+       +--------+       +---------------------+
   | Aggregate           |<------| Client |------>| Iterator            |
   +=====================+       +--------+       +=====================+
   | createIterator()    |                        | first()             |
-  +---------------------+                        | next()              | 
+  +---------------------+                        | next()              |
            /_\                                   | isDone()            |
             |                                    | currentItem()       |
             |                                    +---------------------+
@@ -47,7 +47,7 @@ template< class Item > class ConcreteIterator;
 
 /*
   Aggregate, e.g. a list, vector, or something like
-  
+
   - defines an interface for creating an Iterator object
 //*/
 template< class Item >
@@ -66,8 +66,8 @@ public:
     std::cout << "\tAggregate::Aggregate(signed long)\n";
 
     // allocation
-    try{    
-      pItems_ = new Item[size_+1];     
+    try{
+      pItems_ = new Item[size_+1];
     }catch(std::bad_alloc&){
       std::cerr << "Allocation failed!\n";
     }
@@ -93,7 +93,7 @@ public:
 /*
   ConcreteAggregate
 
-  - implements the Iterator creation interface to return an instance of the 
+  - implements the Iterator creation interface to return an instance of the
   proper ConcreteIterator
 //*/
 template< class Item >
@@ -142,14 +142,14 @@ public:
 
 /*
   Iterator
-  
+
   - defines an interface for accessing and traversing elements
 //*/
 template< class Item >
 class Iterator
 {
 public:
-  virtual void first() = 0; 
+  virtual void first() = 0;
   virtual void next() = 0;
   virtual bool isDone() const = 0;
   virtual Item currentItem() const = 0;
@@ -166,7 +166,7 @@ template< class Item >
 class ConcreteIterator
   : public Iterator< Item >
 {
-private: 
+private:
   const ConcreteAggregate< Item >* concAggregate_;
   signed long current_;
 
@@ -216,7 +216,6 @@ int main()
   cout << "init aggregate: list\n";
   ConcreteAggregate< string > *list = new ConcreteAggregate< string >( 32);
   cout << endl;
-  
 
   cout << "populate list\n";
   list->push("All");
@@ -251,5 +250,4 @@ int main()
 
   cout << "READY.\n";
   return 0;
-
 }

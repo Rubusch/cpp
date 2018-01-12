@@ -1,10 +1,10 @@
 // abstractfactory.cpp
 /*
-  Provide an interface for creating families of related or dependent 
+  Provide an interface for creating families of related or dependent
   objects without specifying their concrete classes.
 
 
-  +--------+                                        +---------------------+     
+  +--------+                                        +---------------------+
   | Client |--------------------------------------->| abstract Factory    |
   +--------+                                        +=====================+
     |  |                                            |                     |
@@ -12,11 +12,11 @@
     |  |   +---------------------+                  | createProductA()    |
     |  +-->| abstract Product A  |                  | createProductB()    |
     |      +=====================+                  +---------------------+
-    |      |                     |                     /_\           /_\  
+    |      |                     |                     /_\           /_\
     |      +---------------------+                      |             |
     |      |                     |                  +---+             +---+
     |      +---------------------+                  |                     |
-    |         /_\           /_\         +-------------------+   +-------------------+       
+    |         /_\           /_\         +-------------------+   +-------------------+
     |          |             |          | concrete Factory1 |   | concrete Factory2 |
     |          |             |          +===================+   +===================+
     |          |             |          |                   |   |                   |
@@ -24,7 +24,7 @@
     |          |        +-----------+   | createProductA()  |   | createProductA()  |
     |          |        | concrete  |   | createProductB()  |   | createProductB()  |
     |          |        | ProductA2 |   +-------------------+   +-------------------+
-    |   +-----------+   +===========+        |         |           |         |      
+    |   +-----------+   +===========+        |         |           |         |
     |   | concrete  |   |           |<-------|---------|-----------+         |
     |   | ProductA1 |   +-----------+        |         |                     |
     |   +===========+                        |         |                     |
@@ -37,7 +37,7 @@
     +----->| abstract Product B  |                     |                     |
            +=====================+                     |                     |
            |                     |                     |                     |
-           +---------------------+                     |                     | 
+           +---------------------+                     |                     |
            |                     |                     |                     |
            +---------------------+                     |                     |
                /_\           /_\                       |                     |
@@ -76,7 +76,7 @@ public:
   {
     std::cout << "\t\t\tProductA::ProductA() - ctor\n";
   }
-  
+
   virtual ~ProductA() = 0;
 };
 
@@ -88,7 +88,7 @@ ProductA::~ProductA()
 
 /*
   Concrete Product A1
-  
+
   - defines a product object to be created by the corresponding concrete factory
   - implements the AbstractProduct interface
 //*/
@@ -177,7 +177,7 @@ public:
   {
     std::cout << "\t\tConcreteProductB2::ConcreteProductB2() - ctor\n";
   }
-  
+
   ~ConcreteProductB2()
   {
     std::cout << "\t\tConcreteProductB2::~ConcreteProductB2() - dtor\n";
@@ -289,7 +289,7 @@ int main()
   delete pConcProductA1; pConcProductA1 = NULL;
   delete pConcProductB1; pConcProductB1 = NULL;
   delete pConcProductA2; pConcProductA2 = NULL;
-  delete pConcProductB2; pConcProductB2 = NULL;  
+  delete pConcProductB2; pConcProductB2 = NULL;
   cout << endl;
 
   cout << "READY.\n";

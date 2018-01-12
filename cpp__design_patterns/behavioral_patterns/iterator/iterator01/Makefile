@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  iterator.cpp
@@ -19,7 +19,7 @@ iterator.exe: ${OBJECTS}
 
 all: iterator.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) iterator.exe *~ core
 
 

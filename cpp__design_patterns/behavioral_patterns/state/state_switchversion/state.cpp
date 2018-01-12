@@ -25,7 +25,7 @@ private:
   State *state_;
 
 public:
-  Context();  
+  Context();
   ~Context();
 
   void request();
@@ -43,7 +43,7 @@ private:
   {
     state_ = state;
   }
-  
+
 public:
   static State* instance()
   {
@@ -64,9 +64,9 @@ public:
 
     case false:
       std::cout << "<< close device and go standby\n";
-      
+
       // state transition
-      changeState( pContext, new State(true)); 
+      changeState( pContext, new State(true));
       break;
     }
   }
@@ -92,7 +92,7 @@ Context::~Context()
 {
   delete state_; state_ = NULL;
 }
-  
+
 void Context::request()
 {
   state_->handleRequest(this);

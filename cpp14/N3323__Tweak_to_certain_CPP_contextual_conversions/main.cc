@@ -22,10 +22,8 @@ zero value. Note in particular the pair of conversion operators (lines 13-14),
 provided according to a well-established C++ coding pattern that allows const
 and non-const objects to be treated differently.
  */
-template< class T
-          , class = typename std::enable_if<
-		       std::is_arithmetic<T>::value
-               || std::is_pointer<T>::value
+template< class T, class = typename enable_if< is_arithmetic<T>::value
+               || is_pointer<T>::value
 	        >::type
 		>
 class Zero_init
@@ -54,7 +52,6 @@ int main()
 //  delete (p+0); // okay
 //  delete +p;    // also okay
 
-
   /*
     Listing 3 shows another use of this template. Here, too, the arithmetic,
 	assignment, and comparison operations work fine, yet the simple expression i
@@ -69,4 +66,3 @@ int main()
   switch( +i  ) { ... } // also okay
   //*/
 }
-

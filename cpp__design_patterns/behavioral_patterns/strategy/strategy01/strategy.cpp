@@ -3,16 +3,16 @@
   Define a family of algorithms, encapsulate each one, and make them interchangeble.
   Strategy lets the algorithm vary independently from clients that use it.
 
-  +---------------------+                     +-----------------------+    
+  +---------------------+                     +-----------------------+
   | Context             |<>------------------>| Strategy              |
   +=====================+                     +=======================+
   |                     |                     |                       |
-  +---------------------+                     +-----------------------+    
+  +---------------------+                     +-----------------------+
   | contextInterface()  |                     | algorithm()           |
   +-|-------------------+                     +-----------------------+
     |                                                    /_\
-  +-----------------------+\                              |                                                         
-  | Strategy->algorithm() +-+    +------------------------+---------------------- ... 
+  +-----------------------+\                              |
+  | Strategy->algorithm() +-+    +------------------------+---------------------- ...
   +-------------------------+    |                        |
                                  |                        |
                       +---------------------+  +----------------------+
@@ -21,7 +21,7 @@
                       | algorithm()         |  | algorithm()          |
                       +---------------------+  +----------------------+
 
-  Similarity to State Pattern - if you want to vary the algorithm or a behavior, 
+  Similarity to State Pattern - if you want to vary the algorithm or a behavior,
   take the Strategy Pattern, if you want to vary the value, take the State Pattern.
 
   (GoF 1995)
@@ -35,9 +35,9 @@
 
 /*
   Strategy
-  
-  - declares an interface common to all supported algorithms. Context 
-  uses this interface to call the algorithm defined by a concrete 
+
+  - declares an interface common to all supported algorithms. Context
+  uses this interface to call the algorithm defined by a concrete
   strategy.
 //*/
 class Strategy
@@ -49,7 +49,7 @@ public:
 
 /*
   StrategyA - a concrete strategy
-  
+
   - implements the algorithm using the Strategy interface
 //*/
 class StrategyA
@@ -66,7 +66,7 @@ public:
 
 /*
   StrategyB - a concrete strategy
-  
+
   - implements the algorithm using the Strategy interface
 //*/
 class StrategyB
@@ -83,7 +83,7 @@ public:
 
 /*
   Context
-  
+
   - is configured with a concrete Strategy object
   - maintains a reference to a Strategy object
   - may define an interface that lets Strategy access its data

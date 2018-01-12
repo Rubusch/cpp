@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  builder.cpp
@@ -19,7 +19,7 @@ builder.exe: ${OBJECTS}
 
 all: builder.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) builder.exe *~ core
 
 

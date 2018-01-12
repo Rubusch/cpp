@@ -61,9 +61,9 @@ public:
   {}
 
   State(int val, std::string s)
-    : val_(val), str_(s) 
+    : val_(val), str_(s)
   {}
-  
+
   friend
   std::ostream& operator<<(std::ostream&, State&);
 };
@@ -76,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, State &state)
 
 struct Observer
 {
-  virtual void update() = 0; 
+  virtual void update() = 0;
 };
 
 
@@ -91,7 +91,7 @@ public:
     if(!pObserver) return;
     lst_.push_back(pObserver);
   }
-  
+
   void detach(Observer* pObserver)
   {
     if(!pObserver) return;
@@ -162,7 +162,7 @@ public:
       std::cerr << "Allocation of observer state failed!\n";
       std::exit(-2);
     }
-    
+
     std::cout << *observerState_ << std::endl;
   }
 
@@ -177,7 +177,7 @@ public:
       delete observerState_; observerState_ = NULL;
     }
     observerState_ = new State(*subject_->getState());
-    
+
     std::cout << *observerState_ << std::endl;
   }
 };
@@ -196,7 +196,7 @@ int main()
   subject.attach(&observer_a);
   subject.attach(&observer_b);
   cout << endl;
-  
+
   cout << "notify subject and update observers\n";
   subject.notify();
   cout << endl;

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  prototype.cpp
@@ -19,7 +19,7 @@ prototype.exe: ${OBJECTS}
 
 all: prototype.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) prototype.exe *~ core
 
 

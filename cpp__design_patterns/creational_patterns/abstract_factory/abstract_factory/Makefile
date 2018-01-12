@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  abstractfactory.cpp
@@ -19,7 +19,7 @@ abstractfactory.exe: ${OBJECTS}
 
 all: abstractfactory.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) abstractfactory.exe *~ core
 
 

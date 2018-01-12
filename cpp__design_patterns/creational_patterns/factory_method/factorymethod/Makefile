@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = factorymethod.cpp
@@ -19,7 +19,7 @@ factorymethod.exe: ${OBJECTS}
 
 all: factorymethod.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) factorymethod.exe *~ core
 
 

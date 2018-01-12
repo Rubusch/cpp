@@ -11,7 +11,7 @@
   +-----------------|---+                       +---------------------+
            /_\                                            /_\
             |       |   +-----------------------------+    |
-            |           | this->impl.functionImpl()   |\   |      
+            |           | this->impl.functionImpl()   |\   |
             |       +- -+                             +-+  |
             |           +-------------------------------+  |
             |                                              |
@@ -32,7 +32,7 @@
 
 class Implementor
 {
-protected: 
+protected:
   std::string data;
 
 public:
@@ -71,7 +71,7 @@ public:
   {}
 
   virtual void function() = 0;
- 
+
   virtual void show()
   {
     std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n";
@@ -83,7 +83,7 @@ class ConcreteConcept
   : public Concept
 {
 public:
-  ConcreteConcept( Implementor& implementor) 
+  ConcreteConcept( Implementor& implementor)
     : Concept(implementor)
   {}
 

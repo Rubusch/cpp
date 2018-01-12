@@ -30,7 +30,7 @@ public:
 int main()
 {
   using namespace std;
-  
+
   std::cout << "using default value:\n";
   SomeClass<> sc1;
   cout << endl;

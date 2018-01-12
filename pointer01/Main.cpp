@@ -10,9 +10,9 @@
 
   Declaration and Initialisation (later):
       int* pVar;
-      pVar = &var;  
+      pVar = &var;
   (which is basically the same as above)
-  
+
   or
       int* pVar;
       *pVar = var;
@@ -25,8 +25,8 @@ using namespace std;
 
 void display(string szName, string szCommand, int *p)
 {
-    cout << szCommand 
-         << "   :\t" << szName << " = " << p 
+    cout << szCommand
+         << "   :\t" << szName << " = " << p
          << ",\t*" << szName << " = " << *p
          << ",\t&" << szName << " = " << &p
          << endl;
@@ -41,19 +41,19 @@ int main()
     cout << "Declaration of Variables:" << endl;
 
     int var = 777;
-    cout << "var = 777   :\t\tvar = " << var 
+    cout << "var = 777   :\t\tvar = " << var
          << ",\t&var = " << &var << endl;
     cout << endl;
 
 
 
     cout << "Deklaration and initialisation of a pointer:" << endl;
-    {        
+    {
         int* pVar1 = &var;
         display("pVar1", "int* pVar1 = &var", pVar1);
         cout << endl;
     };
-    
+
     {
 //        int* pVar2 = var;
         cout << "int* pVar2 = var, Invalid conversion from \'int\' to \'int*\'" << endl;
@@ -84,9 +84,9 @@ int main()
         int* pVar6;
 //        *pVar6 = &var;
         cout << "*pVar6 = &var, Invalid conversion from \'int*\' to \'int\'" << endl;
-        cout << endl;    
+        cout << endl;
     };
-    {        
+    {
         int* pVar7;
 //        &pVar7 = var;
         cout << "&pVar7 = var, Invalid lvalue in assignment" << endl;
@@ -98,6 +98,6 @@ int main()
         cout << "&pVar8 = &var, Invalid lvalue in assignment" << endl;
         cout << endl;
     };
-    
+
     return 0;
 };

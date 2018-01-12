@@ -4,7 +4,7 @@
   The object will appear to change its class.
 
 
-  +---------------------+                     +---------------------+    
+  +---------------------+                     +---------------------+
   | Context             |<>------------------>| State               |
   +=====================+                     +=====================+
   | request()           |                     | handleRequest()     |
@@ -13,12 +13,12 @@
       |                                            |           |
                                            +-------+           +-------+
       |                                    |                           |
-  +-----------------------+\   +---------------------+     +---------------------+ 
-  | state.handleRequest() +-+  | StateA              |     | StateB      |
+  +-----------------------+\   +---------------------+     +---------------------+
+  | state.handleRequest() +-+  | StateA              |     | StateB              |
   |                         |  +=====================+     +=====================+
   +-------------------------+  | handleRequest()     |     | handleRequest()     |
                                +---------------------+     +---------------------+
-               
+
  (GoF, 1995)
 
  The 'State' pattern can be used to replace 'switch' (extendibility!) and
@@ -37,8 +37,8 @@ class State;
 /*
   context
 
-  - defines the interface of interest to clients.  
-  - maintains an instance of a ConcreteState subclass that defines the 
+  - defines the interface of interest to clients.
+  - maintains an instance of a ConcreteState subclass that defines the
   current state.
 //*/
 class Context
@@ -51,7 +51,7 @@ private:
   State* state_;
 
 public:
-  Context();  
+  Context();
   ~Context();
 
   // can have several requests, just one example here
@@ -63,8 +63,8 @@ public:
 
 /*
   State
-  
-  - defines an interface for encapsulating the behavior associated with a 
+
+  - defines an interface for encapsulating the behavior associated with a
   particular state of the Context.
 //*/
 class State
@@ -156,7 +156,7 @@ public:
     std::cout << "<< close device and go standby\n";
 
     // state transition from StateB to StateA
-    changeState( pContext, StateA::instance()); 
+    changeState( pContext, StateA::instance());
   }
 };
 
@@ -170,7 +170,7 @@ Context::Context()
   std::cout << "\tContext::Context() - ctor\n";
   state_ = StateB::instance();  // init with StateB
 }
-  
+
 Context::~Context()
 {
   std::cout << "\tContext::~Context() - dtor\n";
@@ -185,7 +185,7 @@ void Context::request()
 
 void Context::changeState( State* state)
 {
-  std::cout << "\tContext::changeState( State*)\n"; 
+  std::cout << "\tContext::changeState( State*)\n";
   if(state_ != NULL){
     delete state_; state_ = NULL;
   }

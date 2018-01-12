@@ -1,6 +1,6 @@
 // builder.cpp
 /*
-  Separate the construction of a complex object from its representation so 
+  Separate the construction of a complex object from its representation so
   that the same construction process can create different representations.
 
   +---------------------+                       +---------------------+
@@ -15,14 +15,14 @@
                                                            |
                     |                                      |
   +---------------------+                       +---------------------+           +-----------+
-  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   | 
+  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   |
   | structure           | \                     +=====================+           +===========+
   | {                   +--+                    |                     |           |           |
   |   builder->buildPart() |                    +---------------------+           +-----------+
   | }                      |                    | buildPart()         |
   +------------------------+                    | getResult()         |
                                                 +---------------------+
-  (GoF, 1995)    
+  (GoF, 1995)
 //*/
 
 
@@ -35,7 +35,7 @@ struct Product
 {
   void setPartA(const std::string& a)
   {
-    part_a = a; 
+    part_a = a;
   }
 
   void setPartB(const std::string& b)
@@ -49,14 +49,14 @@ struct Product
               << "Product::part_b: \'" << part_b << "\'\n";
   }
 
-private: 
+private:
   std::string part_a;
   std::string part_b;
 };
 
 
 struct Builder
-{  
+{
   std::auto_ptr< Product > getProduct()
   {
     return product_;
@@ -80,7 +80,7 @@ struct ConcreteBuilderA
 {
   void buildPartA()
   {
-    product_->setPartA("TCP"); 
+    product_->setPartA("TCP");
   }
 
   void buildPartB()
@@ -115,7 +115,7 @@ struct Director
   {
     builder_ = NULL;
   }
-  
+
   void setBuilder(Builder* builder)
   {
     builder_ = builder;
@@ -133,7 +133,7 @@ struct Director
     builder_->buildPartB();
   }
 
-private: 
+private:
   Builder* builder_;
 };
 
@@ -163,7 +163,7 @@ int main()
   director.setBuilder( &concBuilderB);
   director.construct();
   product = director.getProduct();
-  product->showProduct();  
+  product->showProduct();
   cout << endl;
 
   cout << "READY.\n";

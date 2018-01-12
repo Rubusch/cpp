@@ -1,13 +1,13 @@
 // chainofresponsibility.cpp
 /*
-  Avoid coupling the sender of a request to its receiver by giving more than one object a 
-  chance to handle the request. Chain the receiving objects and pass the request along 
+  Avoid coupling the sender of a request to its receiver by giving more than one object a
+  chance to handle the request. Chain the receiving objects and pass the request along
   the chain until an object handles it.
 
   +--------+                       +---------------------+
   | Client |---------------------->| Handler             |<--+
   +--------+                       +=====================+   | pSuccessor_
-                                   | pSuccessor_         |---+ 
+                                   | pSuccessor_         |---+
                                    +---------------------+
                                    | handleRequest(      |
                                    |   Request*)         |
@@ -25,7 +25,7 @@
                     |   Request*)         |       |   Request*)         |
                     +---------------------+       +---------------------+
 
-                    
+
   There are two possibile ways to implement the successor chain:
   a) define new links (usually in the handler, but ConcreteHandler could define them instead)
   b) use existing links
@@ -95,7 +95,7 @@ struct ConcreteHandler1
       pSuccessor_->handleRequest(request);
     }else{
       request->drop();
-    }    
+    }
   }
 };
 
@@ -132,12 +132,11 @@ int main()
 
   cout << "init..\n";
   Request request1(1), request2(2), request3(3);
-  ConcreteHandler2 concHandler2(NULL); 
+  ConcreteHandler2 concHandler2(NULL);
   ConcreteHandler1 concHandler1(&concHandler2);
   Handler* pHead = &concHandler1;
   cout << endl;
 
-  
   pHead->handleRequest(&request1);
   cout << endl;
 
@@ -145,7 +144,7 @@ int main()
   pHead->handleRequest(&request2);
   cout << endl;
 
-  
+
   pHead->handleRequest(&request3);
   cout << endl;
 

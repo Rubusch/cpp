@@ -6,8 +6,8 @@
   +---------------------+           +---------------------+  memento  +---------------------+
   | Originator          |---------->| Memento             |<--------<>| Caretaker           |
   +=====================+           +=====================+           +---------------------+
-  | setMemento(Memento) o---+       | getState() : State  |  
-  | createMemento()   o |   |       | setState( State)    | 
+  | setMemento(Memento) o---+       | getState() : State  |
+  | createMemento()   o |   |       | setState( State)    |
   +-------------------|-+   |       +---------------------+
   | state : State     | |   |
   +-------------------|-+   |
@@ -19,7 +19,7 @@
                       |        +-----------------------------+\
                       +--------| return new Memento(state)   +-+
                                +-------------------------------+
-                               
+
   (GoF, 1995)
 //*/
 
@@ -47,9 +47,9 @@ public:
   {}
 
   State(int i, std::string s)
-    : i_(i), str_(s) 
+    : i_(i), str_(s)
   {}
-  
+
   friend
   std::ostream& operator<<(std::ostream&, State&);
 };
@@ -62,7 +62,7 @@ std::ostream& operator<<(std::ostream& os, State &state)
 
 class Memento
 {
-private: 
+private:
   State *state_;
 
 public:
@@ -76,7 +76,7 @@ private:
   friend class Originator;
   Memento()
   {}
-  
+
   void setState(State* state)
   {
     try{
@@ -129,7 +129,7 @@ public:
     }
 
     pMemento->setState(state_);
-    
+
     return pMemento;
   }
 

@@ -1,36 +1,35 @@
 // command.cpp
 /*
-  "Encapsulate a request as an object, thereby letting you parametrize 
-  clients with different requests, queue or log requests, and support 
+  "Encapsulate a request as an object, thereby letting you parametrize
+  clients with different requests, queue or log requests, and support
   undo-able operations."
 
   +---------------------+                      +---------------------+
   | Invoker             |<>--------------------| Command             |
   +=====================+                      +=====================+
-  | pCommand_: *Command |                      | execute()           |   
+  | pCommand_: *Command |                      | execute()           |
   +---------------------+                      +---------------------+
   |                     |                      |                     |
   +---------------------+                      +---------------------+
-                                                        /_\ 
+                                                        /_\
                                                          |
                                                          |
                                                          |
   +---------------------+                      +---------------------+
   | Receiver            |<---------------------| Concrete Command    |
   +=====================+                      +=====================+
-  | action()            |                      | pReceiver_          |      
+  | action()            |                      | pReceiver_          |
   +---------------------+      +--------+      |    : Receiver       |
   |                     |<-----| Client |- - ->+---------------------+      +--------------------+\
-  +---------------------+      +--------+      | execute()      - - - - - - | receiver->action() +-+ 
+  +---------------------+      +--------+      | execute()      - - - - - - | receiver->action() +-+
                                                +---------------------+      +----------------------+
-                                               
 
 
 
   (GoF, Design Patterns)
 
 
-  "The design that describes encapsulated requests, and that generalized 
+  "The design that describes encapsulated requests, and that generalized
   functors follow, is Command."
 
   "The command pattern thus ensures an important separation between the invoker
@@ -40,15 +39,17 @@
   (Alexandrescu, 2001)
 
 
-  The following example implements operations on an array, in the example case: 
-  sorting 
-  The dualism of Receiver and ConcreteCommand 
-  can be implemented like a brigde, hence another action() in another Receiver 
-  could implement a complete different sort algorithm or even mixing. Operations
-  on other structures, say, searching on binary trees for instance, could be 
-  implemented using another ConcreteCommand.
+  The following example implements operations on an array, in the example case:
 
-  The client builds up one 'set' and passes it to the invoker. The invoker calls 
+  sorting
+
+  The dualism of Receiver and ConcreteCommand can be implemented like a brigde,
+  hence another action() in another Receiver could implement a complete
+  different sort algorithm or even mixing. Operations on other structures, say,
+  searching on binary trees for instance, could be implemented using another
+  ConcreteCommand.
+
+  The client builds up one 'set' and passes it to the invoker. The invoker calls
   the functor command and activates execution. The ConcreteCommand instance shall
   be queued in the invoker. The re-do of the data happens in the receiver().
 //*/
@@ -72,7 +73,7 @@ private:
   const  unsigned int size_;
 
   /*
-    this is just some operation to be performed on the data.. 
+    this is just some operation to be performed on the data..
     can be anything, here it's a sort
   //*/
   void doSort()
@@ -80,8 +81,8 @@ private:
     std::cout << "\tReceiver::doSort()\n";
     if(size_ < 2) return;
     int tmp=0;
-    unsigned idx=size_-2;    
-    bool swapped = true; 
+    unsigned idx=size_-2;
+    bool swapped = true;
 
     do{
       if(idx == size_-2){
@@ -89,15 +90,15 @@ private:
         idx=0;
         swapped = false;
       }else ++idx;
-      
+
       if(arr_[idx] > arr_[idx+1]){
         tmp = arr_[idx];
         arr_[idx] = arr_[idx+1];
         arr_[idx+1] = tmp;
-        
+
         swapped = true;
       }
-      
+
     }while(true);
   }
 
@@ -163,7 +164,7 @@ public:
 
 /*
   ConcreteCommand
-  
+
   - defines a binding between a Receiver object and an action
   - implements execute() by invoking the corresponding operation(s) on Receiver
 //*/
@@ -226,7 +227,7 @@ public:
 
 /*
   Client
-  
+
   creates a ConcreteCommand object and sets its receiver
 //*/
 class Client
@@ -241,14 +242,14 @@ public:
   {
     std::cout << "\tClient::Client() - ctor\n";
   }
-  
+
   ~Client()
   {
     std::cout << "\tClient::~Client() - dtor\n";
     if(NULL != pReceiver_){
       delete pReceiver_;
       pReceiver_ = NULL;
-    }    
+    }
 
     if(NULL != pCommand_){
       delete pCommand_;
@@ -289,7 +290,7 @@ void show(unsigned int* arr, unsigned int size)
   }
   std::cout << std::endl;
 }
-       
+
 
 /*
   main..
@@ -324,7 +325,7 @@ int main()
 
 
   cout << "undo the last command\n";
-  arrayInvoker.undo(); 
+  arrayInvoker.undo();
   show( arr, size);
   cout << endl;
 

@@ -25,9 +25,13 @@ struct lambda1
 
 int main()
 {
+  // not sure, if this refers to the specified proposal for C++14
   auto lambda = lambda1();
-
   cout << lambda(7, 3) << endl;
+
+  // lambda
+  auto product = [](auto a,auto b){return a * b;};
+  cout << product(7, 3) << endl;
   return 0;
 }
 

@@ -24,7 +24,7 @@ auto square(T n)
 
 int main()
 {
-  /*
+  //*
   // spec example
   int x = 4; cout << "x was " << x << endl;
   cout << "the lambda expression updates ::x to 6, and initializes y to 7." << endl;

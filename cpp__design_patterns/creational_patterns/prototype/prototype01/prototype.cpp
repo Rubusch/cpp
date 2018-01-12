@@ -1,7 +1,7 @@
 // prototype.cpp
 /*
-  Specify the kinds of objects to create using a prototypical instance, 
-  and create new objects by copying this prototype.  
+  Specify the kinds of objects to create using a prototypical instance,
+  and create new objects by copying this prototype.
 
 
   +--------+        +---------------------+
@@ -50,14 +50,14 @@ public:
   {
     std::cout << "\tPrototype::Prototype() - ctor\n";
   }
-  
+
   Prototype( Prototype const& pt)
   {
     std::cout << "\tPrototype::Prototype(Prototype const&) - cpy ctor\n";
     data_ = pt.data_;
   }
 
-  virtual Prototype* clone() const = 0; 
+  virtual Prototype* clone() const = 0;
   virtual void show() = 0;
 
   void setData(const std::string data)
@@ -88,7 +88,7 @@ public:
   ConcretePrototype1( ConcretePrototype1 const& cpt)
     : Prototype( cpt)
   {
-    std::cout << "\tConcretePrototype1::ConcretePrototype1(ConcretePrototype1 const&) - cpy ctor\n"; 
+    std::cout << "\tConcretePrototype1::ConcretePrototype1(ConcretePrototype1 const&) - cpy ctor\n";
     if(this == &cpt) return;
     str_ = cpt.str_;
   }
@@ -119,7 +119,7 @@ class ConcretePrototype2
 {
 private:
   int cnt_;
-  
+
 public:
   ConcretePrototype2()
     : cnt_(22)
@@ -206,7 +206,7 @@ int main()
   cout << "init...\n";
   const int FIRST_FORM = 1;
   const int SECOND_FORM = 2;
-  Client cl;  
+  Client cl;
   ConcretePrototype1 *pUsage1 = NULL;
   ConcretePrototype2 *pUsage2 = NULL;
   cout << endl;
@@ -225,13 +225,11 @@ int main()
   pUsage2->show();
   cout << endl;
 
-
   // free
   cout << "free...\n";
   delete pUsage1; pUsage1 = NULL;
   delete pUsage2; pUsage2 = NULL;
   cout << endl;
-  
 
   cout << "READY.\n";
   return 0;

@@ -3,25 +3,25 @@
   Techniques: Partial Template Specialization
 
   "Partial template specialization allows ou tu spezialize a class template for susets of that
-  template's possible instantiations set. 
+  template's possible instantiations set.
 
   Unfortunately, partial template spezialization does not apply to functions - be they
-  member or nonmember - which somewhat reduces the flexibility and the granularity of 
+  member or nonmember - which somewhat reduces the flexibility and the granularity of
   what you can do.
 
   - Although you can totally specialize member functions of a class template, you cannot
   partially speciallize member functions.
 
   - you cannot partially specialize namespace-level (nonmember) template functions. The
-  closest thing to partial specialization for namespace-level template functions is 
+  closest thing to partial specialization for namespace-level template functions is
   overloading. For practical purposes, this means that you have fine-grained specialization
-  abilities only for the function parameters - not for the return value or for internally 
+  abilities only for the function parameters - not for the return value or for internally
   used types."
 
-  Taken from "Modern C++ Design", Alexandrescu  
+  Taken from "Modern C++ Design", Alexandrescu
 
   The example:
-                                            
+
                                               +--------------------+
                                               | Array<T, int SIZE> |
                                               | template class     |
@@ -36,9 +36,9 @@
   client <                             +----->| Array<char, SIZE>  |
            \                           |      +--------------------+
              \ printAnyCharArray()-----+
-                            partial 
+                            partial
                             specialized template
-                            function for general 
+                            function for general
                             access
 
 //*/
@@ -123,7 +123,7 @@ void printChar10(Array< char, 10 >& arr_obj)
 /*
   partial specialized template function
 
-  to access in a common way, but ONLY handle char arrays, a "partial specialized template 
+  to access in a common way, but ONLY handle char arrays, a "partial specialized template
   function" helps.
 //*/
 template< int size >
@@ -149,7 +149,7 @@ int main()
   // indirect call with a specified facade function
   cout << "using the specialized function to print out the contents of the two objects\n";
   printChar10(c10Arr);
-  
+
 #ifdef Problem
   /*
     This function call results in an compile time error because the size would not fit!
