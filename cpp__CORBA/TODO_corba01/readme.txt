@@ -12,9 +12,9 @@ TODO
     $> mv ./idl/time.hh ./client/
     $> mv ./idl/timeC.cc ./client/
     $> mv ./idl/timeS.hh ./server/
-    $> mv ./idl/timeS.cc ./server/    
-    
-3. compile server 
+    $> mv ./idl/timeS.cc ./server/
+
+3. compile server
     $> make
 
 4. compile client

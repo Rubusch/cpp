@@ -1,15 +1,15 @@
 // mixin.cpp
 /*
-  "a mixin is a class that provides a certain functionality to be inherited 
-  by a subclass, but is not meant to stand alone. Inheriting from a mixin is 
-  not a form of specialization but is rather a means to collect functionality. 
-  A class may inherit most or all of its functionality by inheriting from 
+  "a mixin is a class that provides a certain functionality to be inherited
+  by a subclass, but is not meant to stand alone. Inheriting from a mixin is
+  not a form of specialization but is rather a means to collect functionality.
+  A class may inherit most or all of its functionality by inheriting from
   one or more mixins through multiple inheritance."
 
   (http://en.wikipedia.org/wiki/Mixin)
 
-  
-  Examples of mixin classes are Policies or Type Traits. 
+
+  Examples of mixin classes are Policies or Type Traits.
 //*/
 
 
@@ -57,7 +57,7 @@ public:
 int main()
 {
   using namespace std;
-  
+
   cout << "init types..\n";
   typedef StarShip<>
     CheapSpaceShip_t;

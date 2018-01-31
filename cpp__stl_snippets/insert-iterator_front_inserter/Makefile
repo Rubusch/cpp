@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = frontinserter.cpp
@@ -19,7 +19,7 @@ frontinserter.exe: ${OBJECTS}
 
 all: frontinserter.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) frontinserter.exe *~ core
 
 

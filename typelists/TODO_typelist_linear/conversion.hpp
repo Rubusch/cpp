@@ -1,7 +1,7 @@
 // conversion.hpp
 /*
   Taken from the loki, formerly "TypeManip.h"
-  
+
   The typemapper's are missing.
 //*/
 
@@ -37,7 +37,7 @@ struct Select< false, T, U >
 {
   typedef U Result;
 };
-  
+
 
 /*
   conversion
@@ -70,7 +70,7 @@ struct Conversion
 
   // macro for Metrowerks CodeWarrior tool on windows
 #ifndef __MWERKS__
-  enum { exists = sizeof(typename H::Small) == sizeof(H::Test(H::MakeT())) }; 
+  enum { exists = sizeof(typename H::Small) == sizeof(H::Test(H::MakeT())) };
 #else
   enum { exists = false; };
 #endif
@@ -99,7 +99,7 @@ struct Conversion< T, void >
 
 // XXX check "class"
 template<>
-class Conversion< void, void > 
+class Conversion< void, void >
 {
   enum { exists = 1, exists2Way = 1, sameType = 1 };
 };
@@ -107,7 +107,7 @@ class Conversion< void, void >
 // macro definition - avoid macros!
 #define SUPERSUBCLASS(T,U) \
 ( Conversion< const U*, const T* >::exists && \
-!Conversion< const T*, const void* >::sameType ) 
+!Conversion< const T*, const void* >::sameType )
 
 #endif
 

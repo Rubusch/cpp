@@ -11,11 +11,11 @@ int zugRechner(int);
 int main()
 {
     int anzahlDerMuenzen;
-    
+
     // Eingabe der Anfangs-Muenzenanzahl
     cout << "Mit wievielen Muenzen fangen wir an? ";
     cin >> anzahlDerMuenzen;
-    
+
     // Endlosschleife
     while(true){
         anzahlDerMuenzen = anzahlDerMuenzen - zugRechner(anzahlDerMuenzen);
@@ -38,11 +38,11 @@ int main()
 int zugMensch(int anzahlDerMuenzen)
 {
     int ergebnis;
-    
+
     cout << "Jetzt liegen " << anzahlDerMuenzen << " Muenzen auf dem Tisch." << endl;
     cout << "Wieviele moechten Sie nehmen? ";
     cin >> ergebnis;
-    
+
     return ergebnis;
 };
 

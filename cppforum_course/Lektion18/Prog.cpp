@@ -12,7 +12,7 @@ bool datumIstGueltig(int, int, int);
 int main()
 {
     int tag, monat, jahr;
-    
+
     cout << "Das Programm kontrolliert ob ein eingegebenes Datum gueltig ist." << endl;
     cout << "Der wievielte Tag des Monats? ";
     cin >> tag;
@@ -20,12 +20,12 @@ int main()
     cin >> monat;
     cout << "Welches Jahr? ";
     cin >> jahr;
-    
+
     if(datumIstGueltig(tag, monat, jahr))
         cout << "Das Datum ist gueltig." << endl;
     else
         cout << "Ungueltiges Datum!!!" << endl;
-    
+
     return 0;
 };
 
@@ -40,16 +40,16 @@ bool datumIstGueltig(int tag, int monat, int jahr)
     // Jahr ist ein Schaltjahr?
     if( jahr < 0) return false;
     if( ((jahr%4 == 0) && (jahr%100 != 0)) || (jahr%400 == 0)) schaltjahr = true;
-    
+
     // Tag gueltig?
     if( tag < 0) return false;
-    
-    if( (monat == 4) || (monat == 6) || (monat == 9) || (monat == 11)){    
+
+    if( (monat == 4) || (monat == 6) || (monat == 9) || (monat == 11)){
         if(tag > 30) return false;
 
     }else if( monat == 2){
         if( schaltjahr){
-            if( tag > 29) 
+            if( tag > 29)
                 return false;
         }else{
             if( tag > 28)

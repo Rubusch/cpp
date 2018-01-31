@@ -31,7 +31,7 @@ private:
         *pb = tmp;
     };
 
-    
+
 public:
     SortedArray()
         :m_data(10)
@@ -57,12 +57,12 @@ public:
             ++m_size;
             m_data[m_size-1] = toInsert;
 
-            if(m_size > 1){  
+            if(m_size > 1){
                 for(int j=(m_size-1); j > 0; --j){
                     if(m_comp.lessThan(m_data[j], m_data[j-1]))
                         swap(&m_data[j-1], &m_data[j]);
                     else
-                        break;    
+                        break;
                 };
             };
         };
@@ -93,13 +93,13 @@ public:
     {
         int lower = 0;
         for(int i=m_size-1; (i>0)&&(lower + i < m_size); i/=2)
-            if( m_comp.lessThan(m_data[lower + i], toFind) 
+            if( m_comp.lessThan(m_data[lower + i], toFind)
                 || m_comp.isEqual(m_data[lower + i], toFind) )
                 lower += i;
 
         if(m_comp.isEqual(m_data[lower], toFind))
             return lower;
-        
+
         return -1;
     };
 
@@ -114,7 +114,7 @@ public:
     {
         assert(index < m_size);
         return m_data[index];
-    };        
+    };
 };
 
 #endif

@@ -34,7 +34,7 @@ private:
         *pb = tmp;
     };
 
-    
+
 public:
     SortedArray()
         :m_data(10)
@@ -54,12 +54,12 @@ public:
             ++m_size;
             m_data[m_size-1] = toInsert;
 
-            if(m_size > 1){  
+            if(m_size > 1){
                 for(int j=(m_size-1); j > 0; --j){
                     if(m_data[j-1] > m_data[j])
                         swap(&m_data[j-1], &m_data[j]);
                     else
-                        break;    
+                        break;
                 };
             };
         };
@@ -95,7 +95,7 @@ public:
 
         if(m_data[lower] == toFind)
             return lower;
-        
+
         return -1;
     };
 
@@ -113,7 +113,7 @@ public:
                 mitte = int(mitte - (mitte - unten)/2);
             };
         }while(oben-unten > 1);
-        
+
         if(m_data[oben] == toFind)
             return oben;
         else if(m_data[unten] == toFind)
@@ -133,7 +133,7 @@ public:
     {
         assert(index < m_size);
         return m_data[index];
-    };        
+    };
 };
 
 #endif

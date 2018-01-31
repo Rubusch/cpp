@@ -10,7 +10,7 @@ float berechneKegelvolumen(float r, float h)
     const float PI=3.14f;
     float g=PI*r*h;
     float v=(g*h)/3;
-       
+
     return v;
 };
 
@@ -23,7 +23,7 @@ int main()
     cout << "Bitte geben Sie die Hoehe ein: ";
     cin >> hoehe;
     cout << "Das Volumen betraegt: " << berechneKegelvolumen(radius, hoehe) << endl;
-    
+
     return 0;
 };
 

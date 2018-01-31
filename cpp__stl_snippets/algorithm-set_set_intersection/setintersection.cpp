@@ -28,7 +28,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 2, 4, 6, 8 };
   int arr_b[] = { 3, 6, 9 };
@@ -40,7 +40,7 @@ int main()
   cout << endl << endl;
 
   cout << "set_intersection()\n";
-  vector< int >::iterator iter = set_intersection(arr_a, arr_a+4, arr_b, arr_b+3, vec.begin());  
+  vector< int >::iterator iter = set_intersection(arr_a, arr_a+4, arr_b, arr_b+3, vec.begin());
   cout << "vec: \t";
   copy(vec.begin(), iter, ostream_iterator< int >(cout, " "));
   cout << endl << endl;

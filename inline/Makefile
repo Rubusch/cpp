@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = inline.cpp
@@ -19,7 +19,7 @@ inline.exe: ${OBJECTS}
 
 all: inline.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) inline.exe *~ core
 
 

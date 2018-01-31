@@ -31,7 +31,7 @@ std::string upper(std::string str)
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   string str("Jack and Jill went up the hill.");
   cout << str << endl << endl;

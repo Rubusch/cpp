@@ -4,7 +4,7 @@
 
   output:
   6 2 3 5 1 6 2 3 5 1 0 0 0
-  
+
   (Kuhlins & Schader, 2003)
 //*/
 
@@ -21,7 +21,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   const int arr[] = { 1, 5, 3, 2, 6 };
   deque< int > deq(3U, 0);
@@ -38,7 +38,7 @@ int main()
   cout << "output:\n";
   copy(deq.begin(), deq.end(), ostream_iterator<int>(cout, " "));
   cout << endl << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

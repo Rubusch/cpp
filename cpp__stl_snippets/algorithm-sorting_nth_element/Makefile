@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = nthelement.cpp
@@ -19,7 +19,7 @@ nthelement.exe: ${OBJECTS}
 
 all: nthelement.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) nthelement.exe *~ core
 
 

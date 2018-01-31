@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  doubledispatch.cpp
@@ -19,7 +19,7 @@ doubledispatch.exe: ${OBJECTS}
 
 all: doubledispatch.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) doubledispatch.exe *~ core
 
 

@@ -20,7 +20,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr[] = { 490, 520, 480, 515 };
   int arr_diff[4]; fill(arr_diff, arr_diff+4, 0);

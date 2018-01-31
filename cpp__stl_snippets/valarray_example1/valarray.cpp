@@ -13,7 +13,7 @@
 
 
 /*
-  operator << 
+  operator <<
 //*/
 template< class T >
 std::ostream& operator<<(std::ostream& os, const std::valarray< T >& va)
@@ -31,7 +31,7 @@ std::ostream& operator<<(std::ostream& os, const std::valarray< T >& va)
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   const int arr[] = { 1, 3, 5, 7, 9 };
   valarray< int > va_x(arr, 5), va_y(arr, 5);
@@ -57,7 +57,7 @@ int main()
   cout << endl;
 
   cout << "sum()\n";
-  for( int idx = 0; idx < 5; ++idx) cout << ((idx == 0) ? "" : " + ") << va_z[idx];  
+  for( int idx = 0; idx < 5; ++idx) cout << ((idx == 0) ? "" : " + ") << va_z[idx];
   cout << " = " << va_z.sum() << endl;
   cout << endl;
 

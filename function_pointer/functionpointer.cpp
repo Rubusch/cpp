@@ -5,7 +5,7 @@
   (idea taken from Alexandrescu, 2001)
 
 
-  The usages of an index into a vector and dereferencing a function pointer is most times 
+  The usages of an index into a vector and dereferencing a function pointer is most times
   more efficient than processing lots of if-then-else statements.
 
   (More Effective C++ / 31 / Meyers)
@@ -64,5 +64,5 @@ int main()
 
 
   cout << "READY.\n";
-  return 0;  
+  return 0;
 }

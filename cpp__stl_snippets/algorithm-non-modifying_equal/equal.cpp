@@ -27,13 +27,13 @@ int main()
   cout << endl;
 
   cout << "the first " << number << " elements of arr_a and arr_b are "
-       << ((equal(arr_a, arr_a+number, arr_b)) ? "equal" : "not equal") 
+       << ((equal(arr_a, arr_a+number, arr_b)) ? "equal" : "not equal")
        << ".\n";
   cout << endl;
 
-  cout << "are the first " << number 
+  cout << "are the first " << number
        << " elements of arr_a not smaller than the first elements of arr_b?\n"
-       << ((equal(arr_a, arr_a+number, arr_b, greater_equal< int >())) ? "Yes" : "No") 
+       << ((equal(arr_a, arr_a+number, arr_b, greater_equal< int >())) ? "Yes" : "No")
        << ".\n";
   cout << endl;
 

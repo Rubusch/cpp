@@ -40,9 +40,9 @@ T Base<T>::getTemp()
 template<class T>
 class Derived : public Base<T>
 {
-private: 
+private:
   T newTemp;
-  
+
 public:
   Derived(T initNewTemp, T initTemp);
   T getNewTemp();
@@ -69,11 +69,11 @@ T Derived<T>::getNewTemp()
 int main()
 {
   int baseVar = 1, derivedBaseVar = 2, derivedVar = 22;
-  
+
 
   Base<int> base(baseVar);
   std::cout << "base:\nvariable (base) = " << base.getTemp() << std::endl;
-  
+
   Derived<int> derived(derivedBaseVar, derivedVar);
   std::cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << std::endl;
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = vectorusage.cpp
@@ -19,7 +19,7 @@ vectorusage.exe: ${OBJECTS}
 
 all: vectorusage.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) vectorusage.exe *~ core
 
 

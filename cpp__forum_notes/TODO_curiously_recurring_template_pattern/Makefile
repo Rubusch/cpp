@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  crtp.cpp
@@ -19,7 +19,7 @@ crtp.exe: ${OBJECTS}
 
 all: crtp.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) crtp.exe *~ core
 
 

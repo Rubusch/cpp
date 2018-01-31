@@ -1,6 +1,6 @@
 // server.cpp
 /*
-  IMPORTANT NOTE: 
+  IMPORTANT NOTE:
   you must set a global variable, to be able to use the ORB, e.g. in the /etc/profile
 
   export OMNIORB_CONFIG=/etc/omniORB.cfg
@@ -18,10 +18,10 @@
 //* cpp headers - TODO check
 #include <iostream>
 #include <string>
-using namespace std; 
+using namespace std;
 //*/
 
-// costumized headers 
+// costumized headers
 #include "CServiceA.h"
 #include "Data.hh"
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     // 2. get reference to root POA, in order to be available for the client
     CORBA::Object_var obj = orb->resolve_initial_references("RootPOA");
     PortableServer::POA_var _poa = PortableServer::POA::_narrow(obj.in());
- 
+
     // 3. bind to name service
     // Invoke operations defined in object interface, via object reference
     // Instance of CRequestSocketStream_i servant is initialized

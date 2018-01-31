@@ -2,7 +2,7 @@
 /*
   Nutzung von Default Template Argumenten und Nutzung von Templates in Templatedeklarationen.
 
-  Template in Template immer ein Whitespace zwischen den '>' machen, sonst isses >> 
+  Template in Template immer ein Whitespace zwischen den '>' machen, sonst isses >>
 //*/
 
 #include <iostream>
@@ -28,9 +28,9 @@ int main()
                 s.insert(tuer);
         };
     };
-    
+
     for(int i=0; i<s.getSize(); ++i)
         cout << s[i] << endl;
-    
+
     return 0;
 };

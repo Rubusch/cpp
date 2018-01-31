@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = searchn.cpp
@@ -19,7 +19,7 @@ searchn.exe: ${OBJECTS}
 
 all: searchn.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) searchn.exe *~ core
 
 

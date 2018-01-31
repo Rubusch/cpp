@@ -15,7 +15,7 @@ As strict reading of the current C and C++ standards may lead one to conclude th
 
 Solution
 
-  We propose to replace existing mechanistic wording with wording more precisely focused on essential requirements. The intent is to enable behavior that some existing compilers and memory allocators already have. For example, see TCMalloc [TCM]. 
+  We propose to replace existing mechanistic wording with wording more precisely focused on essential requirements. The intent is to enable behavior that some existing compilers and memory allocators already have. For example, see TCMalloc [TCM].
 
 
 This paper aims at rephrasing the Memory Allocation part in the C++ Standard to a more detailed version. It proposes to replace existing mechanistic wording with wording more precisely focused on essential requirements.

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = unique.cpp
@@ -19,7 +19,7 @@ unique.exe: ${OBJECTS}
 
 all: unique.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) unique.exe *~ core
 
 

@@ -9,7 +9,7 @@
        |     +---------------------+        +---------------------+
        |     | getFlyweight(key)   |        | operation(          |
        |     +---------------------+        |    intrinsic state) |
-       |                                    +---------------------+ 
+       |                                    +---------------------+
        |                                              /_\
        |                                               |
        |                                +--------------+--------------+
@@ -28,7 +28,7 @@
   +--------+              |                             |
   | client |--------------+-----------------------------+
   +--------+
-   
+
   (GoF, 1995)
 //*/
 
@@ -39,7 +39,7 @@
 /*
   Flyweight
 
-  - declares an interface through which flyweights can receive and act on 
+  - declares an interface through which flyweights can receive and act on
   extrinsic state
 //*/
 class Flyweight
@@ -51,10 +51,10 @@ public:
 
 /*
   Shared Concrete Flyweight
-  
-  - implements the Flyweight interface and adds storage for intrinsic state, 
-  if any. A ConcreteFlyweight object must be sharable. Any state it stores 
-  must be intrinsic; that is, it must be independent of the ConcreteFlyweight 
+
+  - implements the Flyweight interface and adds storage for intrinsic state,
+  if any. A ConcreteFlyweight object must be sharable. Any state it stores
+  must be intrinsic; that is, it must be independent of the ConcreteFlyweight
   object's context.
 //*/
 class SharedConcreteFlyweight
@@ -62,7 +62,7 @@ class SharedConcreteFlyweight
 {
 private:
   std::string *pStr_;
-  
+
 public:
   SharedConcreteFlyweight(std::string &str)
     : pStr_(&str)
@@ -81,9 +81,9 @@ public:
 /*
   Unshared Concrete Flyweight
 
-  - not all Flyweight subclass need to be shared. The Flyweight interface enables 
-  sharing; it doesn't enforce it. It's common for UnsharedConcreteFlyweight objects 
-  to have CocnreteFlyweight objects as children at some level in the flyweight 
+  - not all Flyweight subclass need to be shared. The Flyweight interface enables
+  sharing; it doesn't enforce it. It's common for UnsharedConcreteFlyweight objects
+  to have CocnreteFlyweight objects as children at some level in the flyweight
   object structure (as the Row and Column classes have).
 //*/
 class UnsharedConcreteFlyweight
@@ -103,16 +103,16 @@ public:
   void operation()
   {
     std::cout << "\tUnsharedConcreteFlyweight::operation()\n";
-    std::cout << "operation - str_ = " << str_ << ", " << "num_ = " << num_ << "\n";    
+    std::cout << "operation - str_ = " << str_ << ", " << "num_ = " << num_ << "\n";
   }
 };
 
 
 /*
   Flyweight Factory
-  
+
   - creates and manages flyweight objects
-  - ensures that flyweights are shared properly. When a client requests a flyweight, 
+  - ensures that flyweights are shared properly. When a client requests a flyweight,
   the FlyweightFactory object supplies an existing instance or creates one, if none
   exists.
 //*/
@@ -121,7 +121,7 @@ class FlyweightFactory
 private:
   std::string str_;
   unsigned int num_;
-  
+
   Flyweight* pFlyweight;
 
 public:
@@ -152,12 +152,12 @@ public:
   client - main..
 
   - maintains a reference to flyweight(s).
-  - computes or stores the extrinsic state of flyweight(s)  
+  - computes or stores the extrinsic state of flyweight(s)
 //*/
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   FlyweightFactory factory;
   cout << endl;
@@ -173,7 +173,7 @@ int main()
   Flyweight *pFly_2 = &(factory.getUnsharedFlyweight());
   pFly_2->operation();
   cout << endl;
-  
+
 
   std::cout << "READY.\n";
   return 0;

@@ -32,4 +32,4 @@ Error: non-literal type ‘Classname’ in ‘constexpr’ function
 make every funktion in the class "Classname" prefixed with the word "constexpr",
 in some cases this won't compile, e.g. when complex types such as "string" are
 used inside functions, then the class cannot be made "non-literal" easily
-   
+

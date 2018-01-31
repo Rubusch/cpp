@@ -16,7 +16,7 @@ CXXFLAGS      = -pipe -O2 -arch x86_64 -Xarch_x86_64 -mmacosx-version-min=10.8 -
 INCPATH       = -I../../local/share/qt4/mkspecs/macx-g++ -I. -I. -I../../local/Library/Frameworks/QtCore.framework/Versions/4/Headers -I../../local/Library/Frameworks/QtGui.framework/Versions/4/Headers -I. -I../../local/Library/Frameworks/QtGui.framework/Versions/4/Headers -I../../local/Library/Frameworks/QtCore.framework/Versions/4/Headers -I../../local/include -F/opt/local/Library/Frameworks -F/opt/local/lib
 LINK          = /usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -arch x86_64 -Xarch_x86_64 -mmacosx-version-min=10.8
-LIBS          = $(SUBLIBS) -F/opt/local/Library/Frameworks -F/opt/local/lib  -L/opt/local/lib -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_video -F/opt/local/Library/Frameworks -F/opt/local/lib -framework QtGui -framework QtCore 
+LIBS          = $(SUBLIBS) -F/opt/local/Library/Frameworks -F/opt/local/lib  -L/opt/local/lib -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_video -F/opt/local/Library/Frameworks -F/opt/local/lib -framework QtGui -framework QtCore
 AR            = ar cq
 RANLIB        = ranlib -s
 QMAKE         = /opt/local/bin/qmake
@@ -26,7 +26,7 @@ COPY          = cp -f
 SED           = sed
 COPY_FILE     = cp -f
 COPY_DIR      = cp -f -R
-STRIP         = 
+STRIP         =
 INSTALL_FILE  = $(COPY_FILE)
 INSTALL_DIR   = $(COPY_DIR)
 INSTALL_PROGRAM = $(COPY_FILE)
@@ -44,7 +44,7 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp 
+SOURCES       = main.cpp
 OBJECTS       = main.o
 DIST          = ../../local/share/qt4/mkspecs/common/unix.conf \
 		../../local/share/qt4/mkspecs/common/mac.conf \
@@ -79,7 +79,7 @@ DIST          = ../../local/share/qt4/mkspecs/common/unix.conf \
 		../../local/share/qt4/mkspecs/features/include_source_dir.prf \
 		opencv__tracking01.pro
 QMAKE_TARGET  = opencv__tracking01
-DESTDIR       = 
+DESTDIR       =
 TARGET        = opencv__tracking01.app/Contents/MacOS/opencv__tracking01
 
 ####### Custom Compiler Variables
@@ -125,8 +125,8 @@ first: all
 
 all: Makefile opencv__tracking01.app/Contents/PkgInfo opencv__tracking01.app/Contents/Resources/empty.lproj opencv__tracking01.app/Contents/Info.plist $(TARGET)
 
-$(TARGET):  $(OBJECTS)  
-	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents/MacOS/ || $(MKDIR) opencv__tracking01.app/Contents/MacOS/ 
+$(TARGET):  $(OBJECTS)
+	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents/MacOS/ || $(MKDIR) opencv__tracking01.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: opencv__tracking01.pro  ../../local/share/qt4/mkspecs/macx-g++/qmake.conf ../../local/share/qt4/mkspecs/common/unix.conf \
@@ -199,24 +199,24 @@ Makefile: opencv__tracking01.pro  ../../local/share/qt4/mkspecs/macx-g++/qmake.c
 qmake:  FORCE
 	@$(QMAKE) cv=2 -o Makefile opencv__tracking01.pro
 
-opencv__tracking01.app/Contents/PkgInfo: 
-	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents || $(MKDIR) opencv__tracking01.app/Contents 
+opencv__tracking01.app/Contents/PkgInfo:
+	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents || $(MKDIR) opencv__tracking01.app/Contents
 	@$(DEL_FILE) opencv__tracking01.app/Contents/PkgInfo
 	@echo "APPL????" >opencv__tracking01.app/Contents/PkgInfo
-opencv__tracking01.app/Contents/Resources/empty.lproj: 
-	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents/Resources || $(MKDIR) opencv__tracking01.app/Contents/Resources 
+opencv__tracking01.app/Contents/Resources/empty.lproj:
+	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents/Resources || $(MKDIR) opencv__tracking01.app/Contents/Resources
 	@touch opencv__tracking01.app/Contents/Resources/empty.lproj
-	
-opencv__tracking01.app/Contents/Info.plist: 
-	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents || $(MKDIR) opencv__tracking01.app/Contents 
+
+opencv__tracking01.app/Contents/Info.plist:
+	@$(CHK_DIR_EXISTS) opencv__tracking01.app/Contents || $(MKDIR) opencv__tracking01.app/Contents
 	@$(DEL_FILE) opencv__tracking01.app/Contents/Info.plist
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@EXECUTABLE@,opencv__tracking01,g" -e "s,@TYPEINFO@,????,g" ../../local/share/qt4/mkspecs/macx-g++/Info.plist.app >opencv__tracking01.app/Contents/Info.plist
-dist: 
-	@$(CHK_DIR_EXISTS) .tmp/opencv__tracking011.0.0 || $(MKDIR) .tmp/opencv__tracking011.0.0 
+dist:
+	@$(CHK_DIR_EXISTS) .tmp/opencv__tracking011.0.0 || $(MKDIR) .tmp/opencv__tracking011.0.0
 	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/opencv__tracking011.0.0/ && $(COPY_FILE) --parents main.cpp .tmp/opencv__tracking011.0.0/ && (cd `dirname .tmp/opencv__tracking011.0.0` && $(TAR) opencv__tracking011.0.0.tar opencv__tracking011.0.0 && $(COMPRESS) opencv__tracking011.0.0.tar) && $(MOVE) `dirname .tmp/opencv__tracking011.0.0`/opencv__tracking011.0.0.tar.gz . && $(DEL_FILE) -r .tmp/opencv__tracking011.0.0
 
 
-clean:compiler_clean 
+clean:compiler_clean
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
@@ -257,11 +257,11 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: 
+compiler_clean:
 
 ####### Compile
 
-main.o: main.cpp 
+main.o: main.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 ####### Install

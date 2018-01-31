@@ -1,6 +1,6 @@
 struct
 
-Verwendung bspw als Datensammlung. Sie sind von Haus aus public. 
+Verwendung bspw als Datensammlung. Sie sind von Haus aus public.
 Man kann Konstruktoren wie folgt formulieren.
 
 

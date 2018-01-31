@@ -1,6 +1,6 @@
 // explicitconstructor.cpp
 /*
-  Constructors can be declared explicit, and if they are, compilers are prohibited from invoking 
+  Constructors can be declared explicit, and if they are, compilers are prohibited from invoking
   them for purposes of implicit type conversion. Explicit conversions are still legal, however.
 
   further demonstrates a simple checked input conversion from string to int
@@ -23,7 +23,7 @@ public:
   explicit ContainerType(int val);
 
   // function
-  int getVal() const;  
+  int getVal() const;
 };
 
 ContainerType::ContainerType(int val)
@@ -56,7 +56,7 @@ int main()
   // error, implicit type conversion
   std::cout << "1. implicit type conversion - doesn't work anymore due to \"explicit\" declaration of ctor" << std::endl;
   // this compiles without the "explicit" declaration - implicit type conversion:
-  //useContainer(123); 
+  //useContainer(123);
 
   std::cout << "FAILED - (but OK!)" << std::endl;
   std::cout << std::endl;
@@ -67,12 +67,12 @@ int main()
   useContainer(ContainerType(123));
   std::cout << std::endl;
 
-  
+
   // bad! syntax ok, but wrong logic
   /*
-    Caution: in case using a cast on a template, e.g. static_cast< Foobar<int>>( ... ) - will be 
+    Caution: in case using a cast on a template, e.g. static_cast< Foobar<int>>( ... ) - will be
     read as operator >> !!!
-  //*/ 
+  //*/
   std::cout << "3. explicit type conversion - static cast (bad, wrong logic)" << std::endl;
   useContainer( static_cast<ContainerType>(123)) ;
   std::cout << std::endl;

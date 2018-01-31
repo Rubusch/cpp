@@ -9,7 +9,7 @@
 int main(int argc, char** argv)
 {
   // establish link with CORBA server via ctor
-  CRequestServiceA requestServiceA; 
+  CRequestServiceA requestServiceA;
 
   if(requestServiceA.RequestServiceARoutineA()){
     std::cout << "client: service A routine A - TRUE" << std::endl;

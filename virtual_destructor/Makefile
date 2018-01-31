@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = virtualdestructor.cpp
@@ -19,7 +19,7 @@ virtualdestructor.exe: ${OBJECTS}
 
 all: virtualdestructor.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) virtualdestructor.exe *~ core
 
 

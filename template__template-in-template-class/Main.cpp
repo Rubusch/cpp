@@ -1,9 +1,9 @@
 // Main.cpp
 /*
   Demonstrates the use of a templatemethod in a template class.
-  
+
   Default template arguments
-  
+
   Don't ever do ">>" when "> >" is meant!
 //*/
 
@@ -39,7 +39,7 @@ public:
     {
         cout << "Someclass::ctor()" << endl;
     };
-    
+
     void output(T t, C c)
     {
         cout << "t = ";
@@ -53,7 +53,7 @@ public:
           cout << t.output() << endl;
           I'll have to overload the operator<<()
           [and to modify the output() method].
-        //*/  
+        //*/
     };
 };
 
@@ -64,9 +64,9 @@ int main()
     Someclass< Templateclass<string> > s1;
     s1.output(t, t);
     cout << endl;
-    
+
     Someclass< Templateclass<string>, Templateclass<string> > s2;
-    s2.output(t, t);    
+    s2.output(t, t);
 
     return 0;
 };

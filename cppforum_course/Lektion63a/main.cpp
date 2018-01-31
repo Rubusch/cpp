@@ -1,6 +1,6 @@
 // main.cpp
 /*
-  Bringt das Programm immer noch zum abstuerzen 
+  Bringt das Programm immer noch zum abstuerzen
   -> Zuweisungsoperator ist noch nicht ueberladen.
 //*/
 

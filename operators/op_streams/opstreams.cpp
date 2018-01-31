@@ -1,7 +1,7 @@
 // opstreams.cpp
 /*
-  If func() is operator>> or operator<<, func() has to be global. In case func() needs 
-  access to private elements of SomeClass, func() has to be declared as "friend"-Function 
+  If func() is operator>> or operator<<, func() has to be global. In case func() needs
+  access to private elements of SomeClass, func() has to be declared as "friend"-Function
   of SomeClass.
 
   - virtual functions have to be element functions
@@ -14,8 +14,8 @@
 
   interesting:
   If the operator<<() is not implemented as reference and the SomeClass<T> variable is passed by-value,
-  another second destructor call happens. The problem is, that a first call to the dtor is able to 
-  delete the pointer pData, but is not able to set it to NULL. Hence a second call tries to delete this 
+  another second destructor call happens. The problem is, that a first call to the dtor is able to
+  delete the pointer pData, but is not able to set it to NULL. Hence a second call tries to delete this
   already deleted pData pointer which is NOT NULL at that point! -> double free situation.
 
   It only reads in the first word!
@@ -31,10 +31,10 @@
 /*
   forward declaration
 //*/
-template<class T> 
+template<class T>
 class SomeClass;
 
-template<class T> 
+template<class T>
 std::ostream& operator<<(std::ostream& output, SomeClass<T>& sc);
 
 template<class T>
@@ -70,7 +70,7 @@ public:
   //*/
 
   //* operator>>
-  friend 
+  friend
   std::istream& operator>> <T>(std::istream& input, SomeClass<T>& sc);
   //*/
 };
@@ -134,11 +134,11 @@ SomeClass<T>& SomeClass<T>::operator=(const SomeClass<T>& deepcopy)
 }
 
 template<class T>
-SomeClass<T>::~SomeClass() 
+SomeClass<T>::~SomeClass()
 {
   std::cout << "dtor\n";
 
-  delete pData; pData = NULL; 
+  delete pData; pData = NULL;
 }
 
 template<class T>
@@ -161,7 +161,7 @@ T SomeClass<T>::getData() const
 //*/
 template<class T>
 std::ostream& operator<<(std::ostream& output, SomeClass<T>& sc)
-{    
+{
   return output << sc.getData();
 }
 
@@ -170,19 +170,19 @@ std::ostream& operator<<(std::ostream& output, SomeClass<T>& sc)
 //*/
 template<class T>
 std::istream& operator>>(std::istream& input, SomeClass<T>& sc)
-{  
+{
   // read the value out of sc into the istream object
   if(NULL == sc.pData){
     try{
       sc.pData = new T;
     }catch(...){
-      std::cerr << "error allocation failed!\n";     
+      std::cerr << "error allocation failed!\n";
       delete sc.pData; sc.pData = NULL;
       exit(-1);
     }
   }
- 
-  input >> *sc.pData; 
+
+  input >> *sc.pData;
 
   return input;
 }

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = localclass.cpp
@@ -19,7 +19,7 @@ localclass.exe: ${OBJECTS}
 
 all: localclass.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) localclass.exe *~ core
 
 

@@ -167,7 +167,7 @@ int main()
 
 
   cout << "set up chain of responsibility..\n";
-  ConcreteHandler2 concHandler2(NULL); 
+  ConcreteHandler2 concHandler2(NULL);
   ConcreteHandler1 concHandler1(&concHandler2);
   // remember: these are hardcoded "types of handlers"
   // there could also be several concHandlers2 instances, that build the chain

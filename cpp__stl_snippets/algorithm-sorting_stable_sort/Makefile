@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = stablesort.cpp
@@ -19,7 +19,7 @@ stablesort.exe: ${OBJECTS}
 
 all: stablesort.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) stablesort.exe *~ core
 
 

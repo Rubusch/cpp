@@ -16,7 +16,7 @@
 /*
   "typename" or "class"
 
-  "typename" and "class" can be used interchangeably in simple template type 
+  "typename" and "class" can be used interchangeably in simple template type
   declarations.
 //*/
 template< typename T >
@@ -26,7 +26,7 @@ class Foobar
 Foobar< int > fb;
 
 // ...is the same as...
-template< class T > 
+template< class T >
 class Foobar
 {};
 
@@ -37,10 +37,10 @@ Foobar< int > fb;
 /*
   type declaration using "typename"
 
-  "typname" in type declaration is not interchangeable with "class" 
+  "typname" in type declaration is not interchangeable with "class"
   Note: some earlier compilers don't support "typename"
 //*/
-template< typename T > 
+template< typename T >
 class Foobar
 {
   void foo()
@@ -51,7 +51,7 @@ class Foobar
 
       Therefore "typename" is necessary when used as type declaration.
     //*/
-    typename T::x * ptr; 
+    typename T::x * ptr;
   }
 };
 
@@ -61,7 +61,7 @@ class Foobar
 
   here "typename" is not replaceable with "class"
 //*/
-template< class T, typename T::member > 
+template< class T, typename T::member >
 class Foobar
 {};
 
@@ -74,7 +74,7 @@ class Foobar
 
   constant non-type template parameters
 //*/
-template< int > 
+template< int >
 class Foobar
 {};
 
@@ -118,7 +118,7 @@ Foobar<> fb;
 
 /*
   policy
-  
+
   Compile-time realizatoin of the strategy pattern
 //*/
 template< typename PolicyClass >
@@ -193,10 +193,10 @@ public:
 // in file foobar.cpp
 #include "foobar.h"
 template< typename T >
-void Foobar< T >::Func() {} 	
+void Foobar< T >::Func() {}
 
 /*
-  While this still isn't possible yet, templates are written into the .h and .hpp file, 
+  While this still isn't possible yet, templates are written into the .h and .hpp file,
   respectively. In case for these files the extensions .ipp, .inl or .tpp are used.
 
   Find more information:

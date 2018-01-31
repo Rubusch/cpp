@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = helloworld.cpp
@@ -19,7 +19,7 @@ helloworld.exe: ${OBJECTS}
 
 all: helloworld.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) helloworld.exe *~ core
 
 

@@ -1,10 +1,10 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  main.cpp smallobjectallocator.cpp fixedallocator.cpp
-HEADERS = smallobjectallocator.hpp fixedallocator.hpp smallobject.hpp 
+HEADERS = smallobjectallocator.hpp fixedallocator.hpp smallobject.hpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -20,7 +20,7 @@ main.exe: ${OBJECTS}
 
 all: main.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) main.exe *~ core
 
 

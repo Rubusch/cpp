@@ -20,12 +20,12 @@
 
 
 /*
-  function that tries to access the 5th element passing the probably thrown 
+  function that tries to access the 5th element passing the probably thrown
   out_of_range exception upward
 //*/
 inline int fifthelement(const std::vector< int >& vec) throw(std::out_of_range)
 {
-  return vec.at(5); 
+  return vec.at(5);
 }
 
 
@@ -45,7 +45,7 @@ int main()
     vec[idx] = idx + 1;
   }
   cout << endl;
-  
+
   cout << "append an additional element \'9\'\n";
   vec.push_back(9);
   cout << endl;

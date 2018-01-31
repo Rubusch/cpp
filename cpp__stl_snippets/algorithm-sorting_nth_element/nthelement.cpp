@@ -2,8 +2,8 @@
 /*
   sorting algorithm
 
-  nth-element - put one element in its sorted location and make sure that no elements 
-  to its left are greater than any elements to its right (e.g. this is also a step in 
+  nth-element - put one element in its sorted location and make sure that no elements
+  to its left are greater than any elements to its right (e.g. this is also a step in
   quicksort)
 
        +---+---+---+---+---+---+---+---+---+---+- -+
@@ -12,7 +12,7 @@
    |
    | nth_element(arr, arr+4, arr+10)
    |
-  \|/                   ___   
+  \|/                   ___
        +---+---+---+---+---+---+---+---+---+---+- -+
   arr: | 0 | 2 | 1 | 3 | 4 | 5 | 7 | 8 | 9 | 6 |   |
        +---+---+---+---+---+---+---+---+---+---+- -+

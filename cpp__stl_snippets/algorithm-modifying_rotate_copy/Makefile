@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = rotatecopy.cpp
@@ -19,7 +19,7 @@ rotatecopy.exe: ${OBJECTS}
 
 all: rotatecopy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) rotatecopy.exe *~ core
 
 

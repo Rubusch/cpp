@@ -18,7 +18,7 @@
 //*/
 void display(int* arr_a, int size_a, int* arr_b, int size_b)
 {
-  std::cout << "arr_a: \t"; 
+  std::cout << "arr_a: \t";
   copy(arr_a, arr_a + size_a, std::ostream_iterator< int >(std::cout, " "));
   std::cout << "\narr_b: \t";
   copy(arr_b, arr_b + size_b, std::ostream_iterator< int >(std::cout, " "));
@@ -32,7 +32,7 @@ void display(int* arr_a, int size_a, int* arr_b, int size_b)
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 1, 7, 3, 5, 2 };
   int arr_b[] = { 1, 7, 3, 6 };

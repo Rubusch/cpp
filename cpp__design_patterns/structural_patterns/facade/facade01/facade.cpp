@@ -1,6 +1,6 @@
 // facade.cpp
 /*
-  Provide a unified interace to a set of interfaces in a subsystem. Facade defines a 
+  Provide a unified interace to a set of interfaces in a subsystem. Facade defines a
   higher-level interface that makes the subsystem easier to use. (GoF)
 
   Demonstrates the implementation of a facade - in C++ the facade class should contain
@@ -25,7 +25,7 @@
                                  +------------->| Assistant_2   |
                                  |              +---------------+
                                  |
-                                 |              +---------------+ 
+                                 |              +---------------+
                                  +------------->| Assistant_3   |
                                                 +---------------+
 //*/
@@ -100,7 +100,7 @@ public:
 
 
 class Assistant_3
-{  
+{
 public:
   Assistant_3()
   {
@@ -121,7 +121,7 @@ public:
 
 /*
   Facade
-  
+
   - knows which subsystem classes are repsonsible for a request
   - delegates client requests to appropriate subsystem objects
 //*/
@@ -141,13 +141,13 @@ public:
     Assistant_2 assistant2;
     Assistant_3 assistant3;
     cout << endl;
-    
+
     cout << "client serves\n";
     assistant3.fill();
     assistant1.getSomething();
     assistant2.getSomethingElse();
     cout << endl;
-    
+
     cout << "client waits on orders\n";
   }
 };
@@ -160,7 +160,7 @@ class Client
 {
 private:
   Facade *facade;
-  
+
 public:
   Client() : facade(NULL)
   {
@@ -182,7 +182,7 @@ int main()
 {
   cout << "init..\n";
   Client client;
-  
+
   cout << "READY.\n";
   return 0;
 }

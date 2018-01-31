@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = heap.cpp
@@ -19,7 +19,7 @@ heap.exe: ${OBJECTS}
 
 all: heap.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) heap.exe *~ core
 
 

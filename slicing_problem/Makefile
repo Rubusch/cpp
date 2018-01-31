@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = slicingproblem.cpp
@@ -19,7 +19,7 @@ slicingproblem.exe: ${OBJECTS}
 
 all: slicingproblem.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) slicingproblem.exe *~ core
 
 

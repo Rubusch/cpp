@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = compiletimeerror.cpp
@@ -19,7 +19,7 @@ compiletimeerror.exe: ${OBJECTS}
 
 all: compiletimeerror.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) compiletimeerror.exe *~ core
 
 

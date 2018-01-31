@@ -10,7 +10,7 @@
   ctor
 //*/
 RCWidget::RCWidget(int size)
-  : value(new Widget(size)) 
+  : value(new Widget(size))
 {}
 
 
@@ -20,7 +20,7 @@ RCWidget::RCWidget(int size)
 void RCWidget::doThis()
 {
   // do COW if Widget is shared
-  if (value.getRCObject().isShared()) {         
+  if (value.getRCObject().isShared()) {
     value = new Widget(*value);
   }
   value->doThis();
@@ -31,7 +31,7 @@ void RCWidget::doThis()
 /*
   dummy: present some results
 //*/
-int RCWidget::showThat() const 
-{ 
-  return value->showThat(); 
+int RCWidget::showThat() const
+{
+  return value->showThat();
 }

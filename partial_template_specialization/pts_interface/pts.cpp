@@ -55,14 +55,14 @@ using namespace std;
 /*
   CAUTION!
 
-  Uncomment the following to see that the "full specialized template" function won't compile 
+  Uncomment the following to see that the "full specialized template" function won't compile
   with a differently by template types, instantiated object.
 //*/
 /*
 #define PROBLEM
 //*/
 
-template <typename T, int> 
+template <typename T, int>
 class Array;
 
 void printChar10(Array< char, 10 >& arr_obj);

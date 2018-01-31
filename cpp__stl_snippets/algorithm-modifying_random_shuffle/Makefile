@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = randomshuffle.cpp
@@ -19,7 +19,7 @@ randomshuffle.exe: ${OBJECTS}
 
 all: randomshuffle.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) randomshuffle.exe *~ core
 
 

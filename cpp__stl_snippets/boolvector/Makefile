@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = boolvector.cpp
@@ -19,7 +19,7 @@ boolvector.exe: ${OBJECTS}
 
 all: boolvector.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) boolvector.exe *~ core
 
 

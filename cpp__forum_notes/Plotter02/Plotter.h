@@ -42,7 +42,7 @@ class Plotter : public QWidget
     void drawPoints(QPainter*, QRect);
     void drawPoint(QPainter*, QRect, double, double);
     void clearCurve();
-    
+
 public:
     Plotter();
     ~Plotter(){};

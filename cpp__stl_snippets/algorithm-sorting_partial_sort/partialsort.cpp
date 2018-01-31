@@ -1,7 +1,7 @@
 // partialsort.cpp
 /*
   sorting algorithm
-  
+
   partial_sort - sort the first N elements of a range (heap-sort)
 
         ___ ___ ___ ___
@@ -12,7 +12,7 @@
    | partial_sort(arr, arr+7)
    |
   \|/   ___ ___ ___ ___
-       +---+---+---+---+---+---+---+- -+  
+       +---+---+---+---+---+---+---+- -+
   arr: | 0 | 1 | 2 | 3 | 6 | 5 | 4 |   |
        +---+---+---+---+---+---+---+- -+
 

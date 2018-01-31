@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = listusage.cpp
@@ -19,7 +19,7 @@ listusage.exe: ${OBJECTS}
 
 all: listusage.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) listusage.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = typecheck.cpp
@@ -19,7 +19,7 @@ typecheck.exe: ${OBJECTS}
 
 all: typecheck.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) typecheck.exe *~ core
 
 

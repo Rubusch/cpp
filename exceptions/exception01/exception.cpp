@@ -4,15 +4,15 @@
 
 
   exception specifications
-  It is possible to implement costumized exceptions, so called "exception specifications" but generally they're 
-  rather considered as problematic (by 95 / meyers) and templates and exception specifications don't fit 
+  It is possible to implement costumized exceptions, so called "exception specifications" but generally they're
+  rather considered as problematic (by 95 / meyers) and templates and exception specifications don't fit
   together!! ;-)
 
 
 
   Ctor
 
-  if a constructor uses exceptions and an exception is to be thrown, the ctor has to clean up the ALREADY 
+  if a constructor uses exceptions and an exception is to be thrown, the ctor has to clean up the ALREADY
   generated stuff. Partly constructed objects won't be destroyed by the destructor!
 
   e.g. in ctor:
@@ -35,7 +35,7 @@
 
   Dtor
 
-  Avoid exceptions in the descturctor (More Effective C++ / 11 / Meyers). The only possibility is to use 
+  Avoid exceptions in the descturctor (More Effective C++ / 11 / Meyers). The only possibility is to use
   uncaught_exceptions() in the destructor to catch the left thrown exceptions.
 
 
@@ -44,7 +44,7 @@
 
   Exceptions can be thrown and passed by value, reference and pointer. A copy of an exception uses the static
   copy constructor! A "catch(const void*)" catches every exception which was thrown as a pointer, but exceptions
-  should be thrown as reference (More Effective C++ / 13 / Meyers). References can lead to the slicing problem 
+  should be thrown as reference (More Effective C++ / 13 / Meyers). References can lead to the slicing problem
   but avoid memory problems!
 
   e.g.:
@@ -52,7 +52,7 @@
     // ...   // handle exception
     throw;   // throw exception again in order to forward
   }
-  
+
   catch(Widget& w){
     // ...   // handle exception
     throw w; // throw COPY of exception in order to forward
@@ -84,7 +84,7 @@ public:
     : ptr(NULL)
   {
     std::cout << "\tSomeClass::SomeClass() - ctor, allocate something\n";
-    
+
     try{
       ptr = new T;
     }catch(...){ // ... catches every exception
@@ -93,13 +93,13 @@ public:
       throw;
       exit(-1);
     }
-    
+
     // init
     *ptr = t;
   }
 
 
-  // empty ctor 
+  // empty ctor
   SomeClass()
     : ptr(NULL)
   {
@@ -110,7 +110,7 @@ public:
   // dtor - since we have a dynamic pointer!
   ~SomeClass()
   {
-    std::cout << "\tSomeClass::~SomeClass() - dtor\n"; 
+    std::cout << "\tSomeClass::~SomeClass() - dtor\n";
     delete ptr;
     ptr = NULL;
   }
@@ -126,7 +126,7 @@ public:
     std::cout << "\tSomeClass::getVal()\n";
     try{
       if(NULL == ptr){
-        
+
         // throw exception
         throw "pointer was NULL";
       }
@@ -140,7 +140,7 @@ public:
     /*
       interesting issue
 
-      returning NULL won't compile and returning 0 would throw an internal 
+      returning NULL won't compile and returning 0 would throw an internal
       BasicString exception, which would abort the proggy
     //*/
     return "*** ptr was not allocated ***";
@@ -170,7 +170,7 @@ int main()
   cout << endl;
 
   cout << "init instance 2\n";
-  SomeClass< string > sc_2("Hello World!");  
+  SomeClass< string > sc_2("Hello World!");
   cout << endl;
 
   cout << "get content:\n";

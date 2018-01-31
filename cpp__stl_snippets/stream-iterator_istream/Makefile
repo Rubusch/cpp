@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = istreamiterator.cpp
@@ -19,7 +19,7 @@ istreamiterator.exe: ${OBJECTS}
 
 all: istreamiterator.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) istreamiterator.exe *~ core
 
 

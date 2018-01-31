@@ -1,6 +1,6 @@
 // decorator.cpp
 /*
-   Attach additional responsabilities to an object dynamically. Decorators 
+   Attach additional responsabilities to an object dynamically. Decorators
    provide a flexible alternative to subclassing for extending funcitonality.
 
                 +---------------------+
@@ -25,11 +25,11 @@
                                         |
                            +------------+------------+
                            |                         |
-                +---------------------+   +---------------------+                        
+                +---------------------+   +---------------------+
                 | ConcreteDecoratorA  |   | ConcreteDecoratorB  |
                 +=====================+   +=====================+
                 | addedState          |   |                     |
-                +---------------------+   +---------------------+   +-------------------------+\                     
+                +---------------------+   +---------------------+   +-------------------------+\
                 | operation()         |   | operation()         |   | Decorator::operation(); +-+
                 +---------------------+   | addedBehavior() - - - - | addedBehavior();          |
                                           +---------------------+   +---------------------------+
@@ -44,7 +44,7 @@
 /*
   Component
 
-  - defines the interface for objects that can have responsibilities added 
+  - defines the interface for objects that can have responsibilities added
   to them dynamically
 //*/
 class Component
@@ -61,7 +61,7 @@ public:
 
 /*
   ConcreteComponent
-  
+
   - defines an object to which additional responsibilities can be attached
 //*/
 class ConcreteComponent
@@ -78,8 +78,8 @@ public:
 
 /*
   Decorator
-  
-  - maintains a reference to a Component object and defines an interface that 
+
+  - maintains a reference to a Component object and defines an interface that
   conforms to Component's interface
 //*/
 class Decorator
@@ -94,7 +94,7 @@ public:
   {
     std::cout << "\tDecorator::Decorator() - ctor\n";
   }
-    
+
   void operation()
   {
     std::cout << "\tDecorator::operation()\n";
@@ -105,13 +105,13 @@ public:
 
 /*
   ConcreteDecoratorA
-  
+
   - adds responsibilities to the component
 //*/
 class ConcreteDecoratorA
   : public Decorator
 {
-private: 
+private:
   int addedState;
 public:
   ConcreteDecoratorA(Component& component)
@@ -120,7 +120,7 @@ public:
     std::cout << "\tConcreteDecoratorA::ConcreteDecoratorA(Component const&) - ctor\n";
     std::cout << "> addedState = " << addedState << "\n";
   }
-  
+
   void operation()
   {
     std::cout << "\tConcreteDecoratorA::operation()\n";
@@ -141,18 +141,18 @@ public:
   {
     std::cout << "\tConcreteDecoratorB::concreteDecorator(Component const&) - ctor\n";
   }
-    
+
   void operation()
   {
     std::cout << "\tConcreteDecoratorB::operation()\n";
     Decorator::operation();
   }
-  
+
   void addedBehavior()
   {
     std::cout << "\tConcreteDecoratorB::addedBehavior()\n";
     std::cout << "> some new operation of the ConcreteDecoratorB object.\n";
-  }  
+  }
 };
 
 
@@ -168,11 +168,11 @@ int main()
   cout << endl;
 
   cout << "\n*** decorator A ***\n\n\n";
-  
+
   cout << "add new state variable to the ConcreteComponent's instance dynamically:\n";
   ConcreteDecoratorA concDecoratorA(concComp);
   cout << endl;
-  
+
   cout << "call operation()\n";
   concDecoratorA.operation();
   cout << endl;
@@ -189,7 +189,7 @@ int main()
 
   cout << "call operation()\n";
   concDecoratorB.operation();
-  cout << endl;  
+  cout << endl;
 
   cout << "\n*** common functionality ***\n\n\n";
 

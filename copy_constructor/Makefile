@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = copy_constructor.cpp
@@ -19,7 +19,7 @@ copy_constructor.exe: ${OBJECTS}
 
 all: copy_constructor.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) copy_constructor.exe *~ core
 
 

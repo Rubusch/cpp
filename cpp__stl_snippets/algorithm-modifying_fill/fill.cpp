@@ -1,7 +1,7 @@
 // fill.cpp
 /*
   modifying algorithm
-  
+
   fill - assign a range of elements a certain value
   fill_n - assign a value to some number of elements
 
@@ -50,7 +50,7 @@ int main()
   cout << "init:\n";
   int arr[8];
   display( arr, 8);
-  
+
   cout << "fill() with 0:\n";
   fill(arr, arr+8, 0);
   display( arr, 8);

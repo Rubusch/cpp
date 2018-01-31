@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = merge.cpp
@@ -19,7 +19,7 @@ merge.exe: ${OBJECTS}
 
 all: merge.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) merge.exe *~ core
 
 

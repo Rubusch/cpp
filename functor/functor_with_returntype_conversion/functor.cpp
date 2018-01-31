@@ -13,7 +13,7 @@
 using namespace std;
 
 
-/* 
+/*
    ignore arguments-not of interest in this example
 //*/
 const char* testFunction(double, double)
@@ -36,11 +36,11 @@ int main()
   cout << "init..\n";
   Functor< string, TYPELIST_2(int, int) > cmd(testFunction);
   cout << endl;
-  
+
   // demonstrates the return type conversion: should print "World!";
   cout << "should print \'World!\'\n> \'" << cmd(10, 10).substr(6) << "\'\n";
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

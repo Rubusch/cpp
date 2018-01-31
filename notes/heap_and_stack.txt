@@ -8,52 +8,52 @@ The memory a program uses is typically divided into four different areas:
   - The code area, where the compiled program sits in memory.
   - The globals area, where global variables are stored.
   - The heap, where dynamically allocated variables are allocated from.
-  - The stack, where parameters and local variables are allocated from. 
+  - The stack, where parameters and local variables are allocated from.
 
 
 
 Heap
 The heap has advantages and disadvantages:
-  1) Allocated memory stays allocated until it is specifically deallocated 
+  1) Allocated memory stays allocated until it is specifically deallocated
     (beware memory leaks).
   2) Dynamically allocated memory must be accessed through a pointer.
-  3) Because the heap is a big pool of memory, large arrays, structures, or 
+  3) Because the heap is a big pool of memory, large arrays, structures, or
     classes should be allocated here.
 
 
 Stack
 With a stack (LIFO) you can only do one of three things:
-  1) Look at the top item on the stack 
+  1) Look at the top item on the stack
     (usually done via a function called top())
-  2) Take the top item off of the stack 
+  2) Take the top item off of the stack
     (done via a function called pop())
-  3) Put a new item on top of the stack 
+  3) Put a new item on top of the stack
     (done via a function called push())
 
 The last item pushed onto the stack will be the first item popped off.
 
 
 The sequence of steps that takes place when a function is called:
-  1. The address of the instruction beyond the function call is pushed onto 
-    the stack. This is how the CPU remembers where to go after the function 
+  1. The address of the instruction beyond the function call is pushed onto
+    the stack. This is how the CPU remembers where to go after the function
     returns.
-  2. Room is made on the stack for the function’s return type. This is just 
+  2. Room is made on the stack for the function’s return type. This is just
     a placeholder for now.
   3. The CPU jumps to the function’s code.
-  4. The current top of the stack is held in a special pointer called the 
-    stack frame. Everything added to the stack after this point is 
+  4. The current top of the stack is held in a special pointer called the
+    stack frame. Everything added to the stack after this point is
     considered "local" to the function.
   5. All function arguments are placed on the stack.
   6. The instructions inside of the function begin executing.
-  7. Local variables are pushed onto the stack as they are defined. 
+  7. Local variables are pushed onto the stack as they are defined.
 
 When the function terminates, the following steps happen:
-  1. The function’s return value is copied into the placeholder that was 
+  1. The function’s return value is copied into the placeholder that was
     put on the stack for this purpose.
-   2. Everything after the stack frame pointer is popped off. This destroys 
+   2. Everything after the stack frame pointer is popped off. This destroys
     all local variables and arguments.
-   3. The return value is popped off the stack and is assigned as the value 
-    of the function. If the value of the function isn't assigned to anything, 
+   3. The return value is popped off the stack and is assigned as the value
+    of the function. If the value of the function isn't assigned to anything,
     no assignment takes place, and the value is lost.
-   4. The address of the next instruction to execute is popped off the stack, 
-    and the CPU resumes execution at that instruction. 
+   4. The address of the next instruction to execute is popped off the stack,
+    and the CPU resumes execution at that instruction.

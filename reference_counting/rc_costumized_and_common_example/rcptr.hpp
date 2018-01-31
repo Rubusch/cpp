@@ -5,10 +5,10 @@
 
 annotations:
 
-  implementation of a smart pointer for a customized class supporting reference 
+  implementation of a smart pointer for a customized class supporting reference
   counting
 
-  template class for smart pointers-to-T objects; 
+  template class for smart pointers-to-T objects;
   T must support the RCObject interface
 */
 
@@ -18,9 +18,9 @@ annotations:
 
 
 template<class T>
-class RCPtr 
+class RCPtr
 {
-public: 
+public:
   // ctor
   RCPtr(T* realPtr = 0);
 
@@ -31,12 +31,12 @@ public:
   ~RCPtr();
 
   // op=
-  RCPtr& operator=(const RCPtr& rhs);                     
+  RCPtr& operator=(const RCPtr& rhs);
 
   // smart pointer stuff
   T* operator->() const;
   T& operator*() const;
-  
+
 private:
   T *pointee;
   void init();
@@ -53,11 +53,11 @@ template<class T>
 void RCPtr<T>::init()
 {
   if (pointee == 0) return;
-  
+
   if (pointee->isShareable() == false) {
     pointee = new T(*pointee);
   }
-  
+
   pointee->addReference();
 }
 
@@ -79,7 +79,7 @@ RCPtr<T>::RCPtr(T* realPtr)
 template<class T>
 RCPtr<T>::RCPtr(const RCPtr& rhs)
   : pointee(rhs.pointee)
-{ 
+{
   init();
 }
 
@@ -102,18 +102,18 @@ RCPtr<T>::~RCPtr()
 template<class T>
 RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
 {
-  if(pointee != rhs.pointee){  
-    T *oldPointee = pointee;  
-    
+  if(pointee != rhs.pointee){
+    T *oldPointee = pointee;
+
     // printing
     pointee = rhs.pointee;
-    init(); 
-    
-    if(oldPointee){ 
+    init();
+
+    if(oldPointee){
       oldPointee->removeReference();
     }
   }
-  
+
   return *this;
 }
 
@@ -122,7 +122,7 @@ RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
   smart pointer
 //*/
 template<class T>
-T* RCPtr<T>::operator->() const 
+T* RCPtr<T>::operator->() const
 {
   return pointee;
 }

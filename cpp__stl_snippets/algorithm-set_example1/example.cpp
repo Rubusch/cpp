@@ -20,7 +20,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 2, 4, 4, 4, 6, 6, 8 };
   int arr_b[] = { 3, 4, 4, 6, 9, 9 };
@@ -50,11 +50,11 @@ int main()
   cout << endl << endl;
 
   cout << "includes()\n";
-  cout << "multi_a includes multi_b: " 
-       << boolalpha 
-       << includes(multi_a.begin(), multi_a.end(), multi_b.begin(), multi_b.end()) 
+  cout << "multi_a includes multi_b: "
+       << boolalpha
+       << includes(multi_a.begin(), multi_a.end(), multi_b.begin(), multi_b.end())
        << endl;
-  cout << endl;   
+  cout << endl;
 
   cout << "READY.\n";
   return 0;

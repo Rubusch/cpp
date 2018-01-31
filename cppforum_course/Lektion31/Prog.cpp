@@ -20,7 +20,7 @@ public:
     {
         topIndex = -1;
     };
-    
+
 
     // ein Element oben drauflegen
     void push(int i)
@@ -29,14 +29,14 @@ public:
         topIndex = topIndex + 1;
         data[topIndex] = i;
     };
-    
+
 
     // das oberste Element lesen
     int top()
     {
         return data[topIndex];
     };
-    
+
 
     // das oberste Element entfernen
     void pop()
@@ -44,7 +44,7 @@ public:
         assert(topIndex > -1);
         topIndex = topIndex - 1;
     };
-    
+
 
     // ist der Stack leer?
     bool empty()

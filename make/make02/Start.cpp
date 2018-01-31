@@ -4,7 +4,7 @@
 class Start
 {
 public:
-    void startme() 
+    void startme()
     {
         cout<<"class Start"<<endl;
     };
@@ -14,9 +14,9 @@ public:
 int main()
 {
     cout << "main()" << endl;
-    
+
     Start a;
     a.startme();
-    
-    return 0; 
+
+    return 0;
 };

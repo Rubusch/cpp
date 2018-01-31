@@ -17,7 +17,7 @@ private:
 
 public:
   // Ctor - init in headline!
-  Acceptor() 
+  Acceptor()
   :pVal(NULL)
   {}
 
@@ -29,7 +29,7 @@ public:
   {
     // when pVal is allocated within the class its destruction should happen here!
     // Handle the delete of the allocated memory where it has been allocated, too,
-    // or distinguish here between allocated pVal and static pVal (bad style) - a 
+    // or distinguish here between allocated pVal and static pVal (bad style) - a
     // solution using enum/templates might be possible (Alexandrescu)
   }
 
@@ -51,7 +51,7 @@ public:
 
     2. CAUTION - initing a pointer with a value doesn't work like e.g.:
     *pVal = val;
-    This crashes because the value will be copied to a place that is still not allocated.    
+    This crashes because the value will be copied to a place that is still not allocated.
   //*/
   void passValue(T val)
   {
@@ -80,10 +80,10 @@ public:
   void printData()
   {
     if(!pVal) return;
-    
+
     // in case operator<<() needs here to be overloaded, too
-    std::cout << "pVal:\t" << pVal 
-	      << "\n*pVal:\t" << *pVal << "\n&pVal:\t" << &pVal 
+    std::cout << "pVal:\t" << pVal
+	      << "\n*pVal:\t" << *pVal << "\n&pVal:\t" << &pVal
 	      << "\n*&pVal:\t" << *&pVal << std::endl;
     std::cout << std::endl;
   }

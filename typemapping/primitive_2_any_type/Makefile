@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = int2type.cpp
@@ -19,7 +19,7 @@ int2type.exe: ${OBJECTS}
 
 all: int2type.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) int2type.exe *~ core
 
 

@@ -3,7 +3,7 @@
  *                                                                             *
  *        Code from Item 29 ("Reference Counting") of MORE EFFECTIVE C++       *
  *                                                                             *
- *                               Scott Meyers                                  *   
+ *                               Scott Meyers                                  *
  *                                                                             *
  *            Copyright 1996 (c) Addison-Wesley Publishing Company             *
  *       You are free to use this code for non-commercial purposes only.       *
@@ -32,44 +32,44 @@
  * send them to me.                                                            *
  *******************************************************************************
 
-  Reference counting example of Scott Meyers - "simple" and for "existing 
+  Reference counting example of Scott Meyers - "simple" and for "existing
   objects"
 
 
 
   The General Implementation of Reference Counting
 
-  Some data structures (e.g., directed graphs) lead to self-referential 
-  or circular dependency structures. Such data structures have a tendency 
-  to spawn isolated collections of objects, used by no one, whose reference 
-  counts never drop to zero. That's because each object in the unused 
-  structure is pointed to by at least one other object in the same structure. 
-  Industrial-strength garbage collectors use special techniques to find such 
-  structures and eliminate them, but the simple reference-counting approach 
+  Some data structures (e.g., directed graphs) lead to self-referential
+  or circular dependency structures. Such data structures have a tendency
+  to spawn isolated collections of objects, used by no one, whose reference
+  counts never drop to zero. That's because each object in the unused
+  structure is pointed to by at least one other object in the same structure.
+  Industrial-strength garbage collectors use special techniques to find such
+  structures and eliminate them, but the simple reference-counting approach
   we've examined here is not easily extended to include such techniques.
-  
+
   (More Effective C++ / 29 / Meyers)
-  
-  - Relatively few values are shared by relatively many objects. Such sharing 
-  typically arises through calls to assignment operators and copy constructors. 
+
+  - Relatively few values are shared by relatively many objects. Such sharing
+  typically arises through calls to assignment operators and copy constructors.
   The higher the objects/values ratio, the better the case for
   reference counting.
 
-  - Object values are expensive to create or destroy, or they use lots of 
-  memory. Even when this is the case, reference counting still buys you 
+  - Object values are expensive to create or destroy, or they use lots of
+  memory. Even when this is the case, reference counting still buys you
   nothing unless these values can be shared by multiple objects.
 
 
   The Idea of Reference Counting in case of a Customized Implementation
 
-                                 +------------------+   
+                                 +------------------+
                                  |                  |
                                  | RCObject         |
                                  |                  |
-                                 +------------------+   
+                                 +------------------+
                                             /_\
-                                             | 
-                                             | inherits to inner class 
+                                             |
+                                             | inherits to inner class
                                              | SomeClassValue
                                              |
                                  +-----------|------+
@@ -77,7 +77,7 @@
                                  |           |      |
                       type:      |           |      |
     +---------------+ <SomeClass |           |      |
-    |               |   Value>   |           |      |          
+    |               |   Value>   |           |      |
     | RCPtr         |<---------<>|           |      |
     |  (Smart Ptr)  |    (var)   |+--------------+  |          +----------------+
     +---------------+            ||              |  |  points  | unspecified    |
@@ -94,18 +94,18 @@
    - SomeClass is a client that also holds a smart pointer to the SomeClassValue object
    - unspecified data can be stored shared / not-shared, copy on write is also possible
 
-    
+
 
    The Idea of Reference Counting in case of a "General Implementation"
 
-                                 +------------------+   
+                                 +------------------+
                                  |                  |
                                  | RCObject         |
                                  |                  |
-                                 +------------------+   
+                                 +------------------+
                                          /_\
-                                          | 
-                                          | inherits to inner class 
+                                          |
+                                          | inherits to inner class
                                           | CountHolder
                                           |
                                  +--------|---------+
@@ -113,7 +113,7 @@
                                  |   < >  |      ptr|
                                  |    |   |         |
     +---------------+  type:     |    |   |         |
-    |               |  <Widget>  |    |   |         |          
+    |               |  <Widget>  |    |   |         |
     | RCWidget      |<>--------->|   \|/  |         |
     |               |    (var)   |+-------------+   |          +----------------+
     +---------------+            ||             |   |  points  |                |
@@ -130,17 +130,17 @@
 */
 
 
-#include <iostream>      
+#include <iostream>
 /*
-  The iostream facilities are not used in the classes in this file, 
+  The iostream facilities are not used in the classes in this file,
   but they are used in the code that tests the classes.
 //*/
- 
-#include <cstring>       
+
+#include <cstring>
 /*
-  This includes the C string functions, e.g., strlen, strncpy, etc.  
+  This includes the C string functions, e.g., strlen, strncpy, etc.
   They are used in the implementation of class SomeClass::SomeClassValue.
- 
+
   The following is for compilers that don't support bool.  Uncomment these
   lines if your compilers lack bool support.  For details on this emulation
   of bool, see More Effective C++, pp. 3-4.
@@ -148,12 +148,12 @@
   typedef int bool;
   const bool false = 0;
   const bool true = 1;
-//*/ 
+//*/
 
 
 /*******************************************************************************
  * Functions to perform VERY simple test of the above.                         *
- ******************************************************************************/ 
+ ******************************************************************************/
 #include "someclass.hpp"
 #include "rcwidget.hpp"
 
@@ -165,13 +165,13 @@ void testRCPtr()
 {
   SomeClass s1 = "SomeClass with no changes.";
   SomeClass s2(s1);
-  
+
   s2[15] = s2[16] = ' ';
-  
+
   std::cout << s1 << '\n';      // prints "SomeClass with no changes."
   std::cout << s2 << '\n';      // prints "SomeClass with    changes."
 }
- 
+
 
 /*
   reference counting having cyclic dependencies (widget implementation)
@@ -180,9 +180,9 @@ void testRCIPtr()
 {
   RCWidget w1(10);
   RCWidget w2(w1);
-  
+
   w2.doThis();
-  
+
   std::cout << w1.showThat() << '\n';       // prints 10
   std::cout << w2.showThat() << '\n';       // prints -1
 }
@@ -199,6 +199,6 @@ int main()
   // reference counting "extended - existing files"
   testRCIPtr();
 
-  std::cout << "READY.\n"; 
+  std::cout << "READY.\n";
   return 0;
 }

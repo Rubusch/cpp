@@ -22,7 +22,7 @@ CRequestServiceA::CRequestServiceA()
     // bind ORB to name service object
     CORBA::Object_var obj = orb->resolve_initial_references("OmniNameService");
     assert(!CORBA::is_nil(obj.in()));
-    
+
     // narrow to naming context
     CosNaming::NamingContext_var nc = CosNaming::NamingContext::_narrow(obj.in());
     assert(!CORBA::is_nil(nc.in()));
@@ -31,11 +31,11 @@ CRequestServiceA::CRequestServiceA()
     CosNaming::Name _corbaCosName;
     _corbaCosName.length(1);
     _corbaCosName[0].id = CORBA::string_dup("DataServiceName1"); // calls malloc!
-    
+
     // resolve name text identifier to an object reference
     CORBA::Object_var obj1 = nc->resolve(_corbaCosName);
     assert(!CORBA::is_nil(obj1.in()));
-    
+
     m_Data = ServiceA::_narrow(obj1.in());
     if(CORBA::is_nil(obj1.in())){
       std::cerr << "IOR is not an SA object reference." << std::endl;
@@ -55,7 +55,7 @@ CRequestServiceA::CRequestServiceA()
     std::cerr << "client: caught a CORBA::Exception." << std::endl;
     throw DS_Exception();
     return;
-    
+
   }catch(omniORB::fatalException& ex){
     std::cerr << "client: caught omniORB::fatalException:" << std::endl
               << "\tfile: " << ex.file() << std::endl
@@ -63,7 +63,7 @@ CRequestServiceA::CRequestServiceA()
               << "\tmesg: " << ex.errmsg() << std::endl;
     throw DS_FatalException();
     return;
-    
+
   }catch(...){
     std::cerr << "client: caught unkown exception" << std::endl;
     throw DS_Exception();
@@ -105,7 +105,7 @@ bool CRequestServiceA::RequestServiceARoutineA()
 
 bool CRequestServiceA::RequestServiceARoutineB()
 {
-  CORBA::Long num1 = 0; 
+  CORBA::Long num1 = 0;
   CORBA::Long num2 = 50;
 
   std::cout << "client: values input to service routine B: "

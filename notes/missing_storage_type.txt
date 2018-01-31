@@ -7,7 +7,7 @@ Error executing cl.exe.
 
 
 
-Probably something in the class is not terminated correctly. 
+Probably something in the class is not terminated correctly.
 
 Move the definition for a test from the .h into the .cpp class and try to compile. If it compiles, compile only the File where the new stuff is instanciated.
 

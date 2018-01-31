@@ -29,7 +29,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 2, 4, 6, 8 };
   int arr_b[] = { 3, 6, 9 };

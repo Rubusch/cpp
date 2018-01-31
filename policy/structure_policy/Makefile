@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  structurepolicy.cpp
@@ -19,7 +19,7 @@ structurepolicy.exe: ${OBJECTS}
 
 all: structurepolicy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) structurepolicy.exe *~ core
 
 

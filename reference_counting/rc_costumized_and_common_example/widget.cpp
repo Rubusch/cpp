@@ -10,7 +10,7 @@
   ctor
 //*/
 Widget::Widget(int size)
-  : value(size) 
+  : value(size)
 {}
 
 
@@ -18,14 +18,14 @@ Widget::Widget(int size)
   copy ctor
 //*/
 Widget::Widget(const Widget& rhs)
-  : value(rhs.value) 
+  : value(rhs.value)
 {}
 
 
 /*
   dtor
 //*/
-Widget::~Widget() 
+Widget::~Widget()
 {}
 
 
@@ -35,7 +35,7 @@ Widget::~Widget()
 Widget& Widget::operator=(const Widget& rhs)
 {
   value = rhs.value;
-  return *this; 
+  return *this;
 }
 
 
@@ -43,8 +43,8 @@ Widget& Widget::operator=(const Widget& rhs)
   some action
 //*/
 void Widget::doThis()
-{ 
-  value = -1; 
+{
+  value = -1;
 }
 
 
@@ -52,7 +52,7 @@ void Widget::doThis()
   some result
 //*/
 int Widget::showThat() const
-{ 
-  return value; 
+{
+  return value;
 }
 

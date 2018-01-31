@@ -14,7 +14,7 @@ private:
     int m_size;
 
     bool has(const double &toFind);
-    
+
 public:
     Set();
     ~Set();

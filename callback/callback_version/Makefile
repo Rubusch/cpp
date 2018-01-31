@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  callback.cpp
@@ -19,7 +19,7 @@ callback.exe: ${OBJECTS}
 
 all: callback.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) callback.exe *~ core
 
 

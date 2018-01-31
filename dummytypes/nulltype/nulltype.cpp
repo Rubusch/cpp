@@ -1,7 +1,7 @@
 // nulltype.cpp
 /*
   The "not interesting" type!
-  
+
   "You usually don't create objects of type NullType - its only use is to indicate
   'I am not an interesting type.'"
 

@@ -24,7 +24,7 @@ public:
   {
     std::cout << "\tTsk, knick, tsk...\n";
   }
-  
+
   void speak()
   {
     std::cout << "\tOh Captain, my Captain!\n";
@@ -57,7 +57,7 @@ public:
   {
     return ((*pObj_).*pMemFn_)(p1);
   }
-  
+
   ResultType operator()(typename ParentFunctor::Param1 p1, typename ParentFunctor::Param2 p2)
   {
     return ((*pObj_).*pMemFn_)(p1, p2);

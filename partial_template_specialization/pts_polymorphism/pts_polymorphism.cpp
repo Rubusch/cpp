@@ -2,9 +2,9 @@
 /*
   Demonstrates polymorphism achieved by partial template specialization.
 
-  Using partial specialized templates it is possible to implemente some 
+  Using partial specialized templates it is possible to implemente some
   typespecific behaviour, as also keep a common templated behaviour.
- 
+
   This is polymorphism on a templated level!!
 //*/
 
@@ -48,8 +48,8 @@ SomeClass< U, V >::SomeClass(U arg1, V arg2, V arg3)
 template< typename U, typename V >
 void SomeClass< U, V >::output()
 {
-  cout << "normal templated class\n\tvar1 = " << var1 
-       << "\n\tvar2 = " << var2 
+  cout << "normal templated class\n\tvar1 = " << var1
+       << "\n\tvar2 = " << var2
        << "\n\tvar3 = " << var3
        << "\nThis class behaves differently!\n\n";
 }
@@ -64,9 +64,9 @@ class SomeClass< U, int >
 {
 private:
   U var1;
-  int num; 
+  int num;
   /*
-    the int here is just an example, it's not necessary - has 
+    the int here is just an example, it's not necessary - has
     nothing to do with the int in the template declaration
   //*/
 

@@ -1,6 +1,6 @@
 // decorator.cpp
 /*
-   Attach additional responsabilities to an object dynamically. Decorators 
+   Attach additional responsabilities to an object dynamically. Decorators
    provide a flexible alternative to subclassing for extending funcitonality.
 
                 +---------------------+
@@ -25,11 +25,11 @@
                                         |
                            +------------+------------+
                            |                         |
-                +---------------------+   +---------------------+                        
+                +---------------------+   +---------------------+
                 | ConcreteDecoratorA  |   | ConcreteDecoratorB  |
                 +=====================+   +=====================+
                 | addedState          |   |                     |
-                +---------------------+   +---------------------+   +-------------------------+\                     
+                +---------------------+   +---------------------+   +-------------------------+\
                 | operation()         |   | operation()         |   | Decorator::operation(); +-+
                 +---------------------+   | addedBehavior() - - - - | addedBehavior();          |
                                           +---------------------+   +---------------------------+
@@ -68,7 +68,7 @@ struct Decorator
   Decorator(Component& component)
     : pComponent_(&component)
   {}
-    
+
   void operation()
   {
     pComponent_->operation();
@@ -88,13 +88,13 @@ struct ConcreteDecoratorA
   {
     std::cout << "> addedState = " << addedState << "\n";
   }
-  
+
   void operation()
   {
     Decorator::operation();
   }
 
-private: 
+private:
   int addedState;
 };
 
@@ -105,16 +105,16 @@ struct ConcreteDecoratorB
   ConcreteDecoratorB(Component& component)
     : Decorator(component)
   {}
-    
+
   void operation()
   {
     Decorator::operation();
   }
-  
+
   void addedBehavior()
   {
     std::cout << "> some new operation of the ConcreteDecoratorB object.\n";
-  }  
+  }
 };
 
 
@@ -124,7 +124,7 @@ struct ConcreteDecoratorB
 int main()
 {
   ConcreteComponent concComp;
-  
+
 
   ConcreteDecoratorA concDecoratorA(concComp);
   concDecoratorA.operation();

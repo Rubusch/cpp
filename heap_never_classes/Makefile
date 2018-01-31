@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = heapnever.cpp
@@ -19,7 +19,7 @@ heapnever.exe: ${OBJECTS}
 
 all: heapnever.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) heapnever.exe *~ core
 
 

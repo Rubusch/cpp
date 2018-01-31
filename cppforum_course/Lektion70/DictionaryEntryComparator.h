@@ -12,13 +12,13 @@ class DictionaryEntryComparator
 {
 private:
     KEY_COMPARATOR m_comp;
-    
+
 public:
     bool lessThan(const DictionaryEntry< KEY, VALUE > &a, const DictionaryEntry< KEY, VALUE > &b)
     {
         return m_comp.lessThan(a.getKey(), b.getKey());
     };
-    
+
 
     bool isEqual(const DictionaryEntry< KEY, VALUE > &a, const DictionaryEntry< KEY, VALUE > &b)
     {

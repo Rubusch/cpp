@@ -23,6 +23,6 @@ int main()
         zahl = vorgaenger1 + vorgaenger2;
         vorgaenger2 = vorgaenger1;
     };
-    
+
     return 0;
 };

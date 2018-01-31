@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = sort.cpp
@@ -19,7 +19,7 @@ sort.exe: ${OBJECTS}
 
 all: sort.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) sort.exe *~ core
 
 

@@ -23,7 +23,7 @@ int main()
     Girokonto g;
     k.anzeigen();
     cout << endl;
-    
+
     g.anzeigen();
     cout << endl;
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = opsubscript.cpp
@@ -19,7 +19,7 @@ opsubscript.exe: ${OBJECTS}
 
 all: opsubscript.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) opsubscript.exe opsubscript.exe.stackdump *~ core
 
 

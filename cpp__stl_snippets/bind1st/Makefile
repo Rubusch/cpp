@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = bind1st.cpp
@@ -19,7 +19,7 @@ bind1st.exe: ${OBJECTS}
 
 all: bind1st.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) bind1st.exe *~ core
 
 

@@ -35,8 +35,8 @@ int main()
   cout << endl;
 
   /*
-    set up another functor using "bind" to bind to the first functor 
-    -> the function will be called with one parameter of the first 
+    set up another functor using "bind" to bind to the first functor
+    -> the function will be called with one parameter of the first
     and another parameter of the second Functor
   //*/
   cout << "second function\n";

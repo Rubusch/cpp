@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = test.cpp
@@ -9,7 +9,7 @@ OBJECTS = ${SOURCE:.c=.o}
 
 .PREFIXES = .c .o
 CC = g++
-CFLAGS = -g -Wall 
+CFLAGS = -g -Wall
 RM = rm -f
 
 .c.o:
@@ -20,7 +20,7 @@ test.exe: ${OBJECTS}
 
 all: test.exe
 
-clean: 
+clean:
 	${RM} *.o test.exe *~ core
 
 

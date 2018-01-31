@@ -55,7 +55,7 @@ int main()
     cout << endl;
     cout << "Now everything will be deleted!" << endl;
     cout << endl;
-    
+
     cout << "no delete the variable" << endl;
     cout << "delete the pointee" << endl;
     delete b;
@@ -64,8 +64,8 @@ int main()
     delete[] d;
     cout << "delete the dynamic object pointer: ";
     delete e;
-    
-    
+
+
     return 0;
 };
 

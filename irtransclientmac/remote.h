@@ -2,26 +2,26 @@
  * Copyright (c) 2007, IRTrans GmbH
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer. 
+ *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
  *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution. 
+ *       documentation and/or other materials provided with the distribution.
  *     * Neither the name of IRTrans GmbH nor the
  *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission. 
+ *       derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY IRTrans GmbH ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  * DISCLAIMED. IN NO EVENT SHALL IRTrans GmbH BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -312,10 +312,10 @@ typedef struct {
 #define COMMAND_SEND_ACK_BUSY   215
 
 
-#define COMMAND_LAN_ANALOG    	'a' 
-#define COMMAND_LAN_SENDSTRING	's' 
-#define COMMAND_LAN_PING      	'p' 
-#define COMMAND_LAN_SENDCCF   	'c' 
+#define COMMAND_LAN_ANALOG    	'a'
+#define COMMAND_LAN_SENDSTRING	's'
+#define COMMAND_LAN_PING      	'p'
+#define COMMAND_LAN_SENDCCF   	'c'
 #define COMMAND_LAN_GETINFO		  'g'
 #define COMMAND_LAN_LEARN 		  'l'
 #define COMMAND_LAN_VERSION 		'v'
@@ -353,7 +353,7 @@ typedef struct {
 #define ADR_STATUSINFO	30
 #define ADR_RS232DATA	44
 
-#define LEN_SYSPARM		(sizeof (SYS_PARAMETER)-4)			// LEN = 191 -> capabilities not stored in EEPROM 
+#define LEN_SYSPARM		(sizeof (SYS_PARAMETER)-4)			// LEN = 191 -> capabilities not stored in EEPROM
 
 #if defined LAN
 
@@ -405,7 +405,7 @@ typedef struct {
 	uint8_t ledselect;
 	uint16_t  targetmask;
 } TIMER_ENTRY_GET;
-  
+
 typedef struct {
 	uint8_t		len;
 	uint8_t      checksumme;
@@ -597,7 +597,7 @@ typedef struct {
 	uint32_t	access_mask[8];		// 32	// Netmask dazu
 	uint32_t	ir_relay_from[16];	// 64	// IR Relay von diesen Adressen erlaubt
 	uint32_t	ir_relay_to[8];  	// 128	// Output wird zusätzlich zum Broadcast an diese IPs gesendet
-	uint32_t	udp_str_adr;		// 160	
+	uint32_t	udp_str_adr;		// 160
 	uint8_t		wakeonlan_mac[6];	// 164	// Zielhost für WakeOnLAN Pakete (PowerOn)
 	int8_t		password[12];		// 170
 	uint8_t		broadcast_relay;	// 182
@@ -879,7 +879,7 @@ typedef struct {
 #define BO_MODE				16
 #define SELF_REPEAT			32
 #define	INTERNAL_REPEAT		64
-#define RCV_NO_SORT			128			
+#define RCV_NO_SORT			128
 
 // Extended Mode2 Flags
 #define RCV_TOLERANCE_MASK	7			// Bit 0-2
@@ -893,12 +893,12 @@ typedef struct {
 #define RCV_TOLERANCE_960	7
 #define INSTANT_REP_COUNT	8			// Bit 3
 #define IR_FRAMELENGTH		16			// Bit 4
-#define RS232_BAUD_MASK		96			// Bit 5-6	
+#define RS232_BAUD_MASK		96			// Bit 5-6
 #define RS232_BAUD_4800		96
 #define RS232_BAUD_9600		64
 #define RS232_BAUD_19200	32
 #define RS232_BAUD_38400	0
-#define RS232_RTS_CTS		128			// Bit 7		
+#define RS232_RTS_CTS		128			// Bit 7
 
 // EX[0]
 #define LOW_RCV_MASK		7
@@ -1021,7 +1021,7 @@ Frei ****						128
 Status Input:
 Je Status 1 Byte + 2 Byte bei Analog I/O
 
-Output Number/Enable			31 (0 = Off,1 Internal,2 External,3 All,4 Out 1 ...					
+Output Number/Enable			31 (0 = Off,1 Internal,2 External,3 All,4 Out 1 ...
 Pullup							32
 Pulldown						64
 Invert							128
@@ -1032,7 +1032,7 @@ Upper Margin					Byte
 Alle Parameter nur im EEPROM halten
 */
 
-#define LRN_TIMEOUT_MASK		7			// Maske beim Lernen 
+#define LRN_TIMEOUT_MASK		7			// Maske beim Lernen
 #define LRN_TIMEOUT_SELECT		8
 #define LRN_CALIBRATION			48
 #define LRN_RCV_SELECT			960
@@ -1357,7 +1357,7 @@ typedef struct {
 
 typedef struct {
 	byte sbus_len;              //  0
-	byte sbus_checksumme;       //  1 
+	byte sbus_checksumme;       //  1
 	byte sbus_command;					//  2
 	byte sbus_address;					//  3
 	byte device_mode;						//  4
@@ -1437,7 +1437,7 @@ typedef struct {
 } STATUS_LINE_EX_1;					//136
 
 typedef struct {
-	byte sbus_len;					
+	byte sbus_len;
 	byte sbus_checksumme;
 	byte sbus_command;
 	byte sbus_address;

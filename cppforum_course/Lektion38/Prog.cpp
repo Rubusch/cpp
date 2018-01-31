@@ -3,7 +3,7 @@
   const-Referenzen
   pass-by-reference, der Geschwindigkeitsvorteile bringt, da nicht jedes
   mal pro Funktion eine neue Kopie erstellt werden muss. Damit diese dann
-  nicht veraendert werden kann, wie bei call-by-value gibt es die const 
+  nicht veraendert werden kann, wie bei call-by-value gibt es die const
   Referenzen.
 //*/
 

@@ -17,6 +17,6 @@ int main()
     float grundflaeche=PI*radius*radius;
     float volumen=(grundflaeche*hoehe)/3;
     cout << "Das Volumen betraegt: " << volumen << endl;
-    
+
     return 0;
 };

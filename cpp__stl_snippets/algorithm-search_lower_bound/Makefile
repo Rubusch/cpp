@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = lowerbound.cpp
@@ -19,7 +19,7 @@ lowerbound.exe: ${OBJECTS}
 
 all: lowerbound.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) lowerbound.exe *~ core
 
 

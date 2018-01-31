@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = string.cpp
@@ -19,7 +19,7 @@ string.exe: ${OBJECTS}
 
 all: string.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) string.exe *~ core
 
 

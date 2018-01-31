@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = newhandler.cpp
@@ -19,7 +19,7 @@ newhandler.exe: ${OBJECTS}
 
 all: newhandler.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) newhandler.exe *~ core
 
 

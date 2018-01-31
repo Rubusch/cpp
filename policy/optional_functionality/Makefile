@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  optionalpolicy.cpp
@@ -19,7 +19,7 @@ optionalpolicy.exe: ${OBJECTS}
 
 all: optionalpolicy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) optionalpolicy.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = getint.cpp
@@ -19,7 +19,7 @@ getint.exe: ${OBJECTS}
 
 all: getint.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) getint.exe *~ core
 
 

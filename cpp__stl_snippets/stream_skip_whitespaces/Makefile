@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = skipwhitespaces.cpp
@@ -19,7 +19,7 @@ skipwhitespaces.exe: ${OBJECTS}
 
 all: skipwhitespaces.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) skipwhitespaces.exe *~ core
 
 

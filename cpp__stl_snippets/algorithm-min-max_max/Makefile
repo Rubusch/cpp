@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = max.cpp
@@ -19,7 +19,7 @@ max.exe: ${OBJECTS}
 
 all: max.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) max.exe *~ core
 
 

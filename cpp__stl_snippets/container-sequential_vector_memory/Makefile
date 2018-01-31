@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = vectormemory.cpp
@@ -19,7 +19,7 @@ vectormemory.exe: ${OBJECTS}
 
 all: vectormemory.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) vectormemory.exe *~ core
 
 

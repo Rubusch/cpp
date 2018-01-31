@@ -44,7 +44,7 @@ int main()
     cout << "the first value greater than its next neighbor is at index: " << (ptr - arr) << endl;
   }
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

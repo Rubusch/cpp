@@ -8,7 +8,7 @@ annotations:
   class to be used by application developers
   COW = copy on write
 
-  the names were changed from "String" to "SomeClass" since I found it a bit 
+  the names were changed from "String" to "SomeClass" since I found it a bit
   confusing ;)
 */
 
@@ -33,26 +33,26 @@ std::ostream& operator<<(std::ostream& out, const SomeClass& sc);
 
 
 
-class SomeClass 
-{ 
-public: 
+class SomeClass
+{
+public:
   // ctor
   SomeClass(const char *value = "");
 
   // COW support
-  char operator[](int index) const;       
+  char operator[](int index) const;
   char& operator[](int index);
-  
+
 private:
 
   // class representing the data which can be shared
-  struct SomeClassValue: public RCObject 
+  struct SomeClassValue: public RCObject
   {
     char *data;
 
     // ctor
     SomeClassValue(const char *initValue);
-    
+
     // copy ctor
     SomeClassValue(const SomeClassValue& rhs);
 
@@ -63,11 +63,11 @@ private:
   };
 
   // (smart) pointer to the value object
-  RCPtr<SomeClassValue> value;                       
-  
+  RCPtr<SomeClassValue> value;
+
   // This function is not in the book, but it's convenient for testing the
   // class -- see below.
-  friend 
+  friend
   std::ostream& operator<<(std::ostream& out, const SomeClass& sc);
 };
 

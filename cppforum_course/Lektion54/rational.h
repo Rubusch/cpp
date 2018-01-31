@@ -13,7 +13,7 @@ private:
     int ggt(int a, int b);
     int kgv(int a, int b);
     void swap(int *a, int *b);
-    
+
 public:
     Rational(int zaehler, int nenner);
     Rational(int zahl);

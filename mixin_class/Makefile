@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  mixin.cpp
@@ -19,7 +19,7 @@ mixin.exe: ${OBJECTS}
 
 all: mixin.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) mixin.exe *~ core
 
 

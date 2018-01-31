@@ -20,8 +20,8 @@ void SomeClass::SomeClassValue::init(const char *initValue)
   ref count ctor
 //*/
 SomeClass::SomeClassValue::SomeClassValue(const char *initValue)
-{ 
-  init(initValue); 
+{
+  init(initValue);
 }
 
 
@@ -29,8 +29,8 @@ SomeClass::SomeClassValue::SomeClassValue(const char *initValue)
   ref count copy ctor
 //*/
 SomeClass::SomeClassValue::SomeClassValue(const SomeClassValue& rhs)
-{ 
-  init(rhs.data); 
+{
+  init(rhs.data);
 }
 
 
@@ -38,10 +38,10 @@ SomeClass::SomeClassValue::SomeClassValue(const SomeClassValue& rhs)
   refc count dtor
 //*/
 SomeClass::SomeClassValue::~SomeClassValue()
-{ 
+{
   std::cout << "SomeClass::SomeClassValue::DTOR\n";
 
-  delete [] data; 
+  delete [] data;
 }
 
 
@@ -52,7 +52,7 @@ SomeClass::SomeClassValue::~SomeClassValue()
   ctor
 //*/
 SomeClass::SomeClass(const char *initValue)
-  : value(new SomeClassValue(initValue)) 
+  : value(new SomeClassValue(initValue))
 {}
 
 
@@ -69,8 +69,8 @@ SomeClass::~SomeClass()
   const operator[] - copy on write for constant objects
 //*/
 const char& SomeClass::operator[](int index) const
-{ 
-  return value->data[index]; 
+{
+  return value->data[index];
 }
 
 

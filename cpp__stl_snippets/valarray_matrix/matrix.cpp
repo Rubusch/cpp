@@ -17,7 +17,7 @@ std::ostream& operator<<(std::ostream& os, const std::valarray< T >& va)
     os << va[idx] << " ";
   }
   return os;
-}  
+}
 
 
 /*
@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& os, const std::valarray< T >& va)
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   const int var_a = 3, var_b = 4;
   cout << endl;

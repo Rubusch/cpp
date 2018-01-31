@@ -1,9 +1,9 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
-SOURCE = main.cpp rcobject.cpp rcwidget.cpp someclass.cpp widget.cpp 
+SOURCE = main.cpp rcobject.cpp rcwidget.cpp someclass.cpp widget.cpp
 HEADERS = rciptr.hpp rcobject.hpp rcptr.hpp rcwidget.hpp someclass.hpp widget.hpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
@@ -20,5 +20,5 @@ referencecounting.exe: ${OBJECTS}
 
 all: referencecounting.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) referencecounting.exe *~ core

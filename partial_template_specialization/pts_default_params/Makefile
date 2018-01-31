@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = pts_defaultparams.cpp
@@ -19,7 +19,7 @@ pts_defaultparams.exe: ${OBJECTS}
 
 all: pts_defaultparams.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) pts_defaultparams.exe *~ core
 
 

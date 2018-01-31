@@ -10,6 +10,6 @@ using namespace std;
 int main()
 {
     cout << "start.cpp" << endl;
-    
+
     return 0;
 };

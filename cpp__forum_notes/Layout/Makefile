@@ -15,14 +15,14 @@ YACC          = yacc
 DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
-LEXFLAGS      = 
+LEXFLAGS      =
 YACCFLAGS     = -d
 INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I. -I. -I.
 LINK          = g++
-LFLAGS        = 
+LFLAGS        =
 LIBS          = $(SUBLIBS)  -L/usr/lib -lQtGui -lQtCore -lpthread
 AR            = ar cqs
-RANLIB        = 
+RANLIB        =
 QMAKE         = /usr/bin/qmake
 TAR           = tar -cf
 COMPRESS      = gzip -9f
@@ -45,7 +45,7 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Editor.cpp 
+SOURCES       = Editor.cpp
 OBJECTS       = Editor.o
 DIST          = /usr/share/qt4/mkspecs/common/unix.conf \
 		/usr/share/qt4/mkspecs/common/g++.conf \
@@ -65,7 +65,7 @@ DIST          = /usr/share/qt4/mkspecs/common/unix.conf \
 		/usr/share/qt4/mkspecs/features/uic.prf \
 		Layout.pro
 QMAKE_TARGET  = Layout
-DESTDIR       = 
+DESTDIR       =
 TARGET        = Layout
 
 first: all
@@ -92,7 +92,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET):  $(OBJECTS)  
+$(TARGET):  $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Layout.pro  /usr/share/qt4/mkspecs/linux-g++/qmake.conf /usr/share/qt4/mkspecs/common/unix.conf \
@@ -131,14 +131,14 @@ Makefile: Layout.pro  /usr/share/qt4/mkspecs/linux-g++/qmake.conf /usr/share/qt4
 qmake:  FORCE
 	@$(QMAKE) -unix -o Makefile Layout.pro
 
-dist: 
-	@$(CHK_DIR_EXISTS) .tmp/Layout1.0.0 || $(MKDIR) .tmp/Layout1.0.0 
+dist:
+	@$(CHK_DIR_EXISTS) .tmp/Layout1.0.0 || $(MKDIR) .tmp/Layout1.0.0
 	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Layout1.0.0/ && $(COPY_FILE) --parents Editor.cpp .tmp/Layout1.0.0/ && (cd `dirname .tmp/Layout1.0.0` && $(TAR) Layout1.0.0.tar Layout1.0.0 && $(COMPRESS) Layout1.0.0.tar) && $(MOVE) `dirname .tmp/Layout1.0.0`/Layout1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Layout1.0.0
 
 
 yaccclean:
 lexclean:
-clean:compiler_clean 
+clean:compiler_clean
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
@@ -146,7 +146,7 @@ clean:compiler_clean
 ####### Sub-libraries
 
 distclean: clean
-	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) $(TARGET)
 	-$(DEL_FILE) Makefile
 
 
@@ -168,11 +168,11 @@ compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
 compiler_uic_clean:
-compiler_clean: compiler_moc_header_clean compiler_rcc_clean compiler_image_collection_clean compiler_moc_source_clean compiler_uic_clean 
+compiler_clean: compiler_moc_header_clean compiler_rcc_clean compiler_image_collection_clean compiler_moc_source_clean compiler_uic_clean
 
 ####### Compile
 
-Editor.o: Editor.cpp 
+Editor.o: Editor.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Editor.o Editor.cpp
 
 ####### Install

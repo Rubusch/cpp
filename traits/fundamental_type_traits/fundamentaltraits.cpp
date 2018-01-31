@@ -1,15 +1,15 @@
 // fundamentaltraits.cpp
 /*
-  "Traits are a generic programming technique that allows compile-time 
-  decisions to be made based on types, much as you would make runtime 
+  "Traits are a generic programming technique that allows compile-time
+  decisions to be made based on types, much as you would make runtime
   decisions based on values.
 
-  This makes the resulting code cleaner, more readable, and easier to 
+  This makes the resulting code cleaner, more readable, and easier to
   maintain."
 
   Taken from "Modern C++ Design", Alexandrescu
 
-  Implementation of type traits for fundamental types, like int, 
+  Implementation of type traits for fundamental types, like int,
   double, char, etc..
 //*/
 
@@ -79,7 +79,7 @@ namespace TL
     Typelist - IndexOf
   //*/
   template< class TList, class T > struct IndexOf;
-  
+
   template< class T >
   struct IndexOf< NullType, T >
   {
@@ -97,7 +97,7 @@ namespace TL
   {
   private:
     enum { temp = IndexOf< Tail, T >::value };
-    
+
   public:
     enum { value = (temp == -1 ? -1 : 1 + temp) };
   };
@@ -107,7 +107,7 @@ namespace TL
 /*
   Conversion - Conversion Helper
 
-  Helper types Small and Big - guarantee that sizeof(Small) < sizeof(Big) 
+  Helper types Small and Big - guarantee that sizeof(Small) < sizeof(Big)
 //*/
 namespace Private
 {
@@ -126,22 +126,22 @@ namespace Private
 /*
   Conversion - Conversion
 
-  Figures out the conversion relationships between 
+  Figures out the conversion relationships between
   two type Invocations (T and U are types):
 
   a) Conversion< T, U >::exists
-  returns (at compile time) true if there is an implicit 
+  returns (at compile time) true if there is an implicit
   conversion from T to U (e.g. Derived to Base)
 
   b) Conversion< T, U >::exists2Way
-  returns (at compile time) true if there are both conversions 
+  returns (at compile time) true if there are both conversions
   from T to U and from U to T (e.g. int to char and back)
 
   c) Conversion< T, U >::sameType
-  returns (at compile time) true if T and U represent the 
+  returns (at compile time) true if T and U represent the
   same type
 
-  Caveat: might not work if T and U are in a private inheritance 
+  Caveat: might not work if T and U are in a private inheritance
   hierarchy
 //*/
 template< class T, class U >
@@ -171,7 +171,7 @@ struct Conversion< void, T >
 
 template< class T >
 struct Conversion< T, void >
-{ 
+{
   enum { exists = 1, exists2Way = 0, sameType = 0 };
 };
 
@@ -196,14 +196,14 @@ private:
   template< class U > struct PointerTraits
   {
     enum { result = false };
-    typedef NullType 
+    typedef NullType
       PointeeType;
   };
-  
+
   template< class U > struct PointerTraits< U* >
   {
     enum { result = true };
-    typedef U 
+    typedef U
       PointeeType;
   };
 
@@ -234,7 +234,7 @@ public:
 
 
 /*
-  Dummy class - for testing 
+  Dummy class - for testing
 //*/
 class DummyClass {};
 
@@ -246,7 +246,7 @@ int main()
 {
   using namespace std;
 
-  typedef DummyClass 
+  typedef DummyClass
     type1_t;
 
   cout << "type1_t (DummyClass) is an integral type?\t ";
@@ -257,16 +257,16 @@ int main()
 
   cout << "type1_t (DummyClass) is a fundamental type?\t ";
   bool isFundamentalType = TypeTraits< type1_t >::isStdFundamental;
-  cout << (isFundamentalType ? "\"true\"" : "\"false\"") 
+  cout << (isFundamentalType ? "\"true\"" : "\"false\"")
        << " (false)" << endl;
   cout << endl;
 
   typedef int
     type2_t;
 
-  cout << "type2_t (int) is an integral type?\t "; 
+  cout << "type2_t (int) is an integral type?\t ";
   isIntegralType = TypeTraits< type2_t >::isStdIntegral;
-  cout << (isIntegralType ? "\"true\"" : "\"false\"") 
+  cout << (isIntegralType ? "\"true\"" : "\"false\"")
        << " (true)" << endl;
   cout << endl;
 
@@ -275,7 +275,7 @@ int main()
   cout << (isFundamentalType ? "\"true\"" : "\"false\"")
        << " (true)" << endl;
   cout << endl;
- 
+
   cout << "READY.\n";
   return 0;
 }

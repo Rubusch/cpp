@@ -18,7 +18,7 @@ bool istSchaltjahr(int jahr)
 
     if(jahr%400 == 0)
         ist = true;
-    
+
     return ist;
 };
 
@@ -31,7 +31,7 @@ int main()
         cout << "Das ist ein Schaltjahr." << endl;
     else
         cout << "Kein Schaltjahr!" << endl;
-    
+
     return 0;
 };
 

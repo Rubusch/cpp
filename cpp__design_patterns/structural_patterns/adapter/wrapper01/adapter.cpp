@@ -84,7 +84,7 @@ public:
   {
     std::cout << "\tAdapter::request(std::string)\n";
     std::string str2 = "bar";
-    adaptee.specificRequest(str1, str2); 
+    adaptee.specificRequest(str1, str2);
   }
 };
 

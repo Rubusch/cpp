@@ -20,6 +20,6 @@ int main()
   std::cout << cnt << " elements equal to 5.\n";
 
   std::cout << "READY.\n";
-  return 0;    
+  return 0;
 }
 

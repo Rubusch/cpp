@@ -9,7 +9,7 @@
              +-----------+
                   /_\
                    |
-        +----------+----------+           
+        +----------+----------+
         |                     |
   +-----------+         +-----------+
   | DerivedA  |         | DerivedB  |
@@ -34,7 +34,7 @@ class Base
 {
 protected:
   int variable;
-  
+
 public:
   void display()
   {
@@ -45,8 +45,8 @@ public:
 
 /*
   DerivedA
-  
-  if this inheritance doesn't have "virtual" the class would have a separate 
+
+  if this inheritance doesn't have "virtual" the class would have a separate
   "base" instance - "variable" would be different!
 //*/
 class DerivedA

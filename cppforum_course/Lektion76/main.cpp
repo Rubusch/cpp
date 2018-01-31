@@ -39,7 +39,7 @@ public:
         cout << "Ich fliege durch das Wasser: Blub Blub Blub\n";
     };
 };
-            
+
 
 int main()
 {
@@ -47,7 +47,7 @@ int main()
     Singvogel s;
     v.fliege();
     s.fliege();
-    
+
     Amsel am;
     Sperling sp;
     Pinguin pi;

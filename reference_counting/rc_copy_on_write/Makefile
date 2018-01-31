@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = rc_copyonwrite.cpp
@@ -19,7 +19,7 @@ rc_copyonwrite.exe: ${OBJECTS}
 
 all: rc_copyonwrite.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) rc_copyonwrite.exe *~ core
 
 

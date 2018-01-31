@@ -34,14 +34,14 @@ int main (argc,argv)
 				last = argv[i][j];
 			}
 			ret = system(command);
-			fprintf(stdout,"*** digit (%s) return code is %d*** \n",command,ret); 
+			fprintf(stdout,"*** digit (%s) return code is %d*** \n",command,ret);
 		}
 		if (i==5)
 			sprintf(command, "./irclient64 %s rc5 voldown",address);
 		else
 			sprintf(command, "./irclient64 %s rc5 chup",address);
 		ret = system(command);
-		fprintf(stdout,"*** seperator/end (%s) return code is %d*** \n",command,ret); 
+		fprintf(stdout,"*** seperator/end (%s) return code is %d*** \n",command,ret);
 	}
 	return 0;
 }

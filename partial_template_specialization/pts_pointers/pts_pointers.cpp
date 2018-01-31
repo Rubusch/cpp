@@ -48,7 +48,7 @@ public:
 
 
 /*
-  main.. 
+  main..
 //*/
 int main()
 {
@@ -60,14 +60,14 @@ int main()
   pIntStorage.output();
 
 
-  // if the pointer assignment worked out then changing x will change the 
+  // if the pointer assignment worked out then changing x will change the
   // objects content, too
   x = 9;
 
   cout << "Reset \'x\' \t- ";
   pIntStorage.output();
 
-  
+
   cout << "READY.\n";
   return 0;
 }

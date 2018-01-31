@@ -42,6 +42,6 @@ int main()
     default:
         cout << "Das war noch nicht einmal eine Ziffer." << endl;
     };
-    
+
     return 0;
 };

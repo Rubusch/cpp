@@ -19,7 +19,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 1, 2, 3 };
   int arr_b[] = { 2, 6, 4 };

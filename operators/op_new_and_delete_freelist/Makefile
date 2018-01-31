@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = freelist.cpp
@@ -19,7 +19,7 @@ freelist.exe: ${OBJECTS}
 
 all: freelist.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) freelist.exe *~ core
 
 

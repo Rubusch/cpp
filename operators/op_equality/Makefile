@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = opequality.cpp
@@ -19,7 +19,7 @@ opequality.exe: ${OBJECTS}
 
 all: opequality.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) opequality.exe *~ core
 
 

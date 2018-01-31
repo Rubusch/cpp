@@ -1,15 +1,15 @@
 N3433
 
-Durch strenge Auslegung des aktuellen C und C++ Standards kann man zu dem Schluss kommen, dass die Allokationsstrategie keine Information berücksichtigen sollte, die nicht aus der Sequenz der Allokations- und Deallokations-Aufrufe herleitbar ist. 
+Durch strenge Auslegung des aktuellen C und C++ Standards kann man zu dem Schluss kommen, dass die Allokationsstrategie keine Information berücksichtigen sollte, die nicht aus der Sequenz der Allokations- und Deallokations-Aufrufe herleitbar ist.
 
-Im Wesentlichen können die Standards die Makro Optimierung der Allokation auszuschließen. Andererseits, kann man durch eine strenge Auslegung der Standards zur Folgerung kommen, dass die Implementierung für jeden einzelnen zu nennenden Aufruf einen externen Funktionsaufruf machen muss. Diese Auslegung kann Mikro-Optmimierung verdindern. 
+Im Wesentlichen können die Standards die Makro Optimierung der Allokation auszuschließen. Andererseits, kann man durch eine strenge Auslegung der Standards zur Folgerung kommen, dass die Implementierung für jeden einzelnen zu nennenden Aufruf einen externen Funktionsaufruf machen muss. Diese Auslegung kann Mikro-Optmimierung verdindern.
 
 Wir schlagen vor, die existierende technisch-mechanistische Formulierung [in C++11] zu ersetzen mit einer preziseren Formulierung, die auf die essenzielle Anforderungen abzielt. Die Absicht ist, ein Verhalten einiger bereits existierender Memory Allokatoren auch vom Standard her zu erlauben.
 
 
 Speicher
 
-Eine essenzielle Anforderung an die Implementierungen ist, dass sie nutzbaren Speicher zustellen, nicht aber dass sie eine bestimmte Aufrufreihenfolge einhalten. Wir schlagen vor, die Implementierungs-Aufrufe explizit von den Nenn-Aufrufen zu trennen. 
+Eine essenzielle Anforderung an die Implementierungen ist, dass sie nutzbaren Speicher zustellen, nicht aber dass sie eine bestimmte Aufrufreihenfolge einhalten. Wir schlagen vor, die Implementierungs-Aufrufe explizit von den Nenn-Aufrufen zu trennen.
 
 1. Die Anzahl von Implementierungs-Aufrufen ist nicht Teil des beobachtbaren Verhaltens eines Programms.
 

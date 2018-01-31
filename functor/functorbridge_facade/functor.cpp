@@ -14,19 +14,19 @@
   +-----------------+                  +-----------------+
   | FunctorImpl<    |                  | algorithm()     |
   |    Result_t     |                  +-----------------+
-  |    , Arg_t >    |                     /_\   e.g. usage of 
+  |    , Arg_t >    |                     /_\   e.g. usage of
   +-----------------+                      |    different types
  e.g.| type of operation,                  |
  say,| comparison, addition,               |
  etc.|                                     |
      |                                     |
      |                                     |
-     |    +------------------------------------+    
+     |    +------------------------------------+
      |    | template<                          |
      +--<>|   typename Result                  |
-          |   , typename Arg1                  | 
+          |   , typename Arg1                  |
           |   , typename Arg2 >                |     +--------+
-          |   CompareFunctorHandler            |<----| Client | 
+          |   CompareFunctorHandler            |<----| Client |
           |   : public ConcFunctorImpl         |     +--------+
           +------------------------------------+
           |  bool Functor(uint, uint)          |
@@ -41,9 +41,9 @@
   Base Functor Implementation class
 
   implements a concept of a functor implementation class
-  this base class should work out rather for copy constructors, 
+  this base class should work out rather for copy constructors,
   cloning functions or assignment operators, since operator()()
-  can't be implemented fully virtual here without destroying the 
+  can't be implemented fully virtual here without destroying the
   concept
 //*/
 template< typename Result >
@@ -53,7 +53,7 @@ public:
   typedef Result
     Result_t;
 
-  /* 
+  /*
      more functions e.g. clone()
   //*/
   virtual ~BaseFunctorImpl() = 0;
@@ -67,8 +67,8 @@ BaseFunctorImpl< Result >::~BaseFunctorImpl()
 /*
   Concrete Functor Implementation class
 
-  the class has the concrete implementation of the algorithm to be performed 
-  to gain even more flexibility in a lib or having a huge amount of diferent 
+  the class has the concrete implementation of the algorithm to be performed
+  to gain even more flexibility in a lib or having a huge amount of diferent
   implementations, the class should only contain trunks like this:
 
   virtual Result_t operator()(Arg1_t, Arg2_t) = 0;
@@ -79,12 +79,12 @@ BaseFunctorImpl< Result >::~BaseFunctorImpl()
   - comparator for unsigned long
   ...
 
-  Extensions for derived classes of this might be e.g. (each one can be 
+  Extensions for derived classes of this might be e.g. (each one can be
   teplatitized for various types again..):
   - comparator
   - multiplicator
   - divisor
-  ... 
+  ...
 //*/
 template< typename Result, typename Arg1, typename Arg2 >
 class ConcFunctorImpl
@@ -135,11 +135,11 @@ BaseFunctor< Result_t, Arg1_t, Arg2_t >::~BaseFunctor()
 
   calls an implementation initialized by concrete types
 
-  Extensions here might be diferent invokations of Implementors 
+  Extensions here might be diferent invokations of Implementors
   depending on the types and names (bridge pattern), so e.g.
   - functor for comparison
   - functor for multiplication
-  ... 
+  ...
   (depending on types, etc)
 //*/
 template< typename Impl >
@@ -158,7 +158,7 @@ private:
 
   Impl impl_;
 
-public:  
+public:
   Result_t operator()( Arg1_t arg1, Arg2_t arg2)
   {
     return impl_(arg1, arg2);
@@ -169,7 +169,7 @@ public:
 /*
   Functor Handler
 
-  a handler can be an advantage to be used as Facade to 'handle' the 
+  a handler can be an advantage to be used as Facade to 'handle' the
   confusing chaos of functors and functor implementations in behind
 //*/
 template< typename Result, typename Arg1, typename Arg2 >
@@ -200,7 +200,7 @@ void doSort(int* arr, unsigned int arr_size, CompareFunctorHandler< bool, unsign
   int tmp=0;
   unsigned idx=arr_size-2;
 
-  bool swapped = true; 
+  bool swapped = true;
 
   do{
     if(idx == arr_size-2){
@@ -213,7 +213,7 @@ void doSort(int* arr, unsigned int arr_size, CompareFunctorHandler< bool, unsign
       tmp = arr[idx];
       arr[idx] = arr[idx+1];
       arr[idx+1] = tmp;
-      
+
       swapped = true;
     }
 

@@ -1,7 +1,7 @@
 // Prog.cpp
 /*
   Nimm 1,2 oder 3 Spiel
-  
+
   Version mit abgesicherter Eingabe und Angabe wieviele Muenzen der Rechner zieht.
 //*/
 
@@ -15,31 +15,31 @@ int main()
 {
     int anzahlDerMuenzen;
     int cnt=0;
-    
+
     // Eingabe der Anfangs-Muenzenahl
     cout << "Mit wievielen Muenzen fangen wir an? ";
     cin >> anzahlDerMuenzen;
-    
+
     // Endlosschleife
     while(true){
         ++cnt;
         int rechnerNimmt = zugRechner(anzahlDerMuenzen);
-        cout << '\n' <<  cnt << ". Ich nehme " << rechnerNimmt 
-             << ((rechnerNimmt==1)?" Muenze.":" Muenzen.") 
+        cout << '\n' <<  cnt << ". Ich nehme " << rechnerNimmt
+             << ((rechnerNimmt==1)?" Muenze.":" Muenzen.")
              << endl;
         anzahlDerMuenzen = anzahlDerMuenzen - rechnerNimmt;
         if(anzahlDerMuenzen == 0){
             cout << "Ich habe gewonnen!" << endl;
             return 0;
         }
-        
+
         anzahlDerMuenzen = anzahlDerMuenzen - zugMensch(anzahlDerMuenzen);
         if(anzahlDerMuenzen == 0){
             cout << "Sie haben gewonnen!" << endl;
             return 0;
         }
     };
-    
+
     return 0;
 };
 
@@ -58,7 +58,7 @@ int zugMensch(int anzahlDerMuenzen)
             ergebnis=4;
         }
     };
-    
+
     return ergebnis;
 };
 

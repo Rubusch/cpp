@@ -5,7 +5,7 @@
 
 annotations:
 
-  base class for reference counted objects - this class contains the reference 
+  base class for reference counted objects - this class contains the reference
   counter and the shareable flag!
 */
 
@@ -15,8 +15,8 @@ annotations:
 
 
 class RCObject
-{ 
-public: 
+{
+public:
   // reference counter
   void addReference();
   void removeReference();
@@ -25,7 +25,7 @@ public:
   void markUnshareable();
   bool isShareable() const;
   bool isShared() const;
-  
+
 protected:
   // ctor
   RCObject();
@@ -38,7 +38,7 @@ protected:
 
   // dtor
   virtual ~RCObject() = 0;
-  
+
 private:
   // the reference counting variable!
   int refCount;

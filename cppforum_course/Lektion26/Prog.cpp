@@ -35,7 +35,7 @@ public:
         return anzahlDerMuenzen == 0;
     };
 
-    
+
     void starteSpiel()
     {
         cout << "Mit wievielen Muenzen fangen wir an? ";

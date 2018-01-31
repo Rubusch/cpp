@@ -1,6 +1,6 @@
 // getint.cpp
 /*
-  userinput - read in some text and check if it was an int value, 
+  userinput - read in some text and check if it was an int value,
   in this case transform it to an int,
   else ask again
 //*/

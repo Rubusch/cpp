@@ -1,6 +1,6 @@
 // Prog.cpp
 /*
-   Stack as fixed vector mit Konstruktor (Lektion30), die Groesse 
+   Stack as fixed vector mit Konstruktor (Lektion30), die Groesse
    des Stack ist allerdings vorgegeben.
 //*/
 
@@ -19,7 +19,7 @@ public:
     {
         topIndex = -1;
     };
-    
+
 
     // ein Element oben drauflegen
     void push(int i)
@@ -27,21 +27,21 @@ public:
         topIndex = topIndex + 1;
         data[topIndex] = i;
     };
-    
+
 
     // das oberste Element lesen
     int top()
     {
         return data[topIndex];
     };
-    
+
 
     // das oberste Element entfernen
     void pop()
     {
         topIndex = topIndex - 1;
     };
-    
+
 
     // ist der Stack leer?
     bool empty()

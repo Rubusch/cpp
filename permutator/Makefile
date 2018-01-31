@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = permutation.cpp
@@ -19,7 +19,7 @@ permutation.exe: ${OBJECTS}
 
 all: permutation.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) permutation.exe *~ permutation.exe.stackdump core
 
 

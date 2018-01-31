@@ -16,5 +16,5 @@ swap.o: swap.cpp swap.h
 
 all: Prog
 
-clean: 
+clean:
 	rm *.o Prog

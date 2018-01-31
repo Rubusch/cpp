@@ -63,12 +63,12 @@ C++14 Core Language Features                  VS 2013 Nov 2013 CTP
 Tweaked wording for contextual conversions    No      No
 Binary literals                               No      No
 auto and decltype(auto) return types          No      Yes
-init-captures                                 No      No [N3648?]    
+init-captures                                 No      No [N3648?]
 Generic lambdas                               No      Partial
 Variable templates                            No      No
-Extended constexpr                            No      No [N3652?]    
-NSDMIs for aggregates                         No      No [N3653?]    
-Avoiding/fusing allocations                   No      No [N3664?]    
+Extended constexpr                            No      No [N3652?]
+NSDMIs for aggregates                         No      No [N3653?]
+Avoiding/fusing allocations                   No      No [N3664?]
 [[deprecated]] attributes                     No      No
 Sized deallocation                            No      No
 Digit separators                              No      No

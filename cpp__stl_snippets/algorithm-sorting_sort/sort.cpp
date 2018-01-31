@@ -1,7 +1,7 @@
 // sort.cpp
 /*
   sorting algorithm
-  
+
   sort - sort a range into ascending order (quicksort)
 
        +---+---+---+---+---+---+---+- -+
@@ -11,7 +11,7 @@
    | sort(arr, arr+7)
    |
   \|/
-       +---+---+---+---+---+---+---+- -+  
+       +---+---+---+---+---+---+---+- -+
   arr: | 0 | 1 | 2 | 3 | 4 | 5 | 6 |   |
        +---+---+---+---+---+---+---+- -+
 
@@ -37,7 +37,7 @@ int main()
   copy(arr, arr+7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
-  cout << "sort() - ascending order\n";  
+  cout << "sort() - ascending order\n";
   sort(arr, arr+7);
   copy(arr, arr+7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;

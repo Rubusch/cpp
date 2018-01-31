@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = passbywhat.cpp
@@ -19,7 +19,7 @@ passbywhat.exe: ${OBJECTS}
 
 all: passbywhat.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) passbywhat.exe *~ core
 
 

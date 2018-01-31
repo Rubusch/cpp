@@ -34,7 +34,7 @@ int main()
   cout << "insertion #1\n";
   telefonebook.insert( pair< const string, string >("tick", "123"));
   cout << endl;
-                      
+
   cout << "insertion #2\n";
   telefonebook.insert( make_pair( string("trick"), string("456")));
   cout << endl;

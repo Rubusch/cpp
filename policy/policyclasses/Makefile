@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  policyclasses.cpp
@@ -19,7 +19,7 @@ policyclasses.exe: ${OBJECTS}
 
 all: policyclasses.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) policyclasses.exe *~ core
 
 

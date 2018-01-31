@@ -83,7 +83,7 @@ int main(int argc, char *argv[]){
 	    }
 
 	    // get threshed image out of frame
-            IplImage *imgThresh = GetThresholdedImage( frame );   
+            IplImage *imgThresh = GetThresholdedImage( frame );
             cvSmooth( imgThresh, imgThresh, CV_GAUSSIAN, 3, 3 ); // smooth the binary image using Gaussian kernel
 
 /* TODO failing

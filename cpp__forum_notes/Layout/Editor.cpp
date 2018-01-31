@@ -11,7 +11,7 @@ class Editor : public QDialog
 
 public:
     Editor(){ initGUI(); };
-    
+
     void initGUI()
     {
         // buttons
@@ -24,7 +24,7 @@ public:
 
         le1 = new QLineEdit(tr("le1"));
 //        le1->setMinimumWidth(200); // FIXME ???
-		le1->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred); 
+		le1->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         le2 = new QLineEdit(tr("le2"));
         le3 = new QLineEdit(tr("le3"));
         le4 = new QLineEdit(tr("le4"));
@@ -37,7 +37,7 @@ public:
         // list(PROBLEM)widget
         listWidget = new QListWidget();
 //        listWidget->setMaximumWidth(100); // FIXME: ???
-		listWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred); 	
+		listWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
         QGridLayout* gloEditor = new QGridLayout;
         gloEditor->addWidget(listWidget, 0, 0, 6, 1);

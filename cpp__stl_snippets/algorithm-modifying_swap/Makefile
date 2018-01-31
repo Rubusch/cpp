@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = swap.cpp
@@ -19,7 +19,7 @@ swap.exe: ${OBJECTS}
 
 all: swap.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) swap.exe *~ core
 
 

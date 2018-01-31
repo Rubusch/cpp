@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     return -1;
   }
 
-  string filename(argv[1]); 
+  string filename(argv[1]);
 
   ifstream in;
   in.open(filename.c_str());

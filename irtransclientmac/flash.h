@@ -2,26 +2,26 @@
  * Copyright (c) 2007, IRTrans GmbH
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer. 
+ *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
  *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution. 
+ *       documentation and/or other materials provided with the distribution.
  *     * Neither the name of IRTrans GmbH nor the
  *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission. 
+ *       derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY IRTrans GmbH ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  * DISCLAIMED. IN NO EVENT SHALL IRTrans GmbH BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -148,7 +148,7 @@ hi:	HASH_ENTRY für jedes IR Command -> PNT auf IRDB_IRCOMMAND
 hc:	HASH_ENTRY für jedes Command -> PNT auf IRDB_COMMAND
 hr: HASH_ENTRY für jede Remote -> PNT auf IRDB_REMOTE
 c:	IRDB_COMMAND für jedes Command -> PNT auf IRDB_REMOTE + IRDB_TIMING + IRDB_IRCOMMAND
-i:	IRDB_IRCOMMAND für jedes Command -> PNT auf IRDB_COMMAND 
+i:	IRDB_IRCOMMAND für jedes Command -> PNT auf IRDB_COMMAND
 r:	IRDB_REMOTE
 t:	IRDB_TIMING
 a:	IRDB_ACTION
@@ -222,7 +222,7 @@ typedef struct {
 	byte return_stat_ok[21];
 	byte return_stat_err[21];
 	byte default_action[100];
-	uint32_t target_ip;	
+	uint32_t target_ip;
 	word target_port;
 	byte rs232_config[4];
 	word action_cnt;
@@ -241,7 +241,7 @@ typedef struct {
 	byte return_stat_ok[21];
 	byte return_stat_err[21];
 	byte default_action[100];
-	uint32_t target_ip;	
+	uint32_t target_ip;
 	word target_port;
 	byte rs232_config[4];
 	word action_cnt;
@@ -537,7 +537,7 @@ typedef struct {
 
 typedef union {
    uint32_t Whole;
-   struct 
+   struct
    {
       byte Data;
       word Remainder;

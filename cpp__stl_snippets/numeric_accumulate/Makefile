@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = accumulate.cpp
@@ -19,7 +19,7 @@ accumulate.exe: ${OBJECTS}
 
 all: accumulate.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) accumulate.exe *~ core
 
 

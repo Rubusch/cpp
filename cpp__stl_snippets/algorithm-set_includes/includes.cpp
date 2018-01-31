@@ -9,7 +9,7 @@
 
   includes(arr_b, arr_b+7, arr_a, arr_a+3)
   -> true, arr_a is contained in arr_b
-  
+
   undefined behavior for unsorted input data!
 
   (Kuhlins & Schader, 2003)
@@ -38,7 +38,7 @@ void display(int* arr_a, int size_a, int* arr_b, int size_b)
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 1, 3, 5};
   int arr_b[] = { 0, 1, 2, 3, 4, 5, 6 };

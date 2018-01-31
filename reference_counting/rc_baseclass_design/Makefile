@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = main.cpp rcbaseobject.cpp someclass.cpp
@@ -20,5 +20,5 @@ rcptr.exe: ${OBJECTS}
 
 all: rcptr.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) rcptr.exe *~ core

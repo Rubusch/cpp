@@ -1,7 +1,7 @@
 // skipwhitespaces.cpp
 /*
   stream operations
-  
+
   (Kuhlins & Schader, 2003)
 //*/
 
@@ -15,7 +15,7 @@
 int main()
 {
   using namespace std;
-  
+
   // init
   char ch1, ch2, ch3, ch4;
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = adjacentfind.cpp
@@ -19,7 +19,7 @@ adjacentfind.exe: ${OBJECTS}
 
 all: adjacentfind.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) adjacentfind.exe *~ core
 
 

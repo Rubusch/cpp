@@ -19,12 +19,12 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int val_a = 7;
   int val_b = 3;
   cout << "val_a = " << val_a << ", val_b = " << val_b << endl << endl;
- 
+
   cout << "max()\n";
   int m = max(val_a, val_b);
   cout << "max = " << m << endl;

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = bitset.cpp
@@ -19,7 +19,7 @@ bitset.exe: ${OBJECTS}
 
 all: bitset.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) bitset.exe *~ core
 
 

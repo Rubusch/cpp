@@ -1,8 +1,8 @@
 // functor.hpp
 /*
   functor implementation copied from Loki, reduced to 2 parameters ;)
-  
-  Extended with the missing stuff (select, traits, typelists, etc), 
+
+  Extended with the missing stuff (select, traits, typelists, etc),
   namespace Loki is removed!
 
   Everything else is original.
@@ -13,14 +13,14 @@
 // The Loki Library
 // Copyright (c) 2001 by Andrei Alexandrescu
 // This code accompanies the book:
-// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design 
+// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design
 //     Patterns Applied". Copyright (c) 2001. Addison-Wesley.
-// Permission to use, copy, modify, distribute and sell this software for any 
-//     purpose is hereby granted without fee, provided that the above copyright 
-//     notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+//     purpose is hereby granted without fee, provided that the above copyright
+//     notice appear in all copies and that both that copyright notice and this
 //     permission notice appear in supporting documentation.
-// The author or Addison-Welsey Longman make no representations about the 
-//     suitability of this software for any purpose. It is provided "as is" 
+// The author or Addison-Welsey Longman make no representations about the
+//     suitability of this software for any purpose. It is provided "as is"
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -79,10 +79,10 @@ struct Select< false, T, U >
 template< class T, class U >
 struct Typelist_
 {
-  typedef T 
+  typedef T
     Head;
 
-  typedef U 
+  typedef U
     Tail;
 };
 
@@ -105,7 +105,7 @@ namespace TL
 {
   /*
     Indexed Access
-    
+
     The declaration of a template for an indexed operation would look like this:
       template< class TList, unsigned int index > struct TypeAt;
 
@@ -121,14 +121,14 @@ namespace TL
   //*/
 
   // basic template form
-  template< class TList, unsigned int index > 
+  template< class TList, unsigned int index >
   struct TypeAt;
 
   // head
-  template< class Head, class Tail > 
+  template< class Head, class Tail >
   struct TypeAt< Typelist_< Head, Tail >, 0 >
   {
-    typedef Head 
+    typedef Head
       Result;
   };
 
@@ -136,7 +136,7 @@ namespace TL
   template< class Head, class Tail, unsigned int i >
   struct TypeAt< Typelist_< Head, Tail >, i>
   {
-    typedef typename TypeAt< Tail, i-1 >::Result 
+    typedef typename TypeAt< Tail, i-1 >::Result
       Result;
   };
 
@@ -156,7 +156,7 @@ namespace TL
     Usage:
     int idx = IndexOf< MyTypelist, TypeToLookUp >::value;
   //*/
-  template< class TList, class T > 
+  template< class TList, class T >
   struct IndexOf;
 
   template< class T >
@@ -187,22 +187,22 @@ namespace TL
 
     Algorithm:
     IF TList is NIL, then Result is NIL
-    ELSE 
+    ELSE
       IF T is the same as TList::Head, then Result is TList::Tail
-      ELSE Result is a typelist having TList::Head as its head 
+      ELSE Result is a typelist having TList::Head as its head
         and the result of applying Erase to TList::Tail and T as its tail
 
     Usage:
-    typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;    
+    typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;
   //*/
-  template< class TList, class T > 
-  struct Erase; 
+  template< class TList, class T >
+  struct Erase;
 
   // Specialization 1
   template< class T >
   struct Erase< NIL, T >
   {
-    typedef NIL 
+    typedef NIL
       Result;
   };
 
@@ -210,7 +210,7 @@ namespace TL
   template< class T, class Tail >
   struct Erase< Typelist_< T, Tail >, T >
   {
-    typedef Tail 
+    typedef Tail
       Result;
   };
 
@@ -241,14 +241,14 @@ private:
   template< typename U > struct PointerTraits
   {
     enum { result = false };
-    typedef NIL 
+    typedef NIL
       PointeeType;
   };
-  
+
   template< typename U > struct PointerTraits< U* >
   {
     enum { result = true };
-    typedef U 
+    typedef U
       PointeeType;
   };
 
@@ -263,7 +263,7 @@ private:
     enum { result = true };
     typedef U ReferredType;
   };
-  
+
   template< typename U > struct PToMTraits
   {
     enum { result = false };
@@ -293,7 +293,7 @@ public:
   enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
   enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
   enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
-  enum { isStdArith = isStdIntegral || isStdFloat }; 
+  enum { isStdArith = isStdIntegral || isStdFloat };
 
   // isPointer
   enum { isPointer = PointerTraits< T >::result };
@@ -303,7 +303,7 @@ public:
 
   // ReferredType
   enum { isReference = ReferenceTraits< T >::result };
-  typedef typename ReferenceTraits< T >::ReferredType 
+  typedef typename ReferenceTraits< T >::ReferredType
     ReferredType;
 
   // -> ParameterType
@@ -327,10 +327,10 @@ namespace Private
   struct FunctorImplBase
   {
     typedef R ResultType;
-    
+
     typedef EmptyType Parm1;
     typedef EmptyType Parm2;
-    
+
     virtual FunctorImplBase* DoClone() const = 0;
     template <class U>
     static U* Clone(U* pObj)
@@ -361,7 +361,7 @@ namespace Private
 ////////////////////////////////////////////////////////////////////////////////
 
 /*
-template <typename R, class TList, 
+template <typename R, class TList,
           template <class> class ThreadingModel = DEFAULT_THREADING>
 class FunctorImpl;
 //*/
@@ -413,7 +413,7 @@ class FunctorImpl< R, TYPELIST_1( P1 ) >
 ////////////////////////////////////////////////////////////////////////////////
 
 /*
-template <typename R, typename P1, typename P2, 
+template <typename R, typename P1, typename P2,
           template <class> class ThreadingModel>
 class FunctorImpl<R, TYPELIST_2(P1, P2), ThreadingModel>
   : public Private::FunctorImplBase<R, ThreadingModel>
@@ -440,31 +440,31 @@ class FunctorHandler
   : public ParentFunctor::Impl
 {
   typedef typename ParentFunctor::Impl Base;
-  
+
 public:
   typedef typename Base::ResultType ResultType;
   typedef typename Base::Parm1 Parm1;
   typedef typename Base::Parm2 Parm2;
-  
+
   FunctorHandler(const Fun& fun) : f_(fun) {}
-  
+
   DEFINE_CLONE_FUNCTORIMPL(FunctorHandler)
-    
+
     // operator() implementations for up to 15 arguments
-    
+
     ResultType operator()()
   { return f_(); }
-  
+
   ResultType operator()(Parm1 p1)
   { return f_(p1); }
-  
+
   ResultType operator()(Parm1 p1, Parm2 p2)
   { return f_(p1, p2); }
-    
+
 private:
   Fun f_;
 };
-        
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template FunctorHandler
 // Wraps pointers to member functions
@@ -479,38 +479,38 @@ template <class ParentFunctor, typename PointerToObj, typename PointerToMemFn>
 class MemFunHandler : public ParentFunctor::Impl
 {
   typedef typename ParentFunctor::Impl Base;
-  
+
 public:
   typedef typename Base::ResultType ResultType;
   typedef typename Base::Parm1 Parm1;
   typedef typename Base::Parm2 Parm2;
 
-  MemFunHandler(const PointerToObj& pObj, PointerToMemFn pMemFn) 
+  MemFunHandler(const PointerToObj& pObj, PointerToMemFn pMemFn)
     : pObj_(pObj), pMemFn_(pMemFn)
   {}
-  
+
   DEFINE_CLONE_FUNCTORIMPL(MemFunHandler)
-    
+
     ResultType operator()()
   { return ((*pObj_).*pMemFn_)(); }
-  
+
   ResultType operator()(Parm1 p1)
   { return ((*pObj_).*pMemFn_)(p1); }
-  
+
   ResultType operator()(Parm1 p1, Parm2 p2)
   { return ((*pObj_).*pMemFn_)(p1, p2); }
-        
+
 private:
   PointerToObj pObj_;
   PointerToMemFn pMemFn_;
 };
-        
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template Functor
 // A generalized functor implementation with value semantics
 ////////////////////////////////////////////////////////////////////////////////
 
-/*       
+/*
 template <typename R, class TList = NullType,
           template<class> class ThreadingModel = DEFAULT_THREADING>
 class Functor
@@ -527,22 +527,22 @@ public:
   typedef typename Impl::Parm2 Parm2;
 
   // Member functions
-  
+
   Functor() : spImpl_(0)
   {
     std::cout << "Functor()\n";
   }
-  
+
   Functor(const Functor& rhs) : spImpl_(Impl::Clone(rhs.spImpl_.get()))
   {
     std::cout << "Functor(const Functor& rhs)\n";
   }
-  
+
   Functor(std::auto_ptr<Impl> spImpl) : spImpl_(spImpl)
   {
     std::cout << "Functor(std::auto_ptr<Impl> spImpl)\n";
   }
-  
+
   template <typename Fun>
   Functor(Fun fun)
     : spImpl_(new FunctorHandler<Functor, Fun>(fun))
@@ -556,7 +556,7 @@ public:
   {
     std::cout << "template <class PtrObj, typename MemFn>\nFunctor(const PtrObj& p, MemFn memFn)\n";
   }
-  
+
   Functor& operator=(const Functor& rhs)
   {
     Functor copy(rhs);
@@ -566,15 +566,15 @@ public:
     copy.spImpl_.reset(p);
     return *this;
   }
-  
+
   ResultType operator()()
   { return (*spImpl_)(); }
-  
+
   ResultType operator()(Parm1 p1)
   { return (*spImpl_)(p1); }
-  
+
   ResultType operator()(Parm1 p1, Parm2 p2)
-  { return (*spImpl_)(p1, p2); }        
+  { return (*spImpl_)(p1, p2); }
 
 private:
   std::auto_ptr<Impl> spImpl_;
@@ -583,14 +583,14 @@ private:
 namespace Private
 {
   template< class Fctor > struct BinderFirstTraits;
-  
+
   template< typename R, class TList >
   struct BinderFirstTraits< Functor< R, TList > >
   {
     typedef typename TL::Erase< TList, typename TL::TypeAt< TList, 0 >::Result >::Result ParmList;
     typedef Functor< R, ParmList > BoundFunctorType;
     typedef typename BoundFunctorType::Impl Impl;
-  };        
+  };
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -599,14 +599,14 @@ namespace Private
 ////////////////////////////////////////////////////////////////////////////////
 
 template< class OriginalFunctor >
-class BinderFirst 
+class BinderFirst
   : public Private::BinderFirstTraits<OriginalFunctor>::Impl
 {
   typedef typename Private::BinderFirstTraits<OriginalFunctor>::Impl Base;
   typedef typename OriginalFunctor::ResultType ResultType;
 
   typedef typename OriginalFunctor::Parm1 BoundType;
-  
+
   typedef typename OriginalFunctor::Parm2 Parm1;
 
   typedef EmptyType Param2;
@@ -615,20 +615,20 @@ public:
   BinderFirst(const OriginalFunctor& fun, BoundType bound)
     : f_(fun), b_(bound)
   {}
-  
+
   DEFINE_CLONE_FUNCTORIMPL(BinderFirst)
-    
+
   ResultType operator()()
   { return f_(b_); }
-  
+
   ResultType operator()(Parm1 p1)
   { return f_(b_, p1); }
-        
+
 private:
   OriginalFunctor f_;
   BoundType b_;
 };
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // function template BindFirst
 // Binds the first parameter of a Functor object to a specific value
@@ -645,7 +645,7 @@ BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
 {
   typedef typename Private::BinderFirstTraits<Fctor>::BoundFunctorType
     Outgoing;
-  
+
   return Outgoing(std::auto_ptr<typename Outgoing::Impl>( new BinderFirst<Fctor>(fun, bound)));
 }
 
@@ -658,32 +658,32 @@ template <typename Fun1, typename Fun2>
 class Chainer : public Fun2::Impl
 {
   typedef Fun2 Base;
-  
+
 public:
   typedef typename Base::ResultType ResultType;
   typedef typename Base::Parm1 Parm1;
   typedef typename Base::Parm2 Parm2;
-        
+
   Chainer(const Fun1& fun1, const Fun2& fun2) : f1_(fun1), f2_(fun2) {}
-  
+
   DEFINE_CLONE_FUNCTORIMPL(Chainer)
-    
+
     // operator() implementations for up to 15 arguments
-    
+
   ResultType operator()()
   { return f1_(), f2_(); }
-  
+
   ResultType operator()(Parm1 p1)
   { return f1_(p1), f2_(p1); }
-  
+
   ResultType operator()(Parm1 p1, Parm2 p2)
-  { return f1_(p1, p2), f2_(p1, p2); }  
-        
+  { return f1_(p1, p2), f2_(p1, p2); }
+
 private:
   Fun1 f1_;
   Fun2 f2_;
 };
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // function template Chain
 // Chains two functor calls one after another

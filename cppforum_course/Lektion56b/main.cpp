@@ -38,6 +38,6 @@ int main()
     cout << "Die Namen sortiert:" << endl;
     for(i=0; i < ANZAHL_NAMEN; ++i)
         cout << namen[i] << endl;
-    
+
     return 0;
 };

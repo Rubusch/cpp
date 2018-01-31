@@ -53,7 +53,7 @@ public:
   int getAttribute()
   {
     attribute = 7;
-    std::cout << "\tFoobar::getAttribute() - \t\tattribute = \t" 
+    std::cout << "\tFoobar::getAttribute() - \t\tattribute = \t"
               << attribute << ", addr = \t\"" << &attribute << "\"\n";
     return attribute;
   }
@@ -61,7 +61,7 @@ public:
   int& getAttributeReference()
   {
     attribute = 8;
-    std::cout << "\tFoobar::getAttributeReference() - \tattribute = \t" << attribute 
+    std::cout << "\tFoobar::getAttributeReference() - \tattribute = \t" << attribute
               << ", addr = \t\"" << &attribute << "\"\n";
     return attribute;
   }
@@ -69,7 +69,7 @@ public:
   int* getAttributePointer()
   {
     attribute = 9;
-    std::cout << "\tFoobar::getAttributePointer() - \tattribute = \t" << attribute 
+    std::cout << "\tFoobar::getAttributePointer() - \tattribute = \t" << attribute
               << ", addr = \t\"" << &attribute << "\"\n";
     return &attribute;
   }
@@ -85,18 +85,18 @@ public:
 
     std::cout << "\tint getValue()\n";
     value = getValue();
-    std::cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-    std::cout << std::endl; 
+    std::cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+    std::cout << std::endl;
 
     std::cout << "\tint& getValueReference()\n";
     value = getValueReference();
-    std::cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-    std::cout << std::endl; 
-  
+    std::cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+    std::cout << std::endl;
+
     std::cout << "\tint* getValuePointer()\n";
     pointer = getValuePointer();
-    std::cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n"; 
-    std::cout << std::endl;     
+    std::cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n";
+    std::cout << std::endl;
   }
 
   /*
@@ -109,7 +109,7 @@ public:
     *local = 777;
     return *local;
   }
-  
+
   int* getNewPointer()
   {
     std::cout << "\tFoobar::getNewPointer()\n";
@@ -136,35 +136,35 @@ int main()
 
   cout << "int getValue()\n";
   value = fb.getValue();
-  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-  cout << endl; 
+  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+  cout << endl;
 
   cout << "int& getValueReference()\n";
   value = fb.getValueReference();
-  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-  cout << endl; 
-  
+  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+  cout << endl;
+
   cout << "int* getValuePointer()\n";
   pointer = fb.getValuePointer();
-  cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n"; 
-  cout << endl; 
+  cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n";
+  cout << endl;
 
   /*** Attributes ***/
 
   cout << "int getAttribute()\n";
   value = fb.getAttribute();
-  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-  cout << endl; 
+  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+  cout << endl;
 
   cout << "int& getAttributeReference()\n";
   value = fb.getAttributeReference();
-  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-  cout << endl; 
-  
+  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+  cout << endl;
+
   cout << "int* getAttributePointer()\n";
   pointer = fb.getAttributePointer();
-  cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n"; 
-  cout << endl; 
+  cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n";
+  cout << endl;
 
   /*** member functions ***/
 
@@ -173,18 +173,18 @@ int main()
   cout << endl;
 
   /*** miscellaneous ***/
-  
+
   cout << "miscellaneous\n";
 
   cout << "int& getNewReference()\n";
   value = fb.getNewReference();
-  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n"; 
-  cout << endl; 
+  cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
+  cout << endl;
 
   cout << "int* getNewPointer()\n";
   pointer = fb.getNewPointer();
-  cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n"; 
-  cout << endl; 
+  cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n";
+  cout << endl;
 
   cout << "READY.\n";
   return 0;

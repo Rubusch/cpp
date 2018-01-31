@@ -14,9 +14,9 @@ int main()
 
     cout << "Bis zu welcher Zahl sollen die Primzahlen berechnet werden: ";
     cin >> limit;
-    
+
     for(int cnt=2; cnt<=limit; ++cnt){
-        if(istPrimzahl(cnt))         
+        if(istPrimzahl(cnt))
             cout << cnt << endl;
     }
 
@@ -26,10 +26,10 @@ int main()
 bool istPrimzahl(int zahl)
 {
     bool ist=true;
-    
+
     if(zahl == 0) return false;
     if(zahl == 1) return true;
-    
+
     for(int cnt = zahl-1; cnt > 1; --cnt){
         if(zahl%cnt == 0){
             ist = false;

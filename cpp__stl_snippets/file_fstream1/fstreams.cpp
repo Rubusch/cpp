@@ -20,8 +20,8 @@ int main()
   cout << "init\n";
   const char* const filename = "Jack.txt";
   ofstream out(filename, ios_base::out | ios_base::trunc);
-  cout << endl;  
-  
+  cout << endl;
+
   cout << "write\n";
   if(out.is_open()){
     out << 1234567;

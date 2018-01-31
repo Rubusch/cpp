@@ -1,6 +1,6 @@
 // main.cpp
 /*
-  Bringt das Programm immer noch zum abstuerzen 
+  Bringt das Programm immer noch zum abstuerzen
   -> Zuweisungsoperator ist noch nicht ueberladen.
 //*/
 
@@ -17,7 +17,7 @@ int main()
     for(int i=0; i<SIZE; ++i){
         arr[i] = true;
     }
-    
+
     for(int i=0; i<SIZE; ++i){
         for(int j=i; j<SIZE; j+=(i+1)){
             if(arr[j] == true)

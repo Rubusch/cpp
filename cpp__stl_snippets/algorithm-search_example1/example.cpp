@@ -23,7 +23,7 @@ public:
   Foobar(int id) : id_(id) {}
 
   int getId() const { return id_; }
-  
+
 private:
   const int id_;
 };
@@ -32,11 +32,11 @@ private:
 /*
   functor for compare operation
 //*/
-class id_compare 
+class id_compare
   : public std::binary_function< Foobar, int, bool >
 {
 public:
-  bool operator()(const Foobar& foo, int idx) const 
+  bool operator()(const Foobar& foo, int idx) const
   {
     return foo.getId() < idx;
   }
@@ -49,7 +49,7 @@ public:
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   Foobar arr[] = { Foobar(10), Foobar(20), Foobar(30), Foobar(40) };
   cout << endl;
@@ -60,7 +60,7 @@ int main()
     cout << ptr->getId() << endl;
   }
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

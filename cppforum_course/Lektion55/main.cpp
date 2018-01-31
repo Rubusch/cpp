@@ -1,6 +1,6 @@
 // main.cpp
 /*
-  Ein externer ueberladener Operator hat zwei (lhs und rhs) Parameter. 
+  Ein externer ueberladener Operator hat zwei (lhs und rhs) Parameter.
   Wird das eigene Objekt veraendert, muss eine Referenz zurueckgegeben
   werden.
   Bei cout<< ist das immer der Fall.
@@ -23,12 +23,12 @@ int main()
     Rational b(3,4);
     Rational c(5,6);
     Rational d(7,8);
-    
+
     a=a+5;
     b=d+a;
     c=a*b;
     d=a+b;
-    
+
     cout << "a=" << a << endl;
     cout << "b=" << b << endl;
     cout << "c=" << c << endl;

@@ -1,7 +1,7 @@
 // composite.cpp
 /*
-  Compose objects into tree structures to represent part-whole hierarchies. 
-  Composite lets clients treat individual objects and compositions of 
+  Compose objects into tree structures to represent part-whole hierarchies.
+  Composite lets clients treat individual objects and compositions of
   objects uniformly.
 
   +--------+      +---------------------+
@@ -79,11 +79,11 @@ public:
   void operation()
   {
     std::cout << "-> operation in the Composite class\n";
-    
+
     // remember avoid for loops: check mem_fun()
-    std::for_each( components_.begin(), components_.end(), std::mem_fun(&Component::operation)); 
+    std::for_each( components_.begin(), components_.end(), std::mem_fun(&Component::operation));
   }
-  
+
   void add( Component *pComponent)
   {
     if(NULL == pComponent) return;
@@ -93,10 +93,10 @@ public:
   void remove( Component *pComponent)
   {
     if(NULL == pComponent) return;
-    
+
     // remember: end() points AFTER the last element
-    std::vector< Component* >::iterator iter = std::find(components_.begin(), components_.end(), pComponent); 
-    
+    std::vector< Component* >::iterator iter = std::find(components_.begin(), components_.end(), pComponent);
+
     // remember: if find failed, it points to the last index, hence end() which is outside the vector
     if(iter == components_.end()) return;
 
@@ -130,7 +130,7 @@ int main()
 
   composite.operation();
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

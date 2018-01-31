@@ -19,7 +19,7 @@ int main()
     cin >> a;
     cout << "Geben Sie die zweite Zahl ein: ";
     cin >> b;
-    
+
     cout << "Der groesste gemeinsame Teiler ist: " << ggt(a,b) << endl;
 
     return 0;
@@ -29,9 +29,9 @@ int main()
 int ggt(int a, int b)
 {
     int tmp=0;
-    
+
     if(a>b) swap(a,b);
-        
+
     while(b!=0){
         tmp=a;
         a=b;

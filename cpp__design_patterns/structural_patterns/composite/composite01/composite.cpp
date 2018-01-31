@@ -1,7 +1,7 @@
 // composite.cpp
 /*
-  Compose objects into tree structures to represent part-whole hierarchies. 
-  Composite lets clients treat individual objects and compositions of 
+  Compose objects into tree structures to represent part-whole hierarchies.
+  Composite lets clients treat individual objects and compositions of
   objects uniformly.
 
   +--------+      +---------------------+
@@ -47,10 +47,10 @@
   Component
 
   - declares the interface for objects in the composition
-  - implements default behavior for the interface common to all classes, 
+  - implements default behavior for the interface common to all classes,
      as appropriate
   - declares an interface for accesing and managing its child components
-  - (optional) defines an interface for accessing a component's parent in 
+  - (optional) defines an interface for accessing a component's parent in
      the recursive structure, and implements it if that's appropriate
 //*/
 class Component
@@ -91,7 +91,7 @@ public:
 
 /*
   Composite
-  
+
   - defines behavior for components having children
   - stores child components
   - implements child-related operations in the Component interface
@@ -115,11 +115,11 @@ public:
   {
     std::cout << "\tComposite::operation()\n";
     std::cout << "-> operation in the Composite class\n";
-    
+
     // remember avoid for loops: check mem_fun()
-    std::for_each( components_.begin(), components_.end(), std::mem_fun(&Component::operation)); 
+    std::for_each( components_.begin(), components_.end(), std::mem_fun(&Component::operation));
   }
-  
+
   void add( Component *pComponent)
   {
     std::cout << "\tComposite::add( Component*)\n";
@@ -131,10 +131,10 @@ public:
   {
     std::cout << "\tComposite::remove( Component*)\n";
     if(NULL == pComponent) return;
-    
+
     // remember: end() points AFTER the last element
-    std::vector< Component* >::iterator iter = std::find(components_.begin(), components_.end(), pComponent); 
-    
+    std::vector< Component* >::iterator iter = std::find(components_.begin(), components_.end(), pComponent);
+
     // remember: if find failed, it points to the last index, hence end() which is outside the vector
     if(iter == components_.end()) return;
 
@@ -151,7 +151,7 @@ public:
 
 /*
   main... - client
-  
+
   - manipulates objects in the composition through the Component interface
 //*/
 int main()
@@ -178,7 +178,7 @@ int main()
   cout << "call the \'operation\'\n";
   composite.operation();
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

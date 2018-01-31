@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = setintersection.cpp
@@ -19,7 +19,7 @@ setintersection.exe: ${OBJECTS}
 
 all: setintersection.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) setintersection.exe *~ core
 
 

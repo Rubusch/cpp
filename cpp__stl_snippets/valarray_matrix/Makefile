@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = matrix.cpp
@@ -19,7 +19,7 @@ matrix.exe: ${OBJECTS}
 
 all: matrix.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) matrix.exe *~ core
 
 

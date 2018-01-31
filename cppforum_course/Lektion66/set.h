@@ -14,8 +14,8 @@ private:
     int m_size;
 
     bool has(const double &toFind);
-    template<class T> void swap(T *pa, T *pb);    
-    
+    template<class T> void swap(T *pa, T *pb);
+
 public:
     Set();
     ~Set();

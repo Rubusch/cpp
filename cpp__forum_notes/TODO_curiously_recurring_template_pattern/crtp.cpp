@@ -15,8 +15,8 @@
 
 
 // base class
-template< class T > 
-class Base 
+template< class T >
+class Base
   : public T
 {
 public:
@@ -30,7 +30,7 @@ public:
 class Dummy{};
 
 // derived class
-class Derived 
+class Derived
   : public Base< Dummy >//< Derived >
 {
 public:

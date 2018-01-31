@@ -19,18 +19,18 @@ int main()
     Uhrzeit arbeitsBeginn;
     Uhrzeit arbeitsEnde;
 
-    // Attribute werden ueber '.' zwischen Variablenname 
+    // Attribute werden ueber '.' zwischen Variablenname
     // und Attributename angesprochen
     arbeitsBeginn.stunde = 8;
     arbeitsBeginn.minute = 30;
-    
+
     arbeitsEnde.stunde = 18;
     arbeitsEnde.minute = 15;
-    
+
     // Formatierungen sind dem compiler egal, daher kann ein Befehl auch
     // ueber viele Zeilen gehen!
     int arbeitsMinuten = 60 * (arbeitsEnde.stunde - arbeitsBeginn.stunde)
         + arbeitsEnde.minute - arbeitsBeginn.minute;
-    
+
     cout << arbeitsMinuten << " Minuten" << endl;
 };

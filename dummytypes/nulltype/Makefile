@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = nulltype.cpp
@@ -19,7 +19,7 @@ nulltype.exe: ${OBJECTS}
 
 all: nulltype.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) nulltype.exe *~ core
 
 

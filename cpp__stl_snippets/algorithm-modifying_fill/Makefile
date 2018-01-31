@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = fill.cpp
@@ -19,7 +19,7 @@ fill.exe: ${OBJECTS}
 
 all: fill.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) fill.exe *~ core
 
 

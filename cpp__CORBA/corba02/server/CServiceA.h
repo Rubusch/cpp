@@ -11,7 +11,7 @@
 
 #include "Data.hh"
 
-class CServiceA_i 
+class CServiceA_i
   : public POA_Data::ServiceA
   , public PortableServer::RefCountServantBase
 {
@@ -25,7 +25,7 @@ public:
   virtual CORBA::Boolean CallServiceRoutineA( CORBA::Long num1         // in
                                               , CORBA::Long& num2      // inout
                                               , CORBA::Long& retNum);  // out
-  
+
   virtual CORBA::Boolean CallServiceRoutineB( CORBA::Long& num1        // inout
                                               , CORBA::Long& num2);    // inout
 };

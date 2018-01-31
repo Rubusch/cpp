@@ -22,7 +22,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 0, 1, 2, 2, 4, 4, 6 };
   copy(arr_a, arr_a+7, ostream_iterator< int >(cout, " "));
@@ -44,7 +44,7 @@ int main()
     cout << "\'2\' is not contained\n";
   }
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

@@ -22,7 +22,7 @@ public:
   /*
     pseudo destructor - dtor is no more accessible!
   //*/
-  void destroy() const;  
+  void destroy() const;
 
   /*
     private declaration of dtor
@@ -39,8 +39,8 @@ HeapOnly<T>::HeapOnly()
 
 template<class T>
 void HeapOnly<T>::destroy() const
-{ 
-  delete this; 
+{
+  delete this;
 }
 
 // if the dtor won't be implemented, it will lead to a linker error
@@ -53,15 +53,15 @@ HeapOnly<T>::~HeapOnly()
 int main()
 {
   // ERROR - heap only, due to private dtor
-  //  HeapOnly<std::string> ho; 
-  
+  //  HeapOnly<std::string> ho;
+
   HeapOnly<std::string> *pHo = new HeapOnly<std::string>();
 
   // ERROR - private dtor!
-  //  delete pHo; 
-  
+  //  delete pHo;
+
   pHo->destroy();
-  
+
   std::cout << "READY.\n" << std::endl;
   return 0;
 }

@@ -54,12 +54,12 @@ public:
         if(newSize > m_size){
             newSize += GROW_SIZE;
             T *newData = new T[newSize];
-            
+
             for(int i=0; i<m_size; ++i)
                 newData[i] = m_data[i];
-            
+
             delete[] m_data;
-            
+
             m_size = newSize;
             m_data = newData;
         };
@@ -70,15 +70,15 @@ public:
     {
         int newSize = (newStart - 0)+(end - start);
         T *newData = new T[newSize];
-        
+
         for(int i=0; i<newStart; ++i)
             newData[i] = m_data[i];
-        
+
         for(int i=0; i<(end-start); ++i)
             newData[newStart + i] = m_data[start + i];
-        
+
         delete[] m_data;
-        
+
         m_size = newSize;
         m_data = newData;
     };
@@ -94,7 +94,7 @@ public:
 
     Vector& operator=(const Vector &derAndereVector)
     {
-        if(&derAndereVector != this){ 
+        if(&derAndereVector != this){
             delete[] m_data;
             m_size = derAndereVector.m_size;
             m_data = new T[m_size];

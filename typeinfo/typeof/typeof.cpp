@@ -1,8 +1,8 @@
 // typeof.cpp
 /*
-  Typeof operator usage example: 
+  Typeof operator usage example:
   Very efficient type independent swap macro.
-  
+
   typeof() is missing in some C++ standards!
 //*/
 

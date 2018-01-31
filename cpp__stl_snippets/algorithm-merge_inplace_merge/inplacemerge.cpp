@@ -31,7 +31,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 0, 2, 2, 4, 1, 2, 3, 5, 5 };
   copy(arr_a, arr_a+9, ostream_iterator< int >(cout, " "));

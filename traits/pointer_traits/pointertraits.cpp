@@ -1,21 +1,21 @@
 // pointertraits.cpp
 /*
-  "Traits are a generic programming technique that allows compile-time 
-  decisions to be made based on types, much as you would make runtime 
+  "Traits are a generic programming technique that allows compile-time
+  decisions to be made based on types, much as you would make runtime
   decisions based on values.
 
-  This makes the resulting code cleaner, more readable, and easier to 
+  This makes the resulting code cleaner, more readable, and easier to
   maintain."
 
   e.g: copy function
-  "You would like, then, to implement copy so as to take advantage of 
-  fancyFastCopyFunction() whenever possible, and fall back on a more 
+  "You would like, then, to implement copy so as to take advantage of
+  fancyFastCopyFunction() whenever possible, and fall back on a more
   general conservative algorithm for elaborate types."
 
-  "TypeTraits uses template specialization internally and exposes the 
-  results. 
+  "TypeTraits uses template specialization internally and exposes the
+  results.
 
-  For example, the following code determines whether a type T is a 
+  For example, the following code determines whether a type T is a
   pointer."
 
   Taken from "Modern C++ Design", Alexandrescu
@@ -39,10 +39,10 @@ class NullType
 template< class T, class U >
 struct Typelist_
 {
-  typedef T 
+  typedef T
     Head;
 
-  typedef U 
+  typedef U
     Tail;
 };
 
@@ -88,13 +88,13 @@ namespace TL
     TypeList structure - IndexOf
   //*/
   template< class TList, class T > struct IndexOf;
-  
+
   template< class T >
   struct IndexOf< NullType, T >
   {
     enum { value = -1 };
   };
-  
+
   template< class T, class Tail >
   struct IndexOf< Typelist_< T, Tail >, T >
   {
@@ -104,7 +104,7 @@ namespace TL
   template< class Head, class Tail, class T >
   struct IndexOf< Typelist_< Head, Tail >, T >
   {
-  private: 
+  private:
     enum { temp = IndexOf< Tail, T >::value };
 
   public:
@@ -145,7 +145,7 @@ private:
     enum { result = false };
     typedef NullType PointeeType;
   };
-  
+
   template< class U > struct PointerTraits< U* >
   {
     enum { result = true };
@@ -153,7 +153,7 @@ private:
   };
 
 public:
-  // check if the passed type is a pointer type? 
+  // check if the passed type is a pointer type?
   enum { isPointer = PointerTraits< T >::result };
 
   // define enums to check types trait-like
@@ -161,7 +161,7 @@ public:
   enum { isStdSignedInt = TL::IndexOf< Private::StdOtherInts_t, T >::value >= 0 };
   enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< Private::StdOtherInts_t, T >::value >= 0 };
   enum { isStdFloat = TL::IndexOf< Private::StdFloats_t, T >::value >= 0 };
-  
+
   // arithmetic type is either an integral type or a floating point type
   enum { isStdArith = isStdIntegral || isStdFloat };
 };
@@ -170,18 +170,18 @@ public:
 /*
   main
 
-  "You can now gain some insight into the std::vector::iterator 
+  "You can now gain some insight into the std::vector::iterator
   implementation - is it a plain pointer or an elaborate type?"
 //*/
 int main()
 {
   using namespace std;
 
-  // some example, 
+  // some example,
   cout << "checking an iterator for beeing a plain pointer or not by traits:\n";
   const bool iterIsPtr = TypeTraits< vector< int >::iterator >::isPointer;
   cout << "vector<int>::iterator is " << (iterIsPtr ? "\"fast\"" : "\"smart\"") << '\n';
-  
+
   cout << "READY.\n";
   return 0;
 }

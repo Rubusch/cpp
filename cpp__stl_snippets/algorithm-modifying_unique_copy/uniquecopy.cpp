@@ -10,7 +10,7 @@
          +---+---+---+---+---+---+---+---+---+---+- -+
     |
     | unique_copy(arr_a, arr_a+10, arr_b)
-    | 
+    |
    \|/    ___ ___ ___ ___ ___
          +---+---+---+---+---+---+---+---+---+---+- -+
   arr_b: | 1 | 3 | 2 | 7 | 1 |   |   |   |   |   |   |
@@ -51,7 +51,7 @@ int main()
        << "means only show elements that are greater than their predecessor\n";
   unique_copy(arr_b, ptr, ostream_iterator< int >(cout, " "), greater< int >());
   cout << endl << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

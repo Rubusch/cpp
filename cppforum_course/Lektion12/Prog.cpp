@@ -2,7 +2,7 @@
 /*
   endl vermeidet Verzoegerungen, da es den Zwischenspeicher automatisch flushed,
   da endl definiert ist als:
- 
+
       cout << '\n' << flush;
 
   Ansonsten muss ein explizites "flush" gesetzt werden.

@@ -33,7 +33,7 @@ class Base
 {
 protected:
   int variable;
-  
+
 public:
   void display()
   {

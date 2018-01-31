@@ -18,7 +18,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   const ios_base::fmtflags standard_flags = cout.flags();
   cout << "bool: " << boolalpha << true << " and " << boolalpha << false << endl;
@@ -62,35 +62,35 @@ int main()
   cout.setf(ios_base::dec, ios_base::basefield);
   cout << "\tdezimal: " << lng << endl;
   cout << endl;
-  
+
   cout.setf(ios_base::showpos);
   cout << "\tsigned positive: " << lng << ", another number: " << 0 << endl;
   cout << endl << endl;
 
-  
+
   cout << "alignment\n";
   cout.setf(ios_base::unitbuf);
   cout.setf(ios_base::right, ios_base::adjustfield);
   cout.width(10);
   cout << lng << " (right)\n";
   cout << endl;
-  
+
   cout.setf(ios_base::internal, ios_base::adjustfield);
   cout.width(10);
   cout << lng << " (internal)\n";
   cout << endl;
-  
+
   cout.setf(ios_base::left, ios_base::adjustfield);
   cout.width(10);
   cout << lng << " (left)\n";
   cout << endl << endl;
-  
+
 
   cout << "reset again\n";
-  cout.flags(ios_base::uppercase 
-             | ios_base::hex 
+  cout.flags(ios_base::uppercase
+             | ios_base::hex
              | ios_base::scientific);
-  
+
   cout << "uppercase, hex and scientific: " << lng << ", " << dbl << endl;
   cout << endl << endl;
 
@@ -98,9 +98,9 @@ int main()
   cout.flags(standard_flags);
   cout.precision(standard_precision);
   cout << "again with presettings: " << lng << ", " << dbl << endl;
-  cout << endl << endl;  
+  cout << endl << endl;
 
-  
+
   cout << "READY.\n";
   return 0;
 }

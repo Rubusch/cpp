@@ -17,7 +17,7 @@ int main()
     while(gewonnen < 3){
         // Zufallszahl zwischen 0 und 99
         int ziel = rand() % 100;
-        
+
         int geraten;
         for(int versuch = 1; versuch <= 7; ++versuch){
             cout << "Zahl eingeben: ";

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = returntype.cpp
@@ -19,7 +19,7 @@ returntype.exe: ${OBJECTS}
 
 all: returntype.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) returntype.exe *~ core
 
 

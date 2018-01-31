@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = innerproxy.cpp
@@ -19,7 +19,7 @@ innerproxy.exe: ${OBJECTS}
 
 all: innerproxy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) innerproxy.exe *~ core
 
 

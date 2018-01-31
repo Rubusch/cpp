@@ -8,11 +8,11 @@ using namespace std;
 
 Plotter::Plotter()
 {
-//    cout << "Plotter()\n"; // TODO rm    
+//    cout << "Plotter()\n"; // TODO rm
     init();
 
     QVector< QPointF > vec;
-    for(int idx = -5; idx <= 5; ++idx) 
+    for(int idx = -5; idx <= 5; ++idx)
         vec.append(QPointF((qreal) idx, (qreal) idx));
 
     setCurveData(vec);
@@ -35,7 +35,7 @@ void Plotter::initPlotSettings()
 //    cout << "initPlotSettings()\n"; // TODO rm
     if(curveData.isEmpty()) return;
     if(settings == 0) settings = new PlotSettings();
-    
+
     qreal minX = curveData.at(0).x();
     qreal maxX = curveData.at(0).x();
     qreal minY = curveData.at(0).y();
@@ -49,7 +49,7 @@ void Plotter::initPlotSettings()
             minY = qMin(minY, curveData.at(idx).y());
             maxY = qMax(maxY, curveData.at(idx).y());
         }
-    }    
+    }
 
     double extension = 0.1;
     double spanX = maxX - minX;
@@ -57,7 +57,7 @@ void Plotter::initPlotSettings()
     settings->maxX = maxX + (extension * spanX);
     settings->spanX = spanX + spanX * (2 * extension);
     settings->numXTicks = 10;
-    double spanY = maxY - minY;    
+    double spanY = maxY - minY;
     settings->minY = minY - (extension * spanY);
     settings->maxY = maxY + (extension * spanY);
     settings->spanY = spanY + spanY * (2 * extension);
@@ -74,11 +74,11 @@ void Plotter::initPlotSettings()
          << "\tnumYTicks = " << settings->numYTicks << "\n";
 //*/
     // size of the widget
-    setMinimumWidth(((settings->numXTicks+1) * Margin) 
-                    + (2 * Margin) 
+    setMinimumWidth(((settings->numXTicks+1) * Margin)
+                    + (2 * Margin)
                     - settings->numXTicks); // FIXME
-    setMinimumHeight(((settings->numYTicks+1) * Margin) 
-                     + (2 + Margin) 
+    setMinimumHeight(((settings->numYTicks+1) * Margin)
+                     + (2 + Margin)
                      - settings->numYTicks); // FIXME
 
     refreshPixmap();
@@ -112,7 +112,7 @@ void Plotter::paintEvent(QPaintEvent* /*event*/)
 
 void Plotter::refreshPixmap()
 {
-//    cout << "refreshPixmap()\n"; // TODO rm    
+//    cout << "refreshPixmap()\n"; // TODO rm
     pixmap = QPixmap(size());
     pixmap.fill(this, 0, 0);
 
@@ -134,7 +134,7 @@ void Plotter::drawGrid(QPainter *painter)
     // Margin = 50
 //    cout << "drawGrid()\n"; // TODO rm
 //    cout << "Margin: " << Margin << "\n";
-    
+
     // widget's main rect
     QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
     if (!rect.isValid()) return;

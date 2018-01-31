@@ -1,7 +1,7 @@
 // memorypool.cpp
 /*
-  demonstrates the usage of a memory pool, the memory pool only contains a dummy implementation and is 
-  therefore completely stubbed, since there might be several strategies possible, especially to handle 
+  demonstrates the usage of a memory pool, the memory pool only contains a dummy implementation and is
+  therefore completely stubbed, since there might be several strategies possible, especially to handle
   and avoid internal fragmentation.
 
   Since this is kind of tricky and I'm a lowrider I didn't implement the memory pool here ;)
@@ -18,7 +18,7 @@ class FoobarRepresentation;
 
 /*
   This class is rather an interface than a real implemenation, because the acurate
-  implementation allows various strategies to handle the fragmentation problem. 
+  implementation allows various strategies to handle the fragmentation problem.
 //*/
 class Memorypool
 {
@@ -38,7 +38,7 @@ public:
 Memorypool::Memorypool(size_t size)
   :BLOCKS(size)
 {
-  std::cerr << "Memorypool - ctor(" << size << ")" << std::endl; // some comment  
+  std::cerr << "Memorypool - ctor(" << size << ")" << std::endl; // some comment
   pSpace = ::operator new(BLOCKS);
 }
 
@@ -62,7 +62,7 @@ void* Memorypool::alloc(size_t size)
   pSpace = ::operator new(size); // quickfix
   void* ptr = pSpace; // quickfix
 
-  return ptr;  
+  return ptr;
 }
 
 void Memorypool::free(void* ptr, size_t size)
@@ -70,19 +70,19 @@ void Memorypool::free(void* ptr, size_t size)
   std::cerr << "cleaning " << size << " bytes of memory!" << std::endl; // some comment
 
   /*
-    Generally here nothing will be freed, only the used section will be marked as 
+    Generally here nothing will be freed, only the used section will be marked as
     "available" again.
 
     Caution: this is tricky!
 
     If e.g. something within the middle of the memory section will be removed, a
-    a form of inner fragmentation will raise up (several strategies are possible, 
+    a form of inner fragmentation will raise up (several strategies are possible,
     e.g. buddy syste, etc..)
-   
+
     *** Therefore here no implementation of free(), sry! ***
-    This is not a memory leak, though, there's still a pointer (of MemoryPool) pointing to 
+    This is not a memory leak, though, there's still a pointer (of MemoryPool) pointing to
     the memory. Only in case the buffer is used up, there's no more memory, that's all!
-  //*/    
+  //*/
 
   if(ptr != pSpace) return; // quickfix - ptr is not (part of) pSpace
 
@@ -105,9 +105,9 @@ public:
 
   static void* operator new(size_t size);
   static void operator delete(void* ptr, size_t size);
-  
+
 private:
-  FoobarRepresentation* rep; 
+  FoobarRepresentation* rep;
   static Memorypool pool;
 };
 
@@ -123,7 +123,7 @@ inline void Foobar::operator delete(void* ptr, size_t size)
   pool.free(ptr, size);
 }
 
-// creation of the memory pool for Foobar objects, this is defined in the source 
+// creation of the memory pool for Foobar objects, this is defined in the source
 // file of the Foobar class
 Memorypool Foobar::pool(sizeof(Foobar));
 

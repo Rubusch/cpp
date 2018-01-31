@@ -7,7 +7,7 @@
        +---+---+---+---+---+---+- -+
   arr: | 1 | 3 | 5 | 6 | 4 | 2 |   |
        +---+---+---+---+---+---+- -+
-   |     |   |   +---+   |   |   
+   |     |   |   +---+   |   |
    |     |   +-----------+   |
    |     +-------------------+
    |     reverse(arr, arr+6)
@@ -44,7 +44,7 @@ int main()
   cout << "arr:\t ";
   copy(arr, arr+6, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

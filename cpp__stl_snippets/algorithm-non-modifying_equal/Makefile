@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = equal.cpp
@@ -19,7 +19,7 @@ equal.exe: ${OBJECTS}
 
 all: equal.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) equal.exe *~ core
 
 

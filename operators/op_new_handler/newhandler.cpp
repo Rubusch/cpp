@@ -1,8 +1,8 @@
 // newhandler.cpp
 /*
-  demonstrates how to implement a simple new hanlder, a new handler helps to keep on track of 
+  demonstrates how to implement a simple new hanlder, a new handler helps to keep on track of
   out-of-memory situations easily
-  
+
   Be prepared for out-of-memory conditions. (7/Meyers)
 //*/
 
@@ -41,9 +41,9 @@ class NewHandlerSupport
 public:
   static new_handler set_new_handler(new_handler p);
   static void* operator new(size_t size);
-  // MISSING: "operator delete()" - 
+  // MISSING: "operator delete()" -
   // always implement a "operator delete()" when you're implementing an "operator new()"
-  
+
 private:
   static new_handler currentHandler;
 };
@@ -63,14 +63,14 @@ void* NewHandlerSupport<T>::operator new(size_t size)
 
   new_handler globalHandler = set_new_handler(currentHandler);
   void* memory;
-  
+
   try{
     memory = ::operator new(size);
   }catch(bad_alloc){
     set_new_handler(globalHandler);
     throw;
   }
-  
+
   set_new_handler(globalHandler);
 
   return memory;
@@ -83,7 +83,7 @@ void* NewHandlerSupport<T>::operator new(size_t size)
 class Foobar : public NewHandlerSupport<Foobar>
 {
   string str;
-  
+
 public:
   // ...some code to execute...
   void setString(string s)
@@ -95,7 +95,7 @@ public:
     return str;
   }
 
-private: 
+private:
   static new_handler currentHandler;
 };
 
@@ -108,7 +108,7 @@ template<class T> new_handler NewHandlerSupport<T>::currentHandler;
   5. usage: the new-handler in action
 //*/
 int main()
-{ 
+{
 
   /*
     setting the simple new-handler

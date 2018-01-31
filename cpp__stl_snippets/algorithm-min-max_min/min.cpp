@@ -19,7 +19,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int val_a = 7;
   int val_b = 3;

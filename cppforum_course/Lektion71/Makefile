@@ -2,7 +2,7 @@
 SOURCE	= main.cpp
 HEADERS	= SortedArray.h vector.h DefaultComparator.h \
 	Dictionary.h DictionaryEntry.h \
-	DictionaryEntryComparator.h 
+	DictionaryEntryComparator.h
 OBJECTS	= ${SOURCE:.c=.o}
 
 .PREFIXES	= .c .o
@@ -20,5 +20,5 @@ prog: ${OBJECTS}
 
 all: prog
 
-clean: 
+clean:
 	-${RM} prog *.o core

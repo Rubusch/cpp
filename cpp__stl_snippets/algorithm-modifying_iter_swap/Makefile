@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = iterswap.cpp
@@ -19,7 +19,7 @@ iterswap.exe: ${OBJECTS}
 
 all: iterswap.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) iterswap.exe *~ core
 
 

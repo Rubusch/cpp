@@ -1,13 +1,13 @@
 // reversecopy.cpp
 /*
-  modifying algorithm 
+  modifying algorithm
 
   reverse_copy - create a copy of a range that is reversed
 
          +---+---+---+---+---+---+- -+
   arr_a: | 1 | 3 | 5 | 6 | 4 | 2 |   |
          +---+---+---+---+---+---+- -+
-   |       |   |   +---+   |   |   
+   |       |   |   +---+   |   |
    |       |   +-----------+   |
    |       +-------------------+
    |         reverse(arr, arr+6)

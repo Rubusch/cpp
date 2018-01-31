@@ -2,10 +2,10 @@
 /*
   A protocol class in C++ is similar to an "Interface" in Java.
 
-  A protocol is an abstract class that contains the "protocol" of the members to implement, 
+  A protocol is an abstract class that contains the "protocol" of the members to implement,
   each "value" is abstracted by a function to gain some kind of type independence.
 
-  A good explanation of a protocol class is contained in Effective C++ / Item 34 / Meyers. 
+  A good explanation of a protocol class is contained in Effective C++ / Item 34 / Meyers.
 
   Further this class demonstrates exception handling
 //*/
@@ -44,7 +44,7 @@ public:
   Size_type(T size)
     : data(size)
   {}
-  
+
   T getSize() const
   { return data; }
 };
@@ -59,8 +59,8 @@ public:
   Color_type(T color)
     : data(color)
   {}
-  
-  T getColor() const 
+
+  T getColor() const
   { return data; }
 };
 
@@ -74,7 +74,7 @@ public:
   Species_type(T species)
     : data(species)
   {}
-  
+
   T getSpecies() const
   { return data; }
 };
@@ -106,7 +106,7 @@ public:
     ~BadAnimalException() throw() {}
     const char* what() const throw()
     {
-      return "Allocation Failed!"; 
+      return "Allocation Failed!";
     }
   };
 
@@ -129,7 +129,7 @@ template<class T>
 inline
 ostream& operator<<(ostream& out, AnimalProtocol<T>& animal)
 {
-  return out << "species\t: " << animal.getSpecies() 
+  return out << "species\t: " << animal.getSpecies()
              << "\nsize\t: " << animal.getSize()
              << "\ncolor\t: " << animal.getColor()
              << endl;
@@ -205,13 +205,13 @@ template<class T>
 AnimalProtocol<T>* AnimalProtocol<T>::animalFactoryMethod( const Species_type<T>& species
                                                            , const Size_type<T>& size
                                                            , const Color_type<T>& color)
-  throw(AnimalProtocol<T>::BadAnimalException) 
+  throw(AnimalProtocol<T>::BadAnimalException)
 {
   // allocate space for an animal object
   return new RealAnimal<T>(species, size, color);
   throw BadAnimalException();
 }
-  
+
 
 /*-------------------------------------------------------------------------------------------*/
 

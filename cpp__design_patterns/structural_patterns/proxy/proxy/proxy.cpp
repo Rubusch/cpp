@@ -52,7 +52,7 @@ struct Proxy : public Subject
   {
     getSubject();
   }
-   
+
   ~Proxy()
   {
     if(NULL == pRealSubject_) return;
@@ -63,7 +63,7 @@ struct Proxy : public Subject
   void request()
   {
     pRealSubject_->request();
-  }  
+  }
 
 private:
   RealSubject* pRealSubject_;
@@ -72,7 +72,7 @@ protected:
   void getSubject()
   {
     if(NULL != pRealSubject_) return;
-    
+
     try{
       pRealSubject_ = new RealSubject;
     }catch(...){
@@ -83,12 +83,12 @@ protected:
 
 
 /*
-  main..  
+  main..
 //*/
 int main()
 {
   using namespace std;
-  
+
   cout << "init..\n";
   Proxy proxy;
   cout << endl;

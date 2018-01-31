@@ -1,6 +1,6 @@
 // template.cpp
 /*
-  demonstrates the insert iterator "inserter" which allows to insert 
+  demonstrates the insert iterator "inserter" which allows to insert
   at any given place
 
   output:

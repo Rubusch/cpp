@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = findreverse.cpp
@@ -19,7 +19,7 @@ findreverse.exe: ${OBJECTS}
 
 all: findreverse.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) findreverse.exe *~ core
 
 

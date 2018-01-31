@@ -52,7 +52,7 @@ public:
     std::cout << "\tgetRef()\n";
     SomeClass object = getRef();
     std::cout << "\tobject\t - addr\t = " << &object << "\n\n";
-    
+
     std::cout << "\tgetPtr()\n";
     SomeClass *pointer = getPtr();
     std::cout << "\tpointer\t - addr\t = " << pointer << "\n\n";
@@ -69,7 +69,7 @@ int main()
 {
   using namespace std;
   Foobar fb;
-  
+
   cout << "fb.getRef()\n";
   SomeClass object = fb.getRef();
   cout << "object\t\t - addr\t = " << &object << "\n\n";

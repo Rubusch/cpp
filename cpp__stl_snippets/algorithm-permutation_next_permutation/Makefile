@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = nextpermutation.cpp
@@ -19,7 +19,7 @@ nextpermutation.exe: ${OBJECTS}
 
 all: nextpermutation.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) nextpermutation.exe *~ core
 
 

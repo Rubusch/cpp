@@ -143,7 +143,7 @@ int main( int argc, char *argv[] )
 
 
     //    cvNamedWindow( "target" );
-    cvNamedWindow( "target", CV_WINDOW_NORMAL );  
+    cvNamedWindow( "target", CV_WINDOW_NORMAL );
     while( 1 ){
 
         // fetch regular frames

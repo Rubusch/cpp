@@ -6,22 +6,22 @@ void readFlightCurves(Plotter *plotter, const QString &fileName)
 {
 	// list of points (float)
     QVector<QPointF> data[6];
-    
+
     // ???
     double factX = 0.0013;
-    
+
     // ???
     double factY[6] = { 0.0008, 0.1, 0.2, 0.2, 0.1, 0.8 };
-    
+
     // ???
     double offsY[6] = { +500, -55, +309, +308, 0, 0 };
-    
+
     // ???
     int pos[6] = { 3, 6, 7, 8, 9, 10 };
 
 	// txt file containing the data
     QFile file(fileName);
-    
+
     // ???
     double offsX = 0.0;
 

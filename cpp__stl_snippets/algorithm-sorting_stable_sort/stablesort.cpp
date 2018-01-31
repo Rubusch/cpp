@@ -3,7 +3,7 @@
   sorting algorithm
 
   stable_sort - sort a range of elements while preserving their relative order (heap sort)
-  
+
                         ___ ___ ___ ___
        +---+---+---+---+---+---+---+---+- -+
   arr: | 3 | 1 | 0 | 6 | 1 | 6 | 3 | 0 |   |
@@ -12,7 +12,7 @@
    | stable_sort(arr, arr+8)
    |
   \|/       ___     ___     ___     ___
-       +---+---+---+---+---+---+---+---+- -+  
+       +---+---+---+---+---+---+---+---+- -+
   arr: | 0 | 0 | 1 | 1 | 3 | 3 | 6 | 6 |   |
        +---+---+---+---+---+---+---+---+- -+
 
@@ -36,22 +36,22 @@ using namespace std::rel_ops;
 class Element
 {
 public:
-  Element(int value) : value_(value), idx_(++number_) 
+  Element(int value) : value_(value), idx_(++number_)
   {}
-  
+
   friend ostream& operator<<(ostream& os, const Element& element)
-  { 
-    return os << element.value_ << '-' << element.idx_; 
+  {
+    return os << element.value_ << '-' << element.idx_;
   }
 
-  bool operator<(const Element& element) const 
-  { 
-    return (value_ < element.value_); 
+  bool operator<(const Element& element) const
+  {
+    return (value_ < element.value_);
   }
 
-  bool operator>(const Element& element) const 
-  { 
-    return (value_ > element.value_); 
+  bool operator>(const Element& element) const
+  {
+    return (value_ > element.value_);
   }
 
 private:

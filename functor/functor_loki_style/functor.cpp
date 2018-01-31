@@ -3,7 +3,7 @@
   Demonstrates the usage of a more sophisticated functor implementation.
   1. usage of the functor with a functor class
   2. usage of the functor with a functor function
-  3. usage of the binding mechanism, binding a given parameter to another 
+  3. usage of the binding mechanism, binding a given parameter to another
   and the call of a command (functor)
 
   (Alexandrescu, 2001)

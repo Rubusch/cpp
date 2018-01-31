@@ -33,9 +33,9 @@ int Rational::ggt(int a, int b)
     int tmp=0;
     a = abs(a);
     b = abs(b);
-    
+
     if(a>b) swap(&a, &b);
-        
+
     while(b!=0){
         tmp=a;
         a=b;

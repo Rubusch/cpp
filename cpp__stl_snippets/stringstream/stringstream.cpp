@@ -27,7 +27,7 @@ std::string double2string(double db)
   convert string to double
 //*/
 double string2double(const std::string& str)
-{ 
+{
   double db;
   std::istringstream(str) >> db;
   return db;
@@ -40,7 +40,7 @@ double string2double(const std::string& str)
 int main()
 {
   using namespace std;
-  
+
   const string euro = double2string(12.34);
   cout << "euro: " << euro << endl;
   cout << endl;

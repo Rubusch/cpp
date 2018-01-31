@@ -10,7 +10,7 @@ class Vector
 private:
     double *m_data;
     int m_size;
-    
+
 public:
     Vector(int size);
     ~Vector();

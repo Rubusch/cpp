@@ -40,10 +40,10 @@ void PlotterFrame::slotAccept()
     std::cout << "slotAccept()\n";
     QString szX = "";
     QString szY = "";
-    
+
     szX = leX->text();
     if(szX.isEmpty()) szX = "0.0";
-    
+
     szY = leY->text();
     if(szY.isEmpty()) szY = "0.0";
 

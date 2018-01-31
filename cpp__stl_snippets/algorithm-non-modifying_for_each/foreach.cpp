@@ -14,16 +14,16 @@
 
 
 template< class T >
-class SumUp 
+class SumUp
   : public std::unary_function< T, void >
 {
 private:
   T sum_;
-  
+
 public:
   explicit SumUp( const T& sum = T())
     : sum_(sum) {}
-  
+
   void operator()( const T& tmp){ sum_ += tmp; }
   T getSum() const { return sum_; }
 };
@@ -35,7 +35,7 @@ public:
 void a_or_b(int idx)
 {
   std::cout << ((idx % 2 == 0) ? 'a' : 'b');
-} 
+}
 
 
 /*
@@ -64,7 +64,7 @@ int main()
   cout << "...which is actually the same like the following implementation (doing the same):\n";
   cout << " " << (for_each( arr + 1, arr + 5, SumUp< int >())).getSum();
   cout << endl << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

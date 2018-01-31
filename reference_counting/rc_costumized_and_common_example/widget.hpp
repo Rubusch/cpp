@@ -16,12 +16,12 @@ annotations:
 #define WIDGET
 
 
-class Widget 
+class Widget
 {
 public:
   // ctor
   Widget(int size);
-  
+
   // copy ctor
   Widget(const Widget& rhs);
 
@@ -33,7 +33,7 @@ public:
 
   // some actions
   void doThis();
-  int showThat() const;  
+  int showThat() const;
 
 private:
   // some data

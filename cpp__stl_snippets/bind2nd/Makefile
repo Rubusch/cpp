@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = bind2nd.cpp
@@ -19,7 +19,7 @@ bind2nd.exe: ${OBJECTS}
 
 all: bind2nd.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) bind2nd.exe *~ core
 
 

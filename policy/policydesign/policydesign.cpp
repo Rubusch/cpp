@@ -2,7 +2,7 @@
 /*
   Demonstrates a basic policy design (source www.en.wikipedia.org)
 
-  "It has been described as a compile-time variant of the strategy pattern, 
+  "It has been described as a compile-time variant of the strategy pattern,
   and has connections with C++ template metaprogramming."
 
   Here are two types of policies demonstrated, a type that _does_ something
@@ -19,7 +19,7 @@
 /*
   user class
 
-  the class will be instantiated with diferent "behaviours" conforme 
+  the class will be instantiated with diferent "behaviours" conforme
   to the passed policies
 //*/
 template< typename outputPolicy_t, typename languagePolicy_t >
@@ -44,7 +44,7 @@ public:
 
 
 /*
-  policy A: 
+  policy A:
 
   defines _what_ to do, uses policy B
 //*/
@@ -88,7 +88,7 @@ protected:
 /*
   policy B:
 
-  defines what to be print out e.g. by policy A, 
+  defines what to be print out e.g. by policy A,
   another variante of policy B
 //*/
 class LanguagePolicy_French
@@ -124,7 +124,7 @@ int main()
     , LanguagePolicy_English
     >
     helloWorld_t;
-  
+
   helloWorld_t helloWorld_1;
   helloWorld_1.doSomething();
   cout << endl;

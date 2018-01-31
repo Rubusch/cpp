@@ -10,5 +10,5 @@ Prog.o: Prog.cpp
 
 all: Prog
 
-clean: 
+clean:
 	rm *.o Prog

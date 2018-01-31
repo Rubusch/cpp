@@ -12,7 +12,7 @@
            +---+---+---+---+---+- -+
   arr_b:   | 4 | 6 | 2 | 4 | 7 |   |
            +---+---+---+---+---+- -+
-                     | 
+                     |
      find_first_of(arr_b, arr_b + 5, arr_a, arr_a + 4)
 
   (Kuhlins & Schader, 2003)

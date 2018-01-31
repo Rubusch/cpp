@@ -10,12 +10,12 @@ using namespace std;
 int main()
 {
     cout << "speichern..." << endl;
-    
+
     ofstream out("witz.txt");
     out << "Es kommt ein Mann zum Baecker und..." << endl;
     out << "Da fragt der Baecker..." << endl;
     out << "Der Mann antwortet: Nein.." << endl;
-    {        
+    {
         cout << endl << "...laden, als Stream:" << endl;
         ifstream in("witz.txt");
         while(!in.eof()){
@@ -44,6 +44,6 @@ int main()
         sz = sz.erase(sz.length()-1);
         cout << sz << endl;
     };
-    
+
     return 0;
 };

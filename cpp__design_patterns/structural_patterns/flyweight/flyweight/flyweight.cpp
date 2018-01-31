@@ -9,7 +9,7 @@
        |     +---------------------+        +---------------------+
        |     | getFlyweight(key)   |        | operation(          |
        |     +---------------------+        |    intrinsic state) |
-       |                                    +---------------------+ 
+       |                                    +---------------------+
        |                                              /_\
        |                                               |
        |                                +--------------+--------------+
@@ -28,7 +28,7 @@
   +--------+              |                             |
   | client |--------------+-----------------------------+
   +--------+
-   
+
   (GoF, 1995)
 //*/
 
@@ -44,7 +44,7 @@ struct Flyweight
 
 struct SharedConcreteFlyweight
   : public Flyweight
-{  
+{
   SharedConcreteFlyweight(std::string &str)
     : pStr_(&str)
   {}
@@ -68,7 +68,7 @@ struct UnsharedConcreteFlyweight
 
   void operation()
   {
-    std::cout << "operation - str_ = " << str_ << ", " << "num_ = " << num_ << "\n";    
+    std::cout << "operation - str_ = " << str_ << ", " << "num_ = " << num_ << "\n";
   }
 
 private:
@@ -100,7 +100,7 @@ struct FlyweightFactory
 private:
   std::string str_;
   unsigned int num_;
-  
+
   Flyweight* pFlyweight;
 };
 
@@ -111,7 +111,7 @@ private:
 int main()
 {
   using namespace std;
-  
+
   FlyweightFactory factory;
   cout << endl;
 
@@ -124,7 +124,7 @@ int main()
   Flyweight *pFly_2 = &(factory.getUnsharedFlyweight());
   pFly_2->operation();
   cout << endl;
-  
+
 
   std::cout << "READY.\n";
   return 0;

@@ -3,7 +3,7 @@
   Copy-on-write mechanism using a shareable flag, following the example of Scott Meyers.
 
   To show the effect compile with shared flag turned on (comment the define out) or turned off.
-  
+
   (More Effective C++ / 29 / Meyers)
 //*/
 
@@ -13,11 +13,11 @@
 
 /*
   -> ACTIVATE OR DEACTIVATE THE SHAREABLE FLAG!!!
-  
+
   THIS TURNS REFERENCE COUNTING ON OR OFF, OR GIVES
   ACCESS TO THE SHARED DATA OR NOT, RESPECTIVELY.
 //*/
-#define DON_T_SHARE 
+#define DON_T_SHARE
 
 
 // forward declarations
@@ -39,12 +39,12 @@ public:
   SomeClass& operator=(const SomeClass& deepcopy);
 
   // copy-on-write stuff
-  const char& operator[](int index) const; 
+  const char& operator[](int index) const;
   char& operator[](int index);
 
   // accessibility for output
   void copyonwrite(const char* newcontent, const unsigned int newcontent_siz);
-  void setshareable(bool isShareable); 
+  void setshareable(bool isShareable);
 
   friend
   std::ostream& operator<<(std::ostream& out, SomeClass& obj);
@@ -62,7 +62,7 @@ private:
     SomeValue(const char* initValue);
     ~SomeValue();
   };
-  
+
   // ptr to the value struct
   SomeValue* value;
 };
@@ -101,7 +101,7 @@ SomeClass::SomeClass(const SomeClass& shallowcopy)
 //*/
 SomeClass::~SomeClass()
 {
-  std::cout << "DTOR\t~SomeClass()\n"; 
+  std::cout << "DTOR\t~SomeClass()\n";
 
   if(--value->refCount == 0) delete value;
 }
@@ -119,7 +119,7 @@ SomeClass& SomeClass::operator=(const SomeClass& deepcopy)
   if(--value->refCount == 0){
     delete value;
   }
-  
+
   value = deepcopy.value;
   ++value->refCount;
 
@@ -150,7 +150,7 @@ char& SomeClass::operator[](int index)
   // break off a separate copy of the value for ourselves
   if(value->refCount > 1){
     --value->refCount;
-    // decrement current value's refCount, because we won't be 
+    // decrement current value's refCount, because we won't be
     // using that value any more
 
     value = new SomeValue(value->data);
@@ -211,14 +211,14 @@ std::ostream& operator<<(std::ostream& out, SomeClass& obj)
   ref count - ctor
 
   ...or do alternatively:
-  data = new T(initValue); 
+  data = new T(initValue);
 //*/
 SomeClass::SomeValue::SomeValue(const char* initValue)
   : refCount(1)
     , shareable(true) // init of the new shareable flag
 {
   int initValueSize = strlen(initValue) + 1;
-  data = new char[initValueSize]; // strlen returns length, without '\0' 
+  data = new char[initValueSize]; // strlen returns length, without '\0'
   strncpy(data, initValue, initValueSize);
 }
 
@@ -228,7 +228,7 @@ SomeClass::SomeValue::SomeValue(const char* initValue)
 //*/
 SomeClass::SomeValue::~SomeValue()
 {
-  std::cout << "DTOR\tSomeClass::~SomeValue()\n"; 
+  std::cout << "DTOR\tSomeClass::~SomeValue()\n";
 
   delete [] data;
 }
@@ -278,25 +278,25 @@ int main()
 
   // change of obj_3
   /*
-    we take a static array here to prove that the content will be copied, 
+    we take a static array here to prove that the content will be copied,
     a delete value->data would fails, if *data would point on a static array
   //*/
   std::cout << "copy on write - rewrite the common data\n";
-  char newarr[] = "*** new common data ***"; 
-  obj_3.copyonwrite(newarr, strlen(newarr)); 
+  char newarr[] = "*** new common data ***";
+  obj_3.copyonwrite(newarr, strlen(newarr));
 
   // output
   std::cout << obj_1 << std::endl;
   std::cout << obj_2 << std::endl;
   std::cout << obj_3 << std::endl;
-  std::cout << std::endl;  
+  std::cout << std::endl;
 
   // output by index
   std::cout << "output on indexes (copy on write - out):\n";
   for(unsigned int idx=0; idx <= initstring.length(); ++idx){
     std::cout << "obj_1[" << idx << "] \t= " << obj_1[idx] << "\n";
   }
-  std::cout << std::endl;  
+  std::cout << std::endl;
 
   // done
   std::cout << "READY.\n";

@@ -1,24 +1,24 @@
 // inline.cpp
 /*
   inlining is replacing the function call DIRECTLY with the code in the
-  inline function. 
-  
+  inline function.
+
   this demo here describes just one example where overloading of an operator*
   is handled by a inline friend function.
 
-  - A function defined in the class'es header is considered to be translated as 
-  inline (a function actually, not a ctor, thogh here the technique is demonstrated 
+  - A function defined in the class'es header is considered to be translated as
+  inline (a function actually, not a ctor, thogh here the technique is demonstrated
   with the ctors)
 
   - A function can be defined "inline" in the class explicitely (see operator=)
 
-  - A function can be defined as "inline" outside a class (e.g. operator<< and 
+  - A function can be defined as "inline" outside a class (e.g. operator<< and
   operator*).
 
-  Some issues with inline is that inlining can make debugging (tracing) more 
-  difficult. since the function calls to a inline function will be replaced 
-  directly by the inline function's code, it can increase the size of the 
-  program and can even lead to worse performance. Inlining is a recommendation 
+  Some issues with inline is that inlining can make debugging (tracing) more
+  difficult. since the function calls to a inline function will be replaced
+  directly by the inline function's code, it can increase the size of the
+  program and can even lead to worse performance. Inlining is a recommendation
   to the compiler and not mandatory!
 //*/
 
@@ -33,11 +33,11 @@ template<class T>
 class Number;
 
 // friend operators:
-template<class T> 
+template<class T>
 const Number<T> operator*(const Number<T>& lhs, const Number<T>& rhs);
 
 template<class T>
-ostream& operator<<(ostream& out, Number<T>& rhs); 
+ostream& operator<<(ostream& out, Number<T>& rhs);
 
 
 /*
@@ -54,14 +54,14 @@ public:
   Number()
     :x_coord(0), y_coord(0){};
 
-  Number(const T& x, const T& y) 
+  Number(const T& x, const T& y)
     :x_coord(x), y_coord(y) {};
 
   // operators
   inline Number<T>& operator=(const Number<T>& deepcpy);
 
   // friend functions
-  friend ostream& operator<< <T>(ostream& out, Number<T>& rhs);  
+  friend ostream& operator<< <T>(ostream& out, Number<T>& rhs);
   friend const Number<T> operator* <T>(const Number<T>& lhs, const Number<T>& rhs); // XXX
 };
 
@@ -80,20 +80,20 @@ Number<T>& Number<T>::operator=(const Number<T>& deepcpy)
 
 /*
   The inline friend operator*
-  
-  Since we are using inline - this can be very tricky (Effective C++, Item 23 / Meyers). 
+
+  Since we are using inline - this can be very tricky (Effective C++, Item 23 / Meyers).
   This implementation here is the most recommended version of handling a similar problem
   by using inline funcitons, via a ctor!
 //*/
 template<class T>
-inline 
+inline
 const Number<T> operator*(const Number<T>& lhs, const Number<T>& rhs)
 {
   return Number<T>(lhs.x_coord * rhs.x_coord, lhs.y_coord * rhs.y_coord);
 }
 
 template<class T>
-inline 
+inline
 ostream& operator<<(ostream& out, Number<T>& rhs)
 {
   return out << "\t::x = " << rhs.x_coord << "\n\t" << "::y = " << rhs.y_coord << "\n" << endl;

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = pts_polymorphism.cpp
@@ -19,7 +19,7 @@ pts_polymorphism.exe: ${OBJECTS}
 
 all: pts_polymorphism.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) pts_polymorphism.exe *~ core
 
 

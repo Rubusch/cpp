@@ -27,5 +27,5 @@ DataSK.cc: ../idl/Data.idl
 	$(OMNIIDL) -bcxx ../idl/Data.idl
 
 clean:
-	$(RM) $(OBJECTS) server.exe *.o *~ Data.hh DataSK.cc core 
+	$(RM) $(OBJECTS) server.exe *.o *~ Data.hh DataSK.cc core
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = binarysearch.cpp
@@ -19,7 +19,7 @@ binarysearch.exe: ${OBJECTS}
 
 all: binarysearch.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) binarysearch.exe *~ core
 
 

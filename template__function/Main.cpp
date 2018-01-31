@@ -18,7 +18,7 @@ int main()
 {
     int a=5, b=10;
     cout << "a = " << a << ", b = " << b << endl;
-    
+
     swap<int>(&a, &b);
     cout << "swap" << endl;
 

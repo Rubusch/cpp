@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = stringstream.cpp
@@ -19,7 +19,7 @@ stringstream.exe: ${OBJECTS}
 
 all: stringstream.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) stringstream.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = inplacemerge.cpp
@@ -19,7 +19,7 @@ inplacemerge.exe: ${OBJECTS}
 
 all: inplacemerge.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) inplacemerge.exe *~ core
 
 

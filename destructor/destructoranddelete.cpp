@@ -3,7 +3,7 @@
   Shows how to handle internal used dynamic memory.
 
   Use delete on pointer members in destructors.
-  
+
  (6/Meyers)
 //*/
 
@@ -16,7 +16,7 @@ class Foobar
 {
 private:
   T* pMember;
-  
+
 public:
   // ctor
   Foobar()
@@ -34,7 +34,7 @@ public:
   // dtor
   ~Foobar()
   {
-    // delete every dynamical pointer at least once in the destructor 
+    // delete every dynamical pointer at least once in the destructor
     // if it is not used the pointer should point to NULL
     // -> delete NULL is harmless!
     delete pMember;
@@ -70,4 +70,4 @@ int main()
   cout << "READY\n";
   return 0;
 }
-  
+

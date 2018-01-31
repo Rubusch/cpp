@@ -12,7 +12,7 @@
 
 
 /*
-  creates an allocator for small objects given Chunk size 
+  creates an allocator for small objects given Chunk size
   and maximum 'small' object size
 //*/
 SmallObjectAllocator::SmallObjectAllocator( std::size_t chunkSize, std::size_t maxObjectSize)
@@ -23,7 +23,7 @@ SmallObjectAllocator::SmallObjectAllocator( std::size_t chunkSize, std::size_t m
 
 
 /*
-  allocates 'numBytes' memory uses an internal pool of 
+  allocates 'numBytes' memory uses an internal pool of
   FixedAllocator objects for small objects
 //*/
 void* SmallObjectAllocator::allocate( std::size_t numBytes)
@@ -31,7 +31,7 @@ void* SmallObjectAllocator::allocate( std::size_t numBytes)
   std::cout << "\t\tSmallObjectAllocator::allocate( std::size_t numBytes)\n";
 
   // use default allocator if size execedes capacity of Small Object Allocator
-  if(numBytes > maxObjectSize_) 
+  if(numBytes > maxObjectSize_)
     return operator new(numBytes);
 
   // if final pointer exists and number of allocated bytes is correct, allocate
@@ -55,15 +55,15 @@ void* SmallObjectAllocator::allocate( std::size_t numBytes)
 
 
 /*
-  deallocates memory previously allocated with allocate 
+  deallocates memory previously allocated with allocate
   (undefined behaviour if you pass any other pointer)
 //*/
 void SmallObjectAllocator::deallocate( void* ptr, std::size_t numBytes)
 {
   std::cout << "\t\tSmallObjectAllocator::deallocate( void* ptr, std::size_t numBytes)\n";
 
-  // of the allocated blocks exceeded the amount of pre-allocated blocks, 
-  // return the ::operator delete() 
+  // of the allocated blocks exceeded the amount of pre-allocated blocks,
+  // return the ::operator delete()
   if(numBytes > maxObjectSize_) return operator delete(ptr);
 
   // if final dealloc pointer exists, and amounts of blocks is ok, deallocate
@@ -71,12 +71,12 @@ void SmallObjectAllocator::deallocate( void* ptr, std::size_t numBytes)
     pLastDealloc_->deallocate(ptr);
     return;
   }
-  
+
   // else create iterator to the final position...
   Pool::iterator iter = std::lower_bound( pool_.begin(), pool_.end(), numBytes);
 
   // ...check it...
-  assert( iter != pool_.end()); 
+  assert( iter != pool_.end());
   assert( iter->blockSize() == numBytes);
 
   // ...init it...

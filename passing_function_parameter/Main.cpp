@@ -1,19 +1,19 @@
 // Main.cpp
 /*
   Three ways of passing parameters in functions
-  
+
   pass by value
-     The original value won't be modified. Works with a copy 
+     The original value won't be modified. Works with a copy
      of the content of the original value.
 
   pass by pointer
-     The original value can be changed. The passed value can 
-     also be NULL. 
+     The original value can be changed. The passed value can
+     also be NULL.
 
   pass by reference - const reference
-     This works with the original value, but is made const 
-     to not allow any modification to the original value. The 
-     "const" is quite convenient in many cases. 
+     This works with the original value, but is made const
+     to not allow any modification to the original value. The
+     "const" is quite convenient in many cases.
 //*/
 
 #include <iostream>
@@ -52,18 +52,18 @@ int main()
     int* pVar = &dummy;
 
     cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
-    
+
     cout << "pass by value" << endl;
     passByValue(var, *pVar);
     cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
-    
+
     cout << "pass by reference - address" << endl;
     passByReference_Pointer(&var, pVar);
     cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
-    
+
     cout << "pass by reference - const reference" << endl;
     passByReference_Reference(var, *pVar);
-    cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;    
+    cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
 
     return 0;
 };

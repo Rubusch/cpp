@@ -2,14 +2,14 @@
 /*
   binary search algorithm
 
-  upper_bound - searches for the last possible location to 
+  upper_bound - searches for the last possible location to
   insert an element into an ordered range
 
                 ___ ___
        +---+---+---+---+---+---+---+- -+
   arr: | 0 | 1 | 2 | 2 | 4 | 4 | 6 |   |
        +---+---+---+---+---+---+---+- -+
-                         | 
+                         |
             upper_bound(arr, arr+7, 2)
 
   elements MUST be sorted before search algorithm!
@@ -29,7 +29,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 0, 1, 2, 2, 4, 4, 6 };
   cout << "arr: \t";
@@ -43,7 +43,7 @@ int main()
   const int* ptr = upper_bound(arr_a, arr_a+7, 2);
   cout << "first index after the last occurrance of \'2\': " << (ptr - arr_a) << endl;
   cout << endl;
-  
+
   cout << "init another array\n";
   int arr_b[] = { 6, 4, 4, 3, 3, 1, 0 };
   cout << "arr: \t";
@@ -64,7 +64,7 @@ int main()
 
   cout << "\'2\' can be inserted at last after index: " << (ptr - arr_b) << endl;
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

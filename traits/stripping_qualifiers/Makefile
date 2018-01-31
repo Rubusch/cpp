@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = strippingtraits.cpp
@@ -19,7 +19,7 @@ strippingtraits.exe: ${OBJECTS}
 
 all: strippingtraits.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) strippingtraits.exe *~ core
 
 

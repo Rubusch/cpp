@@ -5,14 +5,14 @@
   copy_backward - copy a range of elements in backwards order
 
                  /----------------------->
-                ___ ___ ___ ___ ___ ___ 
+                ___ ___ ___ ___ ___ ___
                +---+---+---+---+---+---+---+- -+
    +--    arr: | 0 | 1 | 3 | 5 | 2 | 4 | 6 |   |
    |           +---+---+---+---+---+---+---+- -+
    |
    |        copy_backward(arr, arr+6, arr+7)
-   |             |                      
-   |             |  ___ ___ ___ ___ ___ ___ 
+   |             |
+   |             |  ___ ___ ___ ___ ___ ___
    |           +---+---+---+---+---+---+---+- -+
    +--->  arr: | 0 | 0 | 1 | 3 | 5 | 2 | 4 |   |
                +---+---+---+---+---+---+---+- -+
@@ -45,7 +45,7 @@ int main()
   cout << "copy_backward()\n";
   copy_backward(arr, arr+6, arr+7);
   cout << endl;
-  
+
   cout << "output after:\n";
   copy(arr, arr+7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;

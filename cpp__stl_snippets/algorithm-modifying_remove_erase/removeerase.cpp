@@ -31,7 +31,7 @@ int main()
   cout << "at the start up - " << vec.size() << " elements:\n";
   copy(vec.begin(), vec.end(), ostream_iterator< int >(cout, " "));
   cout << endl << endl;
-  
+
   cout << "after remove - " << vec.size() << " elements:\n";
   copy(vec.begin(), vec.end(), ostream_iterator< int >(cout, " "));
   cout << endl << endl;
@@ -40,7 +40,7 @@ int main()
   cout << "after erase - " << vec.size() << " elements:\n";
   copy(vec.begin(), vec.end(), ostream_iterator< int >(cout, " "));
   cout << endl << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

@@ -25,7 +25,7 @@ int main()
         cout << "0 : Programm beenden" << endl;
         int eingabe;
         cin >> eingabe;
-        
+
         string name;
         string nummer;
         switch(eingabe){
@@ -38,19 +38,19 @@ int main()
             cin >> nummer;
             buch.insert(name, nummer);
             break;
-            
+
         case 2: // Name suchen
             break;
-            
+
         case 3: // Name aendern
             break;
-            
+
         case 4: // Name loeschen
             break;
-            
+
         case 5: // Liste anzeigen
             break;
-            
+
         default:
             cout << "Diesen Menupunkt gibt es nicht!" << endl;
         };

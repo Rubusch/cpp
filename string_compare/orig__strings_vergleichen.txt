@@ -94,20 +94,20 @@ Hier ein kleiner Code-Auszug:
         };
         //...
     }
-    
+
     int main()
     {
         using namespace IgnoreCase;
         set<string, NoCaseLess_t> MySet;
         string Str1("Foo");
         string Str2("FOO");
-    
+
         MySet.insert(Str1);
         if (!MySet.insert(Str2).second)
         {
             cout << "Es kann nur einen Foo geben :-)" << endl;
         }
-    
+
         if (NoCaseEqual(Str1, Str2))
         {
             cout << Str1 << " und " << Str2
@@ -170,13 +170,13 @@ Leider unterstützen noch nicht alle Compiler locales und facets. Auch gibt es Un
             const std::locale& m_Loc;
             const std::ctype<char>& m_Ct;
     };
-    
+
     struct LocNoCaseEqual_t
     {
         LocNoCaseEqual_t(const std::locale& loc = std::locale::classic())
         : m_Loc(loc)
         {}
-    
+
         bool operator () (const std::string& Str1, const std::string& Str2) const
         {
             if (Str1.length() != Str2.length())
@@ -188,14 +188,14 @@ Leider unterstützen noch nicht alle Compiler locales und facets. Auch gibt es Un
         private:
             const std::locale& m_Loc;
     };
-    
+
     bool LocNoCaseEqual(const std::string& Str1,
                         const std::string& Str2,
                         const std::locale& loc)
     {
         return LocNoCaseEqual_t(loc)(Str1, Str2);
     }
-    
+
     int main()
     {
         using namespace std;
@@ -249,7 +249,7 @@ Abschließend noch ein paar kleine Beispiele:
         {
             cout << "Es kann nur einen Foo geben :-)" << endl;
         }
-    
+
         // einfacher Vergleich
         string Str3("Hallo");
         string Str4("HALLO");
@@ -257,7 +257,7 @@ Abschließend noch ein paar kleine Beispiele:
         {
             cout << "Strings sind gleich" << endl;
         }
-    
+
         // Vergleich der locale-Objekt berücksichtigt
         string Str5("et voilà");
         string Str6("ET VoIlà");
@@ -266,7 +266,7 @@ Abschließend noch ein paar kleine Beispiele:
         {
             cout << "Strings sind gleich" << endl;
         }
-    
+
         // Stringobjekte die Groß-/Kleinbuchstaben nicht unterscheiden
         CIString Str7("Hallo Welt");
         CIString::size_type Pos = Str7.find("w");

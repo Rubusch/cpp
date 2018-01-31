@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = ifstream.cpp
@@ -19,7 +19,7 @@ ifstream.exe: ${OBJECTS}
 
 all: ifstream.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) ifstream.exe *~ ifstream.exe.stackdump core
 
 

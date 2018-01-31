@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = findfirstof.cpp
@@ -19,7 +19,7 @@ findfirstof.exe: ${OBJECTS}
 
 all: findfirstof.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) findfirstof.exe *~ core
 
 

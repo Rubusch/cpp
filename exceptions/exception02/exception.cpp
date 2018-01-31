@@ -30,7 +30,7 @@ SomeClass<T>::SomeClass(T t)
 {
   std::cout << "\tSomeClass::SomeClass() - ctor\n";
 
-  // allocate 
+  // allocate
   try{
     ptr = new T;
   }catch(...){ // ... catches every exception

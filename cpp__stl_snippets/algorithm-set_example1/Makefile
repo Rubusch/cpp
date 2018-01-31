@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = example.cpp
@@ -19,7 +19,7 @@ example.exe: ${OBJECTS}
 
 all: example.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) example.exe *~ core
 
 

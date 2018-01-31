@@ -33,8 +33,8 @@ int main()
   cout << "search_n() for 2 times 3 in the array\n";
   const int* ptr = search_n(arr, arr+7, 2, 3);
   if(ptr != arr+7){
-    cout << "2 times 3 occures the first time at index " 
-         << (ptr - arr) 
+    cout << "2 times 3 occures the first time at index "
+         << (ptr - arr)
          << endl;
   }
   cout << endl;
@@ -46,7 +46,7 @@ int main()
          << " we have the first 3 values in-a-row, which are smaller than 7\n";
   }
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

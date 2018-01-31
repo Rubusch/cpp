@@ -16,7 +16,7 @@
                    |    Result_t     |                  +-----------------+
                    |    , Arg_t >    |
                    +-----------------+
-                     
+
 //*/
 
 
@@ -36,15 +36,15 @@ void doSort(int* arr, unsigned int arr_size, ConcFunctor comparator);
   Base Functor Implementation class
 
   implements a concept of a functor implementation class
-  this base class should work out rather for copy constructors, 
+  this base class should work out rather for copy constructors,
   cloning functions or assignment operators, since operator()()
-  can't be implemented fully virtual here without destroying the 
+  can't be implemented fully virtual here without destroying the
   concept
 //*/
 template< typename Result_t >
 class BaseFunctorImpl
 {
-public: 
+public:
   virtual ~BaseFunctorImpl() = 0;
 };
 
@@ -56,8 +56,8 @@ BaseFunctorImpl< Result_t >::~BaseFunctorImpl()
 /*
   Concrete Functor Implementation class
 
-  the class has the concrete implementation of the algorithm to be performed 
-  to gain even more flexibility in a lib or having a huge amount of diferent 
+  the class has the concrete implementation of the algorithm to be performed
+  to gain even more flexibility in a lib or having a huge amount of diferent
   implementations, the class should only contain trunks like this:
 
   virtual Result_t operator()(Arg1_t, Arg2_t) = 0;
@@ -68,12 +68,12 @@ BaseFunctorImpl< Result_t >::~BaseFunctorImpl()
   - comparator for unsigned long
   ...
 
-  Extensions for derived classes of this might be e.g. (each one can be 
+  Extensions for derived classes of this might be e.g. (each one can be
   teplatitized for various types again..):
   - comparator
   - multiplicator
   - divisor
-  ... 
+  ...
 //*/
 template< typename Result_t, typename Arg1_t, typename Arg2_t >
 class ConcFunctorImpl
@@ -86,7 +86,7 @@ public:
   Result_t operator()(Arg1_t arg1, Arg2_t arg2)
   {
     return arg1 < arg2;
-  }  
+  }
 };
 
 
@@ -113,24 +113,24 @@ BaseFunctor< Result_t, Arg1_t, Arg2_t >::~BaseFunctor()
 
   calls an implementation initialized by concrete types
 
-  Extensions here might be diferent invokations of Implementors 
+  Extensions here might be diferent invokations of Implementors
   depending on the types and names (bridge pattern), so e.g.
   - functor for comparison
   - functor for multiplication
-  ... 
+  ...
   (depending on types, etc)
 //*/
 class ConcFunctor
   : public BaseFunctor< bool, unsigned int, unsigned int >
 {
 public:
-  typedef ConcFunctorImpl< bool, unsigned int, unsigned int > 
+  typedef ConcFunctorImpl< bool, unsigned int, unsigned int >
     Impl_t;
 
 private:
   Impl_t impl_;
 
-public:  
+public:
   bool operator()( unsigned int arg1, unsigned int arg2)
   {
     return impl_(arg1, arg2);
@@ -151,7 +151,7 @@ void doSort(int* arr, unsigned int arr_size, ConcFunctor comparator)
   int tmp=0;
   unsigned idx=arr_size-2;
 
-  bool swapped = true; 
+  bool swapped = true;
 
   do{
     if(idx == arr_size-2){
@@ -164,7 +164,7 @@ void doSort(int* arr, unsigned int arr_size, ConcFunctor comparator)
       tmp = arr[idx];
       arr[idx] = arr[idx+1];
       arr[idx+1] = tmp;
-      
+
       swapped = true;
     }
 

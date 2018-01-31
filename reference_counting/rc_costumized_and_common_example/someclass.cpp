@@ -12,8 +12,8 @@
 void SomeClass::SomeClassValue::init(const char *initValue)
 {
   using namespace std;
-  
-  int initValueSize = strlen(initValue) + 1; // unsafe! 
+
+  int initValueSize = strlen(initValue) + 1; // unsafe!
   data = new char[initValueSize];
   strncpy(data, initValue, initValueSize);
 }
@@ -23,7 +23,7 @@ void SomeClass::SomeClassValue::init(const char *initValue)
   data value - ctor
 //*/
 SomeClass::SomeClassValue::SomeClassValue(const char *initValue)
-{ 
+{
   init(initValue);
 }
 
@@ -50,7 +50,7 @@ SomeClass::SomeClassValue::~SomeClassValue()
   ctor
 //*/
 SomeClass::SomeClass(const char *initValue)
-  : value(new SomeClassValue(initValue)) 
+  : value(new SomeClassValue(initValue))
 {}
 
 
@@ -67,13 +67,13 @@ char SomeClass::operator[](int index) const
   COW - copy on write for const objects
 //*/
 char& SomeClass::operator[](int index)
-{ 
-  if(value->isShared()){      
+{
+  if(value->isShared()){
     value = new SomeClassValue(value->data);
   }
-  
+
   value->markUnshareable();
-  
+
   return value->data[index];
 }
 

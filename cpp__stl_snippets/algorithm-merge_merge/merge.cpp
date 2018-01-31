@@ -37,7 +37,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 0, 2, 2, 4 };
   int arr_b[] = { 1, 2, 3 };

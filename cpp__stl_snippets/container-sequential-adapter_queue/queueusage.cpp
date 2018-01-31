@@ -8,7 +8,7 @@
             |       |
           back     front
 
-  the STL has 3 adapters 
+  the STL has 3 adapters
   - stack
   - queue
   - priority_queue
@@ -48,7 +48,7 @@ int main()
     fifo.pop();
   }
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

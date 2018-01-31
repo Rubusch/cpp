@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = transform.cpp
@@ -19,7 +19,7 @@ transform.exe: ${OBJECTS}
 
 all: transform.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) transform.exe *~ core
 
 

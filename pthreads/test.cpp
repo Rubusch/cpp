@@ -31,7 +31,7 @@ void MemberThread::thread_init()
   step 2
 
   Not possible if this was not declared "static" in the class definition.
-  On the other side HERE NO STATIC declaration! 
+  On the other side HERE NO STATIC declaration!
 
   (-> Boost Threads)
 //*/
@@ -47,11 +47,11 @@ void* MemberThread::thread_maker(void* self)
 /*
   step 3
 
-  the thread routine, due to the static thread_maker needs to be declared 
+  the thread routine, due to the static thread_maker needs to be declared
   "public"
 //*/
 void MemberThread::thread_routine()
-{  
+{
   std::cout << "Hello World!\n";
 }
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = find.cpp
@@ -19,7 +19,7 @@ find.exe: ${OBJECTS}
 
 all: find.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) find.exe *~ core
 
 

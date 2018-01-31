@@ -30,7 +30,7 @@ public:
 
     or to provide a default parameter (remember 0 == NULL):
       void* operator new(size_t size, new-handler p = 0);
-    
+
     (9/Meyers)
   //*/
 
@@ -75,7 +75,7 @@ void Foobar::operator delete(void* rawMemory, size_t size)
     return;
   }
 
-  // do the specific implementation here: free allocated memory 
+  // do the specific implementation here: free allocated memory
   Foobar *memory = static_cast<Foobar*>(rawMemory);
   ::operator delete(memory); // here just a normal delete :-)
   memory = NULL;

@@ -10,7 +10,7 @@
 
 annotations:
 
-  COW - copy on write, 
+  COW - copy on write,
   working with the operator[] to be able to access the single elements
 */
 
@@ -23,7 +23,7 @@ annotations:
 
 
 template<class T>
-class RCIPtr 
+class RCIPtr
 {
 public:
   // ctor
@@ -38,23 +38,23 @@ public:
   // op=
   RCIPtr& operator=(const RCIPtr& rhs);
 
-  // smart pointer stuff  
+  // smart pointer stuff
   T* operator->() const;
   T& operator*() const;
-  
+
   RCObject& getRCObject()
   {
-    // give clients access to isShared, etc. 
+    // give clients access to isShared, etc.
     return *counter;
-  }                  
-  
+  }
+
 private:
-  struct CountHolder: public RCObject 
+  struct CountHolder: public RCObject
   {
     ~CountHolder();
     T *pointee;
   };
-  
+
   CountHolder *counter;
   void init();
 };
@@ -73,8 +73,8 @@ void RCIPtr<T>::init()
     T *oldValue = counter->pointee;
     counter = new CountHolder;
     counter->pointee = oldValue ? new T(*oldValue) : 0;
-  } 
-  
+  }
+
   counter->addReference();
 }
 
@@ -85,7 +85,7 @@ void RCIPtr<T>::init()
 template<class T>
 RCIPtr<T>::RCIPtr(T* realPtr)
   : counter(new CountHolder)
-{ 
+{
   counter->pointee = realPtr;
   init();
 }
@@ -93,12 +93,12 @@ RCIPtr<T>::RCIPtr(T* realPtr)
 
 /*
   copy ctor
-//*/ 
+//*/
 template<class T>
 RCIPtr<T>::RCIPtr(const RCIPtr& rhs)
   : counter(rhs.counter)
-{ 
-  init(); 
+{
+  init();
 }
 
 
@@ -107,8 +107,8 @@ RCIPtr<T>::RCIPtr(const RCIPtr& rhs)
 //*/
 template<class T>
 RCIPtr<T>::~RCIPtr()
-{ 
-  counter->removeReference(); 
+{
+  counter->removeReference();
 }
 
 
@@ -118,8 +118,8 @@ RCIPtr<T>::~RCIPtr()
 template<class T>
 RCIPtr<T>& RCIPtr<T>::operator=(const RCIPtr& rhs)
 {
-  if(counter != rhs.counter){         
-    counter->removeReference();     
+  if(counter != rhs.counter){
+    counter->removeReference();
     counter = rhs.counter;
     init();
   }
@@ -129,12 +129,12 @@ RCIPtr<T>& RCIPtr<T>::operator=(const RCIPtr& rhs)
 
 
 /*
-  op-> - smart pointer 
+  op-> - smart pointer
 //*/
 template<class T>
 T* RCIPtr<T>::operator->() const
-{ 
-  return counter->pointee; 
+{
+  return counter->pointee;
 }
 
 
@@ -143,8 +143,8 @@ T* RCIPtr<T>::operator->() const
 //*/
 template<class T>
 T& RCIPtr<T>::operator*() const
-{ 
-  return *(counter->pointee); 
+{
+  return *(counter->pointee);
 }
 
 
@@ -155,9 +155,9 @@ T& RCIPtr<T>::operator*() const
   inner class dtor
 //*/
 template<class T>
-RCIPtr<T>::CountHolder::~CountHolder() 
-{ 
-  delete pointee; 
+RCIPtr<T>::CountHolder::~CountHolder()
+{
+  delete pointee;
 }
 
 

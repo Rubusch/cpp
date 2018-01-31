@@ -1,13 +1,13 @@
 // compiletimeerror.cpp
 /*
   Techniques, item 2: Provoking a Compile-time Error
-  
-  "The idea" here "is to pass the compiler a language construct that is legal for a 
-  nonzero expression and illegal for an expression that evaluates to zero. This way, 
-  if you pass an expression that evaluates to zero, the compiler will signal a 
+
+  "The idea" here "is to pass the compiler a language construct that is legal for a
+  nonzero expression and illegal for an expression that evaluates to zero. This way,
+  if you pass an expression that evaluates to zero, the compiler will signal a
   compile-time error."
 
-  Annotation: in the book the makro tries to create an array unnamed[1] or unnamed[0] - 
+  Annotation: in the book the makro tries to create an array unnamed[1] or unnamed[0] -
   this doesn't have the desired effekt using g++ 4.3.2, thus I changed the '0' to '-1'
 
   Taken from "Modern C++ Design", Alexandrescu
@@ -56,18 +56,18 @@ int main()
   /*
     cast of bigger type to smaller type (in case gives WARNING)
   //*/
-  cout << "#1: unchecked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' (" 
+  cout << "#1: unchecked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' ("
        << short_value << ", " << sizeof(short_value) << " bytes).\n";
   short_value = unchecked_cast<short>(long_value);
   cout << "ok.\n" << endl;
 
 
-  /* 
+  /*
      CAUTION: THIS CODE SHOULD NOT COMPILE!
 
      Here the cast of a bigger type to a smaller one leads to a compile-time error
   //*/
-  cout << "#2: checked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' (" 
+  cout << "#2: checked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' ("
        << short_value << ", " << sizeof(short_value) << " bytes).\n";
   short_value = checked_cast<short>(long_value);
   cout << "ok.\n" << endl;

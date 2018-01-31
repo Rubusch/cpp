@@ -9,16 +9,16 @@
        +---+---+---+---+---+---+---+---+- -+
   arr: | 1 | 0 | 2 | 3 | 0 | 0 | 4 | 5 |   |
        +---+---+---+---+---+---+---+---+- -+
-   | 
+   |
    | remove(arr, arr+8, 0)
    |
   \|/   ___ ___ ___ ___ ___
        +---+---+---+---+---+---+---+---+- -+
   arr: | 1 | 2 | 3 | 4 | 5 | 0 | 4 | 5 |   |
-       +---+---+---+---+---+---+---+---+- -+ 
+       +---+---+---+---+---+---+---+---+- -+
                              stays!
-                             a remvove_copy would simply 
-                             have omitted to copy 
+                             a remvove_copy would simply
+                             have omitted to copy
                              these 0, 4, 5
 
   (Kuhlins & Schader, 2003)
@@ -42,7 +42,7 @@ int main()
   cout << "arr: ";
   copy(arr, arr+8, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
-  
+
   cout << "remove() - remove 0 and shrink to the front,\nptr points to the last element.\nThe remainder will be untouched.\n";
   int* ptr = remove(arr, arr+8, 0);
   cout << "[arr; arr+8[ = \t";

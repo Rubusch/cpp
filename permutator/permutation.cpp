@@ -6,7 +6,7 @@
 #include <fstream> // file i/o
 
 #include <list>
-#include <vector> 
+#include <vector>
 
 #include <iterator> // output
 
@@ -27,12 +27,12 @@ int main(int argc, char** argv)
   }
 
   // read from file
-  string filename(argv[1]); 
+  string filename(argv[1]);
   list< char > ressource; // TODO use vector instead of list and solve "unique" problem -> copy_unique??
 
   // read w/o ' ' and '\n'
   ifstream in; in.open(filename.c_str());
-  char ch; 
+  char ch;
   while(in){
     in >> ch;
     ressource.push_back(ch);
@@ -59,8 +59,8 @@ int main(int argc, char** argv)
   int32_t digit = 0;
   uint32_t chr_sec =0;
   //  list< char >::iterator iter = ressource.begin();
-  
-  while(1){     
+
+  while(1){
     digit = ndigits-1;
     chr_sec = pattern.at(digit).second;
     ++chr_sec;
@@ -108,27 +108,27 @@ int main(int argc, char** argv)
       ++pattern.at(digit).second;
       //          pattern.at(digit).first = ressource.at( pattern.at(digit).second);
       // TODO
-      
+
     }
-    
+
     for(uint16_t idx=0; idx < pattern.size(); ++idx){ cout << pattern.at(idx).first << " "; }
     cout << endl;
 
-    /*    
+    /*
     for(uint16_t idx=0; idx < pattern.size(); ++idx){ cout << pattern.at(idx).second << "\t"; }
     cout << endl;
     //*/
-    
+
     //   break;
   }
   // permutate
   //  vector< pair > result;
   // int16_t idx=0;
-  //  for 
+  //  for
   // TODO
 
 
-  // ressource  
+  // ressource
   cout << "READY.\n";
 
   return 0;

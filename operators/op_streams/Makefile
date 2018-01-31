@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = opstreams.cpp
@@ -19,7 +19,7 @@ opstreams.exe: ${OBJECTS}
 
 all: opstreams.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) opstreams.exe opstreams.exe.stackdump *~ core
 
 

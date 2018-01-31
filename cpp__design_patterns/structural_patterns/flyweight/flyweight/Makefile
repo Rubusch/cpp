@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = flyweight.cpp
@@ -19,7 +19,7 @@ flyweight.exe: ${OBJECTS}
 
 all: flyweight.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) flyweight.exe *~ core
 
 

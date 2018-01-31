@@ -15,7 +15,7 @@
             \|/
          +---+---+---+---+---+- -+
   arr_b: | 1 | 2 | 3 | 4 | 5 |   |
-         +---+---+---+---+---+- -+       
+         +---+---+---+---+---+- -+
 
   (Kuhlins & Schader, 2003)
 //*/
@@ -47,7 +47,7 @@ int main()
   cout << "arr_a \t";
   display(arr_a, 8);
   cout << endl;
-  
+
   cout << "remove_copy() - omit 0s, copy:\n";
   int* ptr = remove_copy(arr_a, arr_a+8, arr_b, 0);
   cout << "arr_a \t";

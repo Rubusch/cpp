@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = protocol.cpp
@@ -19,7 +19,7 @@ protocol.exe: ${OBJECTS}
 
 all: protocol.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) protocol.exe *~ core
 
 

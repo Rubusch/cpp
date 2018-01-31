@@ -12,7 +12,7 @@ class Set
 private:
     Vector<double> m_data;
     int m_size;
-    
+
 public:
     Set();
     ~Set();

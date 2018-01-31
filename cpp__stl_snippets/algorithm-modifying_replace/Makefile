@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = replace.cpp
@@ -19,7 +19,7 @@ replace.exe: ${OBJECTS}
 
 all: replace.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) replace.exe *~ core
 
 

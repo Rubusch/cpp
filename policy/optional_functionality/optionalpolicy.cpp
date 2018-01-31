@@ -1,6 +1,6 @@
 // optionalpolicy.cpp
 /*
-  It gets even better. C++ contributes to the power of policies by providing an 
+  It gets even better. C++ contributes to the power of policies by providing an
   interesting feature. If a member function of a class template is never used,
   it is not even instantiated - the compiler does not look at it at all, except
   perhaps for syntax checking.
@@ -21,7 +21,7 @@
 
 /*
   alloc policy
-  
+
   uses "new" to allocate
 //*/
 template< typename T >
@@ -85,12 +85,12 @@ protected:
   }
 
 
-  ~MallocPolicy() 
+  ~MallocPolicy()
   {
     std::cout << "\t\tMallocPolicy::~MallocPolicy() - dtor\n";
   }
 };
-    
+
 
 /******************************************************************************/
 
@@ -111,7 +111,7 @@ public:
   {
     std::cout << "\tUserClass::doSomething()\n";
 
-    
+
     std::cout << "\t         ::doSomething() - create some variable\n";
     U* u = create();
     std::cout << "\t         ::doSomething() - ok.\n"
@@ -147,11 +147,11 @@ public:
   To avoid hasseling with this issues and getting even more cryptic code, here
   only a simple example using "char" instead of "std::string" ;)
 
-  Hence this example demonstrates the usage of a different template type for the 
+  Hence this example demonstrates the usage of a different template type for the
   policy than for the "user" class, too.
 //*/
 template<>
-class UserClass< std::string > 
+class UserClass< std::string >
   : public MallocPolicy< char >
 {
 private:
@@ -163,7 +163,7 @@ public:
   {
     std::cout << "\tUserClass::doSomething()\n";
 
-    
+
     std::cout << "\t         ::doSomething() - create some variable\n";
     char* u = create();
     std::cout << "\t         ::doSomething() - ok.\n"
@@ -207,7 +207,7 @@ int main()
   //*/
   cout << "UserClass< int >\n";
 
-  typedef UserClass< int > 
+  typedef UserClass< int >
     IntNewUser_t;
 
   IntNewUser_t intNewUser;
@@ -219,11 +219,11 @@ int main()
   /*
     create with 'std::string' and 'MallocPolicy'
 
-    internally we will still use 'char' and NOT a 'const char*' as 
+    internally we will still use 'char' and NOT a 'const char*' as
     'std::string' might be!
   //*/
   cout << "UserClass< std::string >\n";
-  typedef UserClass< std::string > 
+  typedef UserClass< std::string >
     StringMallocUser_t;
 
   StringMallocUser_t stringMallocUser;
@@ -233,5 +233,5 @@ int main()
 
 
   cout << "READY.\n";
-  return 0;  
+  return 0;
 }

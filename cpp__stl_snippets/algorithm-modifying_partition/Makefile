@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = partition.cpp
@@ -19,7 +19,7 @@ partition.exe: ${OBJECTS}
 
 all: partition.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) partition.exe *~ core
 
 

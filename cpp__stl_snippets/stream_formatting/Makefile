@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = streamformatting.cpp
@@ -19,7 +19,7 @@ streamformatting.exe: ${OBJECTS}
 
 all: streamformatting.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) streamformatting.exe *~ core
 
 

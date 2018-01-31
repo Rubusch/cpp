@@ -11,7 +11,7 @@ using namespace std;
 
 Sparkonto::Sparkonto()
 {
-    
+
 };
 
 
@@ -32,4 +32,4 @@ void Sparkonto::jahresabschluss() // rein virtual in "Konto"
     kontostand += 0.1*kontostand;
 };
 
-    
+

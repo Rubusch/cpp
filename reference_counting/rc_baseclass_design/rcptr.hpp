@@ -3,7 +3,7 @@
   Implementation of reference counting as smart pointer!
 
   Template class for smart poitners-to-T objects. T must
-  support the RCObject interface, typically by inheriting 
+  support the RCObject interface, typically by inheriting
   from RCObject
 //*/
 
@@ -14,10 +14,10 @@
 #include "someclass.hpp"
 
 
-template<class T> 
+template<class T>
 class RCPtr
 {
-public: 
+public:
   // ctor
   RCPtr(T* realPtr = 0);
 
@@ -69,8 +69,8 @@ void RCPtr<T>::init()
 template<class T>
 RCPtr<T>::RCPtr(T* realPtr)
   : pointee(realPtr)
-{ 
-  init(); 
+{
+  init();
 }
 
 
@@ -80,8 +80,8 @@ RCPtr<T>::RCPtr(T* realPtr)
 template<class T>
 RCPtr<T>::RCPtr(const RCPtr& rhs)
   : pointee(rhs.pointee)
-{ 
-  init(); 
+{
+  init();
 }
 
 
@@ -90,7 +90,7 @@ RCPtr<T>::RCPtr(const RCPtr& rhs)
 //*/
 template<class T>
 RCPtr<T>::~RCPtr()
-{ 
+{
   std::cout << "RCPtr<T>::DTOR\n";
 
   if(pointee)pointee->removeReference();
@@ -119,9 +119,9 @@ RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
   operator->
 //*/
 template<class T>
-T* RCPtr<T>::operator->() const 
-{ 
-  return pointee; 
+T* RCPtr<T>::operator->() const
+{
+  return pointee;
 }
 
 
@@ -129,9 +129,9 @@ T* RCPtr<T>::operator->() const
   operator*
 //*/
 template<class T>
-T& RCPtr<T>::operator*() const 
-{ 
-  return *pointee; 
+T& RCPtr<T>::operator*() const
+{
+  return *pointee;
 }
 
 

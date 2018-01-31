@@ -4,7 +4,7 @@
 //*/
 
 
-#include <iostream> 
+#include <iostream>
 #include <exception> // exception
 #include <cstdlib> // exit()
 #include <cstring> // strlen()
@@ -24,7 +24,7 @@ public:
     ~BadAnimalException() throw() {}
     const char* what() const throw()
     {
-      return "Some Baaaaaaaaaaad Animal Appeared!"; 
+      return "Some Baaaaaaaaaaad Animal Appeared!";
     }
   };
 
@@ -34,7 +34,7 @@ public:
 
 
 // usage defintion
-void SomeClass::someFunc() 
+void SomeClass::someFunc()
   throw (SomeClass::BadAnimalException)
 {
   std::cout << "someFunc() will throw an exception..\n";
@@ -49,7 +49,7 @@ void SomeClass::someFunc()
 int main()
 {
   using namespace std;
-  
+
   cout << "init..\n";
   SomeClass sc;
   cout << endl;
@@ -66,7 +66,7 @@ int main()
     sc.someFunc();
   }catch(SomeClass::BadAnimalException&){
     cerr << "Bad Animal Exception again..\n";
-  }  
+  }
   cout << endl;
 
   cout << "READY.\n";

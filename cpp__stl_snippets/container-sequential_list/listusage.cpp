@@ -90,7 +90,7 @@ int main()
   lst_a.unique();
   cout << "lst_a = " << lst_a << endl;
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

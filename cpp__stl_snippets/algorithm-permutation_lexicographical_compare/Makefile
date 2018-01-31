@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = lexicographicalcompare.cpp
@@ -19,7 +19,7 @@ lexicographicalcompare.exe: ${OBJECTS}
 
 all: lexicographicalcompare.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) lexicographicalcompare.exe *~ core
 
 

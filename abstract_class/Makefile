@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = abstractclass.cpp
@@ -19,7 +19,7 @@ abstractclass.exe: ${OBJECTS}
 
 all: abstractclass.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) abstractclass.exe *~ core
 
 

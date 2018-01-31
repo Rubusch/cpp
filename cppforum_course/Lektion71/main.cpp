@@ -18,7 +18,7 @@ int main()
     d.insert("eins", 1);
     d.insert("zwei", 2);
     d.insert("drei", 3);
-    
+
     for(int i=0; i<d.getSize(); ++i)
         cout << d[i].getKey() << ' ' << d[i].getValue() << endl;
 

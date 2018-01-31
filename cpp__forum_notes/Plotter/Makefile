@@ -15,14 +15,14 @@ YACC          = yacc
 DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT  $(DEFINES)
-LEXFLAGS      = 
+LEXFLAGS      =
 YACCFLAGS     = -d
 INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I. -I.
 LINK          = g++
-LFLAGS        = 
+LFLAGS        =
 LIBS          = $(SUBLIBS)  -L/usr/lib -lQtGui -lQtCore -lpthread
 AR            = ar cqs
-RANLIB        = 
+RANLIB        =
 QMAKE         = /usr/bin/qmake
 TAR           = tar -cf
 COMPRESS      = gzip -9f
@@ -70,7 +70,7 @@ DIST          = /usr/share/qt4/mkspecs/common/unix.conf \
 		/usr/share/qt4/mkspecs/features/uic.prf \
 		plotter.pro
 QMAKE_TARGET  = plotter
-DESTDIR       = 
+DESTDIR       =
 TARGET        = plotter
 
 first: all
@@ -97,7 +97,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET):  $(OBJECTS)  
+$(TARGET):  $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: plotter.pro  /usr/share/qt4/mkspecs/linux-g++/qmake.conf /usr/share/qt4/mkspecs/common/unix.conf \
@@ -136,14 +136,14 @@ Makefile: plotter.pro  /usr/share/qt4/mkspecs/linux-g++/qmake.conf /usr/share/qt
 qmake:  FORCE
 	@$(QMAKE) -unix -o Makefile plotter.pro
 
-dist: 
-	@$(CHK_DIR_EXISTS) .tmp/plotter1.0.0 || $(MKDIR) .tmp/plotter1.0.0 
+dist:
+	@$(CHK_DIR_EXISTS) .tmp/plotter1.0.0 || $(MKDIR) .tmp/plotter1.0.0
 	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/plotter1.0.0/ && $(COPY_FILE) --parents plotter.h .tmp/plotter1.0.0/ && $(COPY_FILE) --parents plotter.qrc .tmp/plotter1.0.0/ && $(COPY_FILE) --parents main.cpp plotter.cpp .tmp/plotter1.0.0/ && (cd `dirname .tmp/plotter1.0.0` && $(TAR) plotter1.0.0.tar plotter1.0.0 && $(COMPRESS) plotter1.0.0.tar) && $(MOVE) `dirname .tmp/plotter1.0.0`/plotter1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/plotter1.0.0
 
 
 yaccclean:
 lexclean:
-clean:compiler_clean 
+clean:compiler_clean
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
@@ -151,7 +151,7 @@ clean:compiler_clean
 ####### Sub-libraries
 
 distclean: clean
-	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) $(TARGET)
 	-$(DEL_FILE) Makefile
 
 
@@ -185,7 +185,7 @@ compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
 compiler_uic_clean:
-compiler_clean: compiler_moc_header_clean compiler_rcc_clean compiler_image_collection_clean compiler_moc_source_clean compiler_uic_clean 
+compiler_clean: compiler_moc_header_clean compiler_rcc_clean compiler_image_collection_clean compiler_moc_source_clean compiler_uic_clean
 
 ####### Compile
 
@@ -195,10 +195,10 @@ main.o: main.cpp plotter.h
 plotter.o: plotter.cpp plotter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plotter.o plotter.cpp
 
-moc_plotter.o: moc_plotter.cpp 
+moc_plotter.o: moc_plotter.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_plotter.o moc_plotter.cpp
 
-qrc_plotter.o: qrc_plotter.cpp 
+qrc_plotter.o: qrc_plotter.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_plotter.o qrc_plotter.cpp
 
 ####### Install

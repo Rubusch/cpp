@@ -9,7 +9,7 @@ class Konto
 {
 protected:
     double kontostand;
-    
+
 public:
     Konto();
     void einzahlen(double einzahlung);

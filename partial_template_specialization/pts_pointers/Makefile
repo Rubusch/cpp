@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = pts_pointers.cpp
@@ -19,7 +19,7 @@ pts_pointers.exe: ${OBJECTS}
 
 all: pts_pointers.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) pts_pointers.exe *~ core
 
 

@@ -20,30 +20,30 @@ RCObject::RCObject()
 //*/
 RCObject::RCObject(const RCObject&)
   : refCount(0)
-  , shareable(true) 
+  , shareable(true)
 {}
 
 
 /*
   op=
-//*/ 
+//*/
 RCObject& RCObject::operator=(const RCObject&)
 {
   return *this;
-}  
- 
+}
+
 
 /*
   dtor
 //*/
-RCObject::~RCObject() 
+RCObject::~RCObject()
 {}
 
 
 /*
   rc - increment reference counter
-//*/ 
-void RCObject::addReference() 
+//*/
+void RCObject::addReference()
 {
   ++refCount;
 }
@@ -54,10 +54,10 @@ void RCObject::addReference()
 //*/
 void RCObject::removeReference()
 {
-  if(--refCount == 0) 
+  if(--refCount == 0)
     delete this;
 }
- 
+
 
 /*
   shareable flag - set to false
@@ -66,7 +66,7 @@ void RCObject::markUnshareable()
 {
   shareable = false;
 }
- 
+
 
 /*
   shareable flag - set true
@@ -75,7 +75,7 @@ bool RCObject::isShareable() const
 {
   return shareable;
 }
- 
+
 
 /*
   shareable flag - ask
@@ -83,4 +83,4 @@ bool RCObject::isShareable() const
 bool RCObject::isShared() const
 {
   return refCount > 1;
-}  
+}

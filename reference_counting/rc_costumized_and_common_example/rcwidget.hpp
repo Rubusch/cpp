@@ -22,16 +22,16 @@ annotations:
 #include "widget.hpp"
 
 
-class RCWidget 
+class RCWidget
 {
 public:
   // ctor
   RCWidget(int size);
-  
+
   // perform some action depending on COW mechanism
   void doThis();
   int showThat() const;
-  
+
 private:
   RCIPtr<Widget> value;
 };

@@ -8,7 +8,7 @@ B::B()
 {
     cout << "Constructor B" << endl;
 };
-	
+
 
 void B::doSomething()
 {

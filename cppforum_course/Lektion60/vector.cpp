@@ -41,9 +41,9 @@ void Vector::grow(int newSize)
     double *newData = new double[newSize];
     for(int i=0; i<m_size; ++i)
         newData[i] = m_data[i];
-    
+
     delete [] m_data;
-    
+
     m_size = newSize;
     m_data = newData;
 };

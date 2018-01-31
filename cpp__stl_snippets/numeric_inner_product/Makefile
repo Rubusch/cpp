@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = innerproduct.cpp
@@ -19,7 +19,7 @@ innerproduct.exe: ${OBJECTS}
 
 all: innerproduct.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) innerproduct.exe *~ core
 
 

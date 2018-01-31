@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = partialsortcopy.cpp
@@ -19,7 +19,7 @@ partialsortcopy.exe: ${OBJECTS}
 
 all: partialsortcopy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) partialsortcopy.exe *~ core
 
 

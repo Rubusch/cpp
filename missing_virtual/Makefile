@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = missingvirtual.cpp
@@ -19,7 +19,7 @@ missingvirtual.exe: ${OBJECTS}
 
 all: missingvirtual.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) missingvirtual.exe *~ core
 
 

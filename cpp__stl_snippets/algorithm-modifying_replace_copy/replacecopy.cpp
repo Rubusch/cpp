@@ -44,7 +44,7 @@ void display(int* arr_a, int siz_a, int* arr_b, int siz_b)
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr_a[] = { 0, 1, 2, 3, 2, 1, 0 };
   int arr_b[7]; fill(arr_b, arr_b+7, 0);

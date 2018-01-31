@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = foreach.cpp
@@ -19,7 +19,7 @@ foreach.exe: ${OBJECTS}
 
 all: foreach.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) foreach.exe *~ core
 
 

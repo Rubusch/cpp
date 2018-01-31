@@ -1,6 +1,6 @@
 // typelist.cpp
 /*
-  "Everything related to Typelist, except the definition 
+  "Everything related to Typelist, except the definition
   of Typelist itself, lives in the TL namespace."
 
   Taken from "Modern C++ Design", Alexandrescu
@@ -20,10 +20,10 @@
 template< class T, class U >
 struct Typelist
 {
-  typedef T 
+  typedef T
     Head;
 
-  typedef U 
+  typedef U
     Tail;
 };
 
@@ -50,19 +50,19 @@ namespace TL
   /*
     Calculating Length
     TODO apply!
-    
+
     Using Length you can write things like:
       std::type_info* intsRtti[Length< SignedIntegrals >::value];
   //*/
-  template< class TList > 
+  template< class TList >
   struct Length;
- 
+
   template<> struct Length< NullType >
   {
     enum { value = 0 };
   };
 
-  template< class T, class U > 
+  template< class T, class U >
   struct Length< Typelist< T, U > >
   {
     enum { value = 1 + Length< U >::value };
@@ -72,7 +72,7 @@ namespace TL
   /*
     Indexed Access
     TODO apply!
-    
+
     The declaration of a template for an indexed operation would look like this:
       template< class TList, unsigned int index > struct TypeAt;
 
@@ -85,14 +85,14 @@ namespace TL
   //*/
 
   // basic template form
-  template< class TList, unsigned int index > 
+  template< class TList, unsigned int index >
   struct TypeAt;
 
   // head
-  template< class Head, class Tail > 
+  template< class Head, class Tail >
   struct TypeAt< Typelist< Head, Tail >, 0 >
   {
-    typedef Head 
+    typedef Head
       Result;
   };
 
@@ -100,7 +100,7 @@ namespace TL
   template< class Head, class Tail, unsigned int i >
   struct TypeAt< Typelist< Head, Tail >, i>
   {
-    typedef typename TypeAt< Tail, i-1 >::Result 
+    typedef typename TypeAt< Tail, i-1 >::Result
       Result;
   };
 
@@ -121,7 +121,7 @@ namespace TL
     Usage:
     template< class TList, class T > struct IndexOf;
   //*/
-  template< class TList, class T > 
+  template< class TList, class T >
   struct IndexOf;
 
   template< class T >
@@ -154,46 +154,46 @@ namespace TL
     Algorithm:
     IF TList is NullType and T is NullType, then Result is NullType
     ELSE
-      IF TList is NullType and T is a single (nontypelist) type, 
+      IF TList is NullType and T is a single (nontypelist) type,
         then Result is a typelist having T as its only element
       ELSE
         IF TList is NullType and T is a typelist, Result is T itself
-        ELSE IF TList is non-null, then Result is a typelist having 
-          TList::Head as its head and the result of appending T to 
+        ELSE IF TList is non-null, then Result is a typelist having
+          TList::Head as its head and the result of appending T to
           TList::Tail as its tail
   //*/
   template< class TList, class T >
   struct Append;
 
-  template<> 
+  template<>
   struct Append< NullType, NullType >
   {
-    typedef NullType 
+    typedef NullType
       Result;
   };
 
-  template< class T > 
+  template< class T >
   struct Append< NullType, T >
   {
     /*
       old fashion delcaration - unsave due to macro usage
       TODO: replace by new style list
     //*/
-      typedef TYPELIST_1(T) 
+      typedef TYPELIST_1(T)
         Result;
   };
 
   template< class Head, class Tail >
-  struct Append< NullType, Typelist< Head, Tail > > 
+  struct Append< NullType, Typelist< Head, Tail > >
   {
-    typedef Typelist< Head, Tail > 
+    typedef Typelist< Head, Tail >
       Result;
   };
 
   template< class Head, class Tail, class T >
   struct Append< Typelist< Head, Tail >, T >
   {
-    typedef Typelist< Head, typename Append< Tail, T >::Result > 
+    typedef Typelist< Head, typename Append< Tail, T >::Result >
       Result;
   };
 
@@ -204,22 +204,22 @@ namespace TL
 
     Algorithm:
     IF TList is NullType, then Result is NullType
-    ELSE 
+    ELSE
       IF T is the same as TList::Head, then Result is TList::Tail
-      ELSE Result is a typelist having TList::Head as its head 
+      ELSE Result is a typelist having TList::Head as its head
         and the result of applying Erase to TList::Tail and T as its tail
 
     Usage:
-    typedef Erase< SignedTypes, float >::Result SomeSignedTypes;    
+    typedef Erase< SignedTypes, float >::Result SomeSignedTypes;
   //*/
-  template< class TList, class T > 
-  struct Erase; 
+  template< class TList, class T >
+  struct Erase;
 
   // Specialization 1
   template< class T >
   struct Erase< NullType, T >
   {
-    typedef NullType 
+    typedef NullType
       Result;
   };
 
@@ -227,7 +227,7 @@ namespace TL
   template< class T, class Tail >
   struct Erase< Typelist< T, Tail >, T >
   {
-    typedef Tail 
+    typedef Tail
       Result;
   };
 
@@ -239,18 +239,18 @@ namespace TL
       Result;
   };
 
-  
+
   /*
     Erase All
     TODO apply!
   //*/
-  template< class TList, class T > 
+  template< class TList, class T >
   struct EraseAll;
 
   template< class T >
   struct EraseAll< NullType, T >
   {
-    typedef NullType 
+    typedef NullType
       Result;
   };
 
@@ -258,7 +258,7 @@ namespace TL
   struct EraseAll< Typelist< T, Tail >, T >
   {
     // Go all the way down the list removing the type
-    typedef typename EraseAll< Tail, T >::Result 
+    typedef typename EraseAll< Tail, T >::Result
       Result;
   };
 
@@ -274,7 +274,7 @@ namespace TL
   /*
     Erasing Duplicates
     TODO apply!
-    
+
     Algorithm:
     IF TList is NullType, then Result is NullType
     ELSE
@@ -282,13 +282,13 @@ namespace TL
       Apply Erase to L1 and TList:Head. Obtain L2 as the result
       Result is a typelist whose head is TList::Head and whose tail is L2
   //*/
-  template< class TList > 
+  template< class TList >
   struct NoDuplicates;
-  
+
   template<>
   struct NoDuplicates< NullType >
   {
-    typedef NullType 
+    typedef NullType
       Result;
   };
 
@@ -296,14 +296,14 @@ namespace TL
   struct NoDuplicates< Typelist< Head, Tail > >
   {
   private:
-    typedef typename NoDuplicates< Tail >::Result 
+    typedef typename NoDuplicates< Tail >::Result
       L1;
 
-    typedef typename Erase< L1, Head >::Result 
+    typedef typename Erase< L1, Head >::Result
       L2;
 
   public:
-    typedef Typelist< Head, L2 > 
+    typedef Typelist< Head, L2 >
       Result;
   };
 
@@ -314,33 +314,33 @@ namespace TL
 
     Algorithm:
     IF TList is NullType, then Result is NullType
-    ELSE 
-      IF the head of the typelist TList is T, then Result is a typelist 
+    ELSE
+      IF the head of the typelist TList is T, then Result is a typelist
         with U as its head and TList::Tail as its tail
-      ELSE Result is a typelist with TList::Head as its head and the 
+      ELSE Result is a typelist with TList::Head as its head and the
         result of applying Replace to TList, T, and U as its tail.
-  //*/  
+  //*/
   template< class TList, class T, class U >
   struct Replace;
-  
+
   template< class T, class U >
   struct Replace< NullType, T, U >
   {
-    typedef NullType 
+    typedef NullType
       Result;
   };
 
   template< class T, class Tail, class U >
   struct Replace< Typelist< T, Tail >, T, U >
   {
-    typedef Typelist< U, Tail > 
+    typedef Typelist< U, Tail >
       Result;
   };
 
   template< class Head, class Tail, class T, class U >
   struct Replace< Typelist< Head, Tail >, T, U >
   {
-    typedef Typelist< Head, typename Replace< Tail, T, U >::Result> 
+    typedef Typelist< Head, typename Replace< Tail, T, U >::Result>
       Result;
   };
 
@@ -349,10 +349,10 @@ namespace TL
     Partially Ordering Typelists - algorithm 2:
     TODO applly!
 
-    The MostDerived algorithm accepts a typelist and a type Base and returns 
-    the most derived type from Base in the typelist (or possibly Base itself, 
+    The MostDerived algorithm accepts a typelist and a type Base and returns
+    the most derived type from Base in the typelist (or possibly Base itself,
     if no derived type is found). It looks like this:
-    
+
     Algorithm II:
     IF TList is NullType, the result is T
     ELSE
@@ -372,16 +372,16 @@ namespace TL
     typedef T
       Result;
   };
-  
+
   template< class Head, class Tail, class T >
   struct MostDerived< Typelist< Head, Tail >, T >
   {
   private:
-    typedef typename MostDerived< Tail, T >::Result 
+    typedef typename MostDerived< Tail, T >::Result
       Candidate;
 
   public:
-    typedef typename Select< SUPERSUBCLASS(Candidate, Head), Head, Candidate>::Result 
+    typedef typename Select< SUPERSUBCLASS(Candidate, Head), Head, Candidate>::Result
       Result;
   };
 
@@ -392,25 +392,25 @@ namespace TL
 
     Algorithm I:
     IF TList is NullType, then Result is NullType
-    ELSE 
-      FIND the most derived type from TList::Head in TList::Tail. Save 
+    ELSE
+      FIND the most derived type from TList::Head in TList::Tail. Save
         that type via a typedef to a type called TheMostDerived.
-      REPLACE TheMostDerived in TList::Tail with TList::Head, obtaining 
+      REPLACE TheMostDerived in TList::Tail with TList::Head, obtaining
         L as the result
-      BUILD the as a typelist having TheMostDerived as its head and 
+      BUILD the as a typelist having TheMostDerived as its head and
         DerivedToFront< L >::Result as its tail
 
-    When this algorithm is applied to a typelist, derived types will 
-    migrate to the top of the typelist, and base types will be pushed 
+    When this algorithm is applied to a typelist, derived types will
+    migrate to the top of the typelist, and base types will be pushed
     to the bottom.
   //*/
   template< class TList >
   struct DerivedToFront;
-  
+
   template<>
   struct DerivedToFront< NullType >
   {
-    typedef NullType 
+    typedef NullType
       Result;
   };
 
@@ -418,14 +418,14 @@ namespace TL
   struct DerivedToFront< Typelist< Head, Tail > >
   {
   private:
-    typedef typename MostDerived< Tail, Head >::Result 
+    typedef typename MostDerived< Tail, Head >::Result
       TheMostDerived;
-    
-    typedef typename Replace< Tail, TheMostDerived, Head >::Result 
+
+    typedef typename Replace< Tail, TheMostDerived, Head >::Result
       L;
-    
+
   public:
-    typedef Typelist< TheMostDerived, L > 
+    typedef Typelist< TheMostDerived, L >
       Result;
   };
 };
@@ -443,13 +443,13 @@ namespace TL
                                      /_\
                                       |
                                       |
-  +---------------+  +-------------------------------------+  +-----------------------------------------+                
+  +---------------+  +-------------------------------------+  +-----------------------------------------+
   | Holder< int > |  | GenScatterHierarchy< char, Holder > |  | GenScatterHierarchy< NullType, Holder > |
   +---------------+  +-------------------------------------+  +-----------------------------------------+
     /_\                              /_\                                        /_\
      |                                |                                          |
      |                                +-----------------------------+------------+
-     |           +------------------+                               |   
+     |           +------------------+                               |
      |           | Holder< string > |                               |
      |           +------------------+                               |
      |                   /_\                                        |
@@ -485,10 +485,10 @@ class GenScatterHierarchy< Typelist< Head, Tail >, Unit >
     , public GenScatterHierarchy< Tail, Unit >
 {
 public:
-  typedef typename Typelist< Head, Tail > 
+  typedef typename Typelist< Head, Tail >
     TList;
 
-  typedef typename GenScatterHierarchy< Head, Unit > 
+  typedef typename GenScatterHierarchy< Head, Unit >
     LeftBase;
 
   typedef typename GenScatterHierarchy< Tail, Unit >
@@ -509,7 +509,7 @@ class GenScatterHierarchy< NullType, Unit >
 {};
 
 /*
-  Ultimately, an instantiation of GenScatterHierarchy ends up 
+  Ultimately, an instantiation of GenScatterHierarchy ends up
   inheriting Unit instantiated with "every type in the typelist".
 
   For instance: the Holder
@@ -537,7 +537,7 @@ int main()
     old fashion init - deprecated due to macro usage!
     TODO: replace by new style list
 
-  typedef TYPELIST_4(unsigned char, unsigned short int, unsigned int, unsigned long int) 
+  typedef TYPELIST_4(unsigned char, unsigned short int, unsigned int, unsigned long int)
     UnsignedInts_t;
   //*/
 
@@ -555,9 +555,9 @@ int main()
   // append to typelist
   // TODO
 
-  // erase a type 
+  // erase a type
   // TODO - var1
-  // TODO - var2 
+  // TODO - var2
   // TODO - var3
 
   // erase all
@@ -566,7 +566,7 @@ int main()
   // init again a TYPELIST_4 with duplicates, that works for ordering
   // TODO: replace by new style
   /*
-  typedef TYPELIST_3(signed char, signed short int, signed long int) 
+  typedef TYPELIST_3(signed char, signed short int, signed long int)
     SignedInts_t;
   //*/
 

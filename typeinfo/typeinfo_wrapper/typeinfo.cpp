@@ -124,23 +124,23 @@ Typeinfo& Typeinfo::operator=(const Typeinfo& ti){
   equal
 //*/
 bool Typeinfo::operator==(const Typeinfo& rhs) const
-{  
+{
   return pInfo_ == rhs.pInfo_;
 }
 
 
 
 /*
-  For this demonstration here a global instance of a Base object. 
+  For this demonstration here a global instance of a Base object.
 //*/
 Base base;
 
 
 
 /*
-  A pointer will be passed here, it can point to a Base object or to any 
+  A pointer will be passed here, it can point to a Base object or to any
   derived object of Base (or we have a compile error).
-  
+
   Then the pointer object will be checked if it is of type base, if not it
   HAS to be a derived type.
 //*/
@@ -177,7 +177,7 @@ int main()
   isDerived(&d);
   cout << endl;
 
-  
+
   cout << "READY.\n";
   return 0;
 }

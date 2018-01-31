@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = setdifference.cpp
@@ -19,7 +19,7 @@ setdifference.exe: ${OBJECTS}
 
 all: setdifference.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) setdifference.exe *~ core
 
 

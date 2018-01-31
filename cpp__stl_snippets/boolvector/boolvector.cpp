@@ -18,21 +18,21 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   vector< bool > vb(5); // 5 x false
   copy(vb.begin(), vb.end(), ostream_iterator< bool >(cout));
   cout << endl << endl;
 
   cout << "negate element 0\n";
-  vb.front().flip(); 
+  vb.front().flip();
   copy(vb.begin(), vb.end(), ostream_iterator< bool >(cout));
   cout << endl << endl;
 
   cout << "swap element 0 and element \'back\'\n";
   vector< bool >::swap(vb.at(0), vb.back());
   copy(vb.begin(), vb.end(), ostream_iterator< bool >(cout));
-  cout << endl << endl;  
+  cout << endl << endl;
 
   cout << "add 2 elements: true and false\n";
   vb.push_back(true);
@@ -41,7 +41,7 @@ int main()
   cout << endl << endl;
 
   cout << "negate all elements\n";
-  vb.flip(); 
+  vb.flip();
   copy(vb.begin(), vb.end(), ostream_iterator< bool >(cout));
   cout << endl << endl;
 

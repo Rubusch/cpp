@@ -21,7 +21,7 @@
     Template classes that are derived (public or private!) from policy classes,
 	the type of the policy is passed as template type, e.g.:
 
-      template< typename allocPolicy_t > 
+      template< typename allocPolicy_t >
       class UserClass : public allocPolicy_t
       {
       ...
@@ -35,7 +35,7 @@
 
   - The usage consists in defining the type out of the User Class using the
     right Policy Classes and getting an instance of that to work withh
-      typedef UserClass< int, NewPolicy< int > > 
+      typedef UserClass< int, NewPolicy< int > >
         IntNewUser_t;
 
       IntNewUser_t intNewUser;

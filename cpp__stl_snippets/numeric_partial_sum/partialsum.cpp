@@ -19,7 +19,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   unsigned int arr[] = { 3, 1, 3, 0, 1, 3 };
   copy(arr, arr+6, ostream_iterator< int >(cout, " "));

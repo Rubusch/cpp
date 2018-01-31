@@ -12,7 +12,7 @@
 
 
 /*
-  policy 
+  policy
 //*/
 template< class T >
 class DefaultStoragePolicy
@@ -21,11 +21,11 @@ public:
   typedef T*
     PointerType_t;
 
-  typedef T& 
+  typedef T&
     ReferenceType_t;
 
 
-private: 
+private:
   PointerType_t ptr_;
 
 public:
@@ -59,7 +59,7 @@ protected:
 
   template<                       // start
     template< class >             // template param type is a template class
-                                  //   with (yet) unknown 
+                                  //   with (yet) unknown
                                   // template type, 'typename' is equally
 								  //   possible here as 'class'
       class Storage_t             // class name, no 'typename' possible

@@ -39,8 +39,8 @@ struct SomeClass
 template< typename MemberPointer >
 void foo( MemberPointer memptr )
 {
-  std::cout << "is member pointer? " 
-            << is_member_pointer< MemberPointer >::value 
+  std::cout << "is member pointer? "
+            << is_member_pointer< MemberPointer >::value
             << std::endl;
 }
 
@@ -57,7 +57,7 @@ int main()
     foo( 12 );
     // correspondes to the following and results in being "0"
     // foo< int >( 12 );
-    
+
     std::cout << "READY.\n";
     return 0;
 }

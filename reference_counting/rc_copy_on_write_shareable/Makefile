@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = rc_cow_shareable.cpp
@@ -19,7 +19,7 @@ rc_cow_shareable.exe: ${OBJECTS}
 
 all: rc_cow_shareable.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) rc_cow_shareable.exe *~ core
 
 

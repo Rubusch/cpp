@@ -1,6 +1,6 @@
 // functor.hpp
 /*
-  Loki's implementation doesn't work with the "modern access" of typelist avoiding 
+  Loki's implementation doesn't work with the "modern access" of typelist avoiding
   macros (described in an article of Alexandrescu). I didn't work on it either, thus
   the macros ;)
 
@@ -82,7 +82,7 @@ namespace TL
 {
   /*
     Indexed Access
-    
+
     The declaration of a template for an indexed operation would look like this:
       template< class TList, unsigned int index > struct TypeAt;
 
@@ -98,14 +98,14 @@ namespace TL
   //*/
 
   // basic template form
-  template< class TList, unsigned int index > 
+  template< class TList, unsigned int index >
   struct TypeAt;
 
   // head
-  template< class Head, class Tail > 
+  template< class Head, class Tail >
   struct TypeAt< Typelist_< Head, Tail >, 0 >
   {
-    typedef Head 
+    typedef Head
       Result;
   };
 
@@ -113,7 +113,7 @@ namespace TL
   template< class Head, class Tail, unsigned int i >
   struct TypeAt< Typelist_< Head, Tail >, i>
   {
-    typedef typename TypeAt< Tail, i-1 >::Result 
+    typedef typename TypeAt< Tail, i-1 >::Result
       Result;
   };
 
@@ -133,7 +133,7 @@ namespace TL
     Usage:
     int idx = IndexOf< MyTypelist, TypeToLookUp >::value;
   //*/
-  template< class TList, class T > 
+  template< class TList, class T >
   struct IndexOf;
 
   template< class T >
@@ -164,22 +164,22 @@ namespace TL
 
     Algorithm:
     IF TList is NIL, then Result is NIL
-    ELSE 
+    ELSE
       IF T is the same as TList::Head, then Result is TList::Tail
-      ELSE Result is a typelist having TList::Head as its head 
+      ELSE Result is a typelist having TList::Head as its head
         and the result of applying Erase to TList::Tail and T as its tail
 
     Usage:
-    typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;    
+    typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;
   //*/
-  template< class TList, class T > 
-  struct Erase; 
+  template< class TList, class T >
+  struct Erase;
 
   // Specialization 1
   template< class T >
   struct Erase< NIL, T >
   {
-    typedef NIL 
+    typedef NIL
       Result;
   };
 
@@ -187,7 +187,7 @@ namespace TL
   template< class T, class Tail >
   struct Erase< Typelist_< T, Tail >, T >
   {
-    typedef Tail 
+    typedef Tail
       Result;
   };
 
@@ -218,14 +218,14 @@ private:
    template< typename U > struct PointerTraits
   {
     enum { result = false };
-    typedef NIL 
+    typedef NIL
       PointeeType;
   };
-  
+
   template< typename U > struct PointerTraits< U* >
   {
     enum { result = true };
-    typedef U 
+    typedef U
       PointeeType;
   };
 
@@ -240,7 +240,7 @@ private:
     enum { result = true };
     typedef U ReferredType;
   };
-  
+
   template< typename U > struct PToMTraits
   {
     enum { result = false };
@@ -269,7 +269,7 @@ public:
   enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
   enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
   enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
-  enum { isStdArith = isStdIntegral || isStdFloat }; 
+  enum { isStdArith = isStdIntegral || isStdFloat };
 
   // isPointer
   enum { isPointer = PointerTraits< T >::result };
@@ -279,7 +279,7 @@ public:
 
   // ReferredType
   enum { isReference = ReferenceTraits< T >::result };
-  typedef typename ReferenceTraits< T >::ReferredType 
+  typedef typename ReferenceTraits< T >::ReferredType
     ReferredType;
 
   // -> ParameterType
@@ -293,11 +293,11 @@ public:
 
 /*
   Functor implementation base class (as struct)
-  
+
   Base class for a hierarchy of functors. The FunctorImpl class is not used directly;
   rather, the Functor class manages and forwards to a pointer to FunctorImpl
-  
-  You may want to derive your own funcotrs from FunctorImpl. Specializations of 
+
+  You may want to derive your own funcotrs from FunctorImpl. Specializations of
   FunctorImpl for up to 2 template parameter types.
 //*/
 namespace Private
@@ -307,11 +307,11 @@ namespace Private
   {
     typedef ResultType
       ResultType_t;
-    
-    typedef EmptyType 
+
+    typedef EmptyType
       Arg1_t;
 
-    typedef EmptyType 
+    typedef EmptyType
       Arg2_t;
   };
 }
@@ -321,7 +321,7 @@ namespace Private
   FunctorImpl
 
   The base class for a hierarchy of funcotrs. The FunctorImpl class is not used
-  directly; rather, the Functor class manages and forwards to a pointer to 
+  directly; rather, the Functor class manages and forwards to a pointer to
   FunctorImpl
 //*/
 template< typename ResultType, typename TList >
@@ -354,7 +354,7 @@ public:
   typedef ResultType
     ResultType_t;
 
-  typedef typename TypeTraits< Arg1 >::ParameterType 
+  typedef typename TypeTraits< Arg1 >::ParameterType
     Arg1_t;
 
   virtual ResultType operator()(Arg1) = 0;
@@ -368,11 +368,11 @@ template< typename ResultType, typename Arg1, typename Arg2 >
 class FunctorImpl< ResultType, TYPELIST_2( Arg1, Arg2 ) >
   : public Private::FunctorImpl_Base< ResultType >
 {
-public: 
-  typedef ResultType 
+public:
+  typedef ResultType
     ResultType_t;
 
-  typedef typename TypeTraits< Arg1 >::ParameterType 
+  typedef typename TypeTraits< Arg1 >::ParameterType
     Arg1_t;
 
   typedef typename TypeTraits< Arg2 >::ParameterType
@@ -387,21 +387,21 @@ public:
 
   Wraps functors and pointers to functions.
 //*/
-template< class ParentFunctor, typename Fun > 
+template< class ParentFunctor, typename Fun >
 class FunctorHandler
   : public ParentFunctor::Impl_t
 {
 private:
-  typedef typename ParentFunctor::Impl_t 
+  typedef typename ParentFunctor::Impl_t
     Base_t;
 
 public:
-  typedef typename Base_t::ResultType_t 
+  typedef typename Base_t::ResultType_t
     ResultType_t;
 
-  typedef typename Base_t::Arg1_t 
+  typedef typename Base_t::Arg1_t
     Arg1_t;
-  
+
   typedef typename Base_t::Arg2_t
     Arg2_t;
 
@@ -431,30 +431,30 @@ private:
 
 /*
   Functor
-  
+
   A generalized Functor implementation with value semantics.
 //*/
 template< typename ResultType, typename TList = NIL >
 class Functor
 {
 public:
-  typedef FunctorImpl< ResultType, TList > 
+  typedef FunctorImpl< ResultType, TList >
     Impl_t;
 
-  typedef ResultType 
+  typedef ResultType
     ResultType_t;
-  
+
   typedef TList
     ArgList_t;
 
-  typedef typename Impl_t::Arg1_t 
+  typedef typename Impl_t::Arg1_t
     Arg1_t;
 
   typedef typename Impl_t::Arg2_t
     Arg2_t;
 
   // Member functions
-  Functor() 
+  Functor()
     : spImpl_(0)
   {}
 

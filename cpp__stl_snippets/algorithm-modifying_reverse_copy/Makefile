@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = reversecopy.cpp
@@ -19,7 +19,7 @@ reversecopy.exe: ${OBJECTS}
 
 all: reversecopy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) reversecopy.exe *~ core
 
 

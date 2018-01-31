@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = ambiguous.cpp
@@ -19,7 +19,7 @@ ambiguous.exe: ${OBJECTS}
 
 all: ambiguous.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) ambiguous.exe *~ core
 
 

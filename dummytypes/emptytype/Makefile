@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = emptytype.cpp
@@ -19,7 +19,7 @@ emptytype.exe: ${OBJECTS}
 
 all: emptytype.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) emptytype.exe *~ core
 
 

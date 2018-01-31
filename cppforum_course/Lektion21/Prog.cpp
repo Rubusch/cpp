@@ -12,8 +12,8 @@ using namespace std;
 int main()
 {
     cout << "Underflow: " << endl;
-    cout << "INT_MIN + INT_MIN = (" 
-         << INT_MIN << ") + (" << INT_MIN << ") = " 
+    cout << "INT_MIN + INT_MIN = ("
+         << INT_MIN << ") + (" << INT_MIN << ") = "
          << INT_MIN + INT_MIN << endl;
     cout << endl;
 
@@ -22,7 +22,7 @@ int main()
          << INT_MAX << ") + (" << INT_MIN << ") = "
          << INT_MAX + INT_MIN << endl;
     cout << endl;
-    
+
     cout << "Overflow: " << endl;
     cout << "INT_MAX + INT_MAX = ("
          << INT_MAX << ") + (" << INT_MAX << ") = "

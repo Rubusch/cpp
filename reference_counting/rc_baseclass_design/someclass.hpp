@@ -29,11 +29,11 @@ template<class T> class RCPtr;
 //*/
 class SomeClass
 {
-public: 
+public:
   // ctor
   SomeClass(const char *value = "");
   ~SomeClass();
-  
+
   // copy on write - operator[]
   const char& operator[](int index) const;
   char& operator[](int index);
@@ -46,10 +46,10 @@ private:
   /*
     The following class represents the treated values
 
-    This class is deduced from RCBaseObject, the here used abstract class 
+    This class is deduced from RCBaseObject, the here used abstract class
     for reference counting.
   //*/
-  struct SomeClassValue: public RCBaseObject 
+  struct SomeClassValue: public RCBaseObject
   {
     char *data;
 

@@ -1,7 +1,7 @@
 // callback.cpp
 /*
-  "Callbacks are executable code that is passed as an argument to 
-  other code. It allows a lower-level software layer to cal a 
+  "Callbacks are executable code that is passed as an argument to
+  other code. It allows a lower-level software layer to cal a
   subroutine (or function) defined in a higher-level layer."
 
   The following example will be replaced by a callback approach.

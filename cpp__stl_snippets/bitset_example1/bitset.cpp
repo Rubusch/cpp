@@ -16,12 +16,12 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   bitset< 5 > bs_a(6), bs_b(string("10010")), bs_x;
   cout << endl;
 
-  cout << "a = \t\t" << bs_a 
+  cout << "a = \t\t" << bs_a
        << "\nb = \t\t" << bs_b
        << "\nx = \t\t" << bs_x
        << endl;
@@ -36,11 +36,11 @@ int main()
   bs_x[3] = 1;
   cout << endl;
 
-  cout << "b.set(2).flip()\n";  
+  cout << "b.set(2).flip()\n";
   bs_x.set(2).flip();
   cout << endl;
 
-  cout << "x = \t\t" << bs_x << " = " << bs_x.to_ulong() 
+  cout << "x = \t\t" << bs_x << " = " << bs_x.to_ulong()
        << ", " << bs_x.count() << " bit(s) set\n";
   cout << endl;
 

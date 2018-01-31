@@ -2,26 +2,26 @@
  * Copyright (c) 2007, IRTrans GmbH
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer. 
+ *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
  *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution. 
+ *       documentation and/or other materials provided with the distribution.
  *     * Neither the name of IRTrans GmbH nor the
  *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission. 
+ *       derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY IRTrans GmbH ``AS IS'' AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  * DISCLAIMED. IN NO EVENT SHALL IRTrans GmbH BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -161,7 +161,7 @@ int ListRemotes (void)
 {
 	int i,res,offset = 0;
 	REMOTEBUFFER rem;
-	
+
 	do {
 		res = NetworkCommand (COMMAND_GETREMOTES,"",0,0,offset,(NETWORKSTATUS *)&rem);
 
@@ -186,7 +186,7 @@ int ListCommands (char rem[])
 {
 	int i,res,offset = 0;
 	COMMANDBUFFER cmd;
-	
+
 	do {
 		res = NetworkCommand (COMMAND_GETCOMMANDS,rem,0,0,offset,(NETWORKSTATUS *)&cmd);
 
@@ -323,8 +323,8 @@ int SendUDP (char ip[],char cmdstr[])
 		if (he == NULL) return (ERR_BINDSOCKET);
 
 		memcpy(&iadr.sin_addr.s_addr, he->h_addr_list[0], 4);
-	}	
-	
+	}
+
 	iadr.sin_port = htons ((word)IRTRANS_PORT);
 /*
 	if (connect (irtlan_outbound,(struct sockaddr *)&iadr,sizeof (struct sockaddr_in)) < 0) {
@@ -443,7 +443,7 @@ void ReceiveIR (int mode,char cmd[])
 				}
 			}
 		}
-	} 
+	}
 }
 
 
@@ -475,7 +475,7 @@ int SendRemoteCommand (char rem[],char com[],char mask[],char bus[],char led[])
 	int adr = 0,res,wait = 0,ibus = 0,iled = 0;
 	NETWORKSTATUS stat;
 #ifdef WIN32
-	
+
 	if (!strcmp (rem,"wait") || !strcmp (rem,"Wait") || !strcmp (rem,"WAIT")) {
 		adr = atoi (com);
 		Sleep (adr);
@@ -719,7 +719,7 @@ void ShowSetStatus (int adr,int bus,NETWORKMODEEX2 *status)
 		printf ("\n            Internal LEDs    [30]: %c\n",(status->stat[bus][adr].extended_mode & INTERNAL_LEDS ? 'x':'o'));
 		printf ("            External LEDs    [31]: %c\n",(status->stat[bus][adr].extended_mode & EXTERNAL_LEDS ? 'x':'o'));
 	}
-	if (status->stat[bus][adr].features & FN_DUALRCV) {	
+	if (status->stat[bus][adr].features & FN_DUALRCV) {
 		printf ("\n            Standard Receivr.[33]: %c\n",(status->stat[bus][adr].extended_mode & STANDARD_RCV ? 'x':'o'));
 		printf ("            455 kHz Receiver [34]: %c\n",(status->stat[bus][adr].extended_mode & BO_RCV ? 'x':'o'));
 	}
@@ -742,16 +742,16 @@ void ShowSetStatus (int adr,int bus,NETWORKMODEEX2 *status)
 		printf ("         Learn Timeout  90ms [41]: %c\n",(((status->stat[bus][adr].extended_mode2 & LRN_TIMEOUT_MASK) == 4) ? 'x':'o'));
 		printf ("         Learn Timeout 120ms [42]: %c\n",(((status->stat[bus][adr].extended_mode2 & LRN_TIMEOUT_MASK) == 5) ? 'x':'o'));
 		printf ("         Learn Timeout 150ms [43]: %c\n",(((status->stat[bus][adr].extended_mode2 & LRN_TIMEOUT_MASK) == 6) ? 'x':'o'));
-		if (strcmp (status->stat[bus][adr].version+1,"4.04.35") >= 0) 
+		if (strcmp (status->stat[bus][adr].version+1,"4.04.35") >= 0)
 			printf ("         Learn Timeout 250ms [44]: %c\n",(((status->stat[bus][adr].extended_mode2 & LRN_TIMEOUT_MASK) == 7) ? 'x':'o'));
 	}
 
 	if (strcmp (status->stat[bus][adr].version+1,"4.05.01") >= 0) {
-		printf ("\n         Repeat Timeout 5ms  [45]: %c\n",(status->stat[bus][adr].device_mode & DEVMODE_RAWFAST ? 'o':'x'));	
-		printf ("         Repeat Timeout 25ms [46]: %c\n",(status->stat[bus][adr].device_mode & DEVMODE_RAWFAST ? 'x':'o'));	
+		printf ("\n         Repeat Timeout 5ms  [45]: %c\n",(status->stat[bus][adr].device_mode & DEVMODE_RAWFAST ? 'o':'x'));
+		printf ("         Repeat Timeout 25ms [46]: %c\n",(status->stat[bus][adr].device_mode & DEVMODE_RAWFAST ? 'x':'o'));
 	}
 
-	if (status->stat[bus][adr].features & FN_SBUS_UART) {	
+	if (status->stat[bus][adr].features & FN_SBUS_UART) {
 		printf ("\n             SBUS Classic    [47]: %c\n",(status->stat[bus][adr].extended_mode & SBUS_UART ? 'o':'x'));
 		printf ("             SBUS 4800 Baud  [48]: %c\n",((status->stat[bus][adr].extended_mode & SBUS_UART && (status->stat[bus][adr].extended_mode2 & SBUS_BAUD_MASK) == 0) ? 'x':'o'));
 		printf ("             SBUS 9600 Baud  [49]: %c\n",((status->stat[bus][adr].extended_mode & SBUS_UART && (status->stat[bus][adr].extended_mode2 & SBUS_BAUD_MASK) == 8) ? 'x':'o'));
@@ -759,12 +759,12 @@ void ShowSetStatus (int adr,int bus,NETWORKMODEEX2 *status)
 		printf ("             SBUS 38400 Baud [51]: %c\n",((status->stat[bus][adr].extended_mode & SBUS_UART && (status->stat[bus][adr].extended_mode2 & SBUS_BAUD_MASK) == 24) ? 'x':'o'));
 	}
 
-	if (!(status->stat[bus][adr].features & FN_SOFTID) || (status->stat[bus][adr].features & FN_POWERON) || (status->stat[bus][adr].features & FN_USBWAKEUP)) {	
+	if (!(status->stat[bus][adr].features & FN_SOFTID) || (status->stat[bus][adr].features & FN_POWERON) || (status->stat[bus][adr].features & FN_USBWAKEUP)) {
 		printf ("\nPowerOn Remote               [52]: %s\n",status->stat[bus][adr].remote);
 		printf ("PowerOn Command              [53]: %s\n",status->stat[bus][adr].command);
 	}
 
-	if (status->stat[bus][adr].features & FN_DUALPOWERON) {	
+	if (status->stat[bus][adr].features & FN_DUALPOWERON) {
 		printf ("\nPowerOff Remote              [54]: %s\n",status->stat[bus][adr].remote2);
 		printf ("PowerOff Command             [55]: %s\n",status->stat[bus][adr].command2);
 	}
@@ -826,7 +826,7 @@ void ShowDeviceStatusEx (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 		if (status->stat[bus][adr].features & FN_EXT_SW) printf ("IR Receiver 1 External     [2]: %c\n",(status->stat[bus][adr].extended_mode_ex[0] & 8 ? 'x':'o'));
 		printf ("IR Receiver 1 active       [3]: %c\n",(status->stat[bus][adr].extended_mode & STANDARD_RCV ? 'x':'o'));
 		printf ("\n");
-		
+
 		if (status->stat[bus][adr].features & FN_DUALRCV) {
 			printf ("IR Receiver 2              [4]: ");
 			ShowReceiverType ((status->stat[bus][adr].extended_mode_ex[0] & 0xf0) >> 4);
@@ -989,7 +989,7 @@ void ShowDeviceStatusEx (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 			}
 		}
 		else printf ("SBUS Baudrate             [20]: Classic\n");
-		
+
 		printf ("\n");
 		printf ("Done                      [21]\n");
 
@@ -998,20 +998,20 @@ void ShowDeviceStatusEx (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 	}
 	else if (panel == 5) {
 		printf ("\n");
-		if (!(status->stat[bus][adr].features & FN_SOFTID) || (status->stat[bus][adr].features & FN_POWERON) || (status->stat[bus][adr].features & FN_USBWAKEUP)) {	
+		if (!(status->stat[bus][adr].features & FN_SOFTID) || (status->stat[bus][adr].features & FN_POWERON) || (status->stat[bus][adr].features & FN_USBWAKEUP)) {
 			printf ("PowerOn Remote               [1]: %s\n",status->stat[bus][adr].remote);
 			printf ("PowerOn Command              [2]: %s\n",status->stat[bus][adr].command);
 		}
 
-		if (status->stat[bus][adr].features & FN_DUALPOWERON) {	
+		if (status->stat[bus][adr].features & FN_DUALPOWERON) {
 			printf ("\nPowerOff Remote              [3]: %s\n",status->stat[bus][adr].remote2);
 			printf ("PowerOff Command             [4]: %s\n",status->stat[bus][adr].command2);
 		}
 
 		if (status->stat[bus][adr].version[0] == 'E') {
 			printf ("\nPowerOn MAC Address          [5]: ");
-			
-			if (!memcmp (status->stat[bus][adr].remote2,"@@@~~~LAN~~~@@@",15) && 
+
+			if (!memcmp (status->stat[bus][adr].remote2,"@@@~~~LAN~~~@@@",15) &&
 				(status->stat[bus][adr].command2[0] != 0 || status->stat[bus][adr].command2[1] != 0 || status->stat[bus][adr].command2[2] != 0 ||
 				 status->stat[bus][adr].command2[3] != 0 || status->stat[bus][adr].command2[4] != 0 || status->stat[bus][adr].command2[5] != 0)) {
 				for (i=0;i <= 5;i++) {
@@ -1046,7 +1046,7 @@ void ShowDeviceStatusEx (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 				printf ("RS232 Baudrate            [1]: 38400 Baud\n");
 				break;
 		}
-		
+
 		if ((status->stat[bus][adr].features2 & FN2_RTS_CTS) || (status->stat[bus][adr].features & FN_LAN)) {
 			printf ("RTS/CTS Handshake         [2]: %c\n",(status->stat[bus][adr].extended_mode2 & RS232_RTS_CTS ? 'x':'o'));
 		}
@@ -1391,7 +1391,7 @@ int SetDeviceStatusPanel (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 	scanf ("%s",st);
 	getchar ();
 	choice = atoi (st);
-		
+
 	if (panel == 1) {
 		if (choice == 1) status->stat[bus][adr].device_mode ^= DEVMODE_SEND;
 		else if (choice == 2) status->stat[bus][adr].device_mode ^= DEVMODE_IR;
@@ -1495,7 +1495,7 @@ int SetDeviceStatusPanel (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 			fgets (st,255,stdin);
 			while (st[strlen (st) - 1] == 10 || st[strlen (st) - 1] == 13) st[strlen (st) - 1] = 0;
 			memcpy (status->stat[bus][adr].remote,st,80);
-			
+
 		}
 		if (choice == 2) {
 			printf ("\n\nEnter PowerOn Command: ");
@@ -1504,7 +1504,7 @@ int SetDeviceStatusPanel (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 			fgets (st,255,stdin);
 			while (st[strlen (st) - 1] == 10 || st[strlen (st) - 1] == 13) st[strlen (st) - 1] = 0;
 			memcpy (status->stat[bus][adr].command,st,20);
-			
+
 		}
 		if (choice == 3) {
 			printf ("\n\nEnter PowerOff Remote: ");
@@ -1513,7 +1513,7 @@ int SetDeviceStatusPanel (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 			fgets (st,255,stdin);
 			while (st[strlen (st) - 1] == 10 || st[strlen (st) - 1] == 13) st[strlen (st) - 1] = 0;
 			memcpy (status->stat[bus][adr].remote2,st,80);
-			
+
 		}
 		if (choice == 4) {
 			printf ("\n\nEnter PowerOff Command: ");
@@ -1522,7 +1522,7 @@ int SetDeviceStatusPanel (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 			fgets (st,255,stdin);
 			while (st[strlen (st) - 1] == 10 || st[strlen (st) - 1] == 13) st[strlen (st) - 1] = 0;
 			memcpy (status->stat[bus][adr].command2,st,20);
-			
+
 		}
 		if (choice == 5) {
 			printf ("\n\nEnter MAC Address: ");
@@ -1542,7 +1542,7 @@ int SetDeviceStatusPanel (NETWORKMODEEX2 *status,int bus,int adr,int panel)
 				status->stat[bus][adr].command2[4] = (byte)strtol (st + 12,NULL,16);
 				status->stat[bus][adr].command2[5] = (byte)strtol (st + 15,NULL,16);
 			}
-			
+
 		}
 		else if (choice == 6) return (0);
 		return (1);
@@ -1593,7 +1593,7 @@ void SetDeviceStatusEx (NETWORKMODEEX2 *status,int bus,int adr)
 				ShowDeviceStatusEx (status,bus,adr,choice);
 			} while (SetDeviceStatusPanel (status,bus,adr,choice));
 
-			
+
 			choice = 0;
 		}
 
@@ -1610,7 +1610,7 @@ void SetDeviceStatusEx (NETWORKMODEEX2 *status,int bus,int adr)
 				strcpy (mod.hotremote_2,"_");
 			}
 			else memcpy (mod.hotcommand_2,status->stat[bus][adr].command2,20);
-			
+
 			mod.targetmask = status->stat[bus][adr].send_mask;
 			mod.mode = status->stat[bus][adr].device_mode;
 			mod.extmode = status->stat[bus][adr].extended_mode;
@@ -1668,7 +1668,7 @@ void SetDeviceStatus (NETWORKMODEEX2 *status,int bus,int adr)
 			fflush (stdout);
 			scanf ("%s",status->stat[bus][adr].remote);
 		}
-			
+
 		if (choice == 53) {
 			printf ("\nEnter PowerOn Command: ");
 			fflush (stdout);
@@ -1680,7 +1680,7 @@ void SetDeviceStatus (NETWORKMODEEX2 *status,int bus,int adr)
 			fflush (stdout);
 			scanf ("%s",status->stat[bus][adr].remote2);
 		}
-			
+
 		if (choice == 55) {
 			printf ("\nEnter PowerOff Command: ");
 			fflush (stdout);
@@ -1704,7 +1704,7 @@ void SetDeviceStatus (NETWORKMODEEX2 *status,int bus,int adr)
 				PrintStatError (&stat);
 				return;
 			}
-			if (status->stat[bus][adr].features & FN_DUALPOWERON) {	
+			if (status->stat[bus][adr].features & FN_DUALPOWERON) {
 				command.netcommand = COMMAND_SETSTAT2;
 				strcpy (command.command,status->stat[bus][adr].command2);
 				strcpy (command.remote,status->stat[bus][adr].remote2);
@@ -1879,7 +1879,7 @@ int FlashIRDB (int bus,char *action,char *remotelist)
 		fprintf (stderr,"Error uploading IRDB Header: %s\n",stat.message);
 		return (-1);
 	}
-	
+
 	pnt = strtok (remotelist,",;");
 	while (pnt) {
 		res = NetworkCommand (COMMAND_STOREIRDB,pnt,"",counter++,0,&stat);
@@ -1894,7 +1894,7 @@ int FlashIRDB (int bus,char *action,char *remotelist)
 	if (res) {
 		return (-1);
 	}
-	
+
 	return (0);
 }
 
@@ -1909,7 +1909,7 @@ int LoadIRDB (int bus,char *filename)
 		fprintf (stderr,"Error opening IRDB File: %s\n",stat.message);
 		return (-1);
 	}
-	
+
 
 	if (bus == 99) {
 		bus = 0;
@@ -1926,7 +1926,7 @@ int LoadIRDB (int bus,char *filename)
 	if (rcv[1] == '0') printf ("IRDB Flash Error\n");
 
 	if (rcv[1] == '2') printf ("IRDB Flash OK\n");
-	
+
 	return (0);
 }
 
@@ -2013,7 +2013,7 @@ int SendCommand (NETWORKCOMMAND *com,NETWORKSTATUS *stat)
 	if (com->netcommand == COMMAND_STOREIRDB) size = sizeof (IRDBHEADER);
 	if (com->netcommand == COMMAND_STORETIMER) size = sizeof (TIMERCOMMAND);
 	if (com->netcommand == COMMAND_SETSTATEX2) size = sizeof (MODUSCOMMAND_EX);
-	
+
 	res = send (serv,(char *)com,size,0);
 
 	if (res != size) {
@@ -2025,7 +2025,7 @@ int SendCommand (NETWORKCOMMAND *com,NETWORKSTATUS *stat)
 
 	if (com->timeout) tv.tv_sec = com->timeout/1000 + 1;
 	else tv.tv_sec = 5;
-	
+
 	if (com->netcommand == COMMAND_STATUSEX2) tv.tv_sec = 10;
 
 	tv.tv_usec = 0;
@@ -2088,7 +2088,7 @@ int InitClientSocket (char host[],SOCKET *sock,unsigned long id)
 	serv_addr.sin_port = htons (TCP_PORT);
 
 	if (connect (*sock,(struct sockaddr *)&serv_addr,sizeof (serv_addr)) < 0) return (ERR_CONNECT);
-	
+
 	send (*sock,(char *)&id,4,0);
 
 	return (0);

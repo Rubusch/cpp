@@ -4,9 +4,9 @@
   create trampoline functions.
 
 
-  "Local clases are an interesting and little-known feature of C++. You can 
+  "Local clases are an interesting and little-known feature of C++. You can
   define classes right inside functions, as follows:
-  
+
   void func()
   {
     class Local
@@ -15,15 +15,15 @@
       ... member function definitions ...
     };
   }
-  
-  There are some limitations - local classes cannot define static member 
-  variables and cannot access nonstatic local variables. What makes local 
-  classes truly interesting is that you can use them in template functions. 
-  Local classes defined inside template functions can use the template 
+
+  There are some limitations - local classes cannot define static member
+  variables and cannot access nonstatic local variables. What makes local
+  classes truly interesting is that you can use them in template functions.
+  Local classes defined inside template functions can use the template
   parameters of the enclosing function.
 
   Local Classes do have a unique feature, though: They are final."
-  
+
   Taken from "Modern C++ Design", Alexandrescu
 //*/
 
@@ -72,7 +72,7 @@ Interface* MakeAdapter(const T& arg1, const P& arg2)
     ~LocalClass()
     {
       std::cout << "Local Class deleted\n";
-    }     
+    }
 
     virtual void doSomething()
     {
@@ -93,9 +93,9 @@ Interface* MakeAdapter(const T& arg1, const P& arg2)
   ..main
 //*/
 int main()
-{ 
+{
   /*
-    init, here we use "nothrow" declaration, because of simplicity. 
+    init, here we use "nothrow" declaration, because of simplicity.
     The alternative would be writing an exception and using try/catch
   //*/
   Interface *pLocalObject = NULL;
@@ -103,7 +103,7 @@ int main()
     std::cerr << "ERROR: allocation failed!\n";
     exit(-1);
   }
-  
+
   /*
     do something
   //*/

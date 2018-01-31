@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = classtemplatespecialization.cpp
@@ -19,7 +19,7 @@ classtemplatespecialization.exe: ${OBJECTS}
 
 all: classtemplatespecialization.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) classtemplatespecialization.exe *~ core
 
 

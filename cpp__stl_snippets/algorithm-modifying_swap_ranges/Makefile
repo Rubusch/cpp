@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = swapranges.cpp
@@ -19,7 +19,7 @@ swapranges.exe: ${OBJECTS}
 
 all: swapranges.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) swapranges.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  functor.cpp
@@ -20,7 +20,7 @@ functor.exe: ${OBJECTS}
 
 all: functor.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) functor.exe *~ core
 
 

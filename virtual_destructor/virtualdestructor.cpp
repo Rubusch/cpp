@@ -2,7 +2,7 @@
 /*
   demonstrate the usage of a virtual destructor
 
-  Make a destructor virtual if a base class contains virtual functions! 
+  Make a destructor virtual if a base class contains virtual functions!
 
   Virtual function need to have a default implementation or result in a Linker Error!
   Alternatively make the function declarations "pure virtual" using:
@@ -30,18 +30,18 @@ protected:
 public:
   Base();
   virtual ~Base() = 0; // makes the class abstract!
-  
+
   /*
     F U N C T I O N S
 
-    virtual functions 
+    virtual functions
 
     - virtual functions need a default implementation or will lead to a linker error!
     - only pure virtual function (= 0) won't lead to a linker error without implementation.
   //*/
 
   virtual void setValue(T val);
-  virtual T getValue() = 0; // should be defined "= 0" or should contain code to return something 
+  virtual T getValue() = 0; // should be defined "= 0" or should contain code to return something
 };
 
 template< class T >
@@ -65,7 +65,7 @@ T Base< T >::getValue()
 /*
   some derived class
 //*/
-template< class T > 
+template< class T >
 class Derived : public Base< T >
 {
 public:

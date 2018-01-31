@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = locale.cpp
@@ -19,7 +19,7 @@ locale.exe: ${OBJECTS}
 
 all: locale.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) locale.exe *~ core
 
 

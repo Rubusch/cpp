@@ -19,7 +19,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr[] = { 1, 2, 3 };
   int* const ptr = arr + sizeof(arr) / sizeof(*arr);

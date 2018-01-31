@@ -47,7 +47,7 @@ void Set::insert(const double &toInsert)
             if(m_data[j-1] > m_data[j])
                 swap(&m_data[j-1], &m_data[j]);
             else
-                break;    
+                break;
         };
     };
 };
@@ -101,7 +101,7 @@ int Set::findIndex(const double &toFind)
             mitte = int(mitte - (mitte - unten)/2);
         };
     }while(oben-unten > 1);
-    
+
     if(m_data[oben] == toFind)
         return oben;
     else if(m_data[unten] == toFind)
@@ -110,4 +110,4 @@ int Set::findIndex(const double &toFind)
         return -1;
 };
 
-        
+

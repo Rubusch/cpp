@@ -21,10 +21,10 @@ class ChuckALuck
 {
 private:
   unsigned long seed_;
-  
+
 public:
-  ChuckALuck(T start = 0) : seed_(start) {}  
-  T operator()(T times){ return (seed_ = (123123234 * seed_ + 7)) % times; } 
+  ChuckALuck(T start = 0) : seed_(start) {}
+  T operator()(T times){ return (seed_ = (123123234 * seed_ + 7)) % times; }
 };
 
 

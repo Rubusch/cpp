@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE =  functionpointer.cpp
@@ -19,7 +19,7 @@ functionpointer.exe: ${OBJECTS}
 
 all: functionpointer.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) functionpointer.exe *~ core
 
 

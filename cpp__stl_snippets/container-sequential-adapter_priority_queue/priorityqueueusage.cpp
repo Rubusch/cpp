@@ -1,7 +1,7 @@
 // priorityqueueusage.cpp
 /*
-  demonstrates the adapter priority_queue 
-              
+  demonstrates the adapter priority_queue
+
             /---> pop
            |
          +---+
@@ -19,8 +19,8 @@
          +---+
          |   |
          +---+
-       
-  the STL has 3 adapters 
+
+  the STL has 3 adapters
   - stack
   - queue
   - priority_queue

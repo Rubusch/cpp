@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = removeerase.cpp
@@ -19,7 +19,7 @@ removeerase.exe: ${OBJECTS}
 
 all: removeerase.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) removeerase.exe *~ core
 
 

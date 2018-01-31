@@ -28,12 +28,12 @@ int main()
     cout << "d = a+b = ";
     d.print();
     cout << endl;
-    
+
     Rational e=a-b;
     cout << "e = a-b = ";
     e.print();
     cout << endl;
-    
+
     Rational f=a/b;
     cout << "f = a/b = ";
     f.print();

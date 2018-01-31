@@ -1,19 +1,19 @@
 // strippingtraits.cpp
 /*
-  "Traits are a generic programming technique that allows compile-time 
-  decisions to be made based on types, much as you would make runtime 
+  "Traits are a generic programming technique that allows compile-time
+  decisions to be made based on types, much as you would make runtime
   decisions based on values.
 
-  This makes the resulting code cleaner, more readable, and easier to 
+  This makes the resulting code cleaner, more readable, and easier to
   maintain."
 
-  "Implementing a 'const stripper' is easy, again by using partial 
+  "Implementing a 'const stripper' is easy, again by using partial
   template specialization."
 
-  This demonstrates the conversion of a 'const' declared TYPE. It has nothing 
+  This demonstrates the conversion of a 'const' declared TYPE. It has nothing
   directly to do with a const_cast!
 
-  It serves to extract the non-'const' type of a constant type-DECLARATION 
+  It serves to extract the non-'const' type of a constant type-DECLARATION
   (not constant or variable!!). These issue is a little tricky since it's not
   related directly to varables or instances.
 
@@ -32,23 +32,23 @@ class TypeTraits
 {
 private:
   // de-const Traits
-  template< class U > 
+  template< class U >
   struct UnConst
   {
-    typedef U 
+    typedef U
       Result;
   };
 
-  template< class U > 
+  template< class U >
   struct UnConst< const U >
   {
-    typedef U 
+    typedef U
       Result;
   };
 
 public:
   // removes the 'const' qualifier from T, if any
-  typedef typename UnConst< T >::Result 
+  typedef typename UnConst< T >::Result
     NonConstType;
 };
 
@@ -61,7 +61,7 @@ int main()
   using namespace std;
 
   cout << "init..\n";
-  typedef const int 
+  typedef const int
     MyType_t;
 
   MyType_t var1 = 123;
@@ -79,7 +79,7 @@ int main()
   cout << "re-init variable, var2 = " << var2 << "\n";
   cout << endl;
 
-  
+
   cout << "READY.\n";
   return 0;
 }

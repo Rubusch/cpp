@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = opnewdelete.cpp
@@ -19,7 +19,7 @@ opnewdelete.exe: ${OBJECTS}
 
 all: opnewdelete.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) opnewdelete.exe *~ core
 
 

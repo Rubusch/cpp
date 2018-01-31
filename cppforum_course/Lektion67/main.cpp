@@ -20,7 +20,7 @@ int main()
     cout << endl;
     for(int i=0; i<s.getSize(); ++i)
         cout << i << ". " << s[i] << endl;
-    
+
     cout << endl;
     cout << "Hans: " << s.findIndex("Hans") << endl;
     cout << "Klaus: " << s.findIndex("Klaus") << endl;
@@ -28,7 +28,7 @@ int main()
     cout << "ich: " << s.findIndex("ich") << endl;
     cout << "Anna: " << s.findIndex("Anna") << endl;
     cout << "Sepp: " << s.findIndex("Sepp") << endl;
-    
+
 
     return 0;
 };

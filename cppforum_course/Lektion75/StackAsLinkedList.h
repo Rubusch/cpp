@@ -20,7 +20,7 @@ class StackAsLinkedList
         T m_wert;
         Element *m_pNaechstesElement;
     };
-    
+
 private:
     Element<T> *m_pStart;
 
@@ -30,7 +30,7 @@ public:
         m_pStart = 0;
     };
 
-            
+
     void push(int wert)
     {
         Element *pNeuesElement = new Element;
@@ -38,7 +38,7 @@ public:
         pNeuesElement->m_pNaechstesElement = m_pStart;
         m_pStart = pNeuesElement;
     };
-    
+
 
     void pop()
     {
@@ -52,7 +52,7 @@ public:
     {
         return m_pStart->m_wert;
     };
-    
+
 
     bool empty()
     {

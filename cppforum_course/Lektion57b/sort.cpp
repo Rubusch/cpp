@@ -29,7 +29,7 @@ void Sort::swap(T *pa, T *pb)
 template<class T>
 void Sort::bubbleSort(T *array, int size)
 {
-    int obergrenze = size - 1; 
+    int obergrenze = size - 1;
     while(obergrenze > 0){
         int letzterAustausch=0;
         for(int pos = 0; pos < obergrenze; ++pos){
@@ -50,7 +50,7 @@ void Sort::straightSelectionSort(int *array, int size)
 
         // Suchen des kleinsten Wertes
         int minPos = arrayAnfang;
-        
+
         int minWert = array[arrayAnfang];
         for(int suchPos = arrayAnfang + 1; suchPos < size; ++suchPos){
             if(array[suchPos] < array[minPos]){
@@ -105,7 +105,7 @@ void test()
     const int SIZE=10;
     int array[SIZE];
     Sort s;
-    
+
     // array mit Zufallszahlen kleiner als SIZE fuellen
     for(int i=0; i<SIZE; ++i)
         array[i] = rand()%SIZE;
@@ -113,7 +113,7 @@ void test()
     // alle Zahlen in einer Zeile ausgeben
     for(int i=0; i<SIZE; ++i)
         cout << array[i] << ' ';
-    
+
     // sortieren
     s.shellSort(array, SIZE);
     cout << " ->  ";
@@ -121,16 +121,16 @@ void test()
     // nach dem sortieren ausgeben
     for(int i=0; i<SIZE; ++i)
         cout << array[i] << ' ';
-    
+
     // zum pruefen des Sortier-Algorithmus: ist eine Zahl groesser
-    // als der darauffolgende Wert? (dann hat unser Algorithmus 
+    // als der darauffolgende Wert? (dann hat unser Algorithmus
     // fehlerhaft gearbeitet.
     for(int i=0; i<SIZE-1; ++i){
         if(array[i] > array[i+1]){
             cout << "Fehler!" << endl;
-            
+
             // wartet auf Tastendruck
-            cin.get();    
+            cin.get();
         };
     };
     cout << endl;

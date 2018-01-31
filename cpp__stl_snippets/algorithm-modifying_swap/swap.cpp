@@ -1,7 +1,7 @@
 // swap.cpp
 /*
   modifying algorithm
-  
+
   swap - swap the values of two objects
 
   (Kuhlins & Schader, 2003)

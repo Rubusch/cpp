@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = fstreams.cpp
@@ -19,7 +19,7 @@ fstreams.exe: ${OBJECTS}
 
 all: fstreams.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) fstreams.exe Jack.txt *~ core
 
 

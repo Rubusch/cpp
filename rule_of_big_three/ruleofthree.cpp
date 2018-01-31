@@ -8,16 +8,16 @@
 
   Important: doing a shallow copy on ALLOCATED pointers on members is dangerous!
   since the destructor should do a delete on all members, the destructor of the
-  "shallow copy object" will fail, since the "first" member already deleted the 
-  memory and set its (the original object's) pointer to NULL. The pointer of the 
-  "shallow copy object" still points on somewhere, but there is no allocated 
+  "shallow copy object" will fail, since the "first" member already deleted the
+  memory and set its (the original object's) pointer to NULL. The pointer of the
+  "shallow copy object" still points on somewhere, but there is no allocated
   memory anymore.
 
-  The problem is: 
-  - the allocated memory will be deleted 
+  The problem is:
+  - the allocated memory will be deleted
   - the pointer will be set to NULL
   -> the pointer of the "shallow copy object" is NOT set to NULL, a delete sigsegv's
-  
+
   A strategy is to check a pointer to the original.
 //*/
 
@@ -41,7 +41,7 @@ private:
 
 public:
   // normal ctor
-  Foobar(); 
+  Foobar();
 
   // 1. copy ctor
   Foobar(Foobar const& shallowcopy);
@@ -105,11 +105,11 @@ Foobar<T>::~Foobar()
   if(NULL != pShallowCpy){
     /*
       if there exist a shallow copy don't delete the pointer here, the destructor
-      of the shallowcopy will do that, this serves to avoid a double-delete situation 
+      of the shallowcopy will do that, this serves to avoid a double-delete situation
     //*/
     return;
   }
- 
+
  delete ptr; ptr = NULL;
 }
 
@@ -172,10 +172,10 @@ template<class T>
 void Foobar<T>::initPointerToShallowCopy(Foobar<T>* copy) const
 {
   /*
-    Because this function is called by the copy ctor's parameter and this needs to be 
+    Because this function is called by the copy ctor's parameter and this needs to be
     passed as "const" object:
-    1. this function needs to be "const" 
-    2. since we still need to change a contained data, we discard constness for 
+    1. this function needs to be "const"
+    2. since we still need to change a contained data, we discard constness for
     this operation by a const_cast<>()
   //*/
   (const_cast< Foobar< T >* >( this))->pShallowCpy = copy;
@@ -211,7 +211,7 @@ int main()
   // shallow copy
   cout << "2. shallow copy\n";
   Foobar<string> fb_shallow_copy(fb_orig);
-  // this also shows why it makes more sense to use operator=() for the deep copy! 
+  // this also shows why it makes more sense to use operator=() for the deep copy!
   cout << "fb_orig\n"
        << "\t::data\t\t=\t\"" << fb_orig.getData() << "\"\n"
        << "\t::pointer\t=\t\"" << fb_orig.getPointer() << "\"\n";
@@ -239,7 +239,7 @@ int main()
        << "\t::data\t\t=\t\"" << fb_deep_copy.getData() << "\"\n"
        << "\t::pointer\t=\t\"" << fb_deep_copy.getPointer() << "\"\n";
   cout << endl;
-  cout << endl;  
+  cout << endl;
   cout << endl;
 
 
@@ -266,7 +266,7 @@ int main()
   cout << endl;
   cout << endl;
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

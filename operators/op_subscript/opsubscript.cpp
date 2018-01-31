@@ -19,7 +19,7 @@ public:
 
   // dtor
   ~FoobarContainer();
-  
+
   // functions
   void init();
 
@@ -33,7 +33,7 @@ FoobarContainer<T>::FoobarContainer(unsigned int size)
 {
   std::cout << "ctor" << std::endl;
   /*
-    if init() won't be called here - the code will compile, but the first usage of operator[] 
+    if init() won't be called here - the code will compile, but the first usage of operator[]
     will fail with signal 11
   //*/
   init();
@@ -50,7 +50,7 @@ template<class T>
 void FoobarContainer<T>::init()
 {
   try{
-    if(NULL == (arr = new T[SIZE])) throw "memory allocation failed!"; 
+    if(NULL == (arr = new T[SIZE])) throw "memory allocation failed!";
   }catch(char* str){
     std::cerr << "ERROR: " << str << std::endl;
     delete arr;
@@ -69,7 +69,7 @@ template<class T>
 T& FoobarContainer<T>::operator[](unsigned int idx)
 {
   try{
-    if(idx >= SIZE) throw "index out of bounds!";    
+    if(idx >= SIZE) throw "index out of bounds!";
   }catch(char* str){
     std::cerr << "ERROR: " << str << std::endl;
     exit(-2);
@@ -85,13 +85,13 @@ T& FoobarContainer<T>::operator[](unsigned int idx)
   some main
 //*/
 int main()
-{ 
+{
   // alloc
   unsigned int containersize = 10;
   FoobarContainer<int> foo(containersize);
 
   // init - FIXME: doesn't work - Sig 11!
-  foo[7] = 77;  
+  foo[7] = 77;
 
   // output
   std::cout << "the seventh element is: " << foo[7] << std::endl;

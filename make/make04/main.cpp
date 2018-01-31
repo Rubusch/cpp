@@ -19,6 +19,6 @@ int main()
     // generate instance of B
     B b;
     b.doSomething();
-    
-    return 0; 
+
+    return 0;
 };

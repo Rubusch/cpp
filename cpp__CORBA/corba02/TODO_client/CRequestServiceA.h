@@ -17,12 +17,12 @@ using namespace std;
 class CRequestServiceA
 {
 public:
-  CRequestServiceA();  
+  CRequestServiceA();
   ~CRequestServiceA();
 
   bool RequestServiceARoutineA();
   bool RequestServiceARoutineB();
- 
+
   //private: // TODO check
   CosNaming::Name m_corbaCosName;
 
@@ -30,7 +30,7 @@ public:
   CORBA::ORB_var m_orb;
   CORBA::Object_var m_obj; // ORB object
   CORBA::Object_var m_obj1; // Resolved id to object reference
-  
+
   // Resolved and narrowed CORBA object for proxy calls
   Data::ServiceA_var m_Data;
 };
@@ -44,7 +44,7 @@ class DS_ServerConnectionException
 public:
   DS_ServerConnectionException()
   {
-    std::cerr << "CORBA COMM_FAILURE" << std::endl; 
+    std::cerr << "CORBA COMM_FAILURE" << std::endl;
   }
 };
 
@@ -55,7 +55,7 @@ public:
 class DS_SystemException
 {
 public:
-  DS_SystemException() 
+  DS_SystemException()
   {
     std::cerr << "CORBA Exception" << std::endl;
   }

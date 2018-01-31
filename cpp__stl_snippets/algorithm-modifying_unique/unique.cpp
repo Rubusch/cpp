@@ -11,7 +11,7 @@
     |
     | unique(arr_a, arr_a+10)
     |
-   \|/    ___ ___ ___ ___ ___ 
+   \|/    ___ ___ ___ ___ ___
          +---+---+---+---+---+- will stay the same! -+
   arr:   | 1 | 3 | 7 | 1 | 2 | 7 | 1 | 1 | 2 | 2 |   |
          +---+---+---+---+---+- will stay the same! -+
@@ -32,7 +32,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   int arr[] = { 1, 1, 3, 3, 3, 7, 1, 1, 2, 2 };
   cout << "arr = \t ";

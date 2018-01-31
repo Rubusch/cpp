@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = uniquecopy.cpp
@@ -19,7 +19,7 @@ uniquecopy.exe: ${OBJECTS}
 
 all: uniquecopy.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) uniquecopy.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = equalrange.cpp
@@ -19,7 +19,7 @@ equalrange.exe: ${OBJECTS}
 
 all: equalrange.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) equalrange.exe *~ core
 
 

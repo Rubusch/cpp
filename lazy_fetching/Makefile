@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = lazyfetching.cpp
@@ -19,7 +19,7 @@ lazyfetching.exe: ${OBJECTS}
 
 all: lazyfetching.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) lazyfetching.exe *~ core
 
 

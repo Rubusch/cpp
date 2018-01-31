@@ -3,12 +3,12 @@
   Layer 3 - SmallObjectAllocator
 
   Offers services for allocating small-sized objects
-  
-  The third layer in our architecture consists of SmallObjectAllocator, 
-  a class capable of allocating objects of any size. SmallObjectAllocator 
-  does so by aggregating several FixedAllocator objects. When 
-  SmallObjectAllocator receives an allocation request, it either forwards 
-  it to the best matching Fixedallocator object or passes it to the default 
+
+  The third layer in our architecture consists of SmallObjectAllocator,
+  a class capable of allocating objects of any size. SmallObjectAllocator
+  does so by aggregating several FixedAllocator objects. When
+  SmallObjectAllocator receives an allocation request, it either forwards
+  it to the best matching Fixedallocator object or passes it to the default
   ::operator new().
 //*/
 
@@ -27,7 +27,7 @@ class SmallObjectAllocator
 private:
   // forbit copying, etc - only declaration as private!
   SmallObjectAllocator( const SmallObjectAllocator&);
-  SmallObjectAllocator& operator=( SmallObjectAllocator const&); 
+  SmallObjectAllocator& operator=( SmallObjectAllocator const&);
 
   // pool = std::vector< FixedAllocator >
   typedef std::vector< FixedAllocator > Pool;

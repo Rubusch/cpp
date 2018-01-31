@@ -18,6 +18,6 @@ int main()
             cout << "Zu schnell gefahren. Verwarnungsgeld!" << endl;
     else
         cout << "Nicht zu schnell gefahren." << endl;
-    
+
     return 0;
 };

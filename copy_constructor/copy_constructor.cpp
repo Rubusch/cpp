@@ -53,8 +53,8 @@ public:
   // copy constructor
   MyClass(const MyClass<T>& shallowcopy);
 
-  
-  // destructor 
+
+  // destructor
   // - if the class would have a virtual function, the destructor should be virtual, too
   // - a class that has member pointers, should have an self implemented destructor
   // - delete should happen where the allocation has happened -> no allocation, no delete!
@@ -77,9 +77,9 @@ MyClass<T>::MyClass()
 /*
   copy constructor - shallow copy
 
-  The copy constructor is a special function:  
-  Doesn't matter if these were declared "private" or "protected" - the access within 
-  the copy constructor works like a friend declared function!! Everything's "public" 
+  The copy constructor is a special function:
+  Doesn't matter if these were declared "private" or "protected" - the access within
+  the copy constructor works like a friend declared function!! Everything's "public"
   here!
 //*/
 template<class T>
@@ -88,7 +88,7 @@ MyClass<T>::MyClass(MyClass<T> const& shallowcopy)
 {
   // check self?
   if(this == &shallowcopy) return;
-  
+
   // pointer
   setPointer(shallowcopy.pointer);
 }

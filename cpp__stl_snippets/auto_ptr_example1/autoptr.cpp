@@ -23,7 +23,7 @@ private:
   int val_;
 
 public:
-  Foobar(int val = 0) 
+  Foobar(int val = 0)
     : val_(val)
   {
     std::cout << "Foobar::Foobar " << this << std::endl;
@@ -33,7 +33,7 @@ public:
   {
     std::cout << "Foobar::~Foobar " << this << std::endl;
   }
-  
+
   void func()
   {
     std::cout << "Foobar::func" << std::endl;
@@ -52,7 +52,7 @@ public:
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   auto_ptr< Foobar > ap_a(new Foobar(1)), ap_b(new Foobar(2));
   cout << endl;

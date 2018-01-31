@@ -4,4 +4,4 @@
 
 using namespace std;
 
-class Start;                                                                 
+class Start;

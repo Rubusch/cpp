@@ -3,7 +3,7 @@
   Zeigervariablen als Uebergabeparameter - pass by reference
   Eine ausgelagerte Funktion vertauscht die Adressen zweier Werte.
   Hier werden die Werte auch in der aufrufenden Funktion vertauscht.
-  Funktionen ausserhalb koennen also mit Zeigern auch Werte dauerhaft 
+  Funktionen ausserhalb koennen also mit Zeigern auch Werte dauerhaft
   veraendern.
 //*/
 
@@ -17,7 +17,7 @@ void swap(int *pa, int *pb)
 
     // "Inhalt von a" ist "Inhalt von b"
     *pa=*pb;
-    
+
     // "Inhalt von b" ist tmp
     *pb=tmp;
 };
@@ -30,8 +30,8 @@ int main()
     swap(&a, &b);
     cout << "a: " << a << endl;
     cout << "b: " << b << endl;
-    
+
     return 0;
 };
 
-    
+

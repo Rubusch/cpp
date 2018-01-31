@@ -15,10 +15,10 @@ private:
 public:
   // ctor
   SomeType(T t);
-  
+
   // func
   T getVal() const;
-  
+
   // operator
   int operator==(const SomeType<T> rhs) const;
 };

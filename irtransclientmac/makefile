@@ -2,8 +2,8 @@ SHELL = /bin/sh
 
 CC = gcc
 
-CFLAGS = 
-CPPFLAGS = -DLINUX -DSILENT 
+CFLAGS =
+CPPFLAGS = -DLINUX -DSILENT
 LDFLAGS =
 LIBS =
 ODIR = x86
@@ -15,7 +15,7 @@ OBJS64 = $(patsubst %,$(ODIR64)/%,$(_OBJS))
 
 all: irclient irclient64 sendpacket sendpackets
 
-irclient: $(OBJS) 
+irclient: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -m32 -o irclient $(LDFLAGS)
 
 irclient64: $(OBJS64)
@@ -40,4 +40,4 @@ $(ODIR)/%.o: %.c flash.h errcode.h network.h remote.h functioncodes.h makefile
 $(ODIR64)/%.o: %.c flash.h errcode.h network.h remote.h functioncodes.h makefile
 	$(CC) $(CPPFLAGS) $(CFLAGS) -DX64 -m64 -c $< -o $@
 
-				
+

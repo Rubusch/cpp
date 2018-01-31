@@ -10,10 +10,10 @@ bool istSchaltjahr(int jahr)
 {
     if(jahr < 0)
         return false;
-    
+
     if(jahr%4==0){
         cout << "Durch 4 teilbar." << endl;
-        
+
         if(jahr%100 == 0){
             cout << "Durch 100 teilbar." << endl;
             if(jahr%400 == 0){
@@ -44,7 +44,7 @@ int main()
         cout << "Das ist ein Schaltjahr." << endl;
     else
         cout << "Kein Schaltjahr." << endl;
-    
+
     return 0;
 };
 

@@ -1,13 +1,13 @@
 // lazyfetching.cpp
 /*
-  The lazy approach to this problem is to read no data from disk when a 
-  HugeMonster object is created. Instead, only the "shell" of an object 
-  is created, and data is retrieved from the database only when that 
+  The lazy approach to this problem is to read no data from disk when a
+  HugeMonster object is created. Instead, only the "shell" of an object
+  is created, and data is retrieved from the database only when that
   particular data is needed inside the object.
   (More Effective C++ / 17 / Meyers)
 
-  Huge initialization lists and huge overhead with many pointers makes it 
-  difficult for larger classes. The better alternative is the usage of a 
+  Huge initialization lists and huge overhead with many pointers makes it
+  difficult for larger classes. The better alternative is the usage of a
   smartpointer that keeps track of that directly!
 //*/
 
@@ -33,7 +33,7 @@ string someMonsterString = "some monster string!";
 int someMonsterInt = 111;
 
 /*
-  some class def for monster 3 and 4 
+  some class def for monster 3 and 4
 //*/
 template<class T>
 class HugeMonster
@@ -91,7 +91,7 @@ HugeMonster<int> intMonster(222);
 
 
 /*
-  the class - a cage of huuuuuge monsters, hence the elemens will be allocated and 
+  the class - a cage of huuuuuge monsters, hence the elemens will be allocated and
   initialized only when requested!
 //*/
 template<class U, class V>
@@ -109,7 +109,7 @@ public:
   ~MonsterCage();
 
   /*
-    the initialization can be done automagically by the class 
+    the initialization can be done automagically by the class
     when it's necessary!
   //*/
 
@@ -148,7 +148,7 @@ const string& MonsterCage<U, V>::field1() const
       cerr << "allocation 1 failed\n";
       exit(-1);
     }
-    
+
     // read out correct value and init the attribute
     // (here only init with some global value)
     *field1value = someMonsterString;
@@ -190,7 +190,7 @@ U MonsterCage<U, V>::field3() const
 
     *field3value = stringMonster;
   }
-  
+
   return *field3value;
 }
 
@@ -215,7 +215,7 @@ const V& MonsterCage<U, V>::field4() const
 
 
 /*
-  some main to test 
+  some main to test
 //*/
 int main()
 {

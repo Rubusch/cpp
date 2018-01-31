@@ -2,11 +2,11 @@
 /*
   Techniques, item 3: Provoking Compile-time Errors and Providing a Error Message
 
-  Manipulating the Error Messages: 
-  "The problem with" the approach getting compile-time errors "is that the error message 
-  you receive is not terribly informative. 'Cannot create array of size zero' does not 
-  suggest 'Type char is too narrow to hold a pointer.' It is very hard to provide customized 
-  error messages portably. Error messages have no rules that they must obey; it's all up 
+  Manipulating the Error Messages:
+  "The problem with" the approach getting compile-time errors "is that the error message
+  you receive is not terribly informative. 'Cannot create array of size zero' does not
+  suggest 'Type char is too narrow to hold a pointer.' It is very hard to provide customized
+  error messages portably. Error messages have no rules that they must obey; it's all up
   to the compiler."
 
   Taken from "Modern C++ Design", Alexandrescu
@@ -60,18 +60,18 @@ int main()
   /*
     cast of bigger type to smaller type (in case gives WARNING)
   //*/
-  cout << "#1: unchecked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' (" 
+  cout << "#1: unchecked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' ("
        << short_value << ", " << sizeof(short_value) << " bytes).\n";
   short_value = unchecked_cast<short>(long_value);
   cout << "ok.\n" << endl;
 
 
-  /* 
+  /*
      CAUTION: THIS CODE SHOULD NOT COMPILE!
 
      Here the cast of a bigger type to a smaller one leads to a compile-time error
   //*/
-  cout << "#2: checked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' (" 
+  cout << "#2: checked cast \'long\' (" << long_value << ", " << sizeof(long_value) << " bytes) to \'short\' ("
        << short_value << ", " << sizeof(short_value) << " bytes).\n";
   short_value = checked_cast<short>(long_value);
   cout << "ok.\n" << endl;

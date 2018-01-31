@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = typelist.cpp
@@ -20,7 +20,7 @@ typelist.exe: ${OBJECTS}
 
 all: typelist.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) typelist.exe *~ core
 
 

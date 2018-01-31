@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = search.cpp
@@ -19,7 +19,7 @@ search.exe: ${OBJECTS}
 
 all: search.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) search.exe *~ core
 
 

@@ -1,7 +1,7 @@
 // dequetest.cpp
 /*
   demonstrates deque
-  
+
   the STL has 3 sequential containers:
   - vector
   - deque

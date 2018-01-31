@@ -2,7 +2,7 @@
 /*
   demonstrates the adapter stack (lifo)
 
-           
+
   push --\   /--> pop
           | |
          +---+
@@ -12,9 +12,9 @@
          +---+
          |   |
          +---+
-         
 
-  the STL has 3 adapters 
+
+  the STL has 3 adapters
   - stack
   - queue
   - priority_queue
@@ -33,7 +33,7 @@ int main()
   cout << "init...\n";
   stack< int, list< int > > lifo;
   cout << endl;
-  
+
   cout << "push 5 on the stack\n";
   lifo.push(5);
   cout << endl;

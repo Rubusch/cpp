@@ -31,13 +31,13 @@ public:
 
 class BattleField
 {
-private: 
+private:
   // struct
   struct MyGroove : public BaseGroove
   {
     MyGroove() : BaseGroove( ARGUMENT)
     {
-      std::cout << "\t\tMyGroove::MyGroove()\n"; 
+      std::cout << "\t\tMyGroove::MyGroove()\n";
     }
   };
 
@@ -53,7 +53,7 @@ public:
   static void getStatic()
   {
     std::cout << "\tBattleField::getStatic()\n";
-    
+
     groovy.doGroove();
   }
 };
@@ -72,7 +72,7 @@ int main(){
   cout << "main()\n";
 
   BattleField::getStatic();
-  
+
   cout << "READY.\n";
   return 0;
 }

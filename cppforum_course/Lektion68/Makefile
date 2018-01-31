@@ -18,5 +18,5 @@ prog: ${OBJECTS}
 
 all: prog
 
-clean: 
+clean:
 	-${RM} prog *.o core

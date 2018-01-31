@@ -20,7 +20,7 @@ int main()
     cout << a << endl;
     cout << b << endl;
     cout << c << endl;
-    
+
     return 0;
 };
 
@@ -46,5 +46,5 @@ void sort(int *pa, int *pb, int *pc)
 };
 
 
-    
-    
+
+

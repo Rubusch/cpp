@@ -26,7 +26,7 @@ int main()
     g.auszahlen(1000);
     g.auszahlen(100);
     g.anzeigen();
-    
+
     Sparkonto s;
     s.einzahlen(200);
     s.jahresabschluss();

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = norefonlocals.cpp
@@ -19,7 +19,7 @@ norefonlocals.exe: ${OBJECTS}
 
 all: norefonlocals.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) norefonlocals.exe *~ core
 
 

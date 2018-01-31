@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = bank.cpp
@@ -19,7 +19,7 @@ bank.exe: ${OBJECTS}
 
 all: bank.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) bank.exe *~ core
 
 

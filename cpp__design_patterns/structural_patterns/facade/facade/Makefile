@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = facade.cpp
@@ -19,7 +19,7 @@ facade.exe: ${OBJECTS}
 
 all: facade.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) facade.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = mismatch.cpp
@@ -19,7 +19,7 @@ mismatch.exe: ${OBJECTS}
 
 all: mismatch.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) mismatch.exe *~ core
 
 

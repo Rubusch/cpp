@@ -12,13 +12,13 @@ int main()
 {
     int limit;
     int zahl=1;
-    
+
     cout << "Wieviele Fibonacci-Zahlen sollen berechnet werden? ";
     cin >> limit;
 
     for(int i=1; i<limit; ++i)
         cout << fibRek(i) << endl;
-    
+
     return 0;
 };
 

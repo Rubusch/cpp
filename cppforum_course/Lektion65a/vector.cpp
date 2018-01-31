@@ -58,15 +58,15 @@ void Vector::moveDown(int start, int end, int newStart)
 {
     int newSize = (newStart - 0)+(end - start);
     T *newData = new T[newSize];
-    
+
     for(int i=0; i<newStart; ++i)
         newData[i] = m_data[i];
-    
+
     for(int i=0; i<(end-start); ++i)
         newDatax[newStart + i] = m_data[start + i];
-    
+
     delete[] m_data;
-    
+
     m_size = newSize;
     m_data = newData;
 };
@@ -86,7 +86,7 @@ double& Vector::operator[](int index)
 //*/
 Vector& Vector::operator=(const Vector &derAndereVector)
 {
-    if(&derAndereVector != this){ 
+    if(&derAndereVector != this){
         delete[] m_data;
         m_size = derAndereVector.m_size;
         m_data = new double[m_size];

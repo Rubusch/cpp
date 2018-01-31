@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = typeof.cpp
@@ -19,7 +19,7 @@ typeof.exe: ${OBJECTS}
 
 all: typeof.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) typeof.exe *~ core
 
 

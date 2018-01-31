@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = explicitconstructor.cpp
@@ -19,7 +19,7 @@ explicitconstructor.exe: ${OBJECTS}
 
 all: explicitconstructor.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) explicitconstructor.exe *~ core
 
 

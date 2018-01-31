@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = fundamentaltraits.cpp
@@ -19,7 +19,7 @@ fundamentaltraits.exe: ${OBJECTS}
 
 all: fundamentaltraits.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) fundamentaltraits.exe *~ core
 
 

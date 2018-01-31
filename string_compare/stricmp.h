@@ -152,7 +152,7 @@ namespace IgnoreCase
         // die End-Iteratoren.
         if (Result.first == Shorter->end())
           {
-            if (Result.second == Longer->end()) 
+            if (Result.second == Longer->end())
               { // Strings sind gleich
                 return 0;
               }

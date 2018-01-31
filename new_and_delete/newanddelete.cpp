@@ -48,17 +48,17 @@ int main()
   cout << endl;
 
   // free the allocated memory AND RESET to NULL!
-  delete pStr; 
+  delete pStr;
   pStr = NULL;
 
   delete [] pStrArr;
   pStrArr = NULL;
 
-  // Remember a "double delete" is Killaah! The only possibility to avoid issues with "double 
+  // Remember a "double delete" is Killaah! The only possibility to avoid issues with "double
   // deletes" is to set the pointer to NULL. A "delete NULL" is ALWAYS possible!
   delete pStr;
   delete pStrArr;
- 
+
   cout << "READY.\n";
   return 0;
 }

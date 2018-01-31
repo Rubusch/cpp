@@ -1,20 +1,20 @@
 // parametertraits.cpp
 /*
-  "Traits are a generic programming technique that allows compile-time 
-  decisions to be made based on types, much as you would make runtime 
+  "Traits are a generic programming technique that allows compile-time
+  decisions to be made based on types, much as you would make runtime
   decisions based on values.
 
-  This makes the resulting code cleaner, more readable, and easier to 
+  This makes the resulting code cleaner, more readable, and easier to
   maintain."
 
   "Let's call the parameter type that we look for ParameterType.
 
-  IF T is a reference to some type, ParameterType is the same as T (unchanged). 
+  IF T is a reference to some type, ParameterType is the same as T (unchanged).
     Reason: References to references are not allowed."
   ELSE
-    IF T is a scalar type (int, float, etc), ParameterType is T. 
+    IF T is a scalar type (int, float, etc), ParameterType is T.
       Reason: Fundamental types are best passed by value
-    ELSE ParameterType is const T&. 
+    ELSE ParameterType is const T&.
       Reason: In general, non-fundamental types are best passed by reference"
 
   "Unfortunately, this scheme fails to pass enumerated types (enums) by value."
@@ -35,23 +35,23 @@ class NullType
 
 /*
   Select
-  
+
   Selects one of two types based upon a boolean constant
 
-  T and U are types: Result evaluates to T if flag is true, 
+  T and U are types: Result evaluates to T if flag is true,
   and to U otherwise
 //*/
 template< bool flag, typename T, typename U >
 struct Select
 {
-  typedef T 
+  typedef T
     Result;
 };
 
 template< typename T, typename U >
-struct Select< false, T, U > 
+struct Select< false, T, U >
 {
-  typedef U 
+  typedef U
     Result;
 };
 
@@ -97,7 +97,7 @@ struct Typelist< T1, T2, NullType, NullType >
 template< class T1, class T2, class T3 >
 struct Typelist< T1, T2, T3, NullType >
 {
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > > 
+  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > >
     type_t;
 };
 
@@ -111,7 +111,7 @@ namespace TL
     Typelist - IndexOf
   //*/
   template< class TList, class T > struct IndexOf;
-  
+
   template< class T >
   struct IndexOf< NullType, T >
   {
@@ -129,7 +129,7 @@ namespace TL
   {
   private:
     enum { temp = IndexOf< Tail, T >::value };
-    
+
   public:
     enum { value = (temp == -1 ? -1 : 1 + temp) };
   };
@@ -146,7 +146,7 @@ namespace Private
 
   typedef Typelist< signed char, short int, int, long int >::type_t
     SignedInts_t;
-  
+
   typedef Typelist< bool, char >::type_t
     OtherInts_t;
 
@@ -156,7 +156,7 @@ namespace Private
 
 
 /*
-  Type Traits 
+  Type Traits
 //*/
 template<typename T>
 class TypeTraits
@@ -173,7 +173,7 @@ private:
   template< class U > struct ReferenceTraits< U& >
   {
     enum { result = true };
-    typedef U 
+    typedef U
       ReferredType;
   };
 
@@ -181,14 +181,14 @@ private:
   template<class U> struct PointerTraits
   {
     enum { result = false };
-    typedef NullType 
+    typedef NullType
       PointeeType;
   };
-  
+
   template<class U> struct PointerTraits<U*>
   {
     enum { result = true };
-    typedef U 
+    typedef U
       PointeeType;
   };
 
@@ -204,12 +204,12 @@ private:
   {
     enum { result = true };
   };
-    
-public:   
+
+public:
   // basic types
   enum { isStdUnsignedInt = (0 <= TL::IndexOf< Private::UnsignedInts_t, T >::value) };
   enum { isStdSignedInt = (0 <= TL::IndexOf< Private::SignedInts_t, T>::value) };
-  enum { isStdFloat = (0 <= TL::IndexOf< Private::Floats_t, T >::value) }; 
+  enum { isStdFloat = (0 <= TL::IndexOf< Private::Floats_t, T >::value) };
 
   // type evaluations
   enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || (0 <= TL::IndexOf< Private::OtherInts_t, T >::value) };
@@ -218,9 +218,9 @@ public:
   enum { isStdArith = isStdIntegral || isStdFloat };
 
   // public evaluations in loki
-  enum { isPointer = PointerTraits< T >::result }; 
-  enum { isPointer2Member = Ptr2MemTraits< T >::result }; 
-  
+  enum { isPointer = PointerTraits< T >::result };
+  enum { isPointer2Member = Ptr2MemTraits< T >::result };
+
   // referred type evaluation
   enum { isReference = ReferenceTraits< T >::result };
   typedef typename ReferenceTraits< T >::ReferredType
@@ -228,7 +228,7 @@ public:
 
   // finally parameter type evaluation:
   // returns the optimal type to be used as a parameter for functions that take T's
-  typedef typename Select< isStdArith || isPointer || isPointer2Member, T, ReferredType_t& >::Result 
+  typedef typename Select< isStdArith || isPointer || isPointer2Member, T, ReferredType_t& >::Result
     ParameterType;
 };
 
@@ -250,11 +250,11 @@ int main()
   cout << "init..\n";
 
   // some type
-  typedef int 
+  typedef int
     Parameter1_t;
 
   // check optimized type
-  typedef TypeTraits< Parameter1_t >::ParameterType 
+  typedef TypeTraits< Parameter1_t >::ParameterType
     Result1_t;
 
   // output

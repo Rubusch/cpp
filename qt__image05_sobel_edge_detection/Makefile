@@ -16,9 +16,9 @@ CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT $(DEFINES)
 INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I. -I.
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS)  -L/usr/lib/i386-linux-gnu -lQtGui -lQtCore -lpthread 
+LIBS          = $(SUBLIBS)  -L/usr/lib/i386-linux-gnu -lQtGui -lQtCore -lpthread
 AR            = ar cqs
-RANLIB        = 
+RANLIB        =
 QMAKE         = /usr/bin/qmake
 TAR           = tar -cf
 COMPRESS      = gzip -9f
@@ -43,7 +43,7 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = image.cpp 
+SOURCES       = image.cpp
 OBJECTS       = image.o
 DIST          = /usr/share/qt4/mkspecs/common/unix.conf \
 		/usr/share/qt4/mkspecs/common/linux.conf \
@@ -70,7 +70,7 @@ DIST          = /usr/share/qt4/mkspecs/common/unix.conf \
 		/usr/share/qt4/mkspecs/features/include_source_dir.prf \
 		qt__image05_sobel_edge_detection.pro
 QMAKE_TARGET  = qt__image05_sobel_edge_detection
-DESTDIR       = 
+DESTDIR       =
 TARGET        = qt__image05_sobel_edge_detection
 
 first: all
@@ -97,7 +97,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET):  $(OBJECTS)  
+$(TARGET):  $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: qt__image05_sobel_edge_detection.pro  /usr/share/qt4/mkspecs/linux-g++/qmake.conf /usr/share/qt4/mkspecs/common/unix.conf \
@@ -154,12 +154,12 @@ Makefile: qt__image05_sobel_edge_detection.pro  /usr/share/qt4/mkspecs/linux-g++
 qmake:  FORCE
 	@$(QMAKE) -o Makefile qt__image05_sobel_edge_detection.pro
 
-dist: 
-	@$(CHK_DIR_EXISTS) .tmp/qt__image05_sobel_edge_detection1.0.0 || $(MKDIR) .tmp/qt__image05_sobel_edge_detection1.0.0 
+dist:
+	@$(CHK_DIR_EXISTS) .tmp/qt__image05_sobel_edge_detection1.0.0 || $(MKDIR) .tmp/qt__image05_sobel_edge_detection1.0.0
 	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/qt__image05_sobel_edge_detection1.0.0/ && $(COPY_FILE) --parents image.cpp .tmp/qt__image05_sobel_edge_detection1.0.0/ && (cd `dirname .tmp/qt__image05_sobel_edge_detection1.0.0` && $(TAR) qt__image05_sobel_edge_detection1.0.0.tar qt__image05_sobel_edge_detection1.0.0 && $(COMPRESS) qt__image05_sobel_edge_detection1.0.0.tar) && $(MOVE) `dirname .tmp/qt__image05_sobel_edge_detection1.0.0`/qt__image05_sobel_edge_detection1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/qt__image05_sobel_edge_detection1.0.0
 
 
-clean:compiler_clean 
+clean:compiler_clean
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
@@ -167,7 +167,7 @@ clean:compiler_clean
 ####### Sub-libraries
 
 distclean: clean
-	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) $(TARGET)
 	-$(DEL_FILE) Makefile
 
 
@@ -194,11 +194,11 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: 
+compiler_clean:
 
 ####### Compile
 
-image.o: image.cpp 
+image.o: image.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image.o image.cpp
 
 ####### Install

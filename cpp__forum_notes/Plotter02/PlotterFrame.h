@@ -15,7 +15,7 @@ class PlotterFrame : public QMainWindow
 
 private slots:
     void slotAccept();
-    
+
 private:
     Plotter *pnPlotter;
     QLineEdit *leX;

@@ -12,7 +12,7 @@
    | partial_sort_copy(arr_a, arr_a+7, arr_b, arr_b+4)
    |
   \|/     ___ ___ ___ ___
-         +---+---+---+---+- -+  
+         +---+---+---+---+- -+
   arr_b: | 0 | 1 | 2 | 3 |   |
          +---+---+---+---+- -+
 
@@ -61,7 +61,7 @@ int main()
   cout << "partial_sort_copy() - sort and copy the elements descending, copy the first 4 to the arr_b\n";
   ptr = partial_sort_copy(arr_a, arr_a+7, arr_b, arr_b+4, greater< int >());
   cout << "first " << (ptr - arr_b) << " values are sorted\n";
-  display(arr_a, 7, arr_b, 4);  
+  display(arr_a, 7, arr_b, 4);
 
   cout << "READY.\n";
   return 0;

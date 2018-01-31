@@ -12,16 +12,16 @@
 //*/
 class Time_impl : public virtual POA_Time{
 public:
-  virtual TimeOfDay get_gmt() 
+  virtual TimeOfDay get_gmt()
     throw(CORBA::SystemException);
 };
 
 
 /*
-  the derived time implemenetation (bridge pattern) uses the 
+  the derived time implemenetation (bridge pattern) uses the
   following implementation
 //*/
-TimeOfDay Time_impl::get_gmt() 
+TimeOfDay Time_impl::get_gmt()
   throw(CORBA::SystemException)
 {
   time_t time_now = time(0);

@@ -45,11 +45,11 @@ class Checksum_t
 {
 private:
   const unsigned int sum_;
-  
+
 public:
   explicit Checksum_t(unsigned int sum)
     : sum_(sum) {}
-  
+
   bool operator()(T val) const { return checksum_help(val); }
 };
 
@@ -79,7 +79,7 @@ int main()
     cout << *idx << " has the checksum 4." << endl;
   }
   cout << endl;
-  
+
   cout << "READY.\n";
   return 0;
 }

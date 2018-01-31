@@ -7,17 +7,17 @@
 
 #include "SortedArray.h"
 
-template< class KEY, class VALUE > 
+template< class KEY, class VALUE >
 class DictionaryEntry
 {
 private:
     KEY m_key;
     VALUE m_value;
-    
+
 public:
     DictionaryEntry()
     {};
-    
+
 
     DictionaryEntry(const KEY &key, const VALUE &value)
         :m_key(key), m_value(value)
@@ -28,7 +28,7 @@ public:
     {
         return m_key;
     };
-    
+
 
     VALUE &getValue() const
     {
@@ -42,13 +42,13 @@ class DictionaryEntryComparator
 {
 private:
     KEY_COMPARATOR m_comp;
-    
+
 public:
     bool lessThan(const DictionaryEntry< KEY, VALUE > &a, const DictionaryEntry< KEY, VALUE > &b)
     {
         return m_comp.lessThan(a.getKey(), b.getKey());
     };
-    
+
 
     bool isEqual(const DictionaryEntry< KEY, VALUE > &a, const DictionaryEntry< KEY, VALUE > &b)
     {
@@ -62,20 +62,20 @@ class Dictionary
 {
 private:
     SortedArray< DictionaryEntry< KEY, VALUE >
-                 , DictionaryEntryComparator< KEY, VALUE, KEY_COMPARATOR > > m_data;  
+                 , DictionaryEntryComparator< KEY, VALUE, KEY_COMPARATOR > > m_data;
 
 public:
     void insert(const KEY &key, const VALUE &value)
     {
         m_data.insert(DictionaryEntry< KEY, VALUE >(key, value));
     };
-    
+
 
     int getSize()
     {
         return m_data.getSize();
     };
-    
+
 
     const DictionaryEntry< KEY, VALUE > &operator[](int index)
     {

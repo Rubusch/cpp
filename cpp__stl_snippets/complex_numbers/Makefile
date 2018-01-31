@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = complex.cpp
@@ -19,7 +19,7 @@ complex.exe: ${OBJECTS}
 
 all: complex.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) complex.exe *~ core
 
 

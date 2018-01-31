@@ -16,7 +16,7 @@
 int main()
 {
   using namespace std;
-  
+
   cout << "init\n";
   const char* const filename = "Jack.txt";
   fstream file(filename, ios_base::in | ios_base::out | ios_base::trunc);
@@ -30,7 +30,7 @@ int main()
     cout << "ok,\nwrite\n";
     file << 1234567;
     cout << endl;
-    
+
     cout << "seekg() - go to file start\n";
     file.seekg(0, ios_base::beg); // go to file start
     cout << endl;
@@ -41,7 +41,7 @@ int main()
     cout << idx << endl;
     cout << endl;
   }
-    
+
   cout << "READY.\n";
   return 0;
 }

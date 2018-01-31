@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = mapusage.cpp
@@ -19,7 +19,7 @@ mapusage.exe: ${OBJECTS}
 
 all: mapusage.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) mapusage.exe *~ core
 
 

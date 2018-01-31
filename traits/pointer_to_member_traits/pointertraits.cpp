@@ -26,7 +26,7 @@
 
   The type of data would be something like:
   int SomeClass::*
-  
+
   Therefore the trait uses "U V::*" in its declaration:
     template< class U, class V > struct Ptr2MemTraits< U V::* >
     {
@@ -76,7 +76,7 @@ public:
 class SomeClass
 {
 private:
-  // inner class / struct 
+  // inner class / struct
   typedef struct { int value; } Member_t;
   Member_t memberField;
 
@@ -86,7 +86,7 @@ public:
 
   // 2. possibility of a "poitner-to-member-type" declaration: &SomeClass::pMemberField
   Member_t *pMemberField;
-  
+
   SomeClass(){}
 };
 
@@ -107,7 +107,7 @@ bool memberPointerTest( TestType memPtr)
 template< typename T >
 void output( T t, std::string expected)
 {
-  std::cout << " points to a member?\n" 
+  std::cout << " points to a member?\n"
             << (memberPointerTest( t) ? "\"true\"" : "\"false\"")
             << "\t(expected: " << expected << ")"
             << std::endl;
@@ -138,7 +138,7 @@ int main()
   output( &SomeClass::pMemberField, "true");
   cout << endl;
 
-  
+
   int noMember;
   cout << "&noMember";
   output( &noMember, "false");

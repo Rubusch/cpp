@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = copybackward.cpp
@@ -19,7 +19,7 @@ copybackward.exe: ${OBJECTS}
 
 all: copybackward.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) copybackward.exe *~ core
 
 

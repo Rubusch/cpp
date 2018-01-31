@@ -1,7 +1,7 @@
 // partition.cpp
 /*
   modifying algorithm
-  
+
   partition - divide a range of elements into two groups
   stable_partition - divide elements into two groups while preserving their relative order
 

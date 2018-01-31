@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = type2type.cpp
@@ -19,7 +19,7 @@ type2type.exe: ${OBJECTS}
 
 all: type2type.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) type2type.exe *~ core
 
 

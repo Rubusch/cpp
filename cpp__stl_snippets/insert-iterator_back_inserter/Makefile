@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = backinserter.cpp
@@ -19,7 +19,7 @@ backinserter.exe: ${OBJECTS}
 
 all: backinserter.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) backinserter.exe *~ core
 
 

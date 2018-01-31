@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = min.cpp
@@ -19,7 +19,7 @@ min.exe: ${OBJECTS}
 
 all: min.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) min.exe *~ core
 
 

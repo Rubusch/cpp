@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-class RCBaseObject 
+class RCBaseObject
 {
 public:
   void addReference();

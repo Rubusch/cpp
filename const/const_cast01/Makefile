@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = const.cpp
@@ -19,7 +19,7 @@ const.exe: ${OBJECTS}
 
 all: const.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) const.exe *~ core
 
 

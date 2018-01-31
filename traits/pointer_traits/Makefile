@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = pointertraits.cpp
@@ -19,7 +19,7 @@ pointertraits.exe: ${OBJECTS}
 
 all: pointertraits.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) pointertraits.exe *~ core
 
 

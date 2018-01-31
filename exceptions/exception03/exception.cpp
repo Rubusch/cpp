@@ -32,11 +32,11 @@ int main()
   try{
     str = new char[strsize("Hello World!")];
   }catch(bad_alloc&){
-    cerr << "ERROR: allocation failed" << std::endl;     
+    cerr << "ERROR: allocation failed" << std::endl;
     exit(-1);
   }
   cout << endl;
-  
+
   // set
   cout << "set a value:\n";
   strncpy(str, "Hello World!\0", strsize("Hello World!"));
@@ -44,7 +44,7 @@ int main()
 
   // dealloc & reset!
   cout << "delete..\n";
-  delete str; 
+  delete str;
   str = NULL;
   cout << endl;
 

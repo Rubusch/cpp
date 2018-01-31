@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = inserter.cpp
@@ -19,7 +19,7 @@ inserter.exe: ${OBJECTS}
 
 all: inserter.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) inserter.exe *~ core
 
 

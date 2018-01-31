@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = decorator.cpp
@@ -19,7 +19,7 @@ decorator.exe: ${OBJECTS}
 
 all: decorator.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) decorator.exe *~ core
 
 

@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = ostreamiterator.cpp
@@ -19,7 +19,7 @@ ostreamiterator.exe: ${OBJECTS}
 
 all: ostreamiterator.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) ostreamiterator.exe *~ core
 
 

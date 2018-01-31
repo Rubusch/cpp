@@ -1,6 +1,6 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization 
+# use -O, -O1, -O2 for optimization
 
 
 SOURCE = nonvirtualinheritance.cpp
@@ -19,7 +19,7 @@ nonvirtualinheritance.exe: ${OBJECTS}
 
 all: nonvirtualinheritance.exe
 
-clean: 
+clean:
 	${RM} $(OBJECTS) nonvirtualinheritance.exe *~ core
 
 
