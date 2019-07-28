@@ -41,7 +41,8 @@ void Base<T>::play()
 
 
 template<class T>
-class Derived : public Base<T>
+class Derived
+: public Base<T>
 {
 public:
   void play();
