@@ -1,0 +1,75 @@
+functors or overloading op()
+
+
+
+
+
+RESOURCE
+GUI programming with Qt4
+    by Jasmin Blanchette and Mark Summerfield, June 21, 2006
+    Chapter 4, functor SpreadsheetCompare
+
+
+
+Allows us to use a class as if it were a function. Such classes are called
+function objects or functors. To understand how functors work, we will start
+with a simple example:
+
+    struct Square
+    {
+        int operator()(int x) const
+        {
+            return x*x;
+        }
+    };
+
+The Square class provides one function, operator()(int), that returns the square
+of its parameter. By naming the function operator()(int) rather than, say,
+compute(int), we gain the capability of using an object of type Square as if it
+were a function:
+
+    Square square;
+    int y = square(5);
+
+
+
+Example, with two arguments:
+
+The square object can be used just as if it had been a plain square() function.
+Additionally, its implementation can access all kinds of member variables.
+A typical situation for a functor with two arguements is a comparator.
+
+    // class, functor definition, implements op( arg1, arg2 )
+    struct Comparator_t
+    {
+        Comparator_t( const std::locale& loc = std::locale::classic() )
+        : m_Locator( loc )
+        {}
+
+        bool operator()( const Monster& monster1, const Monster& monster2 ) const
+        {
+            doSomethingWithLocales( m_Locale );
+            return monster1.getSize() > monster2.getSize();
+        }
+
+    private:
+        const std::locale& m_Locale;
+    };
+
+    // interface function
+    bool monsterBiggerThan( const Monster& monster1, const Monster& monster2, const std::locale& loc )
+    {
+        // call to ctor with parameter, and two arguments
+        return Comparator_t( loc )( monster1, monster2 );
+    }
+
+    // call / usage
+    Monster greenMonster;
+    Monster redMonster;
+    locale loc("french");
+    if( monsterBiggerThan( greenMonster, redMonster, loc ) ){
+        cout << "green Monster is bigger than red Monster" << endl;\
+    }else{
+        cout << "red Monster was bigger" << endl;
+    }
+
