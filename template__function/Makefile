@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-prog: ${OBJECTS}
+template.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: prog
+all: template.exe
 
 clean:
-	-${RM} prog *.o core
+	-${RM} template.exe *.o core

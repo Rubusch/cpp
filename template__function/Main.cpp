@@ -4,7 +4,9 @@
 //*/
 
 #include <iostream>
+
 using namespace std;
+
 
 template< class T >
 void swap(T *a, T *b)
@@ -14,12 +16,13 @@ void swap(T *a, T *b)
     *b = tmp;
 };
 
+
 int main()
 {
     int a=5, b=10;
     cout << "a = " << a << ", b = " << b << endl;
 
-    swap<int>(&a, &b);
+    swap< int >(&a, &b);
     cout << "swap" << endl;
 
     cout << "a = " << a << ", b = " << b << endl;
