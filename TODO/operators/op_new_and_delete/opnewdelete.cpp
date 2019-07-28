@@ -3,6 +3,13 @@
   overloading of "oerator new()" and "operator delete()"
 
   Adhere the convention when writing "operator new()" and "operator delete()". (8/Meyers)
+
+TODO review compilation warning
+g++ -c -g -Wall  opnewdelete.cpp
+opnewdelete.cpp: In static member function ‘static void* Foobar::operator new(size_t)’:
+opnewdelete.cpp:55:15: warning: catching polymorphic type ‘class std::bad_alloc’ by value [-Wcatch-value=]
+   }catch(std::bad_alloc){
+
 //*/
 
 
