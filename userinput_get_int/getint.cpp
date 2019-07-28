@@ -9,10 +9,12 @@
 #include <sstream>
 #include <cctype>
 
+using namespace std;
+
 /*
   check input value for being a number
 //*/
-bool isInt(std::string str)
+bool isInt(string str)
 {
   for(unsigned int idx=0; idx < str.size(); ++idx){
     if(!isdigit(str.at(idx))) return false;
@@ -28,14 +30,14 @@ int main()
 {
   // init
   int test_value = 0;
-  std::string tmpStr;
-  std::stringstream tmpStream;
+  string tmpStr;
+  stringstream tmpStream;
 
   // ask
   do{
-    std::cout << "enter a test value: ";
-    std::cin >> tmpStr;
-    std::cout << std::endl;
+    cout << "enter a test value: ";
+    cin >> tmpStr;
+    cout << endl;
     if(isInt(tmpStr)) break;
   }while(1);
 
@@ -44,9 +46,9 @@ int main()
   tmpStream >> test_value;
 
   // print out
-  std::cout << "the entered value was: " << test_value << "!\n";
+  cout << "the entered value was: " << test_value << "!\n";
 
-  std::cout << "READY.\n";
+  cout << "READY.\n";
   return 0;
 }
 
