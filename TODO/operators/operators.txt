@@ -12,3 +12,9 @@ The following operators are not possible to be overloaded:
     .
     ::
 
+The following operators SHOULD never be overloaded:
+    ,
+    ||
+    &&
+(More Effective C++ / 7 / Meyers)
+
