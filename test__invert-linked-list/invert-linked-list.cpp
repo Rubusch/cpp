@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 
@@ -20,6 +21,7 @@ struct Node
     cout << "Node(" << data_ << ")" << endl;
   }
 };
+
 
 struct Inverter
 {
