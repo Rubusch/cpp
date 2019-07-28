@@ -84,7 +84,7 @@ int main()
     want (an internal temporary variable)
   //*/
   string *pTempLocal;
-  pTempLocal = &(fb.getLocalData()); // THIS SHOULD GIVE A WARNING!!!
+  pTempLocal = &(fb.getLocalData()); // THIS SHOULD GIVE A WARNING!!! with more recent compilers, this will even break compilation!
 
   /*
     3/4
