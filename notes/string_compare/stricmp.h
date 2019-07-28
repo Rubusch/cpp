@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //	file		:	stricmp.h
-//  copyright	:	(C) 2002 by Benjamin Kaufmann
-//  email		:	hume@c-plusplus.de
+//	copyright	:	(C) 2002 by Benjamin Kaufmann
+//	email		:	hume@c-plusplus.de
 //	internet	:	http://bens.c-plusplus.info/
 //
 //	header for case-insensitive string comparison
