@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 int main()
@@ -25,6 +26,7 @@ int main()
     cout << "var = " << var << ", *pVar = " << *pVar << endl;
 
     int *pErr = NULL;
+    cout << "\"*pErr = var\" or \"*pErr = 5\" results in \"Segmentation fault\"..." << endl;
 
 //    *pErr = 5;    /* Segmentation Fault - Where to store the '5', still nothing allocated? */
 
