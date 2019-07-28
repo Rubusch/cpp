@@ -16,10 +16,11 @@ class Someclass
 {
 private:
     const int SIZE;
-    int* arr;
+    int* arr = nullptr;
 
 public:
-    Someclass(): SIZE(10)
+    Someclass()
+    : SIZE(10)
     {
         arr = new int[SIZE];
     };

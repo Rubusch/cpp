@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-prog: ${OBJECTS}
+assert.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: prog
+all: assert.exe
 
 clean:
-	-${RM} prog *.o core
+	-${RM} assert.exe *.o core
