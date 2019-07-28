@@ -4,6 +4,14 @@
   out-of-memory situations easily
 
   Be prepared for out-of-memory conditions. (7/Meyers)
+
+TODO: review compilation warning
+$ make
+g++ -c -g -Wall newhandler.cpp
+newhandler.cpp: In instantiation of ‘static void* NewHandlerSupport<T>::operator new(size_t) [with T = Foobar; size_t = long unsigned int]’:
+newhandler.cpp:122:26:   required from here
+newhandler.cpp:69:4: warning: catching polymorphic type ‘class std::bad_alloc’ by value [-Wcatch-value=]
+   }catch(bad_alloc){
 //*/
 
 
