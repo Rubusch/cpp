@@ -12,7 +12,9 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
+
 
 class Anotherclass
 {
@@ -45,7 +47,7 @@ private:
 
 public:
     Someclass(T variable1, int variable2)
-        :A("another class"), B("a next class")
+    :A("another class"), B("a next class")
     {
         var1 = variable1;
         var2 = variable2;
