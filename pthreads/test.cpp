@@ -1,4 +1,9 @@
-// test.cpp
+/*
+ test.cpp
+
+ demonstrates creation of a thread, when executed several times,
+ some of them won't reach to print out "hello world"
+*/
 
 #include "test.h"
 
@@ -52,7 +57,7 @@ void* MemberThread::thread_maker(void* self)
 //*/
 void MemberThread::thread_routine()
 {
-  std::cout << "Hello World!\n";
+  std::cout << "Hello World!" << std::endl;
 }
 
 
