@@ -4,8 +4,6 @@
   you must set a global variable, to be able to use the ORB, e.g. in the /etc/profile
 
   export OMNIORB_CONFIG=/etc/omniORB.cfg
-
-  TODO: avoid using C here
 //*/
 
 // c headers
