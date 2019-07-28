@@ -4,6 +4,9 @@
 
 #include <iostream>
 
+using namespace std;
+
+
 template<class T>
 class MyClass
 {
@@ -17,6 +20,7 @@ public:
   void setVariable(T var);
   T getVariable();
 };
+
 
 template<class T>
 MyClass<T>::MyClass()
@@ -43,13 +47,13 @@ int main()
   MyClass<int> c;
 
   // input
-  std::cout << "set value" << std::endl;
+  cout << "set value" << endl;
   c.setVariable(77);
 
   // output
-  std::cout << "get value: " << c.getVariable() << std::endl;
+  cout << "get value: " << c.getVariable() << endl;
 
-  std::cout << "READY.\n";
+  cout << "READY.\n";
   return 0;
 }
 
