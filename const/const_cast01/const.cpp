@@ -92,7 +92,9 @@ int main()
   //*/
   // constant = "foobar";   // NOT POSSIBLE: constant
 
-  cout << "Have a look on the code, and it's comments!" << endl;
+  cout << "variable: " << variable << endl;
+  cout << "const_char: " << const_char << endl;
+
   cout << "READY." << endl;
   return 0;
 }
