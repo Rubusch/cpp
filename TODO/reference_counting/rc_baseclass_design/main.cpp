@@ -82,7 +82,7 @@ int main()
 
   // output by index
   std::cout << "output on indexes (copy on write - out):\n";
-  for(int idx=0; idx < initstring.length(); ++idx){
+  for(int idx=0; idx < static_cast< int > (initstring.length()); ++idx){
     std::cout << "obj_1[" << idx << "] \t= " << obj_1[idx] << "\n";
   }
   std::cout << std::endl;
