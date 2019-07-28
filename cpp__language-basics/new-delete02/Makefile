@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-prog: ${OBJECTS}
+newdelete.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: prog
+all: newdelete.exe
 
 clean:
-	-${RM} prog *.o core
+	-${RM} newdelete.exe *.o core
