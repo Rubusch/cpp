@@ -8,6 +8,7 @@ You should proceed with caution. The author does not accept any responsibility
 for any damage incurred.
 
 
+
 CONTENT
 
 Assorted code snippets, notes from the net ranging from "what is a pointer?" to
@@ -16,5 +17,14 @@ how to template arithmetics mostly classic C++0x.
 The start of this notes was probably in the early 2000s, there was never a major
 cleanup.
 
+
+
+BUILD
+
+If no separate README is contained, on  LINUX  open a shell and go to the
+specific source, compile snippets using make, and run the *.exe file.
+
+$ make
+$ ./*.exe
 
 Lothar Rubusch
