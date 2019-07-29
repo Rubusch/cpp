@@ -2,14 +2,14 @@
 /*
   Techniques: Partial Template Specialization
 
-  "Partial template specialization allows ou tu spezialize a class template for susets of that
-  template's possible instantiations set.
+  "Partial template specialization allows you to spezialize a class template for subsets of that
+  template's possible instantiation set.
 
   Unfortunately, partial template spezialization does not apply to functions - be they
   member or nonmember - which somewhat reduces the flexibility and the granularity of
   what you can do.
 
-  - Although you can totally specialize member functions of a class template, you cannot
+  - although you can totally specialize member functions of a class template, you cannot
   partially speciallize member functions.
 
   - you cannot partially specialize namespace-level (nonmember) template functions. The
@@ -48,7 +48,6 @@
 #include <cstring>
 #include <cstdlib>
 
-
 using namespace std;
 
 
@@ -77,7 +76,7 @@ void printAnyCharArray(Array< char, size >& arr_obj);
   The class represents an array, it can contain everything, but needs an size parameter - the
   SIZE can either be a valid number or a define, nothing else will compile!
 //*/
-template< typename T, int SIZE>
+template< typename T, int SIZE >
 class Array
 {
 private:
