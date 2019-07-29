@@ -6,9 +6,14 @@
 
 #include <iostream>
 
+using namespace std;
 
+
+/*  // cpp0x:
 #define MACRO 123
-
+/*/ // cpp11:
+constexpr auto MACRO=123;
+//*/
 
 /*
   template class with default template parameter
@@ -19,7 +24,7 @@ class SomeClass
 public:
   SomeClass()
   {
-    std::cout << "SomeClass< int >::SomeClass() - value: " << value << std::endl;
+    cout << "SomeClass< int >::SomeClass() - value: " << value << endl;
   }
 };
 
@@ -31,14 +36,14 @@ int main()
 {
   using namespace std;
 
-  std::cout << "using default value:\n";
+  cout << "using default value:\n";
   SomeClass<> sc1;
   cout << endl;
 
-  std::cout << "setting a value - " << 777 << ":\n";
+  cout << "setting a value - " << 777 << ":\n";
   SomeClass< 777 > sc2; // has to be a number, not a variable!!!
   cout << endl;
 
-  std::cout << "READY.\n";
+  cout << "READY.\n";
   return 0;
 }
