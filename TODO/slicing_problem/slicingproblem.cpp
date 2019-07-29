@@ -1,10 +1,13 @@
 //slicingproblem.cpp
 /*
-
+  assignment of a derrived class object into an object of its base class slices
+  off the members of the derrived parts in the resulting object of class base
 //*/
 
 #include <iostream>
 #include <string>
+
+using namespace std;
 
 
 /*
@@ -33,12 +36,12 @@ T Base<T>::getTemp()
 }
 
 
-
 /*
   some derived class
 //*/
 template<class T>
-class Derived : public Base<T>
+class Derived
+: public Base<T>
 {
 private:
   T newTemp;
@@ -61,8 +64,6 @@ T Derived<T>::getNewTemp()
 }
 
 
-
-
 /*
   some main
 //*/
@@ -70,22 +71,26 @@ int main()
 {
   int baseVar = 1, derivedBaseVar = 2, derivedVar = 22;
 
-
   Base<int> base(baseVar);
-  std::cout << "base:\nvariable (base) = " << base.getTemp() << std::endl;
+  cout << "base:\nvariable (base) = " << base.getTemp() << endl;
 
   Derived<int> derived(derivedBaseVar, derivedVar);
-  std::cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << std::endl;
+  cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << endl;
 
-  std::cout << std::endl;
+  cout << endl;
 
-  // slicing Problem: slicing occurs here since the features of the derived class's object are not copied, though this kind of copy is allowed
+  cout << "base = derived;" << endl;
+/*
+  Slicing Problem:
+  slicing occurs here since the features of the derived class's
+  object are not copied, though this kind of copy is allowed
+*/
   base = derived;
+  cout << "...after slicing the results are (base changed, but the Derived's attributes are \"sliced off\":" << endl << endl;
 
-  std::cout << "...after slicing the results are (base changed, but the Derived's attributes are \"sliced off\":" << std::endl;
-  std::cout << "base:\nvariable (base) = " << base.getTemp() << std::endl;
-  std::cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << std::endl;
+  cout << "base:\nvariable (base) = " << base.getTemp() << endl;
+  cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << endl;
 
-  std::cout << "READY.\n";
+  cout << "READY.\n";
   return 0;
 }
