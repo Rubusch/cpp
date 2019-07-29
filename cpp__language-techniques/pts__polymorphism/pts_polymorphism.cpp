@@ -15,7 +15,6 @@
 using namespace std;
 
 
-
 /*
   common declaration of a two typed templated class - THIS IS ESSENTIAL!
 //*/
