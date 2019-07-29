@@ -31,32 +31,40 @@
 #include <iostream>
 #include <cstdlib>
 
-
 using namespace std;
 
 
 /*
-  Abstract Interface class to be derived later on
+  abstract Interface class to be derived later on
 //*/
 class Interface
 {
 public:
+/*
+  BTW.: Deleting a derived class object using a pointer to a base class that has
+  a non-virtual destructor results in undefined behavior
+
+  don't forget the virtual destructor!
+// */
+  virtual ~Interface() {}
+
   virtual void doSomething() = 0;
 };
 
 
 /*
-  Some function, that returns the Local Class instance
+  some function, that returns the Local Class instance
 //*/
 template<class T, class P>
 Interface* MakeAdapter(const T& arg1, const P& arg2)
 {
 
   /*
-    Local class instanciated here - just one implementation of the
+    local class instanciated here - just one implementation of the
     interface
   //*/
-  class LocalClass : public Interface
+  class LocalClass
+  : public Interface
   {
   private:
     T arg1_;
@@ -66,17 +74,17 @@ Interface* MakeAdapter(const T& arg1, const P& arg2)
     LocalClass(const T& arg1, const P& arg2)
       : arg1_(arg1), arg2_(arg2)
     {
-      std::cout << "Local Class initialized.\n";
+      cout << "Local Class initialized.\n";
     }
 
     ~LocalClass()
     {
-      std::cout << "Local Class deleted\n";
+      cout << "Local Class deleted\n";
     }
 
     virtual void doSomething()
     {
-      std::cout << "Local Class has received two arguments:\n\t"
+      cout << "Local Class has received two arguments:\n\t"
                 << "LocalClass::arg1_ = " << arg1_ << "\n\t"
                 << "LocalClass::arg2_ = " << arg2_ << "\n";
     }
@@ -95,12 +103,12 @@ Interface* MakeAdapter(const T& arg1, const P& arg2)
 int main()
 {
   /*
-    init, here we use "nothrow" declaration, because of simplicity.
-    The alternative would be writing an exception and using try/catch
+    init, here we use "nothrow" declaration, because of simplicity
+    the alternative would be writing an exception and using try/catch
   //*/
   Interface *pLocalObject = NULL;
   if(NULL == (pLocalObject = MakeAdapter< string, int >( "Hello World!", 1234567))){
-    std::cerr << "ERROR: allocation failed!\n";
+    cerr << "ERROR: allocation failed!\n";
     exit(-1);
   }
 
