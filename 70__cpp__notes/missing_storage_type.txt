@@ -1,0 +1,16 @@
+Error Message: missing storage type (MSVC 6.0)
+
+D:\viewstorage\pt104496_view_12\bicnet_tnms_dx\dev\emlmediator\GlobalData.h(586) : error C2146: syntax error : missing ';' before identifier 'm_bcb_proxy'
+D:\viewstorage\pt104496_view_12\bicnet_tnms_dx\dev\emlmediator\GlobalData.h(586) : error C2501: 'BCBProxy' : missing storage-class or type specifiers
+D:\viewstorage\pt104496_view_12\bicnet_tnms_dx\dev\emlmediator\GlobalData.h(586) : error C2501: 'm_bcb_proxy' : missing storage-class or type specifiers
+Error executing cl.exe.
+
+
+
+Probably something in the class is not terminated correctly.
+
+Move the definition for a test from the .h into the .cpp class and try to compile. If it compiles, compile only the File where the new stuff is instanciated.
+
+TODO
+
+

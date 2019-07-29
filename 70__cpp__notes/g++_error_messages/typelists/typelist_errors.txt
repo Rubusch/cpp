@@ -1,0 +1,35 @@
+Typelist
+
+
+
+Error: TypeAt
+
+the typelist initially had only 3 elements it was reduced by 1
+using TypeAt we tried an index higher than the last in the list
+
+g++ -c -g -Wall typelist.cpp
+typelist.cpp: In instantiation of ‘TL::TypeAt<Typelist_<short unsigned int, NullType>, 1u>’:
+typelist.cpp:130:   instantiated from ‘TL::TypeAt<Typelist_<unsigned char, Typelist_<short unsigned int, NullType> >, 2u>’
+typelist.cpp:501:   instantiated from here
+typelist.cpp:130: error: invalid use of incomplete type ‘struct TL::TypeAt<NullType, 0u>’
+typelist.cpp:115: error: declaration of ‘struct TL::TypeAt<NullType, 0u>’
+make: *** [typelist.o] Error 1
+
+
+
+Error: NoDuplicates
+
+we ran Replace on MyTypelist and got a list that probably contains duplicates:
+MyReplacedTypelist, running NoDuplicates seems to not remove the duplicates.
+
+problem: we ran NoDuplicates< MyTypelist > but have to apply it on
+MyReplacedTypelist
+
+
+
+Error: non-literal type ‘Classname’ in ‘constexpr’ function
+
+make every funktion in the class "Classname" prefixed with the word "constexpr",
+in some cases this won't compile, e.g. when complex types such as "string" are
+used inside functions, then the class cannot be made "non-literal" easily
+

@@ -1,0 +1,286 @@
+http://fara.cs.uni-potsdam.de/~kaufmann/?page=GenCppFaqs&faq=stricmp#Answ
+
+
+Q: Wie kann man Strings case-insensitiv vergleichen?
+
+A: Die Antwort auf diese Frage scheint auf den ersten Blick einfach und offensichtlich. Leider liegt der Teufel aber wie so häufig im Detail. Hier deshalb eine Antwort in vier Akten:
+
+Variante 1: Ein erster Versuch:
+
+Die erste naive Lösung besteht darin, alle Buchstaben der zu vergleichenden Strings in Kleinbuchstaben umzuwandeln und die daraus resultierenden neuen Strings mittels einer Funktion wie strcmp zu vergleichen.
+
+In Standard-C++ ausgedrückt könnte das z.B. so aussehen:
+
+    #include <string>
+    #include <iostream>
+    #include <algorithm>
+    using namespace std;
+    bool NoCaseEqual(string Str1, string Str2)
+    {
+        transform(Str1.begin(), Str1.end(), Str1.begin(), tolower);
+        transform(Str2.begin(), Str2.end(), Str2.begin(), tolower);
+        return Str1 == Str2;
+    }
+
+    int main()
+    {
+        string Str1("Hallo Welt");
+        string Str2("HaLLo WElT");
+        if (NoCaseEqual(Str1, Str2))
+        {
+            cout << "Die Strings sind bis auf Groß-/Kleinschreibung gleich" << endl;
+        }
+    }
+
+Leider ist diese Lösung nur sehr beschränkt einsetzbar. Sie hilft nur bei einem direkten Vergleich zweier Strings. Für zwei ungleiche Strings läßt sich damit aber nicht bestimmen, welcher der beiden Strings der "Kleinere" ist. Als Sortier- bzw. Vergleichskriterium (z.B. für einen assoziativen Container) im Zusammenhang mit der STL ist diese Variante ebenfalls nicht geeignet.
+
+Die Lösung ist auch nicht sonderlich effizient. Da eine Vergleichsfunktion ihre Argumente niemals ändern sollte, hier aber eine Umwandlung der Buchstaben nötig ist, müssen von den zu vergleichenden Strings Kopien erstellt werden.
+
+Betrachtet man den Code genauer, so stellt man fest, dass die Lösung strenggenommen nicht mal eine Antwort auf die Frage ist. Es wird schließlich nicht case-insensitiv verglichen. Die Eigenschaft "case-insensitiv" ist hier keine Eigenschaft der Vergleichsfunktion. Vielmehr werden einfach die beiden Strings so umgewandelt, dass Groß-/Kleinschreibung kein Thema mehr ist.
+
+Es wird also Zeit für einen zweiten Versuch.
+Variante 2: Typen statt Funktionen:
+
+Der zweite Versuch macht aus der einen Vergleichsfunktion drei Vergleichstypen. Dadurch erhält man zumindest schon mal eine bessere Kompatibilität zur STL bzw. zu generischen Code. Es lassen sich so z.B. problemlos assoziative Container anlegen, die ihre Elemente der Größe nach aber case-insensitiv anordnen. Auch als Sortierkriterium sind diese Typen bestens geeignet. Außerdem wird die Eigenschaft "case-insensitiv" zu einer Eigenschaft des Vergleichs.
+
+Hier ein kleiner Code-Auszug:
+
+    // ...
+    namespace IgnoreCase
+    {
+        struct CharLess_t : std::binary_function<char, char, bool>
+        {
+            bool operator() (char ch1, char ch2) const
+            {
+                return  tolower(static_cast<unsigned char>(ch1)) <
+                        tolower(static_cast<unsigned char>(ch2));
+            }
+        };
+
+        struct CharEq_t : std::binary_function<char, char, bool>
+        {
+            bool operator() (char ch1, char ch2) const
+            {
+                return  tolower(static_cast<unsigned char>(ch1)) ==
+                        tolower(static_cast<unsigned char>(ch2));
+            }
+        };
+
+        // Liefert true, falls Str1 == Str2
+        struct NoCaseEqual_t : std::binary_function<std::string, std::string, bool>
+        {
+            bool operator () ( const std::string& Str1, const std::string& Str2) const
+            {
+                if (Str1.length() != Str2.length())
+                    return false;
+                return std::equal(Str1.begin(), Str1.end(), Str2.begin(), CharEq_t());
+            }
+        };
+
+        bool NoCaseEqual(const std::string& Str1, const std::string& Str2)
+        {
+            return NoCaseEqual_t()(Str1, Str2);
+        }
+
+        // Liefert true, falls Str1 lexikographisch kleiner als Str2 ist.
+        struct NoCaseLess_t : std::binary_function<std::string, std::string, bool>
+        {
+            bool operator () (const std::string& Str1, const std::string& Str2) const
+            {
+                return std::lexicographical_compare(    Str1.begin(), Str1.end(),
+                                                        Str2.begin(), Str2.end(),
+                                                        CharLess_t());
+            }
+        };
+        //...
+    }
+
+    int main()
+    {
+        using namespace IgnoreCase;
+        set<string, NoCaseLess_t> MySet;
+        string Str1("Foo");
+        string Str2("FOO");
+
+        MySet.insert(Str1);
+        if (!MySet.insert(Str2).second)
+        {
+            cout << "Es kann nur einen Foo geben :-)" << endl;
+        }
+
+        if (NoCaseEqual(Str1, Str2))
+        {
+            cout << Str1 << " und " << Str2
+                 << " sind bis auf Groß-/Kleinschreibung gleich";
+        }
+    }
+
+So schön die Lösung auch zu sein scheint, sie hat nach wie vor Probleme. Folgender Code führt z.B. zur Ausschrift "Holla. Irgendwas ist hier kaputt".
+
+    string Str1("gewürz");
+    string Str2("GEWÜRZ");
+    if (!NoCaseCompare::NoCaseEqual()(Str1, Str2))
+    {
+        cout << "Holla. Irgendwas ist hier kaputt" << endl;
+    }
+
+Setzt man allerdings ein
+
+    // Achtung: der String "german" ist compilerabhängig. Falls Sie nicht
+    // den MS-VC++ verwenden, schauen Sie bitte in ihrer Compilerdokumentation
+    // nach dem passenden Languagestring.
+    setlocale(LC_ALL, "german");
+
+vor die Definition des ersten Strings, läuft alles wie gewünscht.
+
+Wie man hier sieht, hängt die zweite Variante also von einer unsichtbaren globalen locale-Variable ab, die sich über die Funktion setlocale (aus <locale.h>) ändern lässt. Das ist natürlich nicht sehr schön.
+3. Die Sache mit den Locales
+
+Weiter oben habe ich geschrieben, dass man zur Lösung der Frage einfach nur alle Buchstaben der Strings als Klein- bzw. Großbuchstaben betrachten muss. Denkt man über diese Aussage genauer nach und erinnert man sich daran, dass chars eigentlich nichts weiter sind als kleine Ganzzahlen, so stellen sich schnell zwei Fragen:
+
+   1. Wie können tolower bzw. toupper eigentlich zwischen Buchstaben und anderen Zeichen unterscheiden?
+   2. Woher wissen diese Funktionen eigentlich was der entsprechende Großbuchstabe zu einem gegebenen Kleinbuchstaben ist (oder andersherum)?
+
+Die Antwort auf beide Fragen lautet: Die Funktionen bedienen sich dazu Objekten, die verschiedene nationale und kulturelle Konventionen kapseln, die sogenannten locale-Objekte. Diese Objekte kümmern sich unter anderem um solche Dinge wie Zeichenklassifizierung und Buchstabenumwandlung.
+
+Die gesamte C-Bibliothek verwendet nur ein einziges locale-Objekt, welches standardmäßig auf die Sprache Englisch eingestellt ist und welches durch die Funktion setlocale geändert werden kann.
+
+Unter diesen Gesichtspunkten macht auch der obere Code sinn. In der Englischen Sprache gibt es kein 'Ü'. Demzufolge wird dieses Zeichen auch nicht in ein 'ü' umgewandelt. Verwendet man hingegen ein locale, das an die Deutsche Sprache angepasst ist, ändert sich das Bild natürlich. Hier gibt es bekanntlich ein 'Ü'. Dieses wird in ein 'ü' umgewandelt et voilà die Strings sind gleich.
+
+C++ verläßt sich im Gegensatz zu C nicht mehr auf ein globales locale-Objekt. Vielmehr kann man hier beliebig viele solcher Objekte anlegen. Aus diesem Grund ist es sinnvoll, den einzelnen Vergleichstypen gleich noch ein locale-Objekt mitzugeben. So sind diese nicht mehr abhängig von einer globalen Variable, lassen sich aber dennoch in den unterschiedlichsten Umgebungen anwenden.
+
+Jedes C++ locale-Objekt ist in sogenannte Facetten (facets) unterteilt. Jede einzelne Facette kümmert sich um einen bestimmten nationalen bzw. kulturellen Aspekt (z.B. um die Darstellung des Währungszeichens oder die Formatierung einer Zeitangabe). Für die Konvertierung von Buchstaben ist die Facette ctype zuständig.
+
+Leider unterstützen noch nicht alle Compiler locales und facets. Auch gibt es Unterschiede in der Art und Weise wie diese Internationalisierungsobjekte unerstützt werden. Ein in diesem Punkt standardkonformer Compiler sollte folgenden Code anstandslos übersetzen:
+
+    #include <string>
+    #include <locale>
+    #include <algorithm>
+    struct LocCharEq_t
+    {
+        LocCharEq_t(const std::locale& loc = std::locale::classic())
+        : m_Loc(loc)
+        , m_Ct(std::use_facet<std::ctype<char> >(m_Loc))
+        {}
+        bool operator() (char ch1, char ch2) const
+        {
+            return m_Ct.tolower(ch1) == m_Ct.tolower(ch2);
+        }
+        private:
+            const std::locale& m_Loc;
+            const std::ctype<char>& m_Ct;
+    };
+
+    struct LocNoCaseEqual_t
+    {
+        LocNoCaseEqual_t(const std::locale& loc = std::locale::classic())
+        : m_Loc(loc)
+        {}
+
+        bool operator () (const std::string& Str1, const std::string& Str2) const
+        {
+            if (Str1.length() != Str2.length())
+                return false;
+            return  std::equal( Str1.begin(),
+                                Str1.end(), Str2.begin(),
+                                LocCharEq_t(m_Loc));
+    }
+        private:
+            const std::locale& m_Loc;
+    };
+
+    bool LocNoCaseEqual(const std::string& Str1,
+                        const std::string& Str2,
+                        const std::locale& loc)
+    {
+        return LocNoCaseEqual_t(loc)(Str1, Str2);
+    }
+
+    int main()
+    {
+        using namespace std;
+        // ACHTUNG! String "german" ist compilerabhängig
+        locale loc("german");
+        string Str1("gewürz");
+        string Str2("GEWÜRZ");
+        if (LocNoCaseEqual(Str1, Str2, loc))
+        {
+            cout << "Hurra! Es funktioniert :-)" << endl;
+        }
+    }
+
+4. Das Ergebnis:
+Wie man sieht, ist ein case-insensitiver Stringvergleich gar nicht so einfach zu realisieren. Spätestens wenn man nationale und kulturelle Besonderheiten berücksichtigen möchte, wird das Ganze doch relativ aufwendig. Die Unterschiede bezüglich der Unterstützung von locales und facets verschiedener Compiler machen die Realisierung ebenfalls nicht einfacher. Für alle die keine Lust haben tiefer in die Welt von locales und facets einzutauchen bzw. für alle die nicht unbedingt ihren Nachmittag damit verbringen wollen einen case-insensitiven Stringvergleich zu implementieren, biete ich hier eine komplette Realisierung an. Der Header stricmp.h enthält folgende Dinge:
+
+    * Drei Vergleichstypen NoCaseLess_t, NoCaseCmp_t und NoCaseEqual_t die jeweils keine besondere Unterstützung für locales mitbringen.
+
+    * Drei Vergleichsfunktionen NoCaseLess, NoCaseCmp und NoCaseEqual die jeweils auf den ensprechenden Vergleichstypen aufbauen und einen bequemeren Stringvergleich ermöglichen.
+
+    * Sechs Vergleichstypen LocNoCaseLess_t, LocNoCaseCmp_t, LocNoCaseEqual_t, LocTableNoCaseLess_t, LocTableNoCaseCmp_t und LocTableNoCaseEqual_t die jeweils ein locale-Objekt erwarten und die demzufolge unabhängig vom globalen Locale-Objekt locale-spezifische Vergleiche durchführen können.
+
+    * Die LocTable*-Typen sind Vergleichstypen die für den Vergleich von 8-bit Zeichensätzen optimiert sind. Sie verwenden eine einmalig initialisierte Char-Tabelle, die alle Buchstaben des Zeichensatz nur als Kleinbuchstaben enthält. Dadurch können die wiederholten Aufrufe der virtuellen ctype-Methode tolower (bzw. toupper) entfallen. Falls ein Programm also sehr häufig sehr lange Strings vergleicht, kann die Verwendung der LocTable*-Typen eine deutliche Zeitersparnis bedeuten.
+
+    * Sechs Vergleichsfunktionen LocNoCaseLess, LocNoCaseCmp, LocNoCaseEqual, LocTableNoCaseLess, LocTableNoCaseCmp und LocTableNoCaseEqual die jeweils auf den ensprechenden Vergleichstypen aufbauen und einen bequemeren Stringvergleich ermöglichen.
+
+    * Eine Spezialisierung von std::char_traits<char> namens NoCaseCharTraits. Diese Spezialisierung kann für die Templateklasse std::basic_string verwendet werden. Dadurch lassen sich also case-insesnsitive Stringobjekte anlegen, die sich ansonsten wie std::strings verhalten. Der Header enthält hierfür bereits ein typedef namens CIString der als std::basic_string<char, IgnoreCase::NoCaseCharTraits> definiert ist.
+
+Fazit:
+
+Ein case-insensitiver Stringvergleich ist nicht so einfach wie es auf den ersten Blick scheint. Was für die einen ein Buchstabe ist, kann für die anderen ein unbekanntes und unbedeutendes Zeichen sein. Aus diesem Grund verwendet die C++ Standardbibliothek locale-Objekte die unter anderem für eine sprachspezifische Interpretation von Zeichen sorgen. Mit den hier vorgestellten Funktionen und Typen sollte der case-insensitive Stringvergleich zum Kinderspiel werden.
+
+Abschließend noch ein paar kleine Beispiele:
+
+    #include "stricmp.h"
+    #include <string>
+    #include <iostream>
+    #include <algorithm>
+    #include <locale>
+    #include <set>
+    using namespace std;
+    using namespace IgnoreCase;
+    int main()
+    {
+        // Vergleichskriterium für einen assoziativen Container
+        set<string, NoCaseLess_t> MySet;
+        string Str1("Foo");
+        string Str2("FOO");
+        MySet.insert(Str1);
+        if (!MySet.insert(Str2).second)
+        {
+            cout << "Es kann nur einen Foo geben :-)" << endl;
+        }
+
+        // einfacher Vergleich
+        string Str3("Hallo");
+        string Str4("HALLO");
+        if (NoCaseEqual(Str3, Str4))
+        {
+            cout << "Strings sind gleich" << endl;
+        }
+
+        // Vergleich der locale-Objekt berücksichtigt
+        string Str5("et voilà");
+        string Str6("ET VoIlà");
+        locale loc("french");
+        if (LocTableNoCaseEqual(Str5, Str6, loc))
+        {
+            cout << "Strings sind gleich" << endl;
+        }
+
+        // Stringobjekte die Groß-/Kleinbuchstaben nicht unterscheiden
+        CIString Str7("Hallo Welt");
+        CIString::size_type Pos = Str7.find("w");
+        if (Pos != CIString::npos)
+        {
+            cout << "Ein w befindet sich an Position " << Pos << endl;
+        }
+    }
+
+Download des Headers stricmp.h
+
+Literatur:
+
+    * S. Meyers: "Effective STL" - Item 35
+    * M. Austern: " How to do Case-Insensitive String Comparision" - C++ Report May 2000
+    * H. Sutter: "Exceptional C++" - Item 2 und Item 3
+    * N. Josuttis: "The C++ Standard Library" - Chapter 14: "Internationalization"

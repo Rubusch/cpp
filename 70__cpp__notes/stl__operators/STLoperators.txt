@@ -1,0 +1,18 @@
+STL and operators
+
+- when working with names of films e.g. work with IDs because names can vary!!!
+
+- a vector<T> knows it's size, an array don't
+
+- for vector<T> appending items is cheap
+
+- for list<T> inserting items is cheap
+
+- list<T> does not provide the operator[], use const_iterator<T>
+
+- The STL works with operator<() for the sort() function
+and operator==() for the find() function.
+
+- sort() and binary_search() don't work on list<T> but on vector<T>
+
+- access elements per iterator use rather (*it).element than it->element
