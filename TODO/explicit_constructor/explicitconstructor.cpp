@@ -9,6 +9,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 
 /*
   some element type
@@ -43,7 +45,7 @@ int ContainerType::getVal() const
 //*/
 void useContainer(const ContainerType& ct)
 {
-  std::cout << "\tthe stored value is: " << ct.getVal() << std::endl;
+  cout << "\tthe stored value is: " << ct.getVal() << endl;
 }
 
 
@@ -54,18 +56,18 @@ void useContainer(const ContainerType& ct)
 int main()
 {
   // error, implicit type conversion
-  std::cout << "1. implicit type conversion - doesn't work anymore due to \"explicit\" declaration of ctor" << std::endl;
+  cout << "1. implicit type conversion - doesn't work anymore due to \"explicit\" declaration of ctor" << endl;
   // this compiles without the "explicit" declaration - implicit type conversion:
-  //useContainer(123);
+  //useContainer(123); // uncomment: FAILS to compile!
 
-  std::cout << "FAILED - (but OK!)" << std::endl;
-  std::cout << std::endl;
+  cout << "FAILED - (but OK!)" << endl;
+  cout << endl;
 
 
   // ok, explicit type conversion
-  std::cout << "2. explicit type conversion works with \"explicit\" declaration" << std::endl;
+  cout << "2. explicit type conversion works with \"explicit\" declaration" << endl;
   useContainer(ContainerType(123));
-  std::cout << std::endl;
+  cout << endl;
 
 
   // bad! syntax ok, but wrong logic
@@ -73,18 +75,18 @@ int main()
     Caution: in case using a cast on a template, e.g. static_cast< Foobar<int>>( ... ) - will be
     read as operator >> !!!
   //*/
-  std::cout << "3. explicit type conversion - static cast (bad, wrong logic)" << std::endl;
+  cout << "3. explicit type conversion - static cast (bad, wrong logic)" << endl;
   useContainer( static_cast<ContainerType>(123)) ;
-  std::cout << std::endl;
+  cout << endl;
 
 
   // bad! syntax ok, but C cast
-  std::cout << "4. explicit type conversion - C cast (bad, too)" << std::endl;
+  cout << "4. explicit type conversion - C cast (bad, too)" << endl;
   useContainer( (ContainerType) 123);
-  std::cout << std::endl;
+  cout << endl;
 
 
-  std::cout << "READY.\n";
+  cout << "READY.\n";
   return 0;
 }
 
