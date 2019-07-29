@@ -12,7 +12,6 @@
 
 using namespace std;
 
-
 /*
   IMPORTANT: forward declaration!
 
