@@ -7,6 +7,8 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 
 template<class T>
 class HeapNever
@@ -24,27 +26,24 @@ private: // private declaration is sufficient!
 template<class T>
 HeapNever<T>::HeapNever()
 {
-  std::cout << "HeapNever ctor" << std::endl;
+  cout << "HeapNever ctor" << endl;
 }
 
 template<class T>
 HeapNever<T>::~HeapNever()
 {
-  std::cout << "HeapNever dtor" << std::endl;
+  cout << "HeapNever dtor" << endl;
 }
-
-
 
 
 int main()
 {
-  HeapNever<std::string> hn;
+  HeapNever<string> hn;
 
   // ERROR - operator new() is private!
-  //  HeapNever<std::string> *pHn = new HeapNever<std::string>();
+  //  HeapNever<string> *pHn = new HeapNever<string>();
 
-
-  std::cout << "READY.\n";
+  cout << "READY.\n";
   return 0;
 }
 
