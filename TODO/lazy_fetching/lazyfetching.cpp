@@ -21,7 +21,7 @@ template<class T>
 class HugeMonster;
 
 template<class T>
-ostream& operator<<(ostream& out, HugeMonster<T>& hm);
+ostream& operator<<(ostream& out, HugeMonster< T >& hm);
 
 /*
   values that are difficult to fetch ;)
@@ -42,51 +42,48 @@ private:
   T var;
 
 public:
-  HugeMonster();
+  HugeMonster() = default;
   HugeMonster(const T initVar);
 
   T getVariable() const;
-  HugeMonster& operator=(const HugeMonster<T>& d_cpy);
+  HugeMonster& operator=(const HugeMonster< T >& d_cpy);
 
-  //  friend ostream& operator<< <T>(ostream& out, HugeMonster<T>& hm);
+  //  friend ostream& operator<< < T >(ostream& out, HugeMonster< T >& hm);
 };
 
-template<class T>
-HugeMonster<T>::HugeMonster()
-{}
 
 template<class T>
-HugeMonster<T>::HugeMonster(const T initVar)
+HugeMonster< T >::HugeMonster(const T initVar)
 {
   var = initVar;
 }
 
 template<class T>
-T HugeMonster<T>::getVariable() const
+T HugeMonster< T >::getVariable() const
 {
   return var;
 }
 
 template<class T>
-HugeMonster<T>& HugeMonster<T>::operator=(const HugeMonster<T>& d_cpy)
+HugeMonster< T >& HugeMonster< T >::operator=(const HugeMonster< T >& d_cpy)
 {
-  if(this == &d_cpy) return *this;
+  if (this == &d_cpy) return *this;
   this->var = d_cpy.getVariable();
   return *this;
 }
 
 // friend function operator<<()
 template<class T>
-ostream& operator<<(ostream& out, HugeMonster<T>& hm)
+ostream& operator<<(ostream& out, HugeMonster< T >& hm)
 {
   return out << hm.getVariable();
 }
 
 // monster 3
-HugeMonster<string> stringMonster("the string monster!");
+HugeMonster< string > stringMonster("the string monster!");
 
 // monster 4
-HugeMonster<int> intMonster(222);
+HugeMonster< int > intMonster(222);
 
 
 
@@ -94,7 +91,7 @@ HugeMonster<int> intMonster(222);
   the class - a cage of huuuuuge monsters, hence the elemens will be allocated and
   initialized only when requested!
 //*/
-template<class U, class V>
+template< class U, class V >
 class MonsterCage
 {
 private:
@@ -123,13 +120,16 @@ public:
 /*
   trick: lazy fetching - initialize everything here with NULL
 //*/
-template<class U, class V>
-MonsterCage<U, V>::MonsterCage()
-  :field1value(NULL), field2value(NULL), field3value(NULL), field4value(NULL)
+template< class U, class V >
+MonsterCage< U, V >::MonsterCage()
+  :field1value(NULL)
+  , field2value(NULL)
+  , field3value(NULL)
+  , field4value(NULL)
 {}
 
-template<class U, class V>
-MonsterCage<U, V>::~MonsterCage()
+template< class U, class V >
+MonsterCage< U, V >::~MonsterCage()
 {
   delete field1value; field1value = NULL;
   delete field2value; field2value = NULL;
@@ -137,8 +137,8 @@ MonsterCage<U, V>::~MonsterCage()
   delete field4value; field4value = NULL;
 }
 
-template<class U, class V>
-const string& MonsterCage<U, V>::field1() const
+template< class U, class V >
+const string& MonsterCage< U, V >::field1() const
 {
   if(0 == field1value){
     // allocate space for the value
@@ -159,8 +159,8 @@ const string& MonsterCage<U, V>::field1() const
 }
 
 
-template<class U, class V>
-int MonsterCage<U, V>::field2() const
+template< class U, class V >
+int MonsterCage< U, V >::field2() const
 {
   if(0 == field2value){
     try{
@@ -177,8 +177,8 @@ int MonsterCage<U, V>::field2() const
 }
 
 
-template<class U, class V>
-U MonsterCage<U, V>::field3() const
+template< class U, class V >
+U MonsterCage< U, V >::field3() const
 {
   if(NULL == field3value){
     try{
@@ -195,8 +195,8 @@ U MonsterCage<U, V>::field3() const
 }
 
 
-template<class U, class V>
-const V& MonsterCage<U, V>::field4() const
+template< class U, class V >
+const V& MonsterCage< U, V >::field4() const
 {
   if(NULL == field4value){
     try{
@@ -221,7 +221,7 @@ int main()
 {
   // init
   cout << "init the cage of huge objects\n";
-  MonsterCage< HugeMonster<string>, HugeMonster<int> > cage;
+  MonsterCage< HugeMonster< string >, HugeMonster< int > > cage;
 
   // ...
   cout << "...\n";
@@ -232,10 +232,10 @@ int main()
 
   cout << "2. value:\t\"" << cage.field2() << "\"\n";
 
-  HugeMonster<string> tmp_str = cage.field3();
+  HugeMonster< string > tmp_str = cage.field3();
   cout << "3. value:\t\"" << tmp_str << "\"\n";
 
-  HugeMonster<int> tmp_int = cage.field4();
+  HugeMonster< int > tmp_int = cage.field4();
   cout << "4. value:\t\"" << tmp_int << "\"\n";
 
   // done
