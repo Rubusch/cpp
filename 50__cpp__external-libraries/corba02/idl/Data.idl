@@ -1,0 +1,19 @@
+// data.idl
+/*
+  compile:
+  omniidl -bcxx Data.idl
+*/
+
+#ifndef __DATA_IDL__
+#define __DATA_IDL__
+
+module Data{
+  interface ServiceA{
+    boolean CallServiceRoutineA( in long num1
+                                 , inout long num2
+                                 , out long retNum);
+    boolean CallServiceRoutineB( inout long num1
+                                 , inout long num2);
+  };
+};
+#endif
