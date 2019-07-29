@@ -1,0 +1,27 @@
+N3433
+
+Durch strenge Auslegung des aktuellen C und C++ Standards kann man zu dem Schluss kommen, dass die Allokationsstrategie keine Information berücksichtigen sollte, die nicht aus der Sequenz der Allokations- und Deallokations-Aufrufe herleitbar ist.
+
+Im Wesentlichen können die Standards die Makro Optimierung der Allokation auszuschließen. Andererseits, kann man durch eine strenge Auslegung der Standards zur Folgerung kommen, dass die Implementierung für jeden einzelnen zu nennenden Aufruf einen externen Funktionsaufruf machen muss. Diese Auslegung kann Mikro-Optmimierung verdindern.
+
+Wir schlagen vor, die existierende technisch-mechanistische Formulierung [in C++11] zu ersetzen mit einer preziseren Formulierung, die auf die essenzielle Anforderungen abzielt. Die Absicht ist, ein Verhalten einiger bereits existierender Memory Allokatoren auch vom Standard her zu erlauben.
+
+
+Speicher
+
+Eine essenzielle Anforderung an die Implementierungen ist, dass sie nutzbaren Speicher zustellen, nicht aber dass sie eine bestimmte Aufrufreihenfolge einhalten. Wir schlagen vor, die Implementierungs-Aufrufe explizit von den Nenn-Aufrufen zu trennen.
+
+1. Die Anzahl von Implementierungs-Aufrufen ist nicht Teil des beobachtbaren Verhaltens eines Programms.
+
+2. Die Parameter und Returnwerte von Implementierungs-Aufrufen sind ebenfalls nicht Teil des beobachtbaren Verhaltens eines Programms. Mit Ausnahme, dass die Summe der Grössen Parameter von in vivo Implementierungs-Allokations-Aufrufen die Summe der angepassten Grössen Parametern für das Alignment von in vivo Nenn-Allokations-Aufrufe, nicht überschreiten sollen. (Dh. Implmenentierungen sollen Grössen Parameter "aufrunden", so wie sie das momentan auch schon tun.).
+
+Zusammen erlauben diese Änderungen Implementierungen, um die Anzahl von malloc Aufrufen zu reduzieren, indem sie sie entweder vermeiden oder zusammenlegen. Es wäre jedoch nur dann ein Zusammenlegen der mallocs zu größeren mallocs erlaubt, solange geprüft werden kann, dass beide mallocs überlappende Lebenszeiten haben (beendet durch entsprechende Aufrufe von free), sodass die Peak Allokation des Speichers damit unverändert bleibt.
+
+Weil die C++ Klassen spezifischen Allokatoren oft für spezifische Klassen Grössen getuned wurden, wenden wir diese Lockerung nicht auf diese Art Allokatoren an.
+
+
+Data Races
+
+Eine essenzielle Anforderung an Implementierungen sit dass sie "data-race" frei sind, denn dies gibt der Standard bisher so nicht direkt her. Wir schlagen vor die aktuelle Formulierung mit direkten Formulierungen zu ersetzen, und dadurch explizit eine Implementierung zu erlauben, welche weitere Information berücksichtigt, über die strenge Abfolge von Allokations und Deallokationsaufrufen hinaus.
+
+

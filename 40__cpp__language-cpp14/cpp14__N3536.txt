@@ -1,0 +1,7 @@
+N3536
+
+Mit C ++ 11, können Programmierer einen statischen Memberfunktions Operator delete definieren, der einen Größen Parameter nimmt, der die Größe des zu löschenden Objekts angibt. Der äquivalente globale Operator delete ist in C++11 nicht verfügbar. Dieses Fehlen hat negative Konsequenzen für die Performance. Moderne Memory Allokatoren allozieren oft in Größenklassen und, speichern aus Speicherplatzeffizienzgründen, nicht die Größe eines Objekts neben dem Objekt selbst. Die Deallocation erfordert dann die Suche nach dem Platz der abgelegten Größenklasse, die das Objekt beschreibt. Diese Suche kann teuer sein, insbesondere da sich die gesuchten Datenstrukturen oft nicht im Cache-Memory befinden.
+
+Die Erweiterung erlaubt es, Implementierungen und Programmierern größenabhängige Versionen eines globablen delete Operators zu definieren. Der Kompiler soll dann eine größenabhängige Version einer größenunabhängigen Version vor ziehen, so fern vorhanden. Hierbei gibt zwei mögliche Probleme mit dieser Lösung die für C++14 gelöst werden mussten: die Größe ist nicht vorhanden, und Rückwärtskompatibilität.
+
+
