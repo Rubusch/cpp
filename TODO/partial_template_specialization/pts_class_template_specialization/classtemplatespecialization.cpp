@@ -6,7 +6,6 @@
 
 #include <iostream>
 
-
 using namespace std;
 
 
@@ -30,6 +29,7 @@ public:
     cout << "Foobar< int >::func()\n";
   }
 };
+
 
 int main()
 {
