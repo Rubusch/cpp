@@ -1,6 +1,7 @@
 // functionpointer.cpp
 /*
-  Function pointer example.
+  Function pointer example. Best practices around function pointers,
+  which may be rather C style than C++.
 
   (idea taken from Alexandrescu, 2001)
 
