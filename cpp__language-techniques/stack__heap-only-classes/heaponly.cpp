@@ -10,9 +10,10 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
 
 
-template<class T>
+template< class T >
 class HeapOnly
 {
 public:
@@ -30,6 +31,7 @@ public:
 private:
   ~HeapOnly();
 };
+
 
 template<class T>
 HeapOnly<T>::HeapOnly()
@@ -52,13 +54,15 @@ HeapOnly<T>::~HeapOnly()
 
 int main()
 {
-  // ERROR - heap only, due to private dtor
-  //  HeapOnly<std::string> ho;
-
+/* // ERROR - heap only, due to private dtor
+  HeapOnly<std::string> ho;
+/*/
+// no error, compiles!
   HeapOnly<std::string> *pHo = new HeapOnly<std::string>();
-
+/*/
   // ERROR - private dtor!
-  //  delete pHo;
+  delete pHo;
+//*/
 
   pHo->destroy();
 
