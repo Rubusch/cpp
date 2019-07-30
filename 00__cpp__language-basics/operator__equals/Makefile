@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = opequality.cpp
+SOURCE = operatorequals.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-opequality.exe: ${OBJECTS}
+operatorequals.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: opequality.exe
+all: operatorequals.exe
 
 clean:
-	${RM} $(OBJECTS) opequality.exe *~ core
+	${RM} $(OBJECTS) operatorequals.exe *~ core
 
 
