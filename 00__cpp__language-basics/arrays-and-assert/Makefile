@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= Main.cpp
+SOURCE	= arrayandassert.cpp
 HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-assert.exe: ${OBJECTS}
+arrayandassert.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: assert.exe
+all: arrayandassert.exe
 
 clean:
-	-${RM} assert.exe *.o core
+	-${RM} arrayandassert.exe *.o core
