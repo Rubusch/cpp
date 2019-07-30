@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = opsubscript.cpp
+SOURCE = operatorsubscript.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-opsubscript.exe: ${OBJECTS}
+operatorsubscript.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: opsubscript.exe
+all: operatorsubscript.exe
 
 clean:
-	${RM} $(OBJECTS) opsubscript.exe opsubscript.exe.stackdump *~ core
+	${RM} $(OBJECTS) operatorsubscript.exe operatorsubscript.exe.stackdump *~ core
 
 
