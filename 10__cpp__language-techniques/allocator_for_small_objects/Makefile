@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE =  main.cpp smallobjectallocator.cpp fixedallocator.cpp
+SOURCE =  allocatorforsmallobjects.cpp smallobjectallocator.cpp fixedallocator.cpp
 HEADERS = smallobjectallocator.hpp fixedallocator.hpp smallobject.hpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
@@ -15,12 +15,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-main.exe: ${OBJECTS}
+allocatorforsmallobjects.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: main.exe
+all: allocatorforsmallobjects.exe
 
 clean:
-	${RM} $(OBJECTS) main.exe *~ core
+	${RM} $(OBJECTS) allocatorforsmallobjects.exe *~ core
 
 

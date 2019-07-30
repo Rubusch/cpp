@@ -68,4 +68,8 @@ jobs:
       - run: cd 00__cpp__language-basics/virtual__virtual-destructor && make && ./virtualvirtualdestructor.exe
       - run: cd 00__cpp__language-basics/virtual__virtual-inheritance && make && ./virtualvirtualinheritance.exe
 
+      - run: cd 10__cpp__language-techniques/allocator_for_small_objects && make && ./allocatorforsmallobjects.exe
+      - run: cd 10__cpp__language-techniques/binder_functorbinder && make && ./binderfunctorbinder.exe
+      - run: cd 10__cpp__language-techniques/binder_thisbinder && make && ./binderthisbinder.exe
+      
 
