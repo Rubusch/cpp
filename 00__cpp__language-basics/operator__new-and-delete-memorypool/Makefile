@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = memorypool.cpp
+SOURCE = operatornewanddeletememorypool.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-memorypool.exe: ${OBJECTS}
+operatornewanddeletememorypool.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: memorypool.exe
+all: operatornewanddeletememorypool.exe
 
 clean:
-	${RM} $(OBJECTS) memorypool.exe *~ core
+	${RM} $(OBJECTS) operatornewanddeletememorypool.exe *~ core
 
 
