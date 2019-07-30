@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= Main.cpp
+SOURCE	= constbasics.cpp
 HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-const.exe: ${OBJECTS}
+constbasics.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: const.exe
+all: constbasics.exe
 
 clean:
-	-${RM} const.exe *.o core
+	-${RM} constbasics.exe *.o core
