@@ -53,5 +53,11 @@ jobs:
       - run: cd 00__cpp__language-basics/pointer6 && make && ./pointer6.exe
       - run: cd 00__cpp__language-basics/pointer7 && make && ./pointer7.exe
       - run: cd 00__cpp__language-basics/rule_of_big_three && make && ./ruleofbigthree.exe
+      - run: cd 00__cpp__language-basics/slicing_problem && make && ./slicingproblem.exe
+      - run: cd 00__cpp__language-basics/template__class && make && ./templateclass.exe
+      - run: cd 00__cpp__language-basics/template__function && make && ./templatefunction.exe
+      - run: cd 00__cpp__language-basics/template__simple && make && ./templatesimple.exe
+      - run: cd 00__cpp__language-basics/template__template-in-template-class && make && ./templatetemplateintemplateclass.exe
+      - run: cd 00__cpp__language-basics/typeinfo__typeid && make && ./typeinfotypeid.exe
 
 

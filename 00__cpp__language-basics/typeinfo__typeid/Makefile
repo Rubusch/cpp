@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = typeid.cpp
+SOURCE = typeinfotypeid.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-typeid.exe: ${OBJECTS}
+typeinfotypeid.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: typeid.exe
+all: typeinfotypeid.exe
 
 clean:
-	${RM} $(OBJECTS) typeid.exe *~ core
+	${RM} $(OBJECTS) typeinfotypeid.exe *~ core
 
 

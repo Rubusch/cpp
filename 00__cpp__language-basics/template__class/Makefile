@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= Main.cpp
+SOURCE	= templateclass.cpp
 HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-template.exe: ${OBJECTS}
+templateclass.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: template.exe
+all: templateclass.exe
 
 clean:
-	-${RM} template.exe *.o core
+	-${RM} templateclass.exe *.o core

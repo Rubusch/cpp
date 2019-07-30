@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = templates.cpp
+SOURCE = templatesimple.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-templates.exe: ${OBJECTS}
+templatesimple.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: templates.exe
+all: templatesimple.exe
 
 clean:
-	${RM} $(OBJECTS) templates.exe *~ core
+	${RM} $(OBJECTS) templatesimple.exe *~ core
 
 .PHONY: clean
