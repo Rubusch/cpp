@@ -8,7 +8,7 @@ OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -fpermissive
 RM = rm -f
 
 .cpp.o:
