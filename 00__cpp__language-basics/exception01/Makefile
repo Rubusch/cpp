@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = exception.cpp
+SOURCE = exception1.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-exception.exe: ${OBJECTS}
+exception1.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: exception.exe
+all: exception1.exe
 
 clean:
-	${RM} $(OBJECTS) exception.exe *~ core
+	${RM} $(OBJECTS) exception1.exe *~ core
 
 
