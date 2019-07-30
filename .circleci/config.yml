@@ -1,23 +1,21 @@
 # circle ci config (github)
 version: 2
 jobs:
-  build:
+  build_gcc_latest:
     docker:
       - image: gcc:latest
 
     steps:
       - checkout
 
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
-          name: Print the Current Time
-          command: date
-
 #      - run:
-#          name: Installing gcc and g++
-#          command: 'apt-get update && apt-get install -y gcc g++ make'
+#          name: Greeting
+#          command: echo Hello, world.
+
+      - run: date
 
       - run: cd 00__cpp__language-basics/abstract_class && make && ./abstractclass.exe
+      - run: cd 00__cpp__language-basics/ambiguous_names && make && ./ambiguousnames.exe
+      - run: cd 00__cpp__language-basics/arrays-and-assert && make && ./arrayandassert.exe
+
+
