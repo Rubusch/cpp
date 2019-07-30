@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = opnewdelete.cpp
+SOURCE = operatornewanddelete.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-opnewdelete.exe: ${OBJECTS}
+operatornewanddelete.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: opnewdelete.exe
+all: operatornewanddelete.exe
 
 clean:
-	${RM} $(OBJECTS) opnewdelete.exe *~ core
+	${RM} $(OBJECTS) operatornewanddelete.exe *~ core
 
 
