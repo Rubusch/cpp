@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = ruleofthree.cpp
+SOURCE = ruleofbigthree.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-ruleofthree.exe: ${OBJECTS}
+ruleofbigthree.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: ruleofthree.exe
+all: ruleofbigthree.exe
 
 clean:
-	${RM} $(OBJECTS) ruleofthree.exe *~ core
+	${RM} $(OBJECTS) ruleofbigthree.exe *~ core
 
 

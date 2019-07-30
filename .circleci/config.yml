@@ -52,5 +52,6 @@ jobs:
       - run: cd 00__cpp__language-basics/pointer5 && make && ./pointer5.exe
       - run: cd 00__cpp__language-basics/pointer6 && make && ./pointer6.exe
       - run: cd 00__cpp__language-basics/pointer7 && make && ./pointer7.exe
+      - run: cd 00__cpp__language-basics/rule_of_big_three && make && ./ruleofbigthree.exe
 
 
