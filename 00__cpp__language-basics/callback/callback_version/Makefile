@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE =  callback.cpp
+SOURCE =  callbackversion.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-callback.exe: ${OBJECTS}
+callbackversion.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: callback.exe
+all: callbackversion.exe
 
 clean:
-	${RM} $(OBJECTS) callback.exe *~ core
+	${RM} $(OBJECTS) callbackversion.exe *~ core
 
 
