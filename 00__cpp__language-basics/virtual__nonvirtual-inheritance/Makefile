@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = nonvirtualinheritance.cpp
+SOURCE = virtualnonvirtualinheritance.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-nonvirtualinheritance.exe: ${OBJECTS}
+virtualnonvirtualinheritance.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: nonvirtualinheritance.exe
+all: virtualnonvirtualinheritance.exe
 
 clean:
-	${RM} $(OBJECTS) nonvirtualinheritance.exe *~ core
+	${RM} $(OBJECTS) virtualnonvirtualinheritance.exe *~ core
 
 

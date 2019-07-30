@@ -59,5 +59,13 @@ jobs:
       - run: cd 00__cpp__language-basics/template__simple && make && ./templatesimple.exe
       - run: cd 00__cpp__language-basics/template__template-in-template-class && make && ./templatetemplateintemplateclass.exe
       - run: cd 00__cpp__language-basics/typeinfo__typeid && make && ./typeinfotypeid.exe
+      - run: cd 00__cpp__language-basics/typeinfo__typeinfo-wrapper-cpp0x && make && ./typeinfotypeinfowrapper.exe
+      - run: cd 00__cpp__language-basics/typeinfo__typeof-cpp0x && make && ./typeinfotypeof.exe
+      - run: cd 00__cpp__language-basics/userinput && make && ./userinput.exe
+      - run: cd 00__cpp__language-basics/virtual && make && ./virtual.exe
+      - run: cd 00__cpp__language-basics/virtual__missing-virtual && make && ./virtualmissingvirtual.exe
+      - run: cd 00__cpp__language-basics/virtual__nonvirtual-inheritance && make && ./virtualnonvirtualinheritance.exe
+      - run: cd 00__cpp__language-basics/virtual__virtual-destructor && make && ./virtualvirtualdestructor.exe
+      - run: cd 00__cpp__language-basics/virtual__virtual-inheritance && make && ./virtualvirtualinheritance.exe
 
 

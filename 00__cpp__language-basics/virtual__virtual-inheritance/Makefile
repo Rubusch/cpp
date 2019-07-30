@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = virtualinheritance.cpp
+SOURCE = virtualvirtualinheritance.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-virtualinheritance.exe: ${OBJECTS}
+virtualvirtualinheritance.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: virtualinheritance.exe
+all: virtualvirtualinheritance.exe
 
 clean:
-	${RM} $(OBJECTS) virtualinheritance.exe *~ core
+	${RM} $(OBJECTS) virtualvirtualinheritance.exe *~ core
 
 

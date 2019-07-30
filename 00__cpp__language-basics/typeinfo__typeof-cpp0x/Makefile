@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = typeof.cpp
+SOURCE = typeinfotypeof.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-typeof.exe: ${OBJECTS}
+typeinfotypeof.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: typeof.exe
+all: typeinfotypeof.exe
 
 clean:
-	${RM} $(OBJECTS) typeof.exe *~ core
+	${RM} $(OBJECTS) typeinfotypeof.exe *~ core
 
 

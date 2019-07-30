@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= Main.cpp
+SOURCE	= virtual.cpp
 HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 

@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = virtualdestructor.cpp
+SOURCE = virtualvirtualdestructor.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-virtualdestructor.exe: ${OBJECTS}
+virtualvirtualdestructor.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: virtualdestructor.exe
+all: virtualvirtualdestructor.exe
 
 clean:
-	${RM} $(OBJECTS) virtualdestructor.exe *~ core
+	${RM} $(OBJECTS) virtualvirtualdestructor.exe *~ core
 
 

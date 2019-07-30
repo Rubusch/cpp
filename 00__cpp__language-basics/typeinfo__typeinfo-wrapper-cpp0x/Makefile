@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = typeinfo.cpp
+SOURCE = typeinfotypeinfowrapper.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-typeinfo.exe: ${OBJECTS}
+typeinfotypeinfowrapper.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: typeinfo.exe
+all: typeinfotypeinfowrapper.exe
 
 clean:
-	${RM} $(OBJECTS) typeinfo.exe *~ core
+	${RM} $(OBJECTS) typeinfotypeinfowrapper.exe *~ core
 
 

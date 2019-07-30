@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = missingvirtual.cpp
+SOURCE = virtualmissingvirtual.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-missingvirtual.exe: ${OBJECTS}
+virtualmissingvirtual.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: missingvirtual.exe
+all: virtualmissingvirtual.exe
 
 clean:
-	${RM} $(OBJECTS) missingvirtual.exe *~ core
+	${RM} $(OBJECTS) virtualmissingvirtual.exe *~ core
 
 
