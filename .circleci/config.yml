@@ -23,5 +23,6 @@ jobs:
       - run: cd 00__cpp__language-basics/const_basic && make && ./constbasics.exe
       - run: cd 00__cpp__language-basics/const_cast && make && ./constcast.exe
       - run: cd 00__cpp__language-basics/copy_constructor && make && ./copyconstructor.exe
+      - run: cd 00__cpp__language-basics/exception01 && make && ./exception2.exe
 
 
