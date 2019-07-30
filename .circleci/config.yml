@@ -31,6 +31,10 @@ jobs:
       - run: cd 00__cpp__language-basics/new-delete1 && make && ./newdelete1.exe
       - run: cd 00__cpp__language-basics/new-delete2 && make && ./newdelete2.exe
       - run: cd 00__cpp__language-basics/no_reference_on_locals && make && ./noreferenceonlocals.exe 
-      - run: cd 00__cpp__language-basics/operators__and && cat ./opand.cpp
-      - run: cd 00__cpp__language-basics/operators__assignment && make && ./operatorsassignment.exe
+      - run: cd 00__cpp__language-basics/operator__and && cat ./operatorand.cpp
+      - run: cd 00__cpp__language-basics/operator__assignment && make && ./operatorassignment.exe
+      - run: cd 00__cpp__language-basics/operator__comma && cat ./operatorcomma.cpp
+      - run: cd 00__cpp__language-basics/operator__equals && make && ./operatorequals.exe
+      - run: cd 00__cpp__language-basics/operator__new-and-delete && make && ./operatornewanddelete.exe
+      - run: cd 00__cpp__language-basics/operator__new-and-delete-freelist && make && ./operatornewanddeletefreelist.exe
 
