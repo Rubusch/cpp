@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = newhandler.cpp
+SOURCE = operatornewhandler.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-newhandler.exe: ${OBJECTS}
+operatornewhandler.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: newhandler.exe
+all: operatornewhandler.exe
 
 clean:
-	${RM} $(OBJECTS) newhandler.exe *~ core
+	${RM} $(OBJECTS) operatornewhandler.exe *~ core
 
 
