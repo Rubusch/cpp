@@ -19,6 +19,6 @@ jobs:
       - run: cd 00__cpp__language-basics/arrays-and-assert && make && ./arrayandassert.exe || echo "Ok"
       - run: cd 00__cpp__language-basics/callback_version && make && ./callbackversion.exe
       - run: cd 00__cpp__language-basics/callback_plain && make && ./callbackplain.exe
-
+      - run: cd 00__cpp__language-basics/class && g++ -m32 -S -fno-dwarf2-cfi-asm ./simpleclass.cpp && nl simpleclass.s
 
 
