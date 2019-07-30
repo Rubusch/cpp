@@ -1,3 +1,6 @@
+
+[![CircleCI](https://circleci.com/gh/Rubusch/cpp.svg?style=svg)](https://circleci.com/gh/Rubusch/cpp)
+
 ## DISCLAIMER
 
 No liability for the contents of this repository can be accepted. Use the codes,
