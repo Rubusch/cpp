@@ -1,11 +1,9 @@
 # Makefile (simple)
 #
-# @author Lothar Rubusch
-#
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = functorbinder.cpp
+SOURCE = binderthisbinder.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -16,12 +14,13 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-functorbinder.exe: ${OBJECTS}
+binderthisbinder.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: functorbinder.exe
+all: binderthisbinder.exe
 
 clean:
-	${RM} $(OBJECTS) functorbinder.exe *~ core
+	${RM} $(OBJECTS) binderthisbinder.exe *~ core
 
+.PHONY: clean
 
