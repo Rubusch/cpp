@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = norefonlocals.cpp
+SOURCE = noreferenceonlocals.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-norefonlocals.exe: ${OBJECTS}
+noreferenceonlocals.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: norefonlocals.exe
+all: noreferenceonlocals.exe
 
 clean:
-	${RM} $(OBJECTS) norefonlocals.exe *~ core
+	${RM} $(OBJECTS) noreferenceonlocals.exe *~ core
 
 

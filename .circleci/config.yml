@@ -29,5 +29,6 @@ jobs:
       - run: cd 00__cpp__language-basics/exception4 && make && ./exception4.exe
       - run: cd 00__cpp__language-basics/explicit_constructor && make && ./explicitconstructor.cpp
       - run: cd 00__cpp__language-basics/new-delete1 && make && ./newdelete1.exe
+      - run: cd 00__cpp__language-basics/new-delete2 && mkae && ./newdelete2.exe
 
 
