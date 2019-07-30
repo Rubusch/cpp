@@ -16,8 +16,8 @@ jobs:
           name: Print the Current Time
           command: date
 
-      - run:
-          name: Installing gcc and g++
-          command: 'apt-get update && apt-get install -y gcc g++ make'
+#      - run:
+#          name: Installing gcc and g++
+#          command: 'apt-get update && apt-get install -y gcc g++ make'
 
       - run: cd 00__cpp__language-basics/abstract_class && make && ./abstractclass.exe
