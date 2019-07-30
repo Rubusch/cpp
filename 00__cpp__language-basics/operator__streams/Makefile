@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = opstreams.cpp
+SOURCE = operatorstreams.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-opstreams.exe: ${OBJECTS}
+operatorstreams.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: opstreams.exe
+all: operatorstreams.exe
 
 clean:
-	${RM} $(OBJECTS) opstreams.exe opstreams.exe.stackdump *~ core
+	${RM} $(OBJECTS) operatorstreams.exe operatorstreams.exe.stackdump *~ core
 
 
