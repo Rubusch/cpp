@@ -31,4 +31,6 @@ jobs:
       - run: cd 00__cpp__language-basics/new-delete1 && make && ./newdelete1.exe
       - run: cd 00__cpp__language-basics/new-delete2 && make && ./newdelete2.exe
       - run: cd 00__cpp__language-basics/no_reference_on_locals && make && ./noreferenceonlocals.exe 
+      - run: cd 00__cpp__language-basics/operators__and && cat ./opand.cpp
+      - run: cd 00__cpp__language-basics/operators__assignment && make && ./operatorsassignment.exe
 
