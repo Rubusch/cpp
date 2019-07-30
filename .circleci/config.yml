@@ -37,4 +37,5 @@ jobs:
       - run: cd 00__cpp__language-basics/operator__equals && make && ./operatorequals.exe
       - run: cd 00__cpp__language-basics/operator__new-and-delete && make && ./operatornewanddelete.exe
       - run: cd 00__cpp__language-basics/operator__new-and-delete-freelist && make && ./operatornewanddeletefreelist.exe
+      - run: cd 00__cpp__language-basics/operator__new-and-delete-memorypool && make && ./operatornewanddeletememorypool.exe
 
