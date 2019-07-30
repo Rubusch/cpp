@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = operatorsassignment.cpp
+SOURCE = operatorassignment.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-operatorsassignment.exe: ${OBJECTS}
+operatorassignment.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: operatorsassignment.exe
+all: operatorassignment.exe
 
 clean:
-	${RM} $(OBJECTS) operatorsassignment.exe *~ core
+	${RM} $(OBJECTS) operatorassignment.exe *~ core
 
 
