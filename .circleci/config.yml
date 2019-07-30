@@ -40,5 +40,8 @@ jobs:
       - run: cd 00__cpp__language-basics/operator__new-and-delete-memorypool && make && ./operatornewanddeletememorypool.exe
       - run: cd 00__cpp__language-basics/operator__new-handler && make && ./operatornewhandler.exe
       - run: cd 00__cpp__language-basics/operator__or && cat operatoror.cpp
+      - run: cd 00__cpp__language-basics/operator__parentheses && cat operatorparentheses.txt
+      - run: cd 00__cpp__language-basics/operator__streams && make && ./operatorstreams.exe
+      - run: cd 00__cpp__language-basics/operator__subscript && make && ./operatorsubscript.exe
 
 
