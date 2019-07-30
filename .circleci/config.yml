@@ -21,5 +21,6 @@ jobs:
       - run: cd 00__cpp__language-basics/callback_plain && make && ./callbackplain.exe
       - run: cd 00__cpp__language-basics/class && g++ -m32 -S -fno-dwarf2-cfi-asm ./simpleclass.cpp && nl simpleclass.s
       - run: cd 00__cpp__language-basics/const_basic && make && ./constbasics.exe
+      - run: cd 00__cpp__language-basics/const_cast && make && ./constcast.exe
 
 

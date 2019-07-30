@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = copy_constructor.cpp
+SOURCE = copyconstructor.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-copy_constructor.exe: ${OBJECTS}
+copyconstructor.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: copy_constructor.exe
+all: copyconstructor.exe
 
 clean:
-	${RM} $(OBJECTS) copy_constructor.exe *~ core
+	${RM} $(OBJECTS) copyconstructor.exe *~ core
 
 
