@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= Main.cpp
+SOURCE	= pointer3.cpp
 #HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -13,10 +13,12 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-prog.exe: ${OBJECTS}
+pointer3.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: prog.exe
+all: pointer3.exe
 
 clean:
-	-${RM} prog.exe *.o core
+	-${RM} pointer3.exe *.o core
+
+.PHONY: clean

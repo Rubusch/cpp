@@ -44,5 +44,13 @@ jobs:
       - run: cd 00__cpp__language-basics/operator__streams && make && ./operatorstreams.exe
       - run: cd 00__cpp__language-basics/operator__subscript && make && ./operatorsubscript.exe
       - run: cd 00__cpp__language-basics/pass_by_what && make && ./passbywhat.exe
+      - run: cd 00__cpp__language-basics/passing_function_parameter && make && ./passingfunctionparameter.exe
+      - run: cd 00__cpp__language-basics/pointer1 && make && ./pointer1.exe
+      - run: cd 00__cpp__language-basics/pointer2 && make && ./pointer2.exe
+      - run: cd 00__cpp__language-basics/pointer3 && make && ./pointer3.exe
+      - run: cd 00__cpp__language-basics/pointer4 && make && ./pointer4.exe
+      - run: cd 00__cpp__language-basics/pointer5 && make && ./pointer5.exe
+      - run: cd 00__cpp__language-basics/pointer6 && make && ./pointer6.exe
+      - run: cd 00__cpp__language-basics/pointer7 && make && ./pointer7.exe
 
 
