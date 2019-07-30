@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = freelist.cpp
+SOURCE = operatornewanddeletefreelist.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-freelist.exe: ${OBJECTS}
+operatornewanddeletefreelist.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: freelist.exe
+all: operatornewanddeletefreelist.exe
 
 clean:
-	${RM} $(OBJECTS) freelist.exe *~ core
+	${RM} $(OBJECTS) operatornewanddeletefreelist.exe *~ core
 
 
