@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= Main.cpp
+SOURCE	= newdelete2.cpp
 HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -13,10 +13,10 @@ CP		= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-newdelete.exe: ${OBJECTS}
+newdelete2.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: newdelete.exe
+all: newdelete2.exe
 
 clean:
-	-${RM} newdelete.exe *.o core
+	-${RM} newdelete2.exe *.o core
