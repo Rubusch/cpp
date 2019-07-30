@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = const.cpp
+SOURCE = constcast.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-const.exe: ${OBJECTS}
+constcast.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: const.exe
+all: constcast.exe
 
 clean:
-	${RM} $(OBJECTS) const.exe *~ core
+	${RM} $(OBJECTS) constcast.exe *~ core
 
 
