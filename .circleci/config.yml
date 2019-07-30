@@ -43,5 +43,6 @@ jobs:
       - run: cd 00__cpp__language-basics/operator__parentheses && cat operatorparentheses.txt
       - run: cd 00__cpp__language-basics/operator__streams && make && ./operatorstreams.exe
       - run: cd 00__cpp__language-basics/operator__subscript && make && ./operatorsubscript.exe
+      - run: cd 00__cpp__language-basics/pass_by_what && make && ./passbywhat.exe
 
 

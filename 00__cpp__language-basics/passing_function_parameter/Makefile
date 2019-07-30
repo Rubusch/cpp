@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE		= Main.cpp
+SOURCE		= passingfunctionparameter.cpp
 HEADERS		=
 OBJECTS		= ${SOURCE:.c=.o}
 
@@ -13,12 +13,12 @@ CP			= cp -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-prog.exe: ${OBJECTS}
+passingfunctionparameter.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: prog.exe
+all: passingfunctionparameter.exe
 
 clean:
-	-${RM} prog.exe *.o core
+	-${RM} passingfunctionparameter.exe *.o core
 
 .PHONY: clean
