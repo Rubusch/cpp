@@ -1,4 +1,4 @@
-DISCLAIMER
+## DISCLAIMER
 
 No liability for the contents of this repository can be accepted. Use the codes,
 concepts, examples and other content at your own risk. There may be errors and
@@ -9,7 +9,7 @@ for any damage incurred.
 
 
 
-CONTENT
+## CONTENT
 
 Assorted code snippets, notes from the net ranging from "what is a pointer?" to
 how to template arithmetics mostly classic C++0x.
@@ -19,12 +19,14 @@ cleanup.
 
 
 
-BUILD
+## BUILD
 
 If no separate README is contained, on  LINUX  open a shell and go to the
 specific source, compile snippets using make, and run the *.exe file.
 
+```bash
 $ make
 $ ./*.exe
+```
 
 Lothar Rubusch
