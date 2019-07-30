@@ -2,6 +2,7 @@
 *.exe
 *~
 *.autosave
+*.swp
 
 ## qt creater projects
 *.app
