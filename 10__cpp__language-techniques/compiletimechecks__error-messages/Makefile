@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = errormessage.cpp
+SOURCE = compiletimecheckserrormessages.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-errormessage.exe: ${OBJECTS}
+compiletimecheckserrormessages.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: errormessage.exe
+all: compiletimecheckserrormessages.exe
 
 clean:
-	${RM} $(OBJECTS) errormessage.exe *~ core
+	${RM} $(OBJECTS) compiletimecheckserrormessages.exe *~ core
 
 
