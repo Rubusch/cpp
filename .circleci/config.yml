@@ -14,6 +14,7 @@ jobs:
 
       - run: date
 
+## 00: language-basics
       - run: cd 00__cpp__language-basics/abstract_class && make && ./abstractclass.exe
       - run: cd 00__cpp__language-basics/ambiguous_names && make && ./ambiguousnames.exe
       - run: cd 00__cpp__language-basics/arrays-and-assert && make && ./arrayandassert.exe || echo "Ok"
@@ -30,7 +31,7 @@ jobs:
       - run: cd 00__cpp__language-basics/explicit_constructor && make && ./explicitconstructor.exe
       - run: cd 00__cpp__language-basics/new-delete1 && make && ./newdelete1.exe
       - run: cd 00__cpp__language-basics/new-delete2 && make && ./newdelete2.exe
-      - run: cd 00__cpp__language-basics/no_reference_on_locals && make && ./noreferenceonlocals.exe 
+      - run: cd 00__cpp__language-basics/no_reference_on_locals && make && ./noreferenceonlocals.exe
       - run: cd 00__cpp__language-basics/operator__and && cat ./operatorand.cpp
       - run: cd 00__cpp__language-basics/operator__assignment && make && ./operatorassignment.exe
       - run: cd 00__cpp__language-basics/operator__comma && cat ./operatorcomma.cpp
@@ -50,7 +51,7 @@ jobs:
       - run: cd 00__cpp__language-basics/pointer3 && make && ./pointer3.exe
       - run: cd 00__cpp__language-basics/pointer4 && make && ./pointer4.exe
       - run: cd 00__cpp__language-basics/pointer5 && make && ./pointer5.exe
-      - run: cd 00__cpp__language-basics/pointer6 && make && ./pointer6.exe || echo OK
+      - run: cd 00__cpp__language-basics/pointer6 && make && ./pointer6.exe || echo "OK"
       - run: cd 00__cpp__language-basics/pointer7 && make && ./pointer7.exe
       - run: cd 00__cpp__language-basics/rule_of_big_three && make && ./ruleofbigthree.exe
       - run: cd 00__cpp__language-basics/slicing_problem && make && ./slicingproblem.exe
@@ -68,8 +69,9 @@ jobs:
       - run: cd 00__cpp__language-basics/virtual__virtual-destructor && make && ./virtualvirtualdestructor.exe
       - run: cd 00__cpp__language-basics/virtual__virtual-inheritance && make && ./virtualvirtualinheritance.exe
 
+## 10: language-techniques
       - run: cd 10__cpp__language-techniques/allocator_for_small_objects && make && ./allocatorforsmallobjects.exe
       - run: cd 10__cpp__language-techniques/binder_functorbinder && make && ./binderfunctorbinder.exe
       - run: cd 10__cpp__language-techniques/binder_thisbinder && make && ./binderthisbinder.exe
-      
+      - run: cd 
 
