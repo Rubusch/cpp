@@ -232,7 +232,7 @@ int main()
   // will be assigned dynamicly
   try{
     pAnimal = AnimalProtocol<string>::animalFactoryMethod(species, size, color);
-  }catch(AnimalProtocol<string>::BadAnimalException ex){
+  }catch(AnimalProtocol<string>::BadAnimalException &ex){
     cerr << ex.what() << endl;
   }
 
