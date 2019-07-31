@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = type2type.cpp
+SOURCE = typemappingtypetotype.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-type2type.exe: ${OBJECTS}
+typemappingtypetotype.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: type2type.exe
+all: typemappingtypetotype.exe
 
 clean:
-	${RM} $(OBJECTS) type2type.exe *~ core
+	${RM} $(OBJECTS) typemappingtypetotype.exe *~ core
 
 
