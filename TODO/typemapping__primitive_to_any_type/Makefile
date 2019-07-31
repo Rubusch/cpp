@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = int2type.cpp
+SOURCE = typemappingprimitivetoanytype.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-int2type.exe: ${OBJECTS}
+typemappingprimitivetoanytype.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: int2type.exe
+all: typemappingprimitivetoanytype.exe
 
 clean:
-	${RM} $(OBJECTS) int2type.exe *~ core
+	${RM} $(OBJECTS) typemappingprimitivetoanytype.exe *~ core
 
 
