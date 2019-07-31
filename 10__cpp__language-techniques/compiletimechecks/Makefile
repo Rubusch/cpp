@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = compiletimeerror.cpp
+SOURCE = compiletimechecks.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-compiletimeerror.exe: ${OBJECTS}
+compiletimechecks.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: compiletimeerror.exe
+all: compiletimechecks.exe
 
 clean:
-	${RM} $(OBJECTS) compiletimeerror.exe *~ core
+	${RM} $(OBJECTS) compiletimechecks.exe *~ core
 
 
