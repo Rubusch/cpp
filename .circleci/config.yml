@@ -73,5 +73,7 @@ jobs:
       - run: cd 10__cpp__language-techniques/allocator_for_small_objects && make && ./allocatorforsmallobjects.exe
       - run: cd 10__cpp__language-techniques/binder_functorbinder && make && ./binderfunctorbinder.exe
       - run: cd 10__cpp__language-techniques/binder_thisbinder && make && ./binderthisbinder.exe
-      - run: cd 
+      - run: cd 10__cpp__language-techniques/compiletimechecks && make && ./compiletimechecks.exe
+      - run: cd 10__cpp__language-techniques/compiletimechecks__assert-type-check && make && ./compiletimechecksasserttypecheck.exe
+      
 

@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = typecheck.cpp
+SOURCE = compiletimechecksasserttypecheck.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-typecheck.exe: ${OBJECTS}
+compiletimechecksasserttypecheck.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: typecheck.exe
+all: compiletimechecksasserttypecheck.exe
 
 clean:
-	${RM} $(OBJECTS) typecheck.exe *~ core
+	${RM} $(OBJECTS) compiletimechecksasserttypecheck.exe *~ core
 
 
