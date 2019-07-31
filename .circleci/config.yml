@@ -76,5 +76,6 @@ jobs:
       - run: cd 10__cpp__language-techniques/compiletimechecks && make && ./compiletimechecks.exe
       - run: cd 10__cpp__language-techniques/compiletimechecks__assert-type-check && make && ./compiletimechecksasserttypecheck.exe
       - run: cd 10__cpp__language-techniques/compiletimechecks__error-messages && make && ./compiletimecheckserrormessages.exe
+      - run: cd 10__cpp__language-techniques/compiletimechecks__improved && make && ./compiletimechecksimproved.exe
       
 
