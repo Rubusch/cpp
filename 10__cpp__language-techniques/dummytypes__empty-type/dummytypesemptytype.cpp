@@ -16,7 +16,7 @@
 
 
 // Implementation of the EmptyType
-struct EmptyType{};
+struct EmptyType{} final;
 
 
 /*
@@ -27,6 +27,7 @@ int main()
   using namespace std;
 
   // instantiation of "nothing"
+  // (warnings are turned off, since 'et' is unused here)
   EmptyType et;
 
   cout << "The EmptyType can be used as an empty type to check in inheritance." << endl;
