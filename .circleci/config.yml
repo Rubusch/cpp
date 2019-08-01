@@ -78,6 +78,7 @@ jobs:
       - run: cd 10__cpp__language-techniques/compiletimechecks__error-messages || echo "OK"
       - run: cd 10__cpp__language-techniques/compiletimechecks__improved && make && ./compiletimechecksimproved.exe
       - run: cd 10__cpp__language-techniques/destructor-and-delete && make && ./destructoranddelete.exe
-      - run: cd 10__cpp__language-techniques/double_dispatching && make && doubledispatching.exe
+      - run: cd 10__cpp__language-techniques/double_dispatching && make && ./doubledispatching.exe
+      - run: cd 10__cpp__language-techniques/dummytypes__empty-type && make && ./dummytypesemptytype.exe
       
 
