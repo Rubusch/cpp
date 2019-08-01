@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = rc_copyonwrite.cpp
+SOURCE = refcount.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-rc_copyonwrite.exe: ${OBJECTS}
+refcount.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: rc_copyonwrite.exe
+all: refcount.exe
 
 clean:
-	${RM} $(OBJECTS) rc_copyonwrite.exe *~ core
+	${RM} $(OBJECTS) refcount.exe *~ core
 
 
