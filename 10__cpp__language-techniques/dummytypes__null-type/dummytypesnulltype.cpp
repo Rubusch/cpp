@@ -21,6 +21,7 @@ int main()
   using namespace std;
 
   // instance of the NullType
+  // (warnings are turned off, since 'nt' here is unused)
   NullType nt;
 
   cout << "The NullType can be used as Null element or termination and can be checked." << endl;

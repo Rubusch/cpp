@@ -3,23 +3,23 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = nulltype.cpp
+SOURCE = dummytypesnulltype.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g
 RM = rm -f
 
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-nulltype.exe: ${OBJECTS}
+dummytypesnulltype.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: nulltype.exe
+all: dummytypesnulltype.exe
 
 clean:
-	${RM} $(OBJECTS) nulltype.exe *~ core
+	${RM} $(OBJECTS) dummytypesnulltype.exe *~ core
 
 
