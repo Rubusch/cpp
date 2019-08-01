@@ -12,6 +12,7 @@
 #define FUNCTOR_H
 
 
+#include <type_traits> /* integral_constant */
 #include <memory>
 
 
@@ -35,6 +36,7 @@ struct EmptyType{};
 /*
   select
 //*/
+// TODO                  
 template< bool flag, typename T, typename U >
 struct Select
 {
@@ -53,27 +55,66 @@ struct Select< false, T, U >
 
 /*
   typelist, maximum 2 different types..
-//*/
-template< typename T, typename U >
-struct Typelist_
-{
-  typedef T
-    Head;
+#define TYPELIST_1(T1) Typelist_< T1, NIL > // TODO rm
+#define TYPELIST_2(T1, T2) Typelist_< T1, TYPELIST_1(T2) >
+#define TYPELIST_3(T1, T2, T3) Typelist_< T1, TYPELIST_2(T2, T3) >
+#define TYPELIST_4(T1, T2, T3, T4) Typelist_< T1, TYPELIST_3(T2, T3, T4) >
 
-  typedef U
-    Tail;
-};
 
-/*
   Linearizing Typelist Creation
 
   The "old fashion" implementation uses macros - this functor implementation
   doesn't take the "newer" linearization which would avoid macros.
+
+template< typename T, typename U >
+struct Typelist_
+{
+  typedef T Head;
+  typedef U Tail;
+};
+// */
+
+
+/* cpp11 upgrade
+resource:
+https://www.codeproject.com/Articles/1077852/TypeLists-and-a-TypeList-Toolbox-via-Variadic-Temp
+
+// cpp11: using instead of typedef
+// cpp11: 'typename ...Ts' declaration of variadic template, 'Ts...' declaration of Tail Type
+template< typename T, typename ...Ts>
+struct Typelist
+{
+  using Head = T;
+  using Tail = Typelist< Ts... >;
+};
+
+still, in cpp0x an empty element was needed, since the list could
+not have been empty, thus Alexandrescu needed Head and Tail
+
+cpp11: now NullType is still needed, but empty lists are possible
+// */
+
+/*
+  cpp11: Typelist
+
+  usage: TODO
 //*/
-#define TYPELIST_1(T1) Typelist_< T1, NIL >
-#define TYPELIST_2(T1, T2) Typelist_< T1, TYPELIST_1(T2) >
-#define TYPELIST_3(T1, T2, T3) Typelist_< T1, TYPELIST_2(T2, T3) >
-#define TYPELIST_4(T1, T2, T3, T4) Typelist_< T1, TYPELIST_3(T2, T3, T4) >
+template< typename ...Ts >
+struct Typelist
+{
+  using type = Typelist;
+
+  // cpp11: number of elements is 'sizeof...(Ts)'
+  static constexpr size_t size() noexcept
+  {
+    return sizeof...(Ts);
+  }
+};
+
+using Typelist_empty = Typelist<>;
+
+
+
 
 /*
   typelist operations
@@ -95,7 +136,6 @@ namespace TL
 
     Usage:
     TL::TypeAt< MyTypelist, idx >::Result variable;
-  //*/
 
   // basic template form
   template< class TList, unsigned int index >
@@ -116,6 +156,41 @@ namespace TL
     typedef typename TypeAt< Tail, i-1 >::Result
       Result;
   };
+// */
+
+/*
+  cpp11: TypeAt
+
+  usage:
+  using type_at_4 = TypeAt<4, MyList>::type;
+// */
+  template< size_t idx, class List >
+  struct TypeAt_impl;
+
+  template< typename T, typename... Ts >
+  struct TypeAt_impl< 0, Typelist< T, Ts... > > // end of search, type was found
+  {
+    using type = T;
+  };
+
+  template< size_t idx, typename T, typename... Ts >
+  struct TypeAt_impl< idx, Typelist< T, Ts... > > // recursion
+  {
+    using type = typename TypeAt_impl< idx - 1, Typelist< Ts... > >::type;
+  };
+
+  // wrapper
+  template< size_t idx, class List >
+  struct TypeAt;
+
+  template< size_t idx, typename... Ts >
+  struct TypeAt< idx, Typelist< Ts... > >
+  {
+    private:
+      static_assert(sizeof...(Ts) > idx, "TypeAt: index out of bounds or called on empty type");
+    public:
+      using type = typename TypeAt_impl< idx, Typelist< Ts... > >::type;
+  };
 
 
   /*
@@ -132,7 +207,7 @@ namespace TL
 
     Usage:
     int idx = IndexOf< MyTypelist, TypeToLookUp >::value;
-  //*/
+
   template< class TList, class T >
   struct IndexOf;
 
@@ -157,6 +232,46 @@ namespace TL
   public:
     enum { value = temp == -1 ? -1 : 1 + temp };
   };
+// */
+
+/*
+  cpp11: version of IndexOf
+
+  usage: TODO ???
+  using idx = IndexOf< Type, MyList>::type;                
+// */
+  template< size_t idx, typename T, class List >
+  struct IndexOf_impl; // has index as template parameter
+
+  template< size_t idx, typename T > // type T not in list
+  struct IndexOf_impl< idx, T, Typelist<> >
+  {
+    using type = std::integral_constant<int, -1>;
+  };
+
+  template< size_t idx, typename T, typename... Ts >
+  struct IndexOf_impl< idx, T, Typelist< T, Ts... > > // type is found
+  {
+    using type = std::integral_constant< int, idx >;
+  };
+
+  template< size_t idx, typename T, typename H, typename... Ts >
+  struct IndexOf_impl< idx, T, Typelist< H, Ts... > > // recursion
+  {
+    using type = typename IndexOf_impl< idx + 1, T, Typelist< Ts... > >::type;
+  };
+
+  // support of Head for index 0
+  template< typename T, class List >
+  struct IndexOf;
+
+  template< typename T, typename... Ts >
+  struct IndexOf< T, Typelist< Ts... > >
+  {
+    using type = typename IndexOf_impl< 0, T, Typelist< Ts... > >::type;
+    using value_type = typename type::value_type;
+    static constexpr value_type value = type::value;
+  };
 
 
   /*
@@ -171,7 +286,7 @@ namespace TL
 
     Usage:
     typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;
-  //*/
+
   template< class TList, class T >
   struct Erase;
 
@@ -198,7 +313,65 @@ namespace TL
     typedef Typelist_< Head, typename Erase< Tail, T >::Result >
       Result;
   };
+// */
 }
+
+
+
+  /*
+    cpp11: push front/back
+
+    usage:
+    using MyList = PushFront< Type, MyList >::type;
+    or
+    using MyList = PushBack< Type, MyList >::type;
+  // 
+  template< typename T, class List >
+  struct PushFront;
+
+  template< typename T, typename... Ts >
+  struct PushFront< T, Typelist< Ts... > >
+  {
+    using type = Typelist< T, Ts... >;
+  };
+
+  template< typename T, class List >
+  struct PushBack;
+
+  template< typename T, typename... Ts>
+  struct PushBack< T, Typelist< Ts... > >
+  {
+    using type = Typelist< Ts..., T >;
+  };
+// */
+
+  /*
+    cpp11: erase
+
+    usage:
+    using MyList = Erase< Type, MyList >;
+
+  template< typename T, class List>
+  struct Erase;
+
+  template< typename T >
+  struct Erase< T, Typelist<> >
+  {
+    using type = Typelist<>;
+  };
+
+  template< typename T, typename... Ts >
+  struct Erase< T, Typelist< T, Ts... > >
+  {
+    using type = Typelist< Ts... >;
+  };
+
+  template< typename T, typename H, typename... Ts >
+  struct Erase< T, Typelist< H, Ts... > >
+  {
+    using type = typename PushFront< H, typename Erase< T, Typelist< Ts... > >::type>::type;
+  };
+// */
 
 
 /*************************** Traits ******************************************/
@@ -210,23 +383,21 @@ namespace TL
   - parameter type
   returns the optimal type to be used as a parameter for functions that take Ts
 //*/
-template<typename T>
+template< typename T >
 class TypeTraits
 {
 private:
   // private block - the traits itself
-   template< typename U > struct PointerTraits
+  template< typename U > struct PointerTraits
   {
     enum { result = false };
-    typedef NIL
-      PointeeType;
+    typedef NIL PointeeType;
   };
 
   template< typename U > struct PointerTraits< U* >
   {
     enum { result = true };
-    typedef U
-      PointeeType;
+    typedef U PointeeType;
   };
 
   template< typename U > struct ReferenceTraits
@@ -252,23 +423,31 @@ private:
   };
 
 public:
-  typedef TYPELIST_4( unsigned char, unsigned short int, unsigned int, unsigned long int )
-    UnsignedInts_t;
+//  typedef TYPELIST_4( unsigned char, unsigned short int, unsigned int, unsigned long int )    UnsignedInts_t;
+//  typedef TYPELIST_4( signed char, short int, int, long int )    SignedInts_t;
+//  typedef TYPELIST_2( bool, char )    OtherInts_t;
+//  typedef TYPELIST_2( float, double )    Floats_t;
 
-  typedef TYPELIST_4( signed char, short int, int, long int )
-    SignedInts_t;
-
-  typedef TYPELIST_2( bool, char )
-    OtherInts_t;
-
-  typedef TYPELIST_2( float, double )
-    Floats_t;
+  using UnsignedInts_t = Typelist< unsigned char, unsigned short int, unsigned int, unsigned long int >;
+  using SignedInts_t = Typelist< signed char, short int, int, long int >;
+  using OtherInts_t = Typelist< bool, char >;
+  using Floats_t = Typelist< float, double >;
 
   // isStdArith
-  enum { isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0 };
-  enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
-  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
-  enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
+//  enum { isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0 };
+//  enum { isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0 };
+  static constexpr auto isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0;
+
+//  enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
+//  enum { isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0 };
+static constexpr auto isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0;
+
+//  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
+  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0 };
+
+//  enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
+  enum { isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0 };
+
   enum { isStdArith = isStdIntegral || isStdFloat };
 
   // isPointer
@@ -279,12 +458,10 @@ public:
 
   // ReferredType
   enum { isReference = ReferenceTraits< T >::result };
-  typedef typename ReferenceTraits< T >::ReferredType
-    ReferredType;
+  typedef typename ReferenceTraits< T >::ReferredType ReferredType;
 
   // -> ParameterType
-  typedef typename Select< isStdArith || isPointer || isMemberPointer, T, ReferredType& >::Result
-    ParameterType;
+  typedef typename Select< isStdArith || isPointer || isMemberPointer, T, ReferredType& >::Result ParameterType;
 };
 
 
@@ -305,14 +482,9 @@ namespace Private
   template< typename ResultType >
   struct FunctorImpl_Base
   {
-    typedef ResultType
-      ResultType_t;
-
-    typedef EmptyType
-      Arg1_t;
-
-    typedef EmptyType
-      Arg2_t;
+    typedef ResultType ResultType_t;
+    typedef EmptyType Arg1_t;
+    typedef EmptyType Arg2_t;
   };
 }
 
@@ -336,8 +508,7 @@ class FunctorImpl< ResultType, NIL >
   : public Private::FunctorImpl_Base< ResultType >
 {
 public:
-  typedef ResultType
-    ResultType_t;
+  typedef ResultType ResultType_t;
 
   virtual ResultType operator()() = 0;
 };
@@ -345,17 +516,15 @@ public:
 
 /*
   implementation, 1 arg
+//class FunctorImpl< ResultType, TYPELIST_1( Arg1 ) >
 //*/
 template< typename ResultType, typename Arg1 >
-class FunctorImpl< ResultType, TYPELIST_1( Arg1 ) >
+class FunctorImpl< ResultType, Typelist< Arg1 > >      
   : public Private::FunctorImpl_Base< ResultType >
 {
 public:
-  typedef ResultType
-    ResultType_t;
-
-  typedef typename TypeTraits< Arg1 >::ParameterType
-    Arg1_t;
+  typedef ResultType ResultType_t;
+  typedef typename TypeTraits< Arg1 >::ParameterType Arg1_t;
 
   virtual ResultType operator()(Arg1) = 0;
 };
@@ -363,20 +532,16 @@ public:
 
 /*
   implementation, 2 args
+//class FunctorImpl< ResultType, TYPELIST_2( Arg1, Arg2 ) >
 //*/
 template< typename ResultType, typename Arg1, typename Arg2 >
-class FunctorImpl< ResultType, TYPELIST_2( Arg1, Arg2 ) >
+class FunctorImpl< ResultType, Typelist< Arg1, Arg2 > >
   : public Private::FunctorImpl_Base< ResultType >
 {
 public:
-  typedef ResultType
-    ResultType_t;
-
-  typedef typename TypeTraits< Arg1 >::ParameterType
-    Arg1_t;
-
-  typedef typename TypeTraits< Arg2 >::ParameterType
-    Arg2_t;
+  typedef ResultType ResultType_t;
+  typedef typename TypeTraits< Arg1 >::ParameterType Arg1_t;
+  typedef typename TypeTraits< Arg2 >::ParameterType Arg2_t;
 
   virtual ResultType operator()(Arg1, Arg2) = 0;
 };
@@ -392,18 +557,12 @@ class FunctorHandler
   : public ParentFunctor::Impl_t
 {
 private:
-  typedef typename ParentFunctor::Impl_t
-    Base_t;
+  typedef typename ParentFunctor::Impl_t Base_t;
 
 public:
-  typedef typename Base_t::ResultType_t
-    ResultType_t;
-
-  typedef typename Base_t::Arg1_t
-    Arg1_t;
-
-  typedef typename Base_t::Arg2_t
-    Arg2_t;
+  typedef typename Base_t::ResultType_t ResultType_t;
+  typedef typename Base_t::Arg1_t Arg1_t;
+  typedef typename Base_t::Arg2_t Arg2_t;
 
   FunctorHandler( const Fun& fun) : f_(fun)
   {}
@@ -438,20 +597,11 @@ template< typename ResultType, typename TList = NIL >
 class Functor
 {
 public:
-  typedef FunctorImpl< ResultType, TList >
-    Impl_t;
-
-  typedef ResultType
-    ResultType_t;
-
-  typedef TList
-    ArgList_t;
-
-  typedef typename Impl_t::Arg1_t
-    Arg1_t;
-
-  typedef typename Impl_t::Arg2_t
-    Arg2_t;
+  typedef FunctorImpl< ResultType, TList > Impl_t;
+  typedef ResultType ResultType_t;
+  typedef TList ArgList_t;
+  typedef typename Impl_t::Arg1_t Arg1_t;
+  typedef typename Impl_t::Arg2_t Arg2_t;
 
   // Member functions
   Functor()
