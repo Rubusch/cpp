@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE =  functionpointer.cpp
+SOURCE =  functor.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-functionpointer.exe: ${OBJECTS}
+functor.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: functionpointer.exe
+all: functor.exe
 
 clean:
-	${RM} $(OBJECTS) functionpointer.exe *~ core
+	${RM} $(OBJECTS) functor.exe *~ core
 
 
