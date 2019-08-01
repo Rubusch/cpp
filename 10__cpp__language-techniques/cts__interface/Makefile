@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = pts.cpp
+SOURCE = classtemplatespecialization.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-pts.exe: ${OBJECTS}
+classtemplatespecialization.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: pts.exe
+all: classtemplatespecialization.exe
 
 clean:
-	${RM} $(OBJECTS) pts.exe *~ core
+	${RM} $(OBJECTS) classtemplatespecialization.exe *~ core
 
 

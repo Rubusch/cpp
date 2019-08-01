@@ -105,4 +105,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/protocol_class-cpp0x && make && ./protocolclass.exe
       - run: cd 10__cpp__language-techniques/protocol_class-cpp11 && make && ./protocolclass.exe
       - run: cd 10__cpp__language-techniques/cts__class-template-specialization && make && ./classtemplatespecialization.exe
+      - run: cd 10__cpp__language-techniques/cts__default-params && make && ./classtemplatespecialization.exe
       
