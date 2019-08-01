@@ -88,5 +88,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/functor__functor-bridge && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/functor__functor-bridge-facade && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp0x && make && ./functor.exe
-      
+      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./functor.exe     
 
