@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE =  mixin.cpp
+SOURCE =  mixinclass.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-mixin.exe: ${OBJECTS}
+mixinclass.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: mixin.exe
+all: mixinclass.exe
 
 clean:
-	${RM} $(OBJECTS) mixin.exe *~ core
+	${RM} $(OBJECTS) mixinclass.exe *~ core
 
 
