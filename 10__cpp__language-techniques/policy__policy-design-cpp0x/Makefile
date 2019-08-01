@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE =  policydesign.cpp
+SOURCE =  policy.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-policydesign.exe: ${OBJECTS}
+policy.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: policydesign.exe
+all: policy.exe
 
 clean:
-	${RM} $(OBJECTS) policydesign.exe *~ core
+	${RM} $(OBJECTS) policy.exe *~ core
 
 
