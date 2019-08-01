@@ -102,4 +102,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/policy__policy-classes-cpp0x && make && ./policy.exe
       - run: cd 10__cpp__language-techniques/policy__policy-design-cpp0x && make && ./policy.exe
       - run: cd 10__cpp__language-techniques/policy__structure-policy-cpp0x && make && ./policy.exe
-      
+      - run: cd 10__cpp__language-techniques/protocol_class-cpp0x && make && ./protocolclass.exe
+      - run: cd 10__cpp__language-techniques/protocol_class-cpp11 && make && ./protocolclass.exe
