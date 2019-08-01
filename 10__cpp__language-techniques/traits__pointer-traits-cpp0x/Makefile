@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = pointertraits.cpp
+SOURCE = traits.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-pointertraits.exe: ${OBJECTS}
+traits.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: pointertraits.exe
+all: traits.exe
 
 clean:
-	${RM} $(OBJECTS) pointertraits.exe *~ core
+	${RM} $(OBJECTS) traits.exe *~ core
 
 
