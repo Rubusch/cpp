@@ -9,21 +9,21 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
+
 
 template<class T>
 class Foobar
 {
 private:
-  T* pMember;
+  T* pMember = nullptr;
 
 public:
   // ctor
   Foobar()
-    :pMember(NULL)
-  {
-    // nothing
-  }
+    :pMember(nullptr)
+  {} // nothing
 
   // cpy ctor
   Foobar(const Foobar& fb)
@@ -39,7 +39,7 @@ public:
     // -> delete NULL is harmless!
     delete pMember;
     // thus set it again to NULL!
-    pMember = NULL;
+    pMember = nullptr;
   }
 
 
