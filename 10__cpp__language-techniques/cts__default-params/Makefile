@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = pts_defaultparams.cpp
+SOURCE = classtemplatespecialization.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-pts_defaultparams.exe: ${OBJECTS}
+classtemplatespecialization.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: pts_defaultparams.exe
+all: classtemplatespecialization.exe
 
 clean:
-	${RM} $(OBJECTS) pts_defaultparams.exe *~ core
+	${RM} $(OBJECTS) classtemplatespecialization.exe *~ core
 
 
