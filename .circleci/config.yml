@@ -118,4 +118,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/stack__heap-only-classes && make && ./stackheaponlyclasses.exe
       - run: cd 10__cpp__language-techniques/traits__fundamental-type-traits-cpp0x && make && ./traits.exe
       - run: cd 10__cpp__language-techniques/traits__optimized-parameter-traits-cpp0x && make && ./traits.exe
+      - run: cd 10__cpp__language-techniques/traits__pointer-to-member-traits-cpp0x && make && ./traits.exe
       
