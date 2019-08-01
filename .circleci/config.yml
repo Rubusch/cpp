@@ -98,4 +98,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/lazy_fetching && make && ./lazyfetching.exe
       - run: cd 10__cpp__language-techniques/local_class && make && ./localclass.exe
       - run: cd 10__cpp__language-techniques/mixin_class && make && ./mixinclass.exe
+      - run: cd 10__cpp__language-techniques/policy__optional-functionality-cpp0x && make && ./policy.exe
       
