@@ -37,6 +37,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 
 class SpaceFighter_t
 {};
@@ -52,27 +54,28 @@ class Asteroid_t
 public:
   virtual void collideWith( SpaceFighter_t& tieFighter)
   {
-    std::cout << "\tAsteroid hit the Tie Fighter.\n";
+    cout << "\tAsteroid hit the Tie Fighter.\n";
   }
 
   virtual void collideWith( StarDestroyer_t& superStarDestroyer)
   {
-    std::cout << "\tAsteroid hit the Super Star Destroyer.\n";
+    cout << "\tAsteroid hit the Super Star Destroyer.\n";
   }
 };
 
 
-class ExplodingAsteroid_t : public Asteroid_t
+class ExplodingAsteroid_t
+  : public Asteroid_t
 {
 public:
   void collideWith( SpaceFighter_t& tieFighter)
   {
-    std::cout << "\tExploding Asteroid hit a Tie Fighter.\n";
+    cout << "\tExploding Asteroid hit a Tie Fighter.\n";
   }
 
   void collideWith( StarDestroyer_t& superStarDestroyer)
   {
-    std::cout << "\tExploding Asteroid hit a Super Star Destroyer.\n";
+    cout << "\tExploding Asteroid hit a Super Star Destroyer.\n";
   }
 };
 
@@ -82,8 +85,6 @@ public:
 //*/
 int main()
 {
-  using namespace std;
-
   SpaceFighter_t tieFighter;
   StarDestroyer_t superStarDestroyer;
 
@@ -95,12 +96,12 @@ int main()
   exploding.collideWith( tieFighter);
   exploding.collideWith( superStarDestroyer);
 
-  std::cout << "\n...assignment...\n\n";
+  cout << "\n...assignment...\n\n";
   Asteroid_t *ptr = &exploding;
 
   ptr->collideWith( tieFighter);
   exploding.collideWith( tieFighter);
-  std::cout << "...or (should be equal -> virtual)\n";
+  cout << "...or (should be both the 'exploding Astroid' since virtual, i.e. double dispatching)\n";
   ptr->collideWith( superStarDestroyer);
   exploding.collideWith( superStarDestroyer);
 

@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE =  doubledispatch.cpp
+SOURCE =  doubledispatching.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-doubledispatch.exe: ${OBJECTS}
+doubledispatching.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: doubledispatch.exe
+all: doubledispatching.exe
 
 clean:
-	${RM} $(OBJECTS) doubledispatch.exe *~ core
+	${RM} $(OBJECTS) doubledispatching.exe *~ core
 
 
