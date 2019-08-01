@@ -88,5 +88,11 @@ jobs:
       - run: cd 10__cpp__language-techniques/functor__functor-bridge && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/functor__functor-bridge-facade && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp0x && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./functor.exe     
-
+      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-loki-style-cpp0x && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-tests-cpp0x && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-with-returntype-conversion-cpp0x && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__member-functions-functionpointer && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__member-functions-functor-cpp0x && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/inline && make && ./inline.exe
+      
