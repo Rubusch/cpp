@@ -95,4 +95,4 @@ jobs:
       - run: cd 10__cpp__language-techniques/functor__member-functions-functionpointer && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/functor__member-functions-functor-cpp0x && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/inline && make && ./inline.exe
-      
+      - run: cd 10__cpp__language-techniques/lazy_fetching && make && ./lazyfetching.exe
