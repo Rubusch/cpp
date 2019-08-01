@@ -114,4 +114,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/refcount__copy-on-write && make && ./refcount.exe
       - run: cd 10__cpp__language-techniques/refcount__copy-on-write-shareable && make && ./refcount.exe
       - run: cd 10__cpp__language-techniques/refcount__costumized-and-comma-example && make && ./refcount.exe
+      - run: cd 10__cpp__language-techniques/stack__heap-never-classes && make && ./stackheapneverclass.exe
       

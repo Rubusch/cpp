@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = heapnever.cpp
+SOURCE = stackheapneverclass.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-heapnever.exe: ${OBJECTS}
+stackheapneverclass.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: heapnever.exe
+all: stackheapneverclass.exe
 
 clean:
-	${RM} $(OBJECTS) heapnever.exe *~ core
+	${RM} $(OBJECTS) stackheapneverclass.exe *~ core
 
 
