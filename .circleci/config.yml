@@ -84,5 +84,9 @@ jobs:
       - run: cd 10__cpp__language-techniques/function_pointer && make && ./functionpointer.exe
       - run: cd 10__cpp__language-techniques/functor && make && ./functor.exe
       - run: cd 10__cpp__language-techniques/functor__functor-binder-fails-cpp0x && make && ./functor.exe
+#      - run: cd 10__cpp__language-techniques/functor__functor-binder-fails-cpp11 && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-bridge && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-bridge-facade && make && ./functor.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp0x && make && ./functor.exe
       
 
