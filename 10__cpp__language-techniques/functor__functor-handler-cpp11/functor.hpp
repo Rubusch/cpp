@@ -390,36 +390,42 @@ private:
   // private block - the traits itself
   template< typename U > struct PointerTraits
   {
-    enum { result = false };
+//    enum { result = false };
+    static constexpr auto result = false;
     typedef NIL PointeeType;
   };
 
   template< typename U > struct PointerTraits< U* >
   {
-    enum { result = true };
+//    enum { result = true };
+    static constexpr auto result = true;
     typedef U PointeeType;
   };
 
   template< typename U > struct ReferenceTraits
   {
-    enum { result = false };
+//    enum { result = false };
+    static constexpr auto result = false;
     typedef U ReferredType;
   };
 
   template< typename U > struct ReferenceTraits< U& >
   {
-    enum { result = true };
+//    enum { result = true };
+    static constexpr auto result = true;
     typedef U ReferredType;
   };
 
   template< typename U > struct PToMTraits
   {
-    enum { result = false };
+//    enum { result = false };
+    static constexpr auto result = false;
   };
 
   template< typename U, typename V > struct PToMTraits< U V::*>
   {
-    enum { result = true };
+//    enum { result = true };
+    static constexpr auto result = false;
   };
 
 public:
@@ -440,24 +446,30 @@ public:
 
 //  enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
 //  enum { isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0 };
-static constexpr auto isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0;
+  static constexpr auto isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0;
 
 //  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
-  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0 };
+//  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0 };
+  static constexpr auto isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0;
 
 //  enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
-  enum { isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0 };
+//  enum { isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0 };
+  static constexpr auto isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0;
 
-  enum { isStdArith = isStdIntegral || isStdFloat };
+//  enum { isStdArith = isStdIntegral || isStdFloat };
+  static constexpr auto isStdArith = isStdIntegral || isStdFloat;
 
   // isPointer
-  enum { isPointer = PointerTraits< T >::result };
+//  enum { isPointer = PointerTraits< T >::result };
+  static constexpr auto isPointer = PointerTraits< T >::result;
 
   // isMemberPointer
-  enum { isMemberPointer = PToMTraits< T >::result };
+//  enum { isMemberPointer = PToMTraits< T >::result };
+  static constexpr auto isMemberPointer = PToMTraits< T >::result;
 
   // ReferredType
-  enum { isReference = ReferenceTraits< T >::result };
+//  enum { isReference = ReferenceTraits< T >::result };
+  static constexpr auto isReference = ReferenceTraits< T >::result;
   typedef typename ReferenceTraits< T >::ReferredType ReferredType;
 
   // -> ParameterType
