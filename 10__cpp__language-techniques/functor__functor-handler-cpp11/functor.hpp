@@ -61,8 +61,6 @@ template< typename ...Ts >
 struct Typelist
 {
   using type = Typelist;
-
-  // cpp11: number of elements is 'sizeof...(Ts)'
   static constexpr size_t size() noexcept
   {
     return sizeof...(Ts);
@@ -235,12 +233,20 @@ public:
   using Floats_t = Typelist< float, double >;
 
   // isStdArith
+// *
   static constexpr auto isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0;
   static constexpr auto isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0;
   static constexpr auto isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0;
   static constexpr auto isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0;
   static constexpr auto isStdArith = isStdIntegral || isStdFloat;
-
+/*/
+// TODO: check if not actually the second should be correct?
+  static constexpr auto isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0;
+  static constexpr auto isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0;
+  static constexpr auto isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0;
+  static constexpr auto isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0;
+  static constexpr auto isStdArith = isStdIntegral || isStdFloat;
+// */
   // isPointer
   static constexpr auto isPointer = PointerTraits< T >::result;
 
