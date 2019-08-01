@@ -109,4 +109,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/cts__interface && make && ./classtemplatespecialization.exe
       - run: cd 10__cpp__language-techniques/cts__pointers && make && ./classtemplatespecialization.exe
       - run: cd 10__cpp__language-techniques/cts__polymorphism && make && ./classtemplatespecialization.exe
+      - run: cd 10__cpp__language-techniques/refcount__baseclass-design && make && ./refcount.exe
       

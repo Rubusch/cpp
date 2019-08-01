@@ -15,10 +15,10 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-rcptr.exe: ${OBJECTS}
+refcount.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: rcptr.exe
+all: refcount.exe
 
 clean:
-	${RM} $(OBJECTS) rcptr.exe *~ core
+	${RM} $(OBJECTS) refcount.exe *~ core
