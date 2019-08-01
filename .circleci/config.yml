@@ -112,4 +112,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/refcount__baseclass-design && make && ./refcount.exe
       - run: cd 10__cpp__language-techniques/refcount__basics && make && ./refcount.exe
       - run: cd 10__cpp__language-techniques/refcount__copy-on-write && make && ./refcount.exe
+      - run: cd 10__cpp__language-techniques/refcount__copy-on-write-shareable && make && ./refcount.exe
       
