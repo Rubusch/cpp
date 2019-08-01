@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 
-SOURCE = heaponly.cpp
+SOURCE = stackheaponlyclasses.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
@@ -14,12 +14,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-heaponly.exe: ${OBJECTS}
+stackheaponlyclasses.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: heaponly.exe
+all: stackheaponlyclasses.exe
 
 clean:
-	${RM} $(OBJECTS) heaponly.exe *~ core
+	${RM} $(OBJECTS) stackheaponlyclasses.exe *~ core
 
 
