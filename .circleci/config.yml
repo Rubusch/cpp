@@ -127,6 +127,5 @@ jobs:
 #      - run: cd 10__cpp__language-techniques/typelist__tylelist-linear-cpp0x__TODO && make && ./typelist.exe
 #      - run: cd 10__cpp__language-techniques/typelist__tylelist-scattered-cpp0x__TODO && make && ./typelist.exe
       - run: cd 10__cpp__language-techniques/typemapping__primitive_to_any_type && make && ./typemappingprimitivetoanytype.exe
-      - run: cd 10__cpp__language-techniques/typemapping__step_example && make && ./typemappingstepexample.exe
       - run: cd 10__cpp__language-techniques/typemapping__type_to_type && make && ./typemappingtypetotype.exe
       
