@@ -80,5 +80,6 @@ jobs:
       - run: cd 10__cpp__language-techniques/destructor-and-delete && make && ./destructoranddelete.exe
       - run: cd 10__cpp__language-techniques/double_dispatching && make && ./doubledispatching.exe
       - run: cd 10__cpp__language-techniques/dummytypes__empty-type && make && ./dummytypesemptytype.exe
+      - run: cd 10__cpp__language-techniques/dummytypes__null-type && make && ./dummytypesnulltype.exe
       
 
