@@ -122,4 +122,5 @@ jobs:
       - run: cd 10__cpp__language-techniques/traits__pointer-traits-cpp0x && make && ./traits.exe
       - run: cd 10__cpp__language-techniques/traits__stripping-qualifiers-cpp0x && make && ./traits.exe
       - run: cd 10__cpp__language-techniques/typelist__new-style-cpp0x && make && ./typelist.exe
+      - run: cd 10__cpp__language-techniques/typelist__no-duplicates-cpp0x && make && ./typelist.exe
       
