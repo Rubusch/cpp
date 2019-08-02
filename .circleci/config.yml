@@ -206,7 +206,7 @@ jobs:
       - run: cd 20__cpp__stl/algorithm-modifying_replace && make && ./*.exe
       - run: cd 20__cpp__stl/reverse_iterator && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-non-modifying_search && make && ./*.exe
-      - run: cd 20__cpp__stl/file_ifstream1 && make && ./*.exe
+#      - run: cd 20__cpp__stl/file_ifstream1 && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-sorting_partial_sort_copy && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-set_set_intersection && make && ./*.exe
       - run: cd 20__cpp__stl/container-associative_set && make && ./*.exe
