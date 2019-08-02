@@ -185,7 +185,7 @@ jobs:
       - run: cd 20__cpp__stl/algorithm-modifying_copy && make && ./*.exe
       - run: cd 20__cpp__stl/stream_locale && make && ./*.exe
       - run: cd 20__cpp__stl/container-associative_map && make && ./*.exe
-      - run: cd 20__cpp__stl/file_ifstream2 && make && ./*.exe
+#      - run: cd 20__cpp__stl/file_ifstream2 && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-min-max_min && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-modifying_copy_backward && make && ./*.exe
       - run: cd 20__cpp__stl/file_fstream2 && make && ./*.exe
