@@ -177,7 +177,7 @@ jobs:
       - run: cd 20__cpp__stl/file_fstream1 && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-non-modifying_find && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-min-max_max && make && ./*.exe
-      - run: cd 20__cpp__stl/container-associative_example2 && make && ./*.exe
+#      - run: cd 20__cpp__stl/container-associative_example2 && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-sorting_stable_sort && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-modifying_rotate && make && ./*.exe
       - run: cd 20__cpp__stl/container-sequential_vector && make && ./*.exe
