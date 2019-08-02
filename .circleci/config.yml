@@ -129,4 +129,6 @@ jobs:
       - run: cd 10__cpp__language-techniques/typelist__cpp11 && make && ./typelist.exe
       - run: cd 10__cpp__language-techniques/typemapping__primitive_to_any_type && make && ./typemappingprimitivetoanytype.exe
       - run: cd 10__cpp__language-techniques/typemapping__type_to_type && make && ./typemappingtypetotype.exe
-      
+     
+## 20: stl
+      - run: cd 20__cpp__stl/algorithm-heap_example1 && make && ./*.exe 
