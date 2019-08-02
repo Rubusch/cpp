@@ -15,120 +15,120 @@ jobs:
       - run: date
 
 ## 00: language-basics
-      - run: cd 00__cpp__language-basics/abstract_class && make && ./abstractclass.exe
-      - run: cd 00__cpp__language-basics/ambiguous_names && make && ./ambiguousnames.exe
-      - run: cd 00__cpp__language-basics/arrays-and-assert && make && ./arrayandassert.exe || echo "Ok"
-      - run: cd 00__cpp__language-basics/callback_version && make && ./callbackversion.exe
-      - run: cd 00__cpp__language-basics/callback_plain && make && ./callbackplain.exe
+      - run: cd 00__cpp__language-basics/abstract_class && make && ./*.exe
+      - run: cd 00__cpp__language-basics/ambiguous_names && make && ./*.exe
+      - run: cd 00__cpp__language-basics/arrays-and-assert && make && ./*.exe || echo "Ok"
+      - run: cd 00__cpp__language-basics/callback_version && make && ./*.exe
+      - run: cd 00__cpp__language-basics/callback_plain && make && ./*.exe
       - run: cd 00__cpp__language-basics/class && g++ -m32 -S -fno-dwarf2-cfi-asm ./simpleclass.cpp && nl simpleclass.s
-      - run: cd 00__cpp__language-basics/const_basics && make && ./constbasics.exe
-      - run: cd 00__cpp__language-basics/const_cast && make && ./constcast.exe
-      - run: cd 00__cpp__language-basics/copy_constructor && make && ./copyconstructor.exe
-      - run: cd 00__cpp__language-basics/exception1 && make && ./exception1.exe
-      - run: cd 00__cpp__language-basics/exception2 && make && ./exception2.exe
-      - run: cd 00__cpp__language-basics/exception3 && make && ./exception3.exe
-      - run: cd 00__cpp__language-basics/exception4 && make && ./exception4.exe
-      - run: cd 00__cpp__language-basics/explicit_constructor && make && ./explicitconstructor.exe
-      - run: cd 00__cpp__language-basics/new-delete1 && make && ./newdelete1.exe
-      - run: cd 00__cpp__language-basics/new-delete2 && make && ./newdelete2.exe
-      - run: cd 00__cpp__language-basics/no_reference_on_locals && make && ./noreferenceonlocals.exe
+      - run: cd 00__cpp__language-basics/const_basics && make && ./*.exe
+      - run: cd 00__cpp__language-basics/const_cast && make && ./*.exe
+      - run: cd 00__cpp__language-basics/copy_constructor && make && ./*.exe
+      - run: cd 00__cpp__language-basics/exception1 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/exception2 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/exception3 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/exception4 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/explicit_constructor && make && ./*.exe
+      - run: cd 00__cpp__language-basics/new-delete1 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/new-delete2 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/no_reference_on_locals && make && ./*.exe
       - run: cd 00__cpp__language-basics/operator__and && cat ./operatorand.cpp
-      - run: cd 00__cpp__language-basics/operator__assignment && make && ./operatorassignment.exe
+      - run: cd 00__cpp__language-basics/operator__assignment && make && ./*.exe
       - run: cd 00__cpp__language-basics/operator__comma && cat ./operatorcomma.cpp
-      - run: cd 00__cpp__language-basics/operator__equals && make && ./operatorequals.exe
-      - run: cd 00__cpp__language-basics/operator__new-and-delete && make && ./operatornewanddelete.exe
-      - run: cd 00__cpp__language-basics/operator__new-and-delete-freelist && make && ./operatornewanddeletefreelist.exe
-      - run: cd 00__cpp__language-basics/operator__new-and-delete-memorypool && make && ./operatornewanddeletememorypool.exe
-      - run: cd 00__cpp__language-basics/operator__new-handler && make && ./operatornewhandler.exe
+      - run: cd 00__cpp__language-basics/operator__equals && make && ./*.exe
+      - run: cd 00__cpp__language-basics/operator__new-and-delete && make && ./*.exe
+      - run: cd 00__cpp__language-basics/operator__new-and-delete-freelist && make && ./*.exe
+      - run: cd 00__cpp__language-basics/operator__new-and-delete-memorypool && make && ./*.exe
+      - run: cd 00__cpp__language-basics/operator__new-handler && make && ./*.exe
       - run: cd 00__cpp__language-basics/operator__or && cat operatoror.cpp
       - run: cd 00__cpp__language-basics/operator__parentheses && cat operatorparentheses.txt
-      - run: cd 00__cpp__language-basics/operator__streams && make && ./operatorstreams.exe
-      - run: cd 00__cpp__language-basics/operator__subscript && make && ./operatorsubscript.exe
-      - run: cd 00__cpp__language-basics/pass_by_what && make && ./passbywhat.exe
-      - run: cd 00__cpp__language-basics/passing_function_parameter && make && ./passingfunctionparameter.exe
-      - run: cd 00__cpp__language-basics/pointer1 && make && ./pointer1.exe
-      - run: cd 00__cpp__language-basics/pointer2 && make && ./pointer2.exe
-      - run: cd 00__cpp__language-basics/pointer3 && make && ./pointer3.exe
-      - run: cd 00__cpp__language-basics/pointer4 && make && ./pointer4.exe
-      - run: cd 00__cpp__language-basics/pointer5 && make && ./pointer5.exe
-      - run: cd 00__cpp__language-basics/pointer6 && make && ./pointer6.exe || echo "OK"
-      - run: cd 00__cpp__language-basics/pointer7 && make && ./pointer7.exe
-      - run: cd 00__cpp__language-basics/rule_of_big_three && make && ./ruleofbigthree.exe
-      - run: cd 00__cpp__language-basics/slicing_problem && make && ./slicingproblem.exe
-      - run: cd 00__cpp__language-basics/template__class && make && ./templateclass.exe
-      - run: cd 00__cpp__language-basics/template__function && make && ./templatefunction.exe
-      - run: cd 00__cpp__language-basics/template__simple && make && ./templatesimple.exe
-      - run: cd 00__cpp__language-basics/template__template-in-template-class && make && ./templatetemplateintemplateclass.exe
-      - run: cd 00__cpp__language-basics/typeinfo__typeid && make && ./typeinfotypeid.exe
-      - run: cd 00__cpp__language-basics/typeinfo__typeinfo-wrapper-cpp0x && make && ./typeinfotypeinfowrapper.exe
-      - run: cd 00__cpp__language-basics/typeinfo__typeof-cpp0x && make && ./typeinfotypeof.exe
-      - run: cd 00__cpp__language-basics/userinput && make && ./userinput.exe
-      - run: cd 00__cpp__language-basics/virtual && make && ./virtual.exe
-      - run: cd 00__cpp__language-basics/virtual__missing-virtual && make && ./virtualmissingvirtual.exe
-      - run: cd 00__cpp__language-basics/virtual__nonvirtual-inheritance && make && ./virtualnonvirtualinheritance.exe
-      - run: cd 00__cpp__language-basics/virtual__virtual-destructor && make && ./virtualvirtualdestructor.exe
-      - run: cd 00__cpp__language-basics/virtual__virtual-inheritance && make && ./virtualvirtualinheritance.exe
+      - run: cd 00__cpp__language-basics/operator__streams && make && ./*.exe
+      - run: cd 00__cpp__language-basics/operator__subscript && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pass_by_what && make && ./*.exe
+      - run: cd 00__cpp__language-basics/passing_function_parameter && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pointer1 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pointer2 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pointer3 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pointer4 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pointer5 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/pointer6 && make && ./*.exe || echo "OK"
+      - run: cd 00__cpp__language-basics/pointer7 && make && ./*.exe
+      - run: cd 00__cpp__language-basics/rule_of_big_three && make && ./*.exe
+      - run: cd 00__cpp__language-basics/slicing_problem && make && ./*.exe
+      - run: cd 00__cpp__language-basics/template__class && make && ./*.exe
+      - run: cd 00__cpp__language-basics/template__function && make && ./*.exe
+      - run: cd 00__cpp__language-basics/template__simple && make && ./*.exe
+      - run: cd 00__cpp__language-basics/template__template-in-template-class && make && ./*.exe
+      - run: cd 00__cpp__language-basics/typeinfo__typeid && make && ./*.exe
+      - run: cd 00__cpp__language-basics/typeinfo__typeinfo-wrapper-cpp0x && make && ./*.exe
+      - run: cd 00__cpp__language-basics/typeinfo__typeof-cpp0x && make && ./*.exe
+      - run: cd 00__cpp__language-basics/userinput && make && ./*.exe
+      - run: cd 00__cpp__language-basics/virtual && make && ./*.exe
+      - run: cd 00__cpp__language-basics/virtual__missing-virtual && make && ./*.exe
+      - run: cd 00__cpp__language-basics/virtual__nonvirtual-inheritance && make && ./*.exe
+      - run: cd 00__cpp__language-basics/virtual__virtual-destructor && make && ./*.exe
+      - run: cd 00__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
 
 ## 10: language-techniques
-      - run: cd 10__cpp__language-techniques/allocator_for_small_objects && make && ./allocatorforsmallobjects.exe
-      - run: cd 10__cpp__language-techniques/binder_functorbinder && make && ./binderfunctorbinder.exe
-      - run: cd 10__cpp__language-techniques/binder_thisbinder && make && ./binderthisbinder.exe
+      - run: cd 10__cpp__language-techniques/allocator_for_small_objects && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/binder_functorbinder && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/binder_thisbinder && make && ./*.exe
       - run: cd 10__cpp__language-techniques/compiletimechecks && make || echo "OK"
-      - run: cd 10__cpp__language-techniques/compiletimechecks__assert-type-check && make && ./compiletimechecksasserttypecheck.exe || echo "OK"
+      - run: cd 10__cpp__language-techniques/compiletimechecks__assert-type-check && make && ./*.exe || echo "OK"
       - run: cd 10__cpp__language-techniques/compiletimechecks__error-messages || echo "OK"
-      - run: cd 10__cpp__language-techniques/compiletimechecks__improved && make && ./compiletimechecksimproved.exe
-      - run: cd 10__cpp__language-techniques/destructor-and-delete && make && ./destructoranddelete.exe
-      - run: cd 10__cpp__language-techniques/double_dispatching && make && ./doubledispatching.exe
-      - run: cd 10__cpp__language-techniques/dummytypes__empty-type && make && ./dummytypesemptytype.exe
-      - run: cd 10__cpp__language-techniques/dummytypes__null-type && make && ./dummytypesnulltype.exe
-      - run: cd 10__cpp__language-techniques/function_pointer && make && ./functionpointer.exe
-      - run: cd 10__cpp__language-techniques/functor && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-binder-fails-cpp0x && make && ./functor.exe || echo "OK"
-#      - run: cd 10__cpp__language-techniques/functor__functor-binder-fails-cpp11 && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-bridge && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-bridge-facade && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp0x && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-loki-style-cpp0x && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-tests-cpp0x && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__functor-with-returntype-conversion-cpp0x && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__member-functions-functionpointer && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/functor__member-functions-functor-cpp0x && make && ./functor.exe
-      - run: cd 10__cpp__language-techniques/inline && make && ./inline.exe
-      - run: cd 10__cpp__language-techniques/lazy_fetching && make && ./lazyfetching.exe
-      - run: cd 10__cpp__language-techniques/local_class && make && ./localclass.exe
-      - run: cd 10__cpp__language-techniques/mixin_class && make && ./mixinclass.exe
-      - run: cd 10__cpp__language-techniques/policy__optional-functionality-cpp0x && make && ./policy.exe
-      - run: cd 10__cpp__language-techniques/policy__policy-classes-cpp0x && make && ./policy.exe
-      - run: cd 10__cpp__language-techniques/policy__policy-design-cpp0x && make && ./policy.exe
-      - run: cd 10__cpp__language-techniques/policy__structure-policy-cpp0x && make && ./policy.exe
-      - run: cd 10__cpp__language-techniques/protocol_class-cpp0x && make && ./protocolclass.exe
-      - run: cd 10__cpp__language-techniques/protocol_class-cpp11 && make && ./protocolclass.exe
-      - run: cd 10__cpp__language-techniques/cts__class-template-specialization && make && ./classtemplatespecialization.exe
-      - run: cd 10__cpp__language-techniques/cts__default-params && make && ./classtemplatespecialization.exe
-      - run: cd 10__cpp__language-techniques/cts__interface && make && ./classtemplatespecialization.exe
-      - run: cd 10__cpp__language-techniques/cts__pointers && make && ./classtemplatespecialization.exe
-      - run: cd 10__cpp__language-techniques/cts__polymorphism && make && ./classtemplatespecialization.exe
-      - run: cd 10__cpp__language-techniques/refcount__baseclass-design && make && ./refcount.exe
-      - run: cd 10__cpp__language-techniques/refcount__basics && make && ./refcount.exe
-      - run: cd 10__cpp__language-techniques/refcount__copy-on-write && make && ./refcount.exe
-      - run: cd 10__cpp__language-techniques/refcount__copy-on-write-shareable && make && ./refcount.exe
-      - run: cd 10__cpp__language-techniques/refcount__costumized-and-comma-example && make && ./refcount.exe
-      - run: cd 10__cpp__language-techniques/stack__heap-never-classes && make && ./stackheapneverclass.exe
-      - run: cd 10__cpp__language-techniques/stack__heap-only-classes && make && ./stackheaponlyclasses.exe
-      - run: cd 10__cpp__language-techniques/traits__fundamental-type-traits-cpp0x && make && ./traits.exe
-      - run: cd 10__cpp__language-techniques/traits__optimized-parameter-traits-cpp0x && make && ./traits.exe
-      - run: cd 10__cpp__language-techniques/traits__pointer-to-member-traits-cpp0x && make && ./traits.exe
-      - run: cd 10__cpp__language-techniques/traits__pointer-traits-cpp0x && make && ./traits.exe
-      - run: cd 10__cpp__language-techniques/traits__stripping-qualifiers-cpp0x && make && ./traits.exe
-      - run: cd 10__cpp__language-techniques/typelist__new-style-cpp0x && make && ./typelist.exe
-      - run: cd 10__cpp__language-techniques/typelist__no-duplicates-cpp0x && make && ./typelist.exe
-      - run: cd 10__cpp__language-techniques/typelist__old-style-cpp0x && make && ./typelist.exe
-#      - run: cd 10__cpp__language-techniques/typelist__tylelist-linear-cpp0x__TODO && make && ./typelist.exe
-#      - run: cd 10__cpp__language-techniques/typelist__tylelist-scattered-cpp0x__TODO && make && ./typelist.exe
-      - run: cd 10__cpp__language-techniques/typelist__cpp11 && make && ./typelist.exe
-      - run: cd 10__cpp__language-techniques/typemapping__primitive_to_any_type && make && ./typemappingprimitivetoanytype.exe
-      - run: cd 10__cpp__language-techniques/typemapping__type_to_type && make && ./typemappingtypetotype.exe
+      - run: cd 10__cpp__language-techniques/compiletimechecks__improved && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/destructor-and-delete && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/double_dispatching && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/dummytypes__empty-type && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/dummytypes__null-type && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/function_pointer && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-binder-fails-cpp0x && make && ./*.exe || echo "OK"
+#      - run: cd 10__cpp__language-techniques/functor__functor-binder-fails-cpp11 && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-bridge && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-bridge-facade && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-loki-style-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-tests-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__functor-with-returntype-conversion-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__member-functions-functionpointer && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/functor__member-functions-functor-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/inline && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/lazy_fetching && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/local_class && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/mixin_class && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/policy__optional-functionality-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/policy__policy-classes-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/policy__policy-design-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/policy__structure-policy-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/protocol_class-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/protocol_class-cpp11 && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/cts__class-template-specialization && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/cts__default-params && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/cts__interface && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/cts__pointers && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/cts__polymorphism && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/refcount__baseclass-design && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/refcount__basics && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/refcount__copy-on-write && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/refcount__copy-on-write-shareable && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/refcount__costumized-and-comma-example && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/stack__heap-never-classes && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/stack__heap-only-classes && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/traits__fundamental-type-traits-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/traits__optimized-parameter-traits-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/traits__pointer-to-member-traits-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/traits__pointer-traits-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/traits__stripping-qualifiers-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/typelist__new-style-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/typelist__no-duplicates-cpp0x && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/typelist__old-style-cpp0x && make && ./*.exe
+#      - run: cd 10__cpp__language-techniques/typelist__tylelist-linear-cpp0x__TODO && make && ./*.exe
+#      - run: cd 10__cpp__language-techniques/typelist__tylelist-scattered-cpp0x__TODO && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/typelist__cpp11 && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/typemapping__primitive_to_any_type && make && ./*.exe
+      - run: cd 10__cpp__language-techniques/typemapping__type_to_type && make && ./*.exe
      
 ## 20: stl
       - run: cd 20__cpp__stl/algorithm-heap_example1 && make && ./*.exe 
