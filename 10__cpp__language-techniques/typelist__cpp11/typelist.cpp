@@ -28,74 +28,53 @@
 #include "conversion.hpp"
 
 
-/*
-  The typelist itself
-
-  cpp11: before a typelist needed always to contain at least one element,
-  this made an empty element necessary
-
-  in cpp11 also an empty Typelist is possible
-
-
-  usage:
-  Typelist< Type1, Type2, Type3 >
-//*/
-template< typename ...Ts >
-struct Typelist
-{
-  using type = Typelist;
-
-  // cpp11: number of elements is 'sizeof...(Ts)'
-  static constexpr size_t size() noexcept { return sizeof...(Ts); }
-};
-
-using Typelist_empty = Typelist<>;
-
-
-/* TODO rm
-  linearizing typelist creation
-
-  ...a better alternative would use templates
-
-
-// declaration for 4 elements
-template< class T1, class T2 = NullType, class T3 = NullType, class T4 = NullType >
-struct Typelist
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
-    type_t;
-};
-
-// definitions..
-template< class T1 >
-struct Typelist< T1, NullType, NullType, NullType >
-{
-  typedef Typelist_< T1, NullType >
-    type_t;
-};
-
-template< class T1, class T2 >
-struct Typelist< T1, T2, NullType, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, NullType > >
-    type_t;
-};
-
-template< class T1, class T2, class T3 >
-struct Typelist< T1, T2, T3, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > >
-    type_t;
-};
-// */ 
-
-
-
-/*
-  Typelist algorithms live in the TL namespace
-//*/
 namespace TL
 {
+
+
+  /*
+    The typelist itself
+
+    cpp11: before a typelist needed always to contain at least one element,
+    this made an empty element necessary
+
+    in cpp11 also an empty Typelist is possible
+
+
+    usage:
+    using MyList = Typelist< Type1, Type2, Type3 >;
+  //*/
+  template< typename ...Ts >
+  struct Typelist
+  {
+    using type = Typelist;
+
+    // cpp11: number of elements is 'sizeof...(Ts)'
+    static constexpr size_t size() noexcept { return sizeof...(Ts); }
+  };
+
+  using Typelist_empty = Typelist<>;
+
+
+  // is list empty? member definition: type, value_type and value
+  template< class List >
+  struct isEmpty
+  {
+    using type = std::false_type; // integral_constant< bool, false >;
+    using value_type = typename type::value_type;
+    static constexpr value_type value = type::value;
+  };
+
+  // empty list
+  template<>
+  struct isEmpty< Typelist<> >
+  {
+    using type = std::true_type; // integral_constant< bool, true >;
+    using value_type = type::value_type;
+    static constexpr value_type value = type::value;
+  };
+
+
   /*
     type at index
 
@@ -149,7 +128,7 @@ namespace TL
   template< size_t idx, typename T > // type T not in list
   struct IndexOf_impl< idx, T, Typelist<> >
   {
-    using type = std::integral_constant<int, -1>;
+    using type = std::integral_constant< int, -1 >;
   };
 
   template< size_t idx, typename T, typename... Ts >
@@ -344,26 +323,24 @@ int main()
 
   // init a TYPELIST_3 - old style: avoid MACROs!
   cout << "init a typelist\n";
-  using MyTypeList_t = Typelist< unsigned char, unsigned short int, unsigned int >;
-//  typedef Typelist< unsigned char, unsigned short int, unsigned int >::type_t  MyTypelist_t;   
+  using MyTypelist_t = TL::Typelist< unsigned char, unsigned short int, unsigned int >;
   cout << endl;
 
 
   // calculating length
   cout << "calculating length\n";
-//  int iLength = TL::Length< MyTypelist_t >::value;   
-  constexpr static auto iLength = MyTypeList_t::size();
+  constexpr static auto iLength = MyTypelist_t::size();
   cout << iLength << endl;
   cout << endl;
 // */
 
-/*
+//*
   cout << "now check the type \"unsigned long int\" (not in the list)\n";
   static constexpr auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
   cout << endl;
-// */
-/*
+
+
   // append to typelist
   cout << "append to typelist\n";
   cout << "append new type \"unsigned long int\"...";
@@ -373,8 +350,8 @@ int main()
        << TL::IndexOf< unsigned long int, MyNewTypelist_t >::value
        << endl;
   cout << endl;
-// */
-/*
+
+  /*
   // erase a type
   cout << "erase a type\n";
   cout << "delete \"unsigned char\" from list\n";
