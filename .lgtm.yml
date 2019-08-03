@@ -1,0 +1,9 @@
+queries:
+  - exclude: "*"
+#  - exclude: java/equals-on-unrelated-types
+#  - include: java/command-line-injection
+  - include:
+tags:
+  - "security"
+  - "correctness"
+severity: "error"
