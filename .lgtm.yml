@@ -3,7 +3,7 @@ queries:
 #  - exclude: java/equals-on-unrelated-types
 #  - include: java/command-line-injection
   - include:
-tags:
-  - "security"
-  - "correctness"
+    tags:
+      - "security"
+      - "correctness"
 severity: "error"
