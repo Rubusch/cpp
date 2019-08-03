@@ -255,3 +255,4 @@ jobs:
       - run: cd ./30__cpp__design_patterns/behavioral_patterns/strategy && make && ./*.exe
       - run: cd ./30__cpp__design_patterns/behavioral_patterns/command && make && ./*.exe
 
+
