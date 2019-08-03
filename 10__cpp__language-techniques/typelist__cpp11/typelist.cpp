@@ -194,7 +194,7 @@ namespace TL
     cpp11: TODO
 
     usage:
-      using MyList = Erase< Type, MyList >
+      using MyList = typename Erase< Type, MyList >::type;
   // */
   template< typename T, class List >
   struct Erase;
@@ -332,9 +332,9 @@ int main()
   constexpr static auto iLength = MyTypelist_t::size();
   cout << iLength << endl;
   cout << endl;
-// */
 
-//*
+
+
   cout << "now check the type \"unsigned long int\" (not in the list)\n";
   static constexpr auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
@@ -351,18 +351,18 @@ int main()
        << endl;
   cout << endl;
 
-  /*
+
   // erase a type
   cout << "erase a type\n";
   cout << "delete \"unsigned char\" from list\n";
-  cout << "length before\t: " << TL::Length< MyNewTypelist_t >::value << endl;   
+  cout << "length before\t: " << MyNewTypelist_t::size() << endl;
   cout << "erase a type of the typelist...";
-  typedef TL::Erase< MyNewTypelist_t, unsigned char >::Result MyNewSmallerTypelist_t;     
+  using MyNewSmallerTypelist_t = typename TL::Erase< unsigned char, MyNewTypelist_t >::type;
   cout << "done.\n";
-  cout << "length after\t: " << TL::Length< MyNewSmallerTypelist_t >::value << endl;    
+  cout << "length after\t: " << MyNewSmallerTypelist_t::size() << endl;
   cout << endl;
 
-/ *
+/*
   // erase all of one type
   cout << "erase all of one type (we take the 2. type in the list).\n";
   cout << "length before\t: " << TL::Length< MyNewTypelist_t >::value << endl;   
