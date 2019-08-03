@@ -229,3 +229,29 @@ jobs:
       - run: cd 20__cpp__stl/auto_ptr_example1 && make && ./*.exe
       - run: cd 20__cpp__stl/algorithm-modifying_transform && make && ./*.exe
       - run: cd 20__cpp__stl/insert-iterator_back_inserter && make && ./*.exe
+
+## 30: design patterns
+      - run: cd ./30__cpp__design_patterns/structural_patterns/proxy && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/structural_patterns/bridge && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/structural_patterns/adapter && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/structural_patterns/flyweight && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/structural_patterns/facade && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/structural_patterns/composite && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/structural_patterns/decorator && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/creational_patterns/abstract_factory && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/creational_patterns/prototype && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/creational_patterns/builder && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/creational_patterns/singleton && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/creational_patterns/factory_method && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/mediator && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/memento && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/interpreter && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/observer && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/iterator && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/state && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/chain_of_responsibility && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/template_method && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/visitor && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/strategy && make && ./*.exe
+      - run: cd ./30__cpp__design_patterns/behavioral_patterns/command && make && ./*.exe
+
