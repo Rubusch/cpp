@@ -81,7 +81,7 @@ namespace TL
     cpp11: TypeAt
 
     usage:
-      using type_at_4 = TypeAt<4, MyList>::type;
+      using type_at_4 = typename TypeAt< 4, MyList >::type;
   // */
   template< size_t idx, class List >
   struct TypeAt_impl;
@@ -227,7 +227,7 @@ namespace TL
     cpp11: TODO
 
     Usage:
-    using MyList = EraseAll< MyList >
+    using MyList = typename EraseAll< MyList >::type;
   //*/
   template< typename T, class List >
   struct EraseAll;
@@ -258,7 +258,7 @@ namespace TL
     cpp11: TODO
 
     usage:
-      using MyList = EraseDuplicates< MyList >;
+      using MyList = typename EraseDuplicates< MyList >::type;
   // */
   template< class List >
   struct EraseDuplicates;
@@ -286,7 +286,7 @@ namespace TL
     cpp11: TODO
 
     Usage:
-    TODO
+    using MyReplacedElementsList = typename ReplaceAll< NewType, Type, MyList >::type;
   //*/
   template< typename R, typename T, class List >
   struct ReplaceAll;
@@ -362,45 +362,45 @@ int main()
   cout << "length after\t: " << MyNewSmallerTypelist_t::size() << endl;
   cout << endl;
 
-/*
+
   // erase all of one type
   cout << "erase all of one type (we take the 2. type in the list).\n";
-  cout << "length before\t: " << TL::Length< MyNewTypelist_t >::value << endl;   
+  cout << "length before\t: " << MyNewTypelist_t::size() << endl;
   cout << "get the type at index 2...";
-  typedef TL::TypeAt< MyNewTypelist_t, 2 >::Result ExclusiveType_t;    
+  using ExclusiveType_t = typename TL::TypeAt< 2, MyNewTypelist_t >::type;
   cout << "done.\n";
   cout << "now erase the sublist until the type of index 2...";
-  typedef TL::EraseAll< MyNewTypelist_t, ExclusiveType_t >::Result MyReducedTypelist_t;     
+  using MyReducedTypelist_t = typename TL::EraseAll< ExclusiveType_t, MyNewTypelist_t >::type;
   cout << "done.\n";
-  cout << "length after\t: " << TL::Length< MyReducedTypelist_t >::value << endl;   
+  cout << "length after\t: " << MyReducedTypelist_t::size() << endl;
   cout << endl;
 
 
   // replace elements
+// FIXME:  replacement seems not to work                                    
   cout << "replace elements\n";
   cout << "second element is \"unsigned int\"?\t: "
-       << ((typeid(unsigned int) == typeid(TL::TypeAt< MyTypelist_t, 2 >::Result)) ? "true" : "false")   
+       << ((typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)) ? "true" : "false")
        << endl;
   cout << "replacing elmenet \"unsigned int\" with \"unsigned char\"...";
-  typedef TL::Replace< MyTypelist_t, unsigned int, unsigned char >::Result MyReplacedTypelist_t;    
+  using MyReplacedTypelist_t = typename TL::ReplaceAll< unsigned char, unsigned int, MyTypelist_t >::type;
   cout << "done.\n";
   cout << "now second element is \"unsigned char\"?\t: "
-       << ((typeid(unsigned char) == typeid(TL::TypeAt< MyReplacedTypelist_t, 2 >::Result)) ? "true" : "false")   
+       << ((typeid(unsigned char) == typeid(typename TL::TypeAt< 2, MyReplacedTypelist_t >::type)) ? "true" : "false")
        << endl;
   cout << endl;
 
 
   // erase duplicates
   cout << "erase duplicates\n";
-  cout << "length before: " << TL::Length< MyReplacedTypelist_t >::value   
+  cout << "length before: " << MyReplacedTypelist_t::size()
        << endl;
   cout << "do no duplicates...";
-  typedef TL::NoDuplicates< MyReplacedTypelist_t >::Result MyTypelistWithoutDuplicates_t;   
+  using MyTypelistWithoutDuplicates_t = typename TL::EraseDuplicates< MyReplacedTypelist_t >::type;
   cout << "done.\n";
-  cout << "length after: " << TL::Length< MyTypelistWithoutDuplicates_t >::value   
+  cout << "length after: " << MyTypelistWithoutDuplicates_t::size()
        << endl;
 
-  // */
 
   cout << endl;
   cout << "READY.\n";
