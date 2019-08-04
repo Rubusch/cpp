@@ -27,13 +27,15 @@ public:
     std::cout << "\tFoobar::getValue() - \t\t\tvalue = \t" << local << ", addr = \t\"" << &local << "\"\n";
     return local;
   }
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-local-addr"
 
   int& getValueReference()
   {
     int local = 5;
     std::cout << "\tFoobar::getValueReference() - \t\tvalue = \t" << local << ", addr = \t\"" << &local << "\"\n";
     std::cout << "\tWARNING: reference to local variable returned!!\n";
-    // WARNING: reference to local variable returned!!
+    // WARNING: reference to local variable returned!! NEVER DO THIS!!
     return local;
   }
 
@@ -42,10 +44,10 @@ public:
     int local = 6;
     std::cout << "\tFoobar::getValuePointer() - \t\tvalue = \t" << local << ", addr = \t\"" << &local << "\"\n";
     std::cout << "\tWARNING: reference to local variable returned!!\n";
-    // WARNING: reference to local variable returned!!
+    // WARNING: reference to local variable returned!! DON'T DO THIS!
     return &local;
   }
-
+#pragma GCC diagnostic pop
   /*
     attributes
   //*/
@@ -78,25 +80,30 @@ public:
     inner function
   //*/
 
-  void func(){
+  void func()
+  {
     std::cout << "\tFoobar::func()\n";
     int value = 0;
-    int *pointer = NULL;
 
     std::cout << "\tint getValue()\n";
     value = getValue();
     std::cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
     std::cout << std::endl;
 
+/* getValueReference() segfaults here!
     std::cout << "\tint& getValueReference()\n";
     value = getValueReference();
     std::cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
     std::cout << std::endl;
+// */
 
+/* getValuePointer() segfaults here!
+    int *pointer = NULL;
     std::cout << "\tint* getValuePointer()\n";
     pointer = getValuePointer();
     std::cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n";
     std::cout << std::endl;
+// */
   }
 
   /*
@@ -139,15 +146,18 @@ int main()
   cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
   cout << endl;
 
+/* getValueReference() segfaults here!
   cout << "int& getValueReference()\n";
   value = fb.getValueReference();
   cout << "\t\t\t\t\t\tvalue = \t" << value << ", addr = \t\"" << &value << "\"\n";
   cout << endl;
-
+// */
+/* getValuePointer segfaults here!
   cout << "int* getValuePointer()\n";
   pointer = fb.getValuePointer();
   cout << "\t\t\t\t\t\tpointer = \t" << *pointer << ", addr = \t\"" << pointer << "\"\n";
   cout << endl;
+// */
 
   /*** Attributes ***/
 
