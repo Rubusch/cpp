@@ -1,6 +1,8 @@
 
 [![CircleCI](https://circleci.com/gh/Rubusch/cpp.svg?style=svg)](https://circleci.com/gh/Rubusch/cpp)
 
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+
 ## CONTENT
 
 Assorted code snippets, notes from the net ranging from "what is a pointer?" to
