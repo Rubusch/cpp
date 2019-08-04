@@ -6,60 +6,60 @@
 
 #include <iostream>
 
+using namespace std;
+
+
 class SomeClass
 {
 public:
-  SomeClass()
-  {
-    std::cout << "\t\tSomeClass() - ctor\n";
-  }
-
-  ~SomeClass()
-  {
-    std::cout << "\t\t~SomeClass() - dtor\n";
-  }
+  SomeClass() = default;
+  ~SomeClass() = default;
 };
 
 
 class Foobar
 {
 public:
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-local-addr"
   SomeClass& getRef()
   {
     SomeClass local;
-    std::cout << "\tlocal\t - addr\t = " << &local << "\n";
+    cout << "\tlocal\t - addr\t = " << &local << "\n";
     // WARNING! Reference to local, finally only an "auto" variable will be initialized here
+    // NEVER DO THIS!
     return local;
   }
 
   SomeClass* getPtr()
   {
     SomeClass local;
-    std::cout << "\tlocal\t - addr\t = " << &local << "\n";
+    cout << "\tlocal\t - addr\t = " << &local << "\n";
     // WARNING! Bug to crash - the variable doesn't exist anymore outside this function!
+    // NEVER DO THIS!
     return &local;
   }
-
+#pragma GCC diagnostic pop
   SomeClass* getNew()
   {
     SomeClass* pLocal = new SomeClass;
-    std::cout << "\tpLocal\t - addr\t = " << pLocal << "\n";
+    cout << "\tpLocal\t - addr\t = " << pLocal << "\n";
     return pLocal;
   }
 
   void func()
   {
-    std::cout << "\tgetRef()\n";
+    cout << "\tgetRef()\n";
     SomeClass object = getRef();
-    std::cout << "\tobject\t - addr\t = " << &object << "\n\n";
+    cout << "\tobject\t - addr\t = " << &object << "\n\n";
 
-    std::cout << "\tgetPtr()\n";
+    cout << "\tgetPtr()\n";
     SomeClass *pointer = getPtr();
-    std::cout << "\tpointer\t - addr\t = " << pointer << "\n\n";
+    cout << "\tpointer\t - addr\t = " << pointer << "\n\n";
 
-    std::cout << "\tgetNew()\n";
+    cout << "\tgetNew()\n";
     pointer = getNew();
-    std::cout << "\tpointer\t - addr\t = " << pointer << "\n\n";
+    cout << "\tpointer\t - addr\t = " << pointer << "\n\n";
     delete pointer; pointer = NULL;
   }
 };
@@ -67,15 +67,15 @@ public:
 
 int main()
 {
-  using namespace std;
   Foobar fb;
+  SomeClass *pointer = nullptr;
 
   cout << "fb.getRef()\n";
   SomeClass object = fb.getRef();
   cout << "object\t\t - addr\t = " << &object << "\n\n";
 
   cout << "fb.getPtr()\n";
-  SomeClass *pointer = fb.getPtr();
+  pointer = fb.getPtr();
   cout << "pointer\t\t - addr\t = " << pointer << "\n\n";
 
   cout << "fb.getNew()\n";
