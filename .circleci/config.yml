@@ -69,6 +69,8 @@ jobs:
       - run: cd 00__cpp__language-basics/virtual__virtual-destructor && make && ./*.exe
       - run: cd 00__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
       - run: cd 00__cpp__language-basics/returntypes && make && ./*.exe
+      - run: cd 00__cpp__language-basics/returntypes__scope && make && ./*.exe
+
 
 ## 10: language-techniques
       - run: cd 10__cpp__language-techniques/allocator_for_small_objects && make && ./*.exe
