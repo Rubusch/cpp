@@ -14,6 +14,11 @@
 
 #define PATTERN_LEN 4
 
+// TODO make use of <algorithm>                 
+// TODO class
+// TODO implement via lambda
+
+
 /*
   main
 //*/
