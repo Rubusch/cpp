@@ -232,7 +232,7 @@ jobs:
       - run: cd 020__cpp__stl/auto_ptr_example1 && make && ./*.exe
       - run: cd 020__cpp__stl/algorithm-modifying_transform && make && ./*.exe
       - run: cd 020__cpp__stl/insert-iterator_back_inserter && make && ./*.exe
-      - run: cd 020__cpp__stl/string_compare-TODO && make && ./*.exe
+      - run: cd 020__cpp__stl/string_compare && make && ./*.exe
 
 
 ## 30: design patterns
