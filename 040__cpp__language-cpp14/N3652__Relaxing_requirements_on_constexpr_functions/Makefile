@@ -1,9 +1,10 @@
-# Makefile for C++ Class
+## Makefile for C++ Class
+## needs g++ version >= g++-5
 SOURCE	= main.cc
 OBJECTS	= ${SOURCE:.cc=.o}
 
 .PREFIXES	= .cc .o
-CXX		= g++-5
+CXX		= g++
 CXXFLAGS	= -std=c++14 -g -Wall #-funsigned-char
 RM		= rm -f
 
