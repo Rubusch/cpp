@@ -20,7 +20,7 @@
 
   the ranges need to be sorted
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

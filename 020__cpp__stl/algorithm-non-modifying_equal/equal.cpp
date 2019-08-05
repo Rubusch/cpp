@@ -4,7 +4,7 @@
 
   equal - determine if two sets of elements are the same
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

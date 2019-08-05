@@ -16,7 +16,7 @@
                              |
             find_end( arr_b, arr_b + 7, arr_a, arr_a + 2)
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

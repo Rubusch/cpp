@@ -5,7 +5,7 @@
   output:
   0 0 0 2 4 1 4 5 2 4 1 4 5
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

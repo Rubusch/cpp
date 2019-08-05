@@ -4,7 +4,7 @@
 
   adjacent_difference - compute the differences between adjacent elements in a range
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

@@ -4,7 +4,7 @@
 
   lexicographical_compare - returns true if one range is lexicographically les than another
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

@@ -2,7 +2,7 @@
 /*
   stringstream - convert number to string and vice versa
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

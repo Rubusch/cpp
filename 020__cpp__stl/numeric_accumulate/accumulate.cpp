@@ -4,7 +4,7 @@
 
   accumulate - sum up a range of elements
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

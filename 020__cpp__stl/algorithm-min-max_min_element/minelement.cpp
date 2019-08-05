@@ -4,7 +4,7 @@
 
   min_element - returns the smalles element in a range
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

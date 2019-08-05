@@ -2,7 +2,7 @@
 /*
   demonstrates an istream iterator on a vector< int >
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

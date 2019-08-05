@@ -15,7 +15,7 @@
                      |
      find_first_of(arr_b, arr_b + 5, arr_a, arr_a + 4)
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

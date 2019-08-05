@@ -17,7 +17,7 @@
   arr: | 2 | 4 | 6 | 5 | 3 | 1 |   |
        +---+---+---+---+---+---+- -+
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

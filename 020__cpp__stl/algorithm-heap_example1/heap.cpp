@@ -8,7 +8,7 @@
   sort_heap - turns a heap into a sorted range of elements
   (by doing this the heap looses its heap behavior)
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

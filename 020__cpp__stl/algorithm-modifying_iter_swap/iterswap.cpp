@@ -18,7 +18,7 @@
                      |           |
                    val_b       val_a
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

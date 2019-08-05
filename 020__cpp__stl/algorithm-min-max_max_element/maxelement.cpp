@@ -4,7 +4,7 @@
 
   max_element - returns the largest element in a range
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

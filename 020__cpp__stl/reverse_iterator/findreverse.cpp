@@ -2,7 +2,7 @@
 /*
   reverse_iterator() used for find()
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

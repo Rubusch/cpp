@@ -7,7 +7,7 @@
   - auto_ptr won't work with STL containers because of the above
   - don't use 2 auto_ptr pointing to the same object
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

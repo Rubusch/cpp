@@ -6,7 +6,7 @@
   output:
   0 1 3 5 2 3 0 0
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

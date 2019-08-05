@@ -5,7 +5,7 @@
   remove - remove elements equal to certain value
   vector<T>::erase - removes elements from a vector
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

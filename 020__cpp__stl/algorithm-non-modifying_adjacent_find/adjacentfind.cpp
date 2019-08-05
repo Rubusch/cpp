@@ -11,7 +11,7 @@
                  |
        adjacent_find(arr, arr + 7)
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

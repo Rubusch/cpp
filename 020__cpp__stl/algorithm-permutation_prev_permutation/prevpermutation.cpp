@@ -4,7 +4,7 @@
 
   prev_permutation - generates the next smaller lexicographic permutation of a range of elements
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

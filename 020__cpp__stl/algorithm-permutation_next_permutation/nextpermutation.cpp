@@ -4,7 +4,7 @@
 
   next_permutation - generates the next greater lexicographic permutation of a range of elements
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

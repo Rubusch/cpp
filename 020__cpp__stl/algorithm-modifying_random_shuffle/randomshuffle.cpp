@@ -4,7 +4,7 @@
 
   random_shuffle - randomly re-order elements in some range
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

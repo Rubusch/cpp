@@ -16,7 +16,7 @@
   arr:   | 1 | 3 | 7 | 1 | 2 | 7 | 1 | 1 | 2 | 2 |   |
          +---+---+---+---+---+- will stay the same! -+
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

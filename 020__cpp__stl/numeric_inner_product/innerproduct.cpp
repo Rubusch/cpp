@@ -4,7 +4,7 @@
 
   inner_produc - compute the inner product of two ranges of elements
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

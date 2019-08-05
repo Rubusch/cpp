@@ -2,7 +2,7 @@
 /*
   valarray - matrix simulation using slice()
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

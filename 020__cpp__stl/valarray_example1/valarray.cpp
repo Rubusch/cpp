@@ -2,7 +2,7 @@
 /*
   valarray - example
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

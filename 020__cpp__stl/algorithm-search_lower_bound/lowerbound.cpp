@@ -18,7 +18,7 @@
 
   thus meant here is equivalency and NOT equality!
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

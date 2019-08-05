@@ -5,7 +5,7 @@
   - remmember use sentry to clean up a stream on exception calls before a regular clean up
   - don't throw exceptions in destructors (stack unwinding crashes the proggy!)
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

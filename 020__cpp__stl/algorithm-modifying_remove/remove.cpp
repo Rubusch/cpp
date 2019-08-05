@@ -21,7 +21,7 @@
                              have omitted to copy
                              these 0, 4, 5
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 

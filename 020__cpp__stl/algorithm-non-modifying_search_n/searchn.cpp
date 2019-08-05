@@ -10,7 +10,7 @@
          |
       search_n( arr, arr+7, 2, 3)
 
-  (Kuhlins & Schader, 2003)
+  resources: Kuhlins and Schader (2003)
 //*/
 
 
