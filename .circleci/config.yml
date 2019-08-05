@@ -294,7 +294,7 @@ jobs:
       - run: cd 040__cpp__language-cpp14/N3651__constexpr_variable_templates && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/N3648__Initialized_lambda_captures && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/N3781__Single-quotation-mark_as_a_digit_separator && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/N3651__my_strcmp && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/N3651__constexpr_variable_templates__pod-strcmp && make && ./*.exe
 #      - run: cd 040__cpp__language-cpp14/N3664__Clarifying_memory_allocation && make && ./*.exe # just a README.txt
 #      - run: cd 040__cpp__language-cpp14/N3778__Sized_deallocation && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/N3649__Generic_lambdas && make && ./*.exe
