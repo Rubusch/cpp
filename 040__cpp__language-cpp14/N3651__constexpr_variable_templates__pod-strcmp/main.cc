@@ -34,7 +34,7 @@ int my_strcmp(const char* str1, const char* str2)
 
 
 /*/
-//  C++ 15
+//  C++ 14
 constexpr int my_strcmp(const char* str1, const char* str2)
 {
   int idx = 0;
