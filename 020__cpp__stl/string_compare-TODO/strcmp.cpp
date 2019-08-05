@@ -15,10 +15,7 @@
 
 using namespace std;
 
-
-// TODO
-
-//  C++ 15
+// needs C++ 15
 constexpr int my_strcmp(const char* str1, const char* str2)
 {
   int idx = 0;
@@ -41,10 +38,10 @@ int main()
   cout << "my_strcmp( " << str1 << ", " << str2 << " ) = " << my_strcmp(str1, str2) << endl;
 
   cout << endl;
-  cout << "the real situation (c++ is \"c with classes\" and \"never use the STL\" way):" << endl;
+  cout << "sophisticated C++14 features:" << endl;
   cout << endl;
 
-//*  // TESTS
+//*
   string a = "", b = "";
   int ret = 0;
 
@@ -83,10 +80,10 @@ int main()
     cout << "OK [1]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
   a=""; b="";
-//*/
+// */
 
   cout << endl;
-  cout << "STL: string::compare():" << endl;
+  cout << "STL: some other possiblity string::compare():" << endl;
   cout << endl;
 
   a = "abc";
@@ -127,10 +124,45 @@ int main()
 // */
 
   cout << endl;
-  cout << "some operator way:" << endl;
+  cout << "boring:" << endl;
   cout << endl;
 
-// TODO
+  a = "abc";
+  b = "abc";
+  if (a != b) {
+    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  } else {
+    cout << "OK [a == b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  }
+  a=""; b="";
+
+  a = "cba";
+  b = "abc";
+  if (a == b) {
+    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  } else {
+    cout << "OK [a != b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  }
+  a=""; b="";
+
+  a = "abc";
+  b = "abcabc";
+  if (a >= b) {
+    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  } else {
+    cout << "OK [a < b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  }
+  a=""; b="";
+
+  a = "abcabc";
+  b = "abc";
+  if (a <= b ) {
+    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  } else {
+    cout << "OK [a > b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  }
+  a=""; b="";
+// */
 
   return 0;
 }
