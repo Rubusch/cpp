@@ -23,7 +23,7 @@ jobs:
       - run: cd 000__cpp__language-basics/class && g++ -m32 -S -fno-dwarf2-cfi-asm ./simpleclass.cpp && nl simpleclass.s
       - run: cd 000__cpp__language-basics/const_basics && make && ./*.exe
       - run: cd 000__cpp__language-basics/const_cast && make && ./*.exe
-      - run: cd 000__cpp__language-basics/copy_constructor && make && ./*.exe
+      - run: cd 000__cpp__language-basics/copy-assignment-constructor && make && ./*.exe
       - run: cd 000__cpp__language-basics/exception1 && make && ./*.exe
       - run: cd 000__cpp__language-basics/exception2 && make && ./*.exe
       - run: cd 000__cpp__language-basics/exception3 && make && ./*.exe
