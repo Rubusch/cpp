@@ -39,7 +39,7 @@ jobs:
       - run: cd 000__cpp__language-basics/operator__equals && make && ./*.exe
       - run: cd 000__cpp__language-basics/operator__new-and-delete && make && ./*.exe
       - run: cd 000__cpp__language-basics/operator__new-and-delete-freelist && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__move && make && ./*.exe
+      - run: cd 000__cpp__language-basics/operator__assignment-move && make && ./*.exe
       - run: cd 000__cpp__language-basics/operator__new-and-delete-memorypool && make && ./*.exe
       - run: cd 000__cpp__language-basics/operator__new-handler && make && ./*.exe
       - run: cd 000__cpp__language-basics/operator__or && cat operatoror.cpp
