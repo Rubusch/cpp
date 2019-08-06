@@ -12,148 +12,76 @@
 using namespace std;
 
 
-class Base
+class Box
 {
 private:
-  string data_;
+  const string *pItem = nullptr;
 
 public:
-  Base() : data_("") {}
-
-  Base( Base const& cpy)
+  Box(const string *item)
   {
-    data_ = cpy.data_;
+    cout << "CALLED: constructor" << endl;
+
+    pItem = item;
   }
 
-  void setData(string data)
+  // copy constructor - shallow copy
+  //
+  // The copy constructor is a special function:
+  // Doesn't matter if these were declared "private" or "protected" - the access within
+  // the copy constructor works like a friend declared function!! Everything's "public"
+  // here!
+  Box(const Box& box)
   {
-    data_ = data;
+    cout << "CALLED: copy construtor" << endl;
+
+    if (this == &box) return;
+
+    // deep copy!
+    //
+    // this has to be another allocation!
+    // if it was just a reference to the orig element, calling 'delete' in on of both
+    // objects on 'pItem' will result in unallocated memory in the other object for
+    // 'pItem'
+    pItem = new string(*box.pItem);
   }
-
-  string getData()
-  {
-    return data_;
-  }
-};
-
-
-template<class T>
-class MyClass
-  : public Base
-{
-private:
-  T value;
-  const T *pointer;
-
-public:
-  // constructor
-  MyClass();
-
-
-  // copy constructor
-  MyClass(const MyClass<T>& shallowcopy);
-
 
   // destructor
   // - if the class would have a virtual function, the destructor should be virtual, too
   // - a class that has member pointers, should have an self implemented destructor
   // - delete should happen where the allocation has happened -> no allocation, no delete!
-  ~MyClass();
+  ~Box()
+  {
+    cout << "CALLED: destructor" << endl;
 
+    if (nullptr != pItem) delete pItem;
+    pItem = nullptr;
+  }
 
-  void setValue(const T val);
-  T getValue() const;
-  void setPointer(const T* ptr);
-  const T* getPointer() const;
+  // some getter
+  const string* getItem() const
+  {
+    return pItem;
+  }
 };
 
 
-template<class T>
-MyClass<T>::MyClass()
-  :value(0), pointer(NULL) // init
-{}
-
-
-/*
-  copy constructor - shallow copy
-
-  The copy constructor is a special function:
-  Doesn't matter if these were declared "private" or "protected" - the access within
-  the copy constructor works like a friend declared function!! Everything's "public"
-  here!
-//*/
-template<class T>
-MyClass<T>::MyClass(MyClass<T> const& shallowcopy)
-  : Base(shallowcopy), value(shallowcopy.value)
+int main(void)
 {
-  // check self?
-  if(this == &shallowcopy) return;
+  string *pStr = new string("Perikles");
+  cout << "Address of pStr target (pointee): \t" << pStr << endl;
+  cout << endl;
 
-  // pointer
-  setPointer(shallowcopy.pointer);
+  Box box(pStr);
+  cout << "Address of box: \t\t\t" << &box << endl;
+  cout << "Address of box.pItem: \t\t\t" << box.getItem() << " <-- identical with pointee" << endl;
+  cout << endl;
+
+  Box bigbox(box);
+  cout << "Address of bigbox: \t\t\t" << &bigbox << endl;
+  cout << "Address of bigbox.pItem: \t\t" << bigbox.getItem() << " <-- different" << endl;
+  cout << endl;
+
+  cout << "READY." << endl;
 }
 
-
-template<class T>
-MyClass<T>::~MyClass()
-{}
-
-
-template<class T>
-void MyClass<T>::setValue(const T val)
-{
-  value = val;
-}
-
-
-template<class T>
-T MyClass<T>::getValue() const
-{
-  return value;
-}
-
-
-template<class T>
-void MyClass<T>::setPointer(const T* ptr)
-{
-  pointer = ptr;
-}
-
-
-template<class T>
-const T* MyClass<T>::getPointer() const
-{
-  return pointer;
-}
-
-
-
-
-/*
-  some main
-//*/
-int main()
-{
-  MyClass<int> a;
-
-  int value = 123;
-  int *pointer = &value;
-
-  // init
-  a.setValue(value);
-  a.setPointer(pointer);
-  a.setData("base data");
-
-  // output
-  cout << "content in a: " << a.getValue() << ", \'" << *(a.getPointer()) << "\' and \'" << a.getData() << "\'" << endl;
-
-  // copy
-  MyClass<int> b(a);
-
-  // output
-  cout << "content in b: " << b.getValue() << ", \'" << *(b.getPointer()) << "\' and \'" << b.getData() << "\'" << endl;
-  //*/
-
-  cout << "READY.\n";
-  return 0;
-}
