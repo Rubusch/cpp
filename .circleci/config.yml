@@ -56,6 +56,7 @@ jobs:
       - run: cd 000__cpp__language-basics/pointer6 && make && ./*.exe || echo "OK"
       - run: cd 000__cpp__language-basics/pointer7 && make && ./*.exe
       - run: cd 000__cpp__language-basics/rule_of_big_three && make && ./*.exe
+      - run: cd 000__cpp__language-basics/rule_of_big_five && make && ./*.exe
       - run: cd 000__cpp__language-basics/slicing_problem && make && ./*.exe
       - run: cd 000__cpp__language-basics/template__class && make && ./*.exe
       - run: cd 000__cpp__language-basics/template__function && make && ./*.exe
@@ -72,7 +73,6 @@ jobs:
       - run: cd 000__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes__scope && make && ./*.exe
-      - run: cd 000__cpp__language-basics/move-assignment-cpp11 && make && ./*.exe
 
 
 ## 10: language-techniques
