@@ -14,9 +14,14 @@ private:
   const string *pItem = nullptr;
 
 public:
-  Box(const string *item)
+  Box()
   {
     cout << "CALLED: constructor" << endl;
+  }
+
+  Box(const string *item)
+  {
+    cout << "CALLED: constructor with argument" << endl;
 
     pItem = item;
   }
@@ -27,19 +32,24 @@ public:
   // Doesn't matter if these were declared "private" or "protected" - the access within
   // the copy constructor works like a friend declared function!! Everything's "public"
   // here!
-  Box(Box&& box) noexcept
+  Box& operator=(Box&& box)
   {
-    cout << "CALLED: copy move constructor" << endl;
+    cout << "CALLED: assignment move operator" << endl;
 
-    if (this == &box) return; // actually interesting in case of move...
+    if (this != &box) {
+      // avoid memory leaks
+      if (pItem) delete pItem;
 
-    // deep move (reference)!
-    //
-    // the move passes the content to the receiving object, the moved one may lose its
-    // contents or allocations entirely (needs care of explicit implementation)
-    pItem = box.pItem;
-    box.pItem = nullptr;
+      // deep move (reference)!
+      //
+      // the move passes the content to the receiving object, the moved one may lose its
+      // contents or allocations entirely (needs care of explicit implementation)
+      pItem = box.pItem;
+      box.pItem = nullptr;
+    }
+    return *this;
   }
+
 
   // destructor
   // - if the class would have a virtual function, the destructor should be virtual, too
@@ -72,7 +82,9 @@ int main(void)
   cout << "Address of box.pItem: \t\t\t" << box.getItem() << " <-- identical with pointee" << endl;
   cout << endl;
 
-  Box bigbox = std::move(box);
+  // to call the assignment move operator, both objects already need to be instantiated
+  Box bigbox;
+  bigbox = std::move(box);
   cout << "Address of bigbox: \t\t\t" << &bigbox << endl;
   cout << "Address of bigbox.pItem: \t\t" << bigbox.getItem() << " <-- also identical (moved content)" << endl;
   cout << endl;
