@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= moveassignment.cpp
+SOURCE	= ruleofbigfive.cpp
 #HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -11,12 +11,12 @@ RM		= rm -f
 .c.o:
 	${CC} -c ${CPPFLAGS} $<
 
-moveassignment.exe: ${OBJECTS}
+ruleofbigfive.exe: ${OBJECTS}
 	${CC} -o $@ ${OBJECTS} -lm
 
-all: moveassignment.exe
+all: ruleofbigfive.exe
 
 clean:
-	-${RM} moveassignment.exe *.o core
+	-${RM} ruleofbigfive.exe *.o core
 
 .PHONY: clean
