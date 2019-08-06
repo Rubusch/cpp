@@ -15,24 +15,22 @@ using namespace std;
 class Base
 {
 private:
-  std::string data_;
+  string data_;
 
 public:
-  Base()
-    : data_("")
-  {}
+  Base() : data_("") {}
 
   Base( Base const& cpy)
   {
     data_ = cpy.data_;
   }
 
-  void setData(std::string data)
+  void setData(string data)
   {
     data_ = data;
   }
 
-  std::string getData()
+  string getData()
   {
     return data_;
   }
