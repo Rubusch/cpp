@@ -56,7 +56,6 @@ public:
     cout << "OP: move constructor" << endl;
     if (this == &mve) return;
 
-    if (nullptr != pItem) delete pItem;
     pItem = mve.pItem;
     mve.pItem = nullptr;
 
