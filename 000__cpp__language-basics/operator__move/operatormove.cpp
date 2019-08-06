@@ -1,6 +1,11 @@
-// copy_constructor.cpp
+// operator move - no, actually the assignment move operator
 /*
-  demonstrates writing a move operator
+  move is called via std::move() or inside the stl for certain operations,
+  e.g. swap, it improves performance, and when using the STL might be applied
+  implicitely also in older codes by recompilation
+
+  the following demonstrates writing a move operator and how the content of
+  objects should behave
 //*/
 
 #include <iostream>
