@@ -1,6 +1,13 @@
 /*
  rule of big five
 
+ 1/5 copy assingment constructor
+ 2/5 copy move constructor
+ 3/5 assignment operator
+ 4/5 assignment move operator
+ 5/5 destructor
+
+
  in context of move and copy constructors:
  - a copy constructor creates a deep copy of an object with out changing the object's content
  - a move constructor creates a deep copy of an object, allowing to change even the object itself (rhs)
@@ -12,6 +19,8 @@
  caution:
  use of moved objects after the move can implicitely be dangerous,
  but is guaranteed for the STL and should always be implemented as best practice
+
+ @author: lothar Rubusch
  */
 
 #include <iostream>
@@ -63,6 +72,7 @@ public:
   {
     cout << "CALLED: destructor (5/5)" << endl;
     if (pItem) delete pItem;
+    pItem = nullptr;
   }
 
   // assignment operator
