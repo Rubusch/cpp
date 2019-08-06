@@ -27,7 +27,7 @@
   - value semantics (public copy constructor and assignment operator)
   - seamless comparisons by defining operator< and operator=="
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 
   Typeid works only when using virtual functions in such a case. This and some other issues
   are reasons to avoid using typeid rather in C++.

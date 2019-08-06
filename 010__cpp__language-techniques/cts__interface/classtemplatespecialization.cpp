@@ -18,7 +18,7 @@
   abilities only for the function parameters - not for the return value or for internally
   used types."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 
   The example:
 

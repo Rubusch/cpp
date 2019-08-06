@@ -15,7 +15,7 @@ satisfied:
 compile-time constant
 - you need to do this dispatch at compile time."
 
-Taken from "Modern C++ Design", Alexandrescu
+resources: Modern C++ Design, Alexandrescu
 //*/
 
 

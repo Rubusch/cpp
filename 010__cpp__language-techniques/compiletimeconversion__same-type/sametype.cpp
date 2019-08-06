@@ -2,7 +2,7 @@
 /*
   Check if a conversion is possible because it's the same type.
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

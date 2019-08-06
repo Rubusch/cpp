@@ -8,7 +8,7 @@
   The policies must stand in front of the UserClass in this case. It is not
   possible to replace them here using forward declarations.
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

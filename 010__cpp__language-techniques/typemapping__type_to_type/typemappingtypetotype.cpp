@@ -23,7 +23,7 @@ code."
     return new T(arg);
   };
 
-Taken from "Modern C++ Design", Alexandrescu
+resources: Modern C++ Design, Alexandrescu
 
 THIS IMPLEMENTATION WORKS OUT, BUT DOESN'T USE THE CODE - EXPLANATION MISSING
 //*/

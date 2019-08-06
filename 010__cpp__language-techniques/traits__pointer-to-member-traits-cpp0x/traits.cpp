@@ -10,7 +10,7 @@
   "Detection of pointers to members is a bit different [than detection
   of a pointer type]. The specialization needed is as follows."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 
 
   The following definitions should explain the algorithm a little:

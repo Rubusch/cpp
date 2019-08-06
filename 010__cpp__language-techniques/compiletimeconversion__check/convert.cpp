@@ -20,7 +20,7 @@ the two overloads to return types of different sizes, and then we discriminate
 with sizeof. The types themselves do not matter, as long as they have different
 sizes."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

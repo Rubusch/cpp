@@ -3,7 +3,7 @@
   "Everything related to Typelist, except the definition
   of Typelist itself, lives in the TL namespace."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

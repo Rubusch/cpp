@@ -18,7 +18,7 @@
   For example, the following code determines whether a type T is a
   pointer."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

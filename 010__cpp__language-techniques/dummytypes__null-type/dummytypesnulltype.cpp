@@ -5,7 +5,7 @@
   "You usually don't create objects of type NullType - its only use is to indicate
   'I am not an interesting type.'"
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

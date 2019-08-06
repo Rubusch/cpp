@@ -13,7 +13,7 @@
   I could enter a similar situation, though, using the static_cast or typedef. Since I'd
   like to stay in C++, though, I use here the static_cast() for the example.
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

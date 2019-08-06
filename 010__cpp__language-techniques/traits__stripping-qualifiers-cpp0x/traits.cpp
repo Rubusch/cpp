@@ -17,7 +17,7 @@
   (not constant or variable!!). These issue is a little tricky since it's not
   related directly to varables or instances.
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

@@ -8,7 +8,7 @@
   You can use this insipid type as a default ('don't care') type for
   a template."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

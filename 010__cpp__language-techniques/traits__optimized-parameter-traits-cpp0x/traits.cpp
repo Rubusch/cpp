@@ -19,7 +19,7 @@
 
   "Unfortunately, this scheme fails to pass enumerated types (enums) by value."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

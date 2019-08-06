@@ -10,7 +10,7 @@
   Annotation: in the book the makro tries to create an array unnamed[1] or unnamed[0] -
   this doesn't have the desired effekt using g++ 4.3.2, thus I changed the '0' to '-1'
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

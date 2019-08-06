@@ -24,7 +24,7 @@
 
   Local Classes do have a unique feature, though: They are final."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

@@ -9,7 +9,7 @@
   error messages portably. Error messages have no rules that they must obey; it's all up
   to the compiler."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 

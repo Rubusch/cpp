@@ -12,7 +12,7 @@
     typename. Furthermore a declaration of a "class" is allowed to be done using
     the keyword "struct" and vice versa.
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 
 
   A policy consists in:

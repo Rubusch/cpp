@@ -51,7 +51,7 @@
   level hurts efficiency at upper levels, where we store Chunk objects in a
   vector.
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 
   "(...) You will note that it works best for single alloation of a fixed size
   (for allocation of different sizes, they actually create different internal

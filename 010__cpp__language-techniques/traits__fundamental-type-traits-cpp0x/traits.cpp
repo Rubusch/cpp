@@ -7,7 +7,7 @@
   This makes the resulting code cleaner, more readable, and easier to
   maintain."
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 
   Implementation of type traits for fundamental types, like int,
   double, char, etc..

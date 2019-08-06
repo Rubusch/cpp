@@ -20,7 +20,7 @@
   On g++ the message is: "error: invalid application of ‘sizeof’ to a function type". Hence
   no improvement!! =/
 
-  Taken from "Modern C++ Design", Alexandrescu
+  resources: Modern C++ Design, Alexandrescu
 //*/
 
 
