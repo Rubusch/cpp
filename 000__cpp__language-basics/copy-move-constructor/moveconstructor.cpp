@@ -1,10 +1,6 @@
 // copy_constructor.cpp
 /*
-  demonstrates a copy constructor - cpy ctor
-
-  Use the copy constructor especially for classes with dynamically allocated memory!
-
-  (11/Meyers)
+  demonstrates a copy move constructor
 //*/
 
 #include <iostream>
@@ -25,15 +21,15 @@ public:
     pItem = item;
   }
 
-  // copy constructor
+  // copy move constructor
   //
   // The copy constructor is a special function:
   // Doesn't matter if these were declared "private" or "protected" - the access within
   // the copy constructor works like a friend declared function!! Everything's "public"
   // here!
-  Box(const Box& box)
+  Box(const Box&& box)
   {
-    cout << "CALLED: copy assignment constructor" << endl;
+    cout << "CALLED: copy move constructor" << endl;
 
     if (this == &box) return;
 
