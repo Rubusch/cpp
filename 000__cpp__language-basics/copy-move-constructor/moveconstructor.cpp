@@ -27,19 +27,18 @@ public:
   // Doesn't matter if these were declared "private" or "protected" - the access within
   // the copy constructor works like a friend declared function!! Everything's "public"
   // here!
-  Box(const Box&& box)
+  Box(Box&& box) noexcept
   {
     cout << "CALLED: copy move constructor" << endl;
 
-    if (this == &box) return;
+    if (this == &box) return; // actually interesting in case of move...
 
-    // deep copy!
+    // deep move (reference)!
     //
-    // this has to be another allocation!
-    // if it was just a reference to the orig element, calling 'delete' in on of both
-    // objects on 'pItem' will result in unallocated memory in the other object for
-    // 'pItem'
-    pItem = new string(*box.pItem);
+    // the move passes the content to the receiving object, the moved one may lose its
+    // contents or allocations entirely (needs care of explicit implementation)
+    pItem = box.pItem;
+    box.pItem = nullptr;
   }
 
   // destructor
@@ -73,9 +72,12 @@ int main(void)
   cout << "Address of box.pItem: \t\t\t" << box.getItem() << " <-- identical with pointee" << endl;
   cout << endl;
 
-  Box bigbox(box);
+  Box bigbox = std::move(box);
   cout << "Address of bigbox: \t\t\t" << &bigbox << endl;
-  cout << "Address of bigbox.pItem: \t\t" << bigbox.getItem() << " <-- different" << endl;
+  cout << "Address of bigbox.pItem: \t\t" << bigbox.getItem() << " <-- also identical (moved content)" << endl;
+  cout << endl;
+
+  cout << "Address of box.pItem: \t\t\t" << box.getItem() << " <-- original reset to 'nullptr'" << endl;
   cout << endl;
 
   cout << "READY." << endl;

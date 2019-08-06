@@ -24,6 +24,7 @@ jobs:
       - run: cd 000__cpp__language-basics/const_basics && make && ./*.exe
       - run: cd 000__cpp__language-basics/const_cast && make && ./*.exe
       - run: cd 000__cpp__language-basics/copy-assignment-constructor && make && ./*.exe
+      - run: cd 000__cpp__language-basics/copy-move-constructor && make && ./*.exe
       - run: cd 000__cpp__language-basics/exception1 && make && ./*.exe
       - run: cd 000__cpp__language-basics/exception2 && make && ./*.exe
       - run: cd 000__cpp__language-basics/exception3 && make && ./*.exe
