@@ -1,6 +1,29 @@
 // lambda.cpp
 /*
   demonstrates lambdas (>=cpp11)
+
+  syntax variants:
+  [capture] (params) mutable exception attribute -> ret { body }
+  [capture] (params) -> ret { body }
+  [capture] (params) { body }
+  [capture] { body }
+
+  where:
+  mutable = allows the body to modify copied params and to call their non-const member functions
+  exception = exception specification, or noexcept
+  attribute = attribute specificatio for the closure type
+
+  capture = which symbols are captured and thus visible for the lambda body
+  e.g.
+    [a,&b]   a as by value copy, b as reference
+    [this]   this pointer as a by value copy
+    [&]      all symbols available in function scope as reference
+    [=]      all symbols available in function scoe as a copy
+    []       nothing captured
+
+  params = list of parameters
+  ret = return type, defaults to "void"
+
 //*/
 
 #include <iostream>
