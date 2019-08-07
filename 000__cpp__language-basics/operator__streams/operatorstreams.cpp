@@ -9,7 +9,7 @@
   - only global functions allow implicit typeconversion of the left argument
   - all other functions have to be element functions
 
-  (Effective C++ / 19 / Meyers)
+  resource: Effective C++ / 19 / Meyers
 
 
   interesting:
@@ -17,8 +17,6 @@
   another second destructor call happens. The problem is, that a first call to the dtor is able to
   delete the pointer pData, but is not able to set it to NULL. Hence a second call tries to delete this
   already deleted pData pointer which is NOT NULL at that point! -> double free situation.
-
-  It only reads in the first word!
 //*/
 
 
