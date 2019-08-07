@@ -73,6 +73,7 @@ jobs:
       - run: cd 000__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes__scope && make && ./*.exe
+      - run: cd 000__cpp__language-basics/lambda && make && ./*.exe
 
 
 ## 10: language-techniques
