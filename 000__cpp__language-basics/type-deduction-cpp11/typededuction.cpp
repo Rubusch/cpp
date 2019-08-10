@@ -40,7 +40,7 @@ void funcReference(T& param)
 template< typename T >
 void funcPointer(T* param)
 {
-  cout << "\t -> funcPointer< ";
+  cout << "\t -> funcPointer<  ";
   isConst(param);
   cout << "  >";
 }
@@ -48,7 +48,7 @@ void funcPointer(T* param)
 template< typename T >
 void funcByValue(T param)
 {
-  cout << "\t -> funcByValue< ";
+  cout << "\t -> funcByValue<  ";
   isConst(param);
   cout << "  >";
 }
@@ -56,7 +56,7 @@ void funcByValue(T param)
 template< typename T >
 void funcUniversalReference(T&& param)
 {
-  cout << "\t -> funcUniversalReference< ";
+  cout << "\t -> funcUniversalReference<  ";
   isConst(param);
   cout << "  >";
 }
@@ -75,17 +75,17 @@ int main(void)
   cout << "Reference:" << endl;
 
   cout << "int x = 27;\t";
-  funcReference<int>(x); // reference: deduced int -> int&
+  funcReference(x); // reference: deduced int -> int&
   cout << "(x);";
   cout << endl;
 
   cout << "const int cx = x;";
-  funcReference<const int>(cx); // reference: deduced const int -> const int&
+  funcReference(cx); // reference: deduced const int -> const int&
   cout << "(cx);";
   cout << endl;
 
   cout << "const int& rx = x;";
-  funcReference<const int>(rx); // reference: deduced const int& -> const int&
+  funcReference(rx); // reference: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
@@ -95,17 +95,17 @@ int main(void)
   cout << "Pointer:" << endl;
 
   cout << "int x = 27;\t";
-  funcPointer<int>(&x); // pointer: deduced int -> int*
+  funcPointer(&x); // pointer: deduced int -> int*
   cout << "(&x);";
   cout << endl;
 
   cout << "const int cx = x;";
-  funcPointer<const int>(&cx); // pointer: deduced const int -> const int*
+  funcPointer(&cx); // pointer: deduced const int -> const int*
   cout << "(&cx);";
   cout << endl;
 
   cout << "const int& rx = x;";
-  funcPointer<const int>(&rx); // pointer: deduced const int& -> const int*
+  funcPointer(&rx); // pointer: deduced const int& -> const int*
   cout << "(&rx);";
   cout << endl;
 
@@ -115,34 +115,50 @@ int main(void)
   cout << "byValue:" << endl;
 
   cout << "int x = 27;\t";
-  funcByValue<int>(x); // byValue: deduced int -> int&
+  funcByValue(x); // byValue: deduced int -> int&
   cout << "(x);";
   cout << endl;
 
   cout << "const int cx = x;";
-  funcByValue<const int>(cx); // byValue: deduced const int -> const int&
+  funcByValue(cx); // byValue: deduced const int -> const int&
   cout << "(cx);";
   cout << endl;
 
   cout << "const int& rx = x;";
-  funcByValue<const int>(rx); // byValue: deduced const int& -> const int&
+  funcByValue(rx); // byValue: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
   cout << endl;
 
-/*
-  cout << "int x = 27; funcPlain(x)" << endl;
-  funcPlain<int>(x);
-  cout << "const int cx = x; funcPlain(cx)" << endl;
-  funcPlain<int>(cx);
-  cout << "const int& rx = x; funcPlain(rx)" << endl;
-  funcPlain<int>(rx);
 
-  funcReference<int>(x);
-  funcReference<int>(cx);
-  funcReference<int>(rx);
-// */
+  cout << "universalreference:" << endl;
+
+  cout << "int x = 27;\t";
+  funcUniversalReference(x); // universa lreference: deduced int -> int&
+  cout << "(x);";
+  cout << endl;
+
+  cout << "const int cx = x;";
+  funcUniversalReference(cx); // universal reference: deduced const int -> const int&
+  cout << "(cx);";
+  cout << endl;
+
+  cout << "const int& rx = x;";
+  funcUniversalReference(rx); // universal reference: deduced const int& -> const int&
+  cout << "(rx);";
+  cout << endl;
+
+  cout << endl;
+
+
+  // special cases:
+  cout << "special case: funcUniversalReference(13);";
+  funcUniversalReference(13); // universal reference: deduced const int& -> const int&
+  cout << "(rx);";
+  cout << endl;
+
+  cout << endl;
 
   cout << "READY." << endl;
 }
