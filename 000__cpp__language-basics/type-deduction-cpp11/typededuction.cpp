@@ -56,6 +56,16 @@ int main(void)
   funcPlain<int>(cx);
   funcPlain<int>(rx);
 
+/*
+  funcPointer<int>(x);
+  funcPointer<int>(cx);
+  funcPointer<int>(rx);
+
+  funcReference<int>(x);
+  funcReference<int>(cx);
+  funcReference<int>(rx);
+// */
+
   cout << "READY." << endl;
 }
 // TODO
