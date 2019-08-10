@@ -69,6 +69,8 @@ int main(void)
   const int cx = x;
   const int& rx = x;
 
+  cout << "template type deduction" << endl;
+
 
   // NOTE: template type here can be 'int&' or 'int' equally, the point is deduction forces
   // IMPORTANT: template type may be 'const int', but keep * or & as business of expr!
