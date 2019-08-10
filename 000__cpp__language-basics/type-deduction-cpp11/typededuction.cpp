@@ -1,5 +1,5 @@
 /*
-  C++11 - type deduction (Meyers / item 1)
+  C++11 - template type deduction (Meyers / item 1)
 
   template< typename T >
   void func(ParmType param);
@@ -7,7 +7,7 @@
   func(expr)
 
   ---
-  T        - template type
+  T         - template type
   ParamType - parameter type, basically the template type with certain adornments, e.g. const, reference, pointer, etc.
   expr      - expression type, the deducted type from the ParamType in the expression
 
@@ -21,24 +21,26 @@ using namespace std;
 
 
 // declaration
-template< typename T > void func(T);
-template< typename T > void func(T*);
-template< typename T > void func(T&);
+template< typename T > void funcPlain(T);
+template< typename T > void funcPointer(T*);
+template< typename T > void funcReference(T&);
 
 
 // definition
 template< typename T >
-void func(T param)
+void funcPlain(T param)
 {
   cout << "T: " << endl;
 }
 
-void func(T* param)
+template< typename T >
+void funcPointer(T* param)
 {
   cout << "T*: " << endl;
 }
 
-void func(T& param)
+template< typename T >
+void funcReference(T& param)
 {
   cout << "T&: " << endl;
 }
@@ -46,6 +48,11 @@ void func(T& param)
 
 int main(void)
 {
+  int x = 27;
+  const int cx = x;
+  const int& rx = x;
+
+  
 
   cout << "READY." << endl;
 }
