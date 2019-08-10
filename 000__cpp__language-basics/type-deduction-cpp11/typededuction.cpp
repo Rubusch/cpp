@@ -52,7 +52,9 @@ int main(void)
   const int cx = x;
   const int& rx = x;
 
-  
+  funcPlain<int>(x);
+  funcPlain<int>(cx);
+  funcPlain<int>(rx);
 
   cout << "READY." << endl;
 }
