@@ -46,9 +46,9 @@ void funcPointer(T* param)
 }
 
 template< typename T >
-void funcPlain(T param)
+void funcByValue(T param)
 {
-  cout << "\t -> funcPlain< ";
+  cout << "\t -> funcByValue< ";
   isConst(param);
   cout << "  >";
 }
@@ -70,49 +70,66 @@ int main(void)
   const int& rx = x;
 
 
-  // template type here can be 'int&' or 'int' equally, the point is deduction forces
+  // NOTE: template type here can be 'int&' or 'int' equally, the point is deduction forces
+  // IMPORTANT: template type may be 'const int', but keep * or & as business of expr!
+  cout << "Reference:" << endl;
 
-  // reference: int -> int&
   cout << "int x = 27;\t";
-  funcReference<int&>(x);
+  funcReference<int>(x); // reference: deduced int -> int&
   cout << "(x);";
   cout << endl;
 
-  // reference: const int -> const int&
   cout << "const int cx = x;";
-  funcReference<const int&>(cx);
+  funcReference<const int>(cx); // reference: deduced const int -> const int&
   cout << "(cx);";
   cout << endl;
 
-  // reference: const int& -> const int&
   cout << "const int& rx = x;";
-  funcReference<const int&>(rx);
+  funcReference<const int>(rx); // reference: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
   cout << endl;
 
 
-  // pointer: int -> int&
+  cout << "Pointer:" << endl;
+
   cout << "int x = 27;\t";
-  funcPointer<int>(&x);
+  funcPointer<int>(&x); // pointer: deduced int -> int*
+  cout << "(&x);";
+  cout << endl;
+
+  cout << "const int cx = x;";
+  funcPointer<const int>(&cx); // pointer: deduced const int -> const int*
+  cout << "(&cx);";
+  cout << endl;
+
+  cout << "const int& rx = x;";
+  funcPointer<const int>(&rx); // pointer: deduced const int& -> const int*
+  cout << "(&rx);";
+  cout << endl;
+
+  cout << endl;
+
+
+  cout << "byValue:" << endl;
+
+  cout << "int x = 27;\t";
+  funcByValue<int>(x); // byValue: deduced int -> int&
   cout << "(x);";
   cout << endl;
 
-  // pointer: const int -> const int&
   cout << "const int cx = x;";
-  funcPointer<const int>(&cx);
+  funcByValue<const int>(cx); // byValue: deduced const int -> const int&
   cout << "(cx);";
   cout << endl;
 
-  // pointer: const int& -> const int&
   cout << "const int& rx = x;";
-  funcPointer<const int>(&rx);
+  funcByValue<const int>(rx); // byValue: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
   cout << endl;
-
 
 /*
   cout << "int x = 27; funcPlain(x)" << endl;
