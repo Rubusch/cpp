@@ -25,6 +25,7 @@ void isConst(const int& arg) { cout << "const int&"; }
 void isConst(int& arg) { cout << "int&"; }
 void isConst(const int* arg) { cout << "const int*"; }
 void isConst(int* arg) { cout << "int*"; }
+void isConst(int&& arg) { cout << "int&&"; }
 
 
 // definition
@@ -92,14 +93,28 @@ int main(void)
   cout << endl;
 
 
-/*
-  cout << "int x = 27; funcPointer(x)" << endl;
-  funcPointer(&x);
-  cout << "const int cx = x; funcPointer(cx)" << endl;
-  funcPointer(&cx);
-  cout << "const int& rx = x; funcPointer(rx)" << endl;
-  funcPointer(&rx);
+  // pointer: int -> int&
+  cout << "int x = 27;\t";
+  funcPointer<int>(&x);
+  cout << "(x);";
+  cout << endl;
 
+  // pointer: const int -> const int&
+  cout << "const int cx = x;";
+  funcPointer<const int>(&cx);
+  cout << "(cx);";
+  cout << endl;
+
+  // pointer: const int& -> const int&
+  cout << "const int& rx = x;";
+  funcPointer<const int>(&rx);
+  cout << "(rx);";
+  cout << endl;
+
+  cout << endl;
+
+
+/*
   cout << "int x = 27; funcPlain(x)" << endl;
   funcPlain<int>(x);
   cout << "const int cx = x; funcPlain(cx)" << endl;
