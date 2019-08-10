@@ -24,26 +24,42 @@ using namespace std;
 template< typename T > void funcPlain(T);
 template< typename T > void funcPointer(T*);
 template< typename T > void funcReference(T&);
+template< typename T > void funcUniversalReference(T&&);
+
+
+void isConst(const int& arg) { cout << "const int&"; }
+void isConst(int& arg) { cout << "int&"; }
 
 
 // definition
 template< typename T >
-void funcPlain(T param)
+void funcReference(T& param)
 {
-  cout << "T: " << endl;
+  cout << "\t -> funcReference< ";
+  isConst(param);
 }
 
 template< typename T >
 void funcPointer(T* param)
 {
-  cout << "T*: " << endl;
+  cout << "funcPointer(T*): ";
+  cout << endl << endl;
 }
 
 template< typename T >
-void funcReference(T& param)
+void funcPlain(T param)
 {
-  cout << "T&: " << endl;
+  cout << "funcPlain(T): " << typeid(param).name() << endl;
+  cout << endl;
 }
+
+template< typename T >
+void funcUniversalReference(T&& param)
+{
+  cout << "funcReference(T&): ";
+  cout << endl;
+}
+
 
 
 int main(void)
@@ -52,14 +68,40 @@ int main(void)
   const int cx = x;
   const int& rx = x;
 
-  funcPlain<int>(x);
-  funcPlain<int>(cx);
-  funcPlain<int>(rx);
+
+  // template type here can be 'int&' or 'int' equally, the point is deduction forces
+
+  // reference: int -> int&
+  cout << "int x = 27;\t";
+  funcReference<int&>(x);
+  cout << " >(x)" << endl;
+
+  // reference: const int -> const int&
+  cout << "const int cx = x;";
+  funcReference<const int&>(cx);
+  cout << " >(cx)" << endl;
+
+  // reference: const int& -> const int&
+  cout << "const int& rx = x;";
+  funcReference<const int&>(rx);
+  cout << " >(rx)" << endl;
+  cout << endl;
+
 
 /*
-  funcPointer<int>(x);
-  funcPointer<int>(cx);
-  funcPointer<int>(rx);
+  cout << "int x = 27; funcPointer(x)" << endl;
+  funcPointer(&x);
+  cout << "const int cx = x; funcPointer(cx)" << endl;
+  funcPointer(&cx);
+  cout << "const int& rx = x; funcPointer(rx)" << endl;
+  funcPointer(&rx);
+
+  cout << "int x = 27; funcPlain(x)" << endl;
+  funcPlain<int>(x);
+  cout << "const int cx = x; funcPlain(cx)" << endl;
+  funcPlain<int>(cx);
+  cout << "const int& rx = x; funcPlain(rx)" << endl;
+  funcPlain<int>(rx);
 
   funcReference<int>(x);
   funcReference<int>(cx);

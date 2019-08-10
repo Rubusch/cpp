@@ -5,10 +5,8 @@ OBJECTS	= ${SOURCE:.c=.o}
 
 .PREFIXES	= .c .o
 CC		= g++
-CPPFLAGS	= -g -Wall -Werror
+CPPFLAGS	= -g -Wall -Werror -std=c++11
 RM		= rm -f
-MV		= mv -f
-CP		= cp -f
 
 .c.o:
 	${CC} ${CPPFLAGS} -c $<
