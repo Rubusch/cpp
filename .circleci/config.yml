@@ -75,6 +75,7 @@ jobs:
       - run: cd 000__cpp__language-basics/returntypes && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes__scope && make && ./*.exe
       - run: cd 000__cpp__language-basics/lambda && make && ./*.exe
+      - run: cd 000__cpp__language-basics/type-deduction-cpp11 && make && ./*.exe
 
 
 ## 10: language-techniques
