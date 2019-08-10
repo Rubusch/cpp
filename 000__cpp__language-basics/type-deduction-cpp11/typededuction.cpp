@@ -20,44 +20,44 @@
 using namespace std;
 
 
-// declaration
-template< typename T > void funcPlain(T);
-template< typename T > void funcPointer(T*);
-template< typename T > void funcReference(T&);
-template< typename T > void funcUniversalReference(T&&);
-
-
+// type investigation via polymorphic
 void isConst(const int& arg) { cout << "const int&"; }
 void isConst(int& arg) { cout << "int&"; }
+void isConst(const int* arg) { cout << "const int*"; }
+void isConst(int* arg) { cout << "int*"; }
 
 
 // definition
 template< typename T >
 void funcReference(T& param)
 {
-  cout << "\t -> funcReference< ";
+  cout << "\t -> funcReference<  ";
   isConst(param);
+  cout << "  >";
 }
 
 template< typename T >
 void funcPointer(T* param)
 {
-  cout << "funcPointer(T*): ";
-  cout << endl << endl;
+  cout << "\t -> funcPointer< ";
+  isConst(param);
+  cout << "  >";
 }
 
 template< typename T >
 void funcPlain(T param)
 {
-  cout << "funcPlain(T): " << typeid(param).name() << endl;
-  cout << endl;
+  cout << "\t -> funcPlain< ";
+  isConst(param);
+  cout << "  >";
 }
 
 template< typename T >
 void funcUniversalReference(T&& param)
 {
-  cout << "funcReference(T&): ";
-  cout << endl;
+  cout << "\t -> funcUniversalReference< ";
+  isConst(param);
+  cout << "  >";
 }
 
 
@@ -74,17 +74,21 @@ int main(void)
   // reference: int -> int&
   cout << "int x = 27;\t";
   funcReference<int&>(x);
-  cout << " >(x)" << endl;
+  cout << "(x);";
+  cout << endl;
 
   // reference: const int -> const int&
   cout << "const int cx = x;";
   funcReference<const int&>(cx);
-  cout << " >(cx)" << endl;
+  cout << "(cx);";
+  cout << endl;
 
   // reference: const int& -> const int&
   cout << "const int& rx = x;";
   funcReference<const int&>(rx);
-  cout << " >(rx)" << endl;
+  cout << "(rx);";
+  cout << endl;
+
   cout << endl;
 
 
