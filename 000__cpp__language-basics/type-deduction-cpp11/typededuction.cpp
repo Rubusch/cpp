@@ -15,4 +15,38 @@
   resources: Effective Modern C++, Scott Meyers, 2015
  */
 
+#include <iostream>
+
+using namespace std;
+
+
+// declaration
+template< typename T > void func(T);
+template< typename T > void func(T*);
+template< typename T > void func(T&);
+
+
+// definition
+template< typename T >
+void func(T param)
+{
+  cout << "T: " << endl;
+}
+
+void func(T* param)
+{
+  cout << "T*: " << endl;
+}
+
+void func(T& param)
+{
+  cout << "T&: " << endl;
+}
+
+
+int main(void)
+{
+
+  cout << "READY." << endl;
+}
 // TODO
