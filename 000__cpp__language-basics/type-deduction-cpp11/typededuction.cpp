@@ -134,7 +134,7 @@ int main(void)
   cout << endl;
 
 
-  cout << "universalreference:" << endl;
+  cout << "Universal Reference:" << endl;
 
   cout << "int x = 27;\t";
   funcUniversalReference(x); // universa lreference: deduced int -> int&
@@ -155,12 +155,13 @@ int main(void)
 
 
   // special cases:
-  cout << "special case: funcUniversalReference(13);";
+  cout << "Special Case: funcUniversalReference(13);";
   funcUniversalReference(13); // universal reference: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
   cout << endl;
+
 
   cout << "READY." << endl;
 }
