@@ -38,14 +38,77 @@
  */
 
 #include <iostream>
+#include <type_traits>  /* is_const:: */
+
+#include <memory>
+#include <utility> /* forward() */
 
 using namespace std;
+
+/*
+// final cpp14 version
+template< typename Con, typename Idx >
+decltype(auto)
+authAndAccess(Con&& con, Idx idx)
+{
+  cout << "authAndAccess()" << endl;
+  return std::forward< Con >(con)[idx];
+}
+// */
+
+class Box
+{
+  public:
+  Box() { cout << "CALLED: ctor of Box" << endl; }
+};
+
+
+
+
+// final cpp11 version
+template< typename Con, typename Idx >
+auto
+authAndAccess(Con&& con, Idx idx)
+  -> decltype(std::forward< Con >(con)[idx])
+{
+  cout << "authAndAccess()" << endl;
+  return std::forward< Con >(con)[idx];
+}
 
 
 int main(void)
 {
   // TODO
+  Box box;
+  int index=0;
 
+  auto obj = authAndAccess(box, index);
+/*
+  if (std::is_const< decltype(obj) >::value) {
+    cout << "const" << endl;
+  } else {
+    cout << "not const" << endl;
+  }
+  cout << endl;
+
+// small changes and effects in cpp11
+decltype(auto) f1()
+{
+  int x=0;
+// ...
+  return x; // decltype(x) is int
+}
+
+
+decltype(auto) f1()
+{
+  int x=0;
+// ...
+  return (x); // decltype(x) is int&
+}
+
+
+// */
   cout << "READY." << endl;
 }
 
