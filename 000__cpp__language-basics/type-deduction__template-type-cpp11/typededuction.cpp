@@ -171,7 +171,7 @@ int main(void)
   // special cases:
   cout << "Special Case: funcUniversalReference(13);";
   funcUniversalReference(13); // universal reference: deduced const int& -> const int&
-  cout << "(rx);";
+  cout << "(rx); [actually: int&&]";
   cout << endl;
 
   cout << endl;
@@ -180,20 +180,22 @@ int main(void)
   cout << "case 3: ParamType is neither a pointer nor a reference - pass by value" << endl;
 
   cout << "byValue:" << endl;
+  // pass by value means basically we are working on a copy, so if then the original
+  // was const or not, is irrelevant when dealing with its copy
 
   cout << "int x = 27;\t";
   funcByValue(x); // byValue: deduced int -> int&
-  cout << "(x);";
+  cout << "(x); [actually: int]";
   cout << endl;
 
   cout << "const int cx = x;";
   funcByValue(cx); // byValue: deduced const int -> const int&
-  cout << "(cx);";
+  cout << "(cx); [actually: int]";
   cout << endl;
 
   cout << "const int& rx = x;";
   funcByValue(rx); // byValue: deduced const int& -> const int&
-  cout << "(rx);";
+  cout << "(rx); [actually: int]";
   cout << endl;
 
   cout << endl;
@@ -201,4 +203,4 @@ int main(void)
 
   cout << "READY." << endl;
 }
-// TODO
+
