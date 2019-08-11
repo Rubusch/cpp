@@ -83,11 +83,12 @@ int main(void)
   vector< Box > vec; // the container
   vec.push_back(box);
 
+  // case 1:
   // 'decltype' passes type of Container<Item> throuth to auto
   // auto for the return value thus is possible
   auto obj = authAndAccess(vec, index);
 
-  // usage of 'decltype(variable)' for traits
+  // case 2: usage of 'decltype(variable)' for traits
   cout << "'obj' is ";
   if (std::is_const< decltype(obj) >::value) {
     cout << "const -> original" << endl;
@@ -97,22 +98,22 @@ int main(void)
   cout << endl;
 
 /*
-// small changes and effects in cpp11
-decltype(auto) f1()
-{
-  int x=0;
-// ...
-  return x; // decltype(x) is int
-}
+  // case 3:
+  // small changes and effects in cpp11
+  decltype(auto) f1()
+  {
+    int x=0;
+    // ...
+    return x; // decltype(x) is int
+  }
 
 
-decltype(auto) f1()
-{
-  int x=0;
-// ...
-  return (x); // decltype(x) is int&
-}
-
+  decltype(auto) f1()
+  {
+    int x=0;
+    // ...
+    return (x); // decltype(x) is int&
+  }
 
 // */
   cout << "READY." << endl;
