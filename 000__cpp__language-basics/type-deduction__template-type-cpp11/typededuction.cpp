@@ -38,6 +38,15 @@ void funcReference(T& param)
 }
 
 template< typename T >
+void funcConstReference(const T& param)
+{
+  cout << "\t -> funcReference<  ";
+  isConst(param);
+  cout << "  >";
+}
+
+
+template< typename T >
 void funcPointer(T* param)
 {
   cout << "\t -> funcPointer<  ";
@@ -73,6 +82,8 @@ int main(void)
   cout << endl;
 
 
+// case 1: ParamType is a pointer or a reference type, but not a universal reference
+
   // NOTE: template type here can be 'int&' or 'int' equally, the point is deduction forces
   // IMPORTANT: template type may be 'const int', but keep * or & as business of expr!
   cout << "Reference:" << endl;
@@ -89,6 +100,26 @@ int main(void)
 
   cout << "const int& rx = x;";
   funcReference(rx); // reference: deduced const int& -> const int&
+  cout << "(rx);";
+  cout << endl;
+
+  cout << endl;
+
+
+  cout << "Const Reference:" << endl;
+
+  cout << "int x = 27;\t";
+  funcConstReference(x); // constreference: deduced int -> int&
+  cout << "(x);";
+  cout << endl;
+
+  cout << "const int cx = x;";
+  funcConstReference(cx); // constreference: deduced const int -> const int&
+  cout << "(cx);";
+  cout << endl;
+
+  cout << "const int& rx = x;";
+  funcConstReference(rx); // constreference: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
@@ -115,25 +146,7 @@ int main(void)
   cout << endl;
 
 
-  cout << "byValue:" << endl;
-
-  cout << "int x = 27;\t";
-  funcByValue(x); // byValue: deduced int -> int&
-  cout << "(x);";
-  cout << endl;
-
-  cout << "const int cx = x;";
-  funcByValue(cx); // byValue: deduced const int -> const int&
-  cout << "(cx);";
-  cout << endl;
-
-  cout << "const int& rx = x;";
-  funcByValue(rx); // byValue: deduced const int& -> const int&
-  cout << "(rx);";
-  cout << endl;
-
-  cout << endl;
-
+// case 2: ParamType is a universal reference
 
   cout << "Universal Reference:" << endl;
 
@@ -158,6 +171,28 @@ int main(void)
   // special cases:
   cout << "Special Case: funcUniversalReference(13);";
   funcUniversalReference(13); // universal reference: deduced const int& -> const int&
+  cout << "(rx);";
+  cout << endl;
+
+  cout << endl;
+
+
+// case 3: ParamType is neither a pointer nor a reference - pass by value
+
+  cout << "byValue:" << endl;
+
+  cout << "int x = 27;\t";
+  funcByValue(x); // byValue: deduced int -> int&
+  cout << "(x);";
+  cout << endl;
+
+  cout << "const int cx = x;";
+  funcByValue(cx); // byValue: deduced const int -> const int&
+  cout << "(cx);";
+  cout << endl;
+
+  cout << "const int& rx = x;";
+  funcByValue(rx); // byValue: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
