@@ -22,6 +22,19 @@
   expr      - expression type, the deducted type from the ParamType in the
               expression
 
+  auto type deduction is usually the same as template type deduction,
+  exception in cpp11:
+
+  auto x1 = 13;       // template type deduction
+  auto x2(13);        // template type deduction
+  auto x3 = { 13 };   // calls std::initializer_list< int >
+  auto x4{ 13 };      // calls std::initializer_list< int >
+
+  x3 and x4 will have issues when passing an array, since
+  std::initializer_list< int > won't be able to deal with arrays, this is fixed
+  though in cpp14 and all four cases of initialization use template type
+  deduction
+
 
   conclusion:
 
