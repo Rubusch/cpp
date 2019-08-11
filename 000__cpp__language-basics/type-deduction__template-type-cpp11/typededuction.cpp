@@ -82,7 +82,7 @@ int main(void)
   cout << endl;
 
 
-// case 1: ParamType is a pointer or a reference type, but not a universal reference
+  cout << "case 1: ParamType is a pointer or a reference type, but not a universal reference" << endl;
 
   // NOTE: template type here can be 'int&' or 'int' equally, the point is deduction forces
   // IMPORTANT: template type may be 'const int', but keep * or & as business of expr!
@@ -146,7 +146,7 @@ int main(void)
   cout << endl;
 
 
-// case 2: ParamType is a universal reference
+  cout << "case 2: ParamType is a universal reference" << endl;
 
   cout << "Universal Reference:" << endl;
 
@@ -177,7 +177,7 @@ int main(void)
   cout << endl;
 
 
-// case 3: ParamType is neither a pointer nor a reference - pass by value
+  cout << "case 3: ParamType is neither a pointer nor a reference - pass by value" << endl;
 
   cout << "byValue:" << endl;
 
