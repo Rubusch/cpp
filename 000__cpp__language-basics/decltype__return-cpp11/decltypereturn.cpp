@@ -75,12 +75,40 @@ authAndAccess(Con&& con, Idx idx)
 }
 // */
 
+
+// case 3:
+// small changes and effects in cpp11
+decltype(auto) f1()
+{
+  int x=0;
+  // ...
+  return x; // decltype(x) is int
+}
+
+
+decltype(auto) f2()
+{
+  int x=0;
+  // ...
+  return (x); // decltype(x) is int& - a very bad idea hera to return a function item by reference
+}
+
+// type investigation via polymorphism
+void isConst(const int& arg) { cout << "const int&"; }
+void isConst(int& arg) { cout << "int&"; }
+void isConst(const int* arg) { cout << "const int*"; }
+void isConst(int* arg) { cout << "int*"; }
+void isConst(int&& arg) { cout << "int&&"; }
+
+
 int main(void)
 {
   // TODO
   Box box;
   int index=0;
-  vector< Box > vec; // the container
+
+  // this has to be a container type, e.g. vector
+  vector< Box > vec;
   vec.push_back(box);
 
   // case 1:
@@ -97,25 +125,15 @@ int main(void)
   }
   cout << endl;
 
-/*
-  // case 3:
-  // small changes and effects in cpp11
-  decltype(auto) f1()
-  {
-    int x=0;
-    // ...
-    return x; // decltype(x) is int
-  }
+  auto x = f1();
+  cout << "auto x";
+  isConst(x);
+
+  auto y = f2();
+  cout << "auto y";
+  isConst(y);
 
 
-  decltype(auto) f1()
-  {
-    int x=0;
-    // ...
-    return (x); // decltype(x) is int&
-  }
-
-// */
   cout << "READY." << endl;
 }
 

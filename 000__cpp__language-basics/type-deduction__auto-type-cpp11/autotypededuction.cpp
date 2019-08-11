@@ -54,7 +54,7 @@
 using namespace std;
 
 
-// type investigation via polymorphic
+// type investigation via polymorphism
 void isConst(const int& arg) { cout << "const int&"; }
 void isConst(int& arg) { cout << "int&"; }
 void isConst(const int* arg) { cout << "const int*"; }
