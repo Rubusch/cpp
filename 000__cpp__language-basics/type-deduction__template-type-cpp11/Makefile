@@ -17,6 +17,6 @@ typededuction.exe: ${OBJECTS}
 all: typededuction.exe
 
 clean:
-	-${RM} typededuction.exe *.o core
+	-${RM} typededuction.exe *.o core *~
 
 .PHONY: clean
