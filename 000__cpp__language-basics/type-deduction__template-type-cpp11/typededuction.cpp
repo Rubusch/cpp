@@ -70,6 +70,13 @@ void funcUniversalReference(T&& param)
   cout << "  >";
 }
 
+// return the array size of a passe-by-value passed array
+template< typename T, std::size_t N >
+constexpr std::size_t arraySize(T (&)[N]) noexcept
+{
+  return N;
+}
+
 
 
 int main(void)
@@ -200,6 +207,20 @@ int main(void)
 
   cout << endl;
 
+
+  cout << "Special case: array arguments" << endl;
+
+  const int arr[] = { 1, 2, 3 };
+
+  cout << "const int arr[] = { 1, 2, 3 };";
+  funcByValue(arr); // byValue: deduced const int& -> const int&
+  cout << "(rx); [but actually: the array was 'T (&)[N]']";
+  cout << endl;
+
+  // the difficulty is to figure out a function to determine the correct size of the array
+  cout << "const int arr[]: arraySize() - ";
+  cout << arraySize(arr);
+  cout << endl;
 
   cout << "READY." << endl;
 }
