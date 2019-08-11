@@ -40,12 +40,21 @@
 #include <iostream>
 #include <type_traits>  /* is_const:: */
 
+#include <vector> /* vector */
+
 #include <memory>
 #include <utility> /* forward() */
 
 using namespace std;
 
-/*
+
+class Box
+{
+  public:
+  Box() { cout << "CALLED: ctor of Box" << endl; }
+};
+
+//*
 // final cpp14 version
 template< typename Con, typename Idx >
 decltype(auto)
@@ -54,17 +63,7 @@ authAndAccess(Con&& con, Idx idx)
   cout << "authAndAccess()" << endl;
   return std::forward< Con >(con)[idx];
 }
-// */
-
-class Box
-{
-  public:
-  Box() { cout << "CALLED: ctor of Box" << endl; }
-};
-
-
-
-
+/*/
 // final cpp11 version
 template< typename Con, typename Idx >
 auto
@@ -74,23 +73,30 @@ authAndAccess(Con&& con, Idx idx)
   cout << "authAndAccess()" << endl;
   return std::forward< Con >(con)[idx];
 }
-
+// */
 
 int main(void)
 {
   // TODO
   Box box;
   int index=0;
+  vector< Box > vec; // the container
+  vec.push_back(box);
 
-  auto obj = authAndAccess(box, index);
-/*
+  // 'decltype' passes type of Container<Item> throuth to auto
+  // auto for the return value thus is possible
+  auto obj = authAndAccess(vec, index);
+
+  // usage of 'decltype(variable)' for traits
+  cout << "'obj' is ";
   if (std::is_const< decltype(obj) >::value) {
-    cout << "const" << endl;
+    cout << "const -> original" << endl;
   } else {
-    cout << "not const" << endl;
+    cout << "not const -> moved original" << endl;
   }
   cout << endl;
 
+/*
 // small changes and effects in cpp11
 decltype(auto) f1()
 {
