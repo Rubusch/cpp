@@ -5,14 +5,14 @@ OBJECTS	= ${SOURCE:.c=.o}
 
 .PREFIXES	= .c .o
 CC		= g++
-CPPFLAGS	= -g -Wall -Werror -std=c++14
+CPPFLAGS	= -g -Wall -Wno-unknown-pragmas -Werror -std=c++14
 RM		= rm -f
 
 .c.o:
 	${CC} ${CPPFLAGS} -c $<
 
 decltypereturn.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+	${CC} -o $@ ${OBJECTS} -lm
 
 all: decltypereturn.exe
 

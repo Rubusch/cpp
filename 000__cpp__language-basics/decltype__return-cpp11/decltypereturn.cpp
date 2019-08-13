@@ -85,13 +85,16 @@ decltype(auto) f1()
   return x; // decltype(x) is int
 }
 
-
+#pragma GCC diagnostic push
+#pragma GCC ignored "-Wreturn-local-addr"
 decltype(auto) f2()
 {
   int x=0;
   // ...
   return (x); // decltype(x) is int& - a very bad idea hera to return a function item by reference
 }
+#pragma GCC diagnostic pop
+
 
 // type investigation via polymorphism
 void isConst(const int& arg) { cout << "const int&"; }
@@ -125,6 +128,7 @@ int main(void)
   }
   cout << endl;
 
+
   auto x = f1();
   cout << "auto x";
   isConst(x);
@@ -132,7 +136,6 @@ int main(void)
   auto y = f2();
   cout << "auto y";
   isConst(y);
-
 
   cout << "READY." << endl;
 }
