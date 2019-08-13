@@ -81,6 +81,7 @@ authAndAccess(Con&& con, Idx idx)
 decltype(auto) f1()
 {
   int x=0;
+  cout << "f1 - addr(x) :'" << &x << "'" << endl;
   // ...
   return x; // decltype(x) is int
 }
@@ -88,22 +89,14 @@ decltype(auto) f1()
 decltype(auto) f2()
 {
   int x=0;
+  cout << "f2 - addr(x) :'" << &x << "'" << endl;
   // ...
   return (x); // decltype(x) is int& - a very bad idea hera to return a function item by reference
 }
 
 
-// type investigation via polymorphism
-void isConst(const int& arg) { cout << "const int&"; }
-void isConst(int& arg) { cout << "int&"; }
-void isConst(const int* arg) { cout << "const int*"; }
-void isConst(int* arg) { cout << "int*"; }
-void isConst(int&& arg) { cout << "int&&"; }
-
-
 int main(void)
 {
-  // TODO
   Box box;
   int index=0;
 
@@ -127,12 +120,16 @@ int main(void)
 
 
   auto x = f1();
-  cout << "auto x";
-  isConst(x);
+  cout << "auto x: '" << &x << "'" << endl;
+  cout << endl;
 
-  auto y = f2();
-  cout << "auto y";
-  isConst(y);
+  // real: ends with SEGFAULT
+//  auto y = f2();
+//  cout << "auto y: '" << &y << "'" << endl;
+
+  // fake:
+  f2();
+  cout << "auto y: '" << "SEGMENTATION FAULT" << "', this address is not valid anymore and would thus cause a segmentation fault." << endl;
 
   cout << "READY." << endl;
 }

@@ -5,7 +5,7 @@ OBJECTS	= ${SOURCE:.c=.o}
 
 .PREFIXES	= .c .o
 CC		= g++
-CPPFLAGS	= -g -Wall -Wno-return-local-addr -Werror -std=c++14
+CPPFLAGS	= -g -Wall -Wno-return-local-addr -Wno-unused-variable -Werror -std=c++14
 RM		= rm -f
 
 .c.o:
