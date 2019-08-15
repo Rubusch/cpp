@@ -28,12 +28,34 @@
 using namespace std;
 
 
+// type investigation via polymorphic
+void isConst(const int& arg) { cout << "const int&"; }
+void isConst(int& arg) { cout << "int&"; }
+void isConst(const int* arg) { cout << "const int*"; }
+void isConst(int* arg) { cout << "int*"; }
+void isConst(int&& arg) { cout << "int&&"; }
+
+
+
 int main(void)
 {
 // adornments need still to be set
   auto x = 27;
   const auto cx = x;
   const auto& rx = x;
+
+  cout << "x: ";
+  isConst(x);
+  cout << endl;
+
+  cout << "cx: ";
+  isConst(cx);
+  cout << endl;
+
+  cout << "rx: ";
+  isConst(rx);
+  cout << endl;
+
 
   // TODO
 
