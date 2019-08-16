@@ -55,15 +55,11 @@ int main(void)
   isConst(rx);
   cout << endl;
 
-  // problem1: undesired fallbacks
-
-  // problem2: proxy classes with hidden types
+  // problem: exact type unknown, auto identifies
   vector<int> vec;
   auto size = vec.size();
   cout << "vec.size() returned 'vector<int>::size_type' and not 'int' or 'unsigned': " << endl;
   isConst(size);
-
-  // TODO
 
   cout << "READY." << endl;
 }
