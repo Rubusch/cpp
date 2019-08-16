@@ -29,11 +29,8 @@ using namespace std;
 
 
 // type investigation via polymorphic
-void isConst(const int& arg) { cout << "const int&"; }
-void isConst(int& arg) { cout << "int&"; }
-void isConst(const int* arg) { cout << "const int*"; }
-void isConst(int* arg) { cout << "int*"; }
-void isConst(int&& arg) { cout << "int&&"; }
+void isConst(const int& arg) { cout << " -> const int" << endl; }
+void isConst(int& arg) { cout << " -> int" << endl; }
 
 
 
@@ -41,22 +38,23 @@ int main(void)
 {
 // adornments need still to be set
   auto x = 27;
-  const auto cx = x;
-  const auto& rx = x;
-
-  cout << "x: ";
+  cout << "auto x = 27;" << endl;
   isConst(x);
   cout << endl;
 
-  cout << "cx: ";
+  const auto cx = x;
+  cout << "const auto cx = x;" << endl;
   isConst(cx);
   cout << endl;
 
-  cout << "rx: ";
+  const auto& rx = x;
+  cout << "const auto& rx = x;" << endl;
   isConst(rx);
   cout << endl;
 
+  // problem1: undesired fallbacks
 
+  // problem2: proxy classes with hidden types
   // TODO
 
   cout << "READY." << endl;
