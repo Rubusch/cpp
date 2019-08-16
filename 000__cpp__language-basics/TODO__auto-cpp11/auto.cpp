@@ -24,6 +24,7 @@
  */
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -31,6 +32,8 @@ using namespace std;
 // type investigation via polymorphic
 void isConst(const int& arg) { cout << " -> const int" << endl; }
 void isConst(int& arg) { cout << " -> int" << endl; }
+void isConst(unsigned& arg) { cout << " -> unsigned" << endl; }
+void isConst(vector<int>::size_type& arg) { cout << " -> vector<int>::size_type" << endl; }
 
 
 
@@ -55,6 +58,11 @@ int main(void)
   // problem1: undesired fallbacks
 
   // problem2: proxy classes with hidden types
+  vector<int> vec;
+  auto size = vec.size();
+  cout << "vec.size() returned 'vector<int>::size_type' and not 'int' or 'unsigned': " << endl;
+  isConst(size);
+
   // TODO
 
   cout << "READY." << endl;
