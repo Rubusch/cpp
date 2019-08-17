@@ -80,6 +80,7 @@ jobs:
       - run: cd 000__cpp__language-basics/decltype__return-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/auto__implicit-type-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/auto__explicit-type-cpp11 && make && ./*.exe
+      - run: cd 000__cpp__language-basics/initializer__braces-parentheses-cpp11 && make && ./*.exe
 
 
 ## 10: language-techniques
