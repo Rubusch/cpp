@@ -36,6 +36,34 @@
 using namespace std;
 
 
+// C++11 solution
+template<typename T>
+constexpr typename std::underlying_type<T>::type toUType(T enumerator) noexcept
+{
+  return static_cast<typename std::underlying_type<T>::type>(enumerator);
+}
+// */
+
+/*
+// C++14, the '_t' aliases are available
+template<typename T>
+constexpr std::underlying_type_t<T> toUType(T enumerator) noexcept
+{
+  return static_cast<std::underlying_type_t<T> >(enumerator);
+}
+// */
+
+/*
+// C++14, improved
+template<typename T>
+constexpr auto
+toUType(T enumerator) noexcept
+{
+  return static_cast<std::underlying_type_t<T> >(enumerator);
+}
+// */
+
+
 int main(void)
 {
 /*
@@ -63,7 +91,21 @@ int main(void)
   };
 
 
-// TODO userinfo and typed example
+// userinfo and typed example
+  using UserInfo = std::tuple<std::string, std::string, std::size_t>;
+/*
+  enum UserInfoFields { uiName, uiEmail, uiReputation };
+  UserInfo uInfo;
+//  auto val = std::get<uiEmail>(uInfo); // uses implicit conversion, may work
+/*/
+  enum class UserInfoFields { uiName, uiEmail, uiReputation };
+  UserInfo uInfo;
+//  auto val = std::get<static_cast<std::size_t>(UserInfoFields::uiEmail)>(uInfo); // not nice, using static_cast here
+// */
+
+  // generic access
+  auto val = std::get<toUType(UserInfoFields::uiEmail)>(uInfo);
+
 
   cout << "READY." << endl;
 }
