@@ -23,13 +23,27 @@
  */
 
 #include <iostream>
+#include <memory>
+#include <unordered_map>
 
 using namespace std;
 
 
 int main(void)
 {
+  using UPtrMapSS = std::unique_ptr< std::unordered_map< std::string, std::string> >;
+
+
+/*
+  typedef void (*FP)(int, const std::string&);
+/*/
+  using FP = void (*)(int, const std::string&);
+// */
+
+//  remove_const
+  
 // TODO
+  
 
   cout << "READY." << endl;
 }

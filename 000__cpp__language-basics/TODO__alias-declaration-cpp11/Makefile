@@ -5,7 +5,7 @@ OBJECTS	= ${SOURCE:.c=.o}
 
 .PREFIXES	= .c .o
 CC		= g++
-CPPFLAGS	= -g -Wall -Werror
+CPPFLAGS	= -g -Wall -Werror -Wno-unused-local-typedefs
 RM		= rm -f
 
 .c.o:
