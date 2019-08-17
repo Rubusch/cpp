@@ -1,5 +1,5 @@
 /*
-  C++11 - prefer auto to explicit type declarations (Meyers / item 7)
+  C++11 - distinguish between () and {} (Meyers / item 7)
 
   ---
 
