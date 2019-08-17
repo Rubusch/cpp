@@ -82,7 +82,8 @@ jobs:
       - run: cd 000__cpp__language-basics/auto__explicit-type-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/initializer__braces-parentheses-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/nullptr-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/TODO__alias-declaration-cpp11 && make && ./*.exe
+      - run: cd 000__cpp__language-basics/alias-declaration-cpp11 && make && ./*.exe
+
 
 ## 10: language-techniques
       - run: cd 010__cpp__language-techniques/allocator_for_small_objects && make && ./*.exe
