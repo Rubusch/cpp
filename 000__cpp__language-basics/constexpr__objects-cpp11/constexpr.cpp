@@ -63,13 +63,6 @@ int main(void)
 
   // CONCLUSION:
   // - all constexpr objects are const, but not all const objects are constexpr
-  //
-  // - constexpr functions can be used in contexts that demand compile-time
-  //   constants
-  //
-  // - when a constexpr function is called with one or more values that are not
-  //   known during compilation, it acts like a normal function, computing its
-  //   result at runtime
 
 
   cout << "READY." << endl;
