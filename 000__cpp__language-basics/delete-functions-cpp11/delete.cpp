@@ -51,6 +51,7 @@ public:
 };
 
 
+// deleting other functions possible, too
 class Box
 {
 public:
@@ -74,10 +75,11 @@ public:
   //void processPointer<void>(void*) = delete;
 };
 
+
+// deleted functions may be implemented in derrived classes, though!!!
 class DerrivedBox : public Box
 {
 public:
-  // derrived classes MAY implement the prohibited functions, though
   void processPointer(char* arg){ cout << "CALLED: processPointer(char*)" << endl; }
 };
 
@@ -85,8 +87,8 @@ public:
 
 int main(void)
 {
+  // derrived class implements deleted function in base
   char* pch = nullptr;
-
   DerrivedBox db;
   db.processPointer(pch);
 
