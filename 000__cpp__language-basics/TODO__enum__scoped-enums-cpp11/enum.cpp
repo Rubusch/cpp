@@ -32,11 +32,12 @@
  */
 
 #include <iostream>
+#include <tuple>
 
 using namespace std;
 
-
-// C++11 solution
+/*
+// C++11 solution, generic access C++11 (1/2)
 template<typename T>
 constexpr typename std::underlying_type<T>::type toUType(T enumerator) noexcept
 {
@@ -44,8 +45,8 @@ constexpr typename std::underlying_type<T>::type toUType(T enumerator) noexcept
 }
 // */
 
-/*
-// C++14, the '_t' aliases are available
+//*
+// C++14, the '_t' aliases are available, generic access C++14 (1/2)
 template<typename T>
 constexpr std::underlying_type_t<T> toUType(T enumerator) noexcept
 {
@@ -54,7 +55,7 @@ constexpr std::underlying_type_t<T> toUType(T enumerator) noexcept
 // */
 
 /*
-// C++14, improved
+// C++14 improved, generic access C++14 (1/2)
 template<typename T>
 constexpr auto
 toUType(T enumerator) noexcept
@@ -62,6 +63,7 @@ toUType(T enumerator) noexcept
   return static_cast<std::underlying_type_t<T> >(enumerator);
 }
 // */
+
 
 
 int main(void)
@@ -91,20 +93,36 @@ int main(void)
   };
 
 
-// userinfo and typed example
+  // userinfo and typed example
+
+  // alias for complex enum type
   using UserInfo = std::tuple<std::string, std::string, std::size_t>;
-/*
-  enum UserInfoFields { uiName, uiEmail, uiReputation };
-  UserInfo uInfo;
-//  auto val = std::get<uiEmail>(uInfo); // uses implicit conversion, may work
-/*/
+
+
+  // implementation: enums
+  cout << "enum (C++98): " << endl;
+  enum UserInfoFieldsClassic { uiName, uiEmail, uiReputation };
+  UserInfo uInfoClassic;
+  auto valEnum = std::get<uiEmail>(uInfoClassic); // uses implicit conversion, may work
+  cout << "valEnum: '" << valEnum << "' [classic enum, fetchable, no value set]" << endl;
+  cout << endl;
+
+
+  // implementation: enum class
+  cout << "enum class (C++11): " << endl;
   enum class UserInfoFields { uiName, uiEmail, uiReputation };
   UserInfo uInfo;
-//  auto val = std::get<static_cast<std::size_t>(UserInfoFields::uiEmail)>(uInfo); // not nice, using static_cast here
-// */
+  auto valEnumClass = std::get<static_cast<std::size_t>(UserInfoFields::uiEmail)>(uInfo); // not nice, using static_cast here
+  cout << "valEnumClass: '" << valEnumClass << "' [complex type, but can be fetched]" << endl;
+  cout << endl;
 
-  // generic access
-  auto val = std::get<toUType(UserInfoFields::uiEmail)>(uInfo);
+
+  // generic access C++11 (2/2)
+  // implementation: enum class and several access possibilities, see above
+  cout << "enum class, generic access" << endl;
+  auto valEnumClassGeneric = std::get< toUType(UserInfoFields::uiEmail) >(uInfo);
+  cout << "valEnumClassGeneric: '" << valEnumClassGeneric << "' [complex type, but can be fetched]" << endl;
+  cout << endl;
 
 
   cout << "READY." << endl;
