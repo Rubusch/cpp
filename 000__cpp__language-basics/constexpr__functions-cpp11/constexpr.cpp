@@ -61,7 +61,7 @@ constexpr int pow(int base, int exp) noexcept
 
 int main(void)
 {
-  // demostrates constexpr objects
+  // demostrates constexpr functions
 
 
   // shifting the computation of the power of 'base' to compile time
