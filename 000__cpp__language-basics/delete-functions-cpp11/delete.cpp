@@ -33,6 +33,8 @@ public:
     // ...
 
 private:
+  // prohibited, but can still be used in 'friend' declared functions,
+  // or implemented here
   Classic(const Classic&); // not defined
   Classic& operator=(const Classic&); // not defined
 };
@@ -43,6 +45,7 @@ template <class charT, class traits = char_traits<charT> >
 class Modern : public ios_base
 {
 public:
+  // deleted functions are also prohibited for 'friend' functions
   Modern(const Modern& ) = delete;
   Modern& operator=(const Modern&) = delete;
 };
@@ -61,12 +64,31 @@ public:
   bool isLucky(char) = delete;
   bool isLucky(bool) = delete;
   bool isLucky(double) = delete;
+
+  // when prohibiting e.g. 'char*' you need to prohibit 'void*', too
+  void processPointer(char*) = delete;
+  void processPointer(void*) = delete;
+
+  // in case for template functions, syntax is as follows
+  //template<>
+  //void processPointer<void>(void*) = delete;
 };
+
+class DerrivedBox : public Box
+{
+public:
+  // derrived classes MAY implement the prohibited functions, though
+  void processPointer(char* arg){ cout << "CALLED: processPointer(char*)" << endl; }
+};
+
 
 
 int main(void)
 {
-// TODO
+  char* pch = nullptr;
+
+  DerrivedBox db;
+  db.processPointer(pch);
 
   cout << "READY." << endl;
 }
