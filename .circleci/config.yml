@@ -84,6 +84,7 @@ jobs:
       - run: cd 000__cpp__language-basics/nullptr-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/alias-declaration-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/enum__scoped-enums-cpp11 && make && ./*.exe
+      - run: cd 000__cpp__language-basics/delete-functions-cpp11 && make && ./*.exe
 
 
 ## 10: language-techniques
