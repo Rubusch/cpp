@@ -87,6 +87,7 @@ jobs:
       - run: cd 000__cpp__language-basics/delete-functions-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/constexpr__objects-cpp11 && make && ./*.exe
       - run: cd 000__cpp__language-basics/constexpr__functions-cpp11 && make && ./*.exe
+      - run: cd 000__cpp__language-basics/constexpr__class-cpp11 && make && ./*.exe
 
 
 ## 10: language-techniques
