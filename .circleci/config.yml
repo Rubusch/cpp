@@ -324,3 +324,4 @@ jobs:
       - run: cd 040__cpp__language-cpp14/lambda-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/rule_of_big_five-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/rule_of_big_zero-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/override && make && ./*.exe
