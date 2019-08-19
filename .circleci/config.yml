@@ -322,5 +322,5 @@ jobs:
       - run: cd 040__cpp__language-cpp14/constexpr__functions-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/constexpr__class-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/lambda-cpp11 && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/rule_of_big_five && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/rule_of_big_zero && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/rule_of_big_five-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/rule_of_big_zero-cpp11 && make && ./*.exe
