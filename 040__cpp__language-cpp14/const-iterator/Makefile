@@ -1,5 +1,5 @@
 # Makefile for C++ Class
-SOURCE	= const-iterator.cpp
+SOURCE	= constiterator.cpp
 #HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
 
@@ -11,12 +11,12 @@ RM		= rm -f
 .c.o:
 	${CC} ${CPPFLAGS} -c $<
 
-const-iterator.exe: ${OBJECTS}
+constiterator.exe: ${OBJECTS}
 	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
 
-all: const-iterator.exe
+all: constiterator.exe
 
 clean:
-	-${RM} const-iterator.exe *.o core *~
+	-${RM} constiterator.exe *.o core *~
 
 .PHONY: clean
