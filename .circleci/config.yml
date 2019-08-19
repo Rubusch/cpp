@@ -56,8 +56,6 @@ jobs:
       - run: cd 000__cpp__language-basics/pointer6 && make && ./*.exe || echo "OK"
       - run: cd 000__cpp__language-basics/pointer7 && make && ./*.exe
       - run: cd 000__cpp__language-basics/rule_of_big_three && make && ./*.exe
-      - run: cd 000__cpp__language-basics/rule_of_big_five && make && ./*.exe
-      - run: cd 000__cpp__language-basics/rule_of_big_zero && make && ./*.exe
       - run: cd 000__cpp__language-basics/slicing_problem && make && ./*.exe
       - run: cd 000__cpp__language-basics/template__class && make && ./*.exe
       - run: cd 000__cpp__language-basics/template__function && make && ./*.exe
@@ -74,20 +72,6 @@ jobs:
       - run: cd 000__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes__scope && make && ./*.exe
-      - run: cd 000__cpp__language-basics/lambda && make && ./*.exe
-      - run: cd 000__cpp__language-basics/type-deduction__auto-type-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/type-deduction__template-type-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/decltype__return-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/auto__implicit-type-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/auto__explicit-type-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/initializer__braces-parentheses-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/nullptr-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/alias-declaration-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/enum__scoped-enums-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/delete-functions-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/constexpr__objects-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/constexpr__functions-cpp11 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/constexpr__class-cpp11 && make && ./*.exe
 
 
 ## 10: language-techniques
@@ -324,3 +308,19 @@ jobs:
       - run: cd 040__cpp__language-cpp14/N3323__Tweak_to_certain_CPP_contextual_conversions && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/N3760__deprecated_attribute && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/N3638__Return_type_deduction_for_functions && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/type-deduction__auto-type-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/type-deduction__template-type-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/decltype__return-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/auto__implicit-type-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/auto__explicit-type-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/initializer__braces-parentheses-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/nullptr-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/alias-declaration-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/enum__scoped-enums-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/delete-functions-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/constexpr__objects-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/constexpr__functions-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/constexpr__class-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/lambda-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/rule_of_big_five && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/rule_of_big_zero && make && ./*.exe
