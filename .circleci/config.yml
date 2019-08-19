@@ -15,63 +15,63 @@ jobs:
       - run: date
 
 ## 000: language-basics
-      - run: cd 000__cpp__language-basics/abstract_class && make && ./*.exe
-      - run: cd 000__cpp__language-basics/ambiguous_names && make && ./*.exe
-      - run: cd 000__cpp__language-basics/arrays-and-assert && make && ./*.exe || echo "Ok"
-      - run: cd 000__cpp__language-basics/callback_version && make && ./*.exe
-      - run: cd 000__cpp__language-basics/callback_plain && make && ./*.exe
-      - run: cd 000__cpp__language-basics/class && g++ -m32 -S -fno-dwarf2-cfi-asm ./simpleclass.cpp && nl simpleclass.s
-      - run: cd 000__cpp__language-basics/const_basics && make && ./*.exe
-      - run: cd 000__cpp__language-basics/const_cast && make && ./*.exe
-      - run: cd 000__cpp__language-basics/copy-assignment-constructor && make && ./*.exe
-      - run: cd 000__cpp__language-basics/copy-move-constructor && make && ./*.exe
-      - run: cd 000__cpp__language-basics/exception1 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/exception2 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/exception3 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/exception4 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/explicit_constructor && make && ./*.exe
-      - run: cd 000__cpp__language-basics/new-delete1 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/new-delete2 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/no_reference_on_locals && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__and && cat ./operatorand.cpp
-      - run: cd 000__cpp__language-basics/operator__assignment && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__comma && cat ./operatorcomma.cpp
-      - run: cd 000__cpp__language-basics/operator__equals && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__new-and-delete && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__new-and-delete-freelist && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__assignment-move && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__new-and-delete-memorypool && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__new-handler && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__or && cat operatoror.cpp
-      - run: cd 000__cpp__language-basics/operator__parentheses && cat operatorparentheses.txt
-      - run: cd 000__cpp__language-basics/operator__streams && make && ./*.exe
-      - run: cd 000__cpp__language-basics/operator__subscript && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pass_by_what && make && ./*.exe
-      - run: cd 000__cpp__language-basics/passing_function_parameter && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pointer1 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pointer2 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pointer3 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pointer4 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pointer5 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/pointer6 && make && ./*.exe || echo "OK"
-      - run: cd 000__cpp__language-basics/pointer7 && make && ./*.exe
-      - run: cd 000__cpp__language-basics/rule_of_big_three && make && ./*.exe
-      - run: cd 000__cpp__language-basics/slicing_problem && make && ./*.exe
-      - run: cd 000__cpp__language-basics/template__class && make && ./*.exe
-      - run: cd 000__cpp__language-basics/template__function && make && ./*.exe
-      - run: cd 000__cpp__language-basics/template__simple && make && ./*.exe
-      - run: cd 000__cpp__language-basics/template__template-in-template-class && make && ./*.exe
-      - run: cd 000__cpp__language-basics/typeinfo__typeid && make && ./*.exe
-      - run: cd 000__cpp__language-basics/typeinfo__typeinfo-wrapper-cpp0x && make && ./*.exe
-      - run: cd 000__cpp__language-basics/typeinfo__typeof-cpp0x && make && ./*.exe
-      - run: cd 000__cpp__language-basics/userinput && make && ./*.exe
-      - run: cd 000__cpp__language-basics/virtual && make && ./*.exe
-      - run: cd 000__cpp__language-basics/virtual__missing-virtual && make && ./*.exe
-      - run: cd 000__cpp__language-basics/virtual__nonvirtual-inheritance && make && ./*.exe
-      - run: cd 000__cpp__language-basics/virtual__virtual-destructor && make && ./*.exe
-      - run: cd 000__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
-      - run: cd 000__cpp__language-basics/returntypes && make && ./*.exe
-      - run: cd 000__cpp__language-basics/returntypes__scope && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/abstract_class && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/ambiguous_names && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/arrays-and-assert && make && ./*.exe || echo "Ok"
+      - run: cd 000__cpp__language-basics-cpp0x/callback_version && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/callback_plain && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/class && g++ -m32 -S -fno-dwarf2-cfi-asm ./simpleclass.cpp && nl simpleclass.s
+      - run: cd 000__cpp__language-basics-cpp0x/const_basics && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/const_cast && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/copy-assignment-constructor && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/copy-move-constructor && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/exception1 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/exception2 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/exception3 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/exception4 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/explicit_constructor && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/new-delete1 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/new-delete2 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/no_reference_on_locals && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__and && cat ./operatorand.cpp
+      - run: cd 000__cpp__language-basics-cpp0x/operator__assignment && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__comma && cat ./operatorcomma.cpp
+      - run: cd 000__cpp__language-basics-cpp0x/operator__equals && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__new-and-delete && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__new-and-delete-freelist && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__assignment-move && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__new-and-delete-memorypool && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__new-handler && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__or && cat operatoror.cpp
+      - run: cd 000__cpp__language-basics-cpp0x/operator__parentheses && cat operatorparentheses.txt
+      - run: cd 000__cpp__language-basics-cpp0x/operator__streams && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/operator__subscript && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pass_by_what && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/passing_function_parameter && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pointer1 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pointer2 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pointer3 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pointer4 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pointer5 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/pointer6 && make && ./*.exe || echo "OK"
+      - run: cd 000__cpp__language-basics-cpp0x/pointer7 && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/rule_of_big_three && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/slicing_problem && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/template__class && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/template__function && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/template__simple && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/template__template-in-template-class && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/typeinfo__typeid && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/typeinfo__typeinfo-wrapper-cpp0x && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/typeinfo__typeof-cpp0x && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/userinput && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/virtual && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/virtual__missing-virtual && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/virtual__nonvirtual-inheritance && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/virtual__virtual-destructor && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/virtual__virtual-inheritance && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/returntypes && make && ./*.exe
+      - run: cd 000__cpp__language-basics-cpp0x/returntypes__scope && make && ./*.exe
 
 
 ## 10: language-techniques
