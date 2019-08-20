@@ -323,7 +323,7 @@ jobs:
       - run: cd 040__cpp__language-cpp14/constexpr__class && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/lambda && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/rule_of_big_five && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/rule_of_big_zero-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/rule_of_big_zero && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/function__override && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/const-iterator && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/function__final && make && ./*.exe
