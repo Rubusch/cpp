@@ -36,6 +36,9 @@ private:
   int value;
 
 public:
+  Box(vector<string>* item, int val) : pItem(item), value(val) {}
+
+  /* rule of big zero */
   Box() = default; // declare explicitely creation of default constructor
   Box(const Box&) = default;
   Box& operator=(const Box&) = default;
@@ -44,7 +47,8 @@ public:
   Box(Box&&) = default;
   Box& operator=(Box&&) = default;
 
-  Box(vector<string>* item, int val) : pItem(item), value(val) {}
+  ~Box() = default;
+
 
   const vector<string>& getItem()
   {
