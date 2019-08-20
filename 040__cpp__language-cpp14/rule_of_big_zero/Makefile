@@ -9,10 +9,10 @@ CPPFLAGS	= -g -Wall -Werror
 RM		= rm -f
 
 .c.o:
-	${CC} -c ${CPPFLAGS} $<
+	${CC} ${CPPFLAGS} -c $<
 
 ruleofbigzero.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
 
 all: ruleofbigzero.exe
 

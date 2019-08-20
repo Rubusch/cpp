@@ -10,6 +10,15 @@
 -> are resolved for stl methods by default implementation
 -> 0 of the above need to be implemented or all 5
 
+ move operations are generated for classes (when needed) only if these three
+ things are true:
+
+ - no copy operations are declared in the class
+
+ - no move operations are declared in the class
+
+ - no destructor is declared in the class
+
  @author: lothar Rubusch
  */
 
@@ -27,7 +36,12 @@ private:
   int value;
 
 public:
-  Box() = default;
+  Box() = default; // declare explicitely creation of default constructor
+  Box(const Box&) = default;
+  Box& operator=(const Box&) = default;
+  // move operator and move copy constructor are generated automatically if
+  // none of the other Big Five are explicitely implemented
+
   Box(vector<string>* item, int val) : pItem(item), value(val) {}
 
   const vector<string>& getItem()
