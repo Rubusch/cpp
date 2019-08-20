@@ -41,6 +41,8 @@ public:
   Box& operator=(const Box&) = default;
   // move operator and move copy constructor are generated automatically if
   // none of the other Big Five are explicitely implemented
+  Box(Box&&) = default;
+  Box& operator=(Box&&) = default;
 
   Box(vector<string>* item, int val) : pItem(item), value(val) {}
 
