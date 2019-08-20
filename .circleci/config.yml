@@ -313,7 +313,7 @@ jobs:
       - run: cd 040__cpp__language-cpp14/decltype__return && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/auto__implicit-type && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/auto__explicit-type && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/initializer__braces-parentheses-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/initializer__braces-parentheses && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/nullptr-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/alias-declaration && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/enum__scoped-enums && make && ./*.exe
