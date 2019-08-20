@@ -310,7 +310,7 @@ jobs:
       - run: cd 040__cpp__language-cpp14/XXX__notes/N3638__Return_type_deduction_for_functions && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/type-deduction__auto-type-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/type-deduction__template-type-cpp11 && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/decltype__return-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/decltype__return && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/auto__implicit-type && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/auto__explicit-type && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/initializer__braces-parentheses-cpp11 && make && ./*.exe
