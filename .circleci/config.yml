@@ -329,3 +329,5 @@ jobs:
       - run: cd 040__cpp__language-cpp14/function__final && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/const-iterator && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/function__noexcept && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/thread__mutex && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/thread && make && ./*.exe
