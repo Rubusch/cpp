@@ -318,8 +318,8 @@ jobs:
       - run: cd 040__cpp__language-cpp14/alias-declaration && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/enum__scoped-enums-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/function__delete && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/constexpr__objects-cpp11 && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/constexpr__functions-cpp11 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/constexpr__objects && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/constexpr__functions && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/constexpr__class && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/lambda-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/rule_of_big_five-cpp11 && make && ./*.exe
