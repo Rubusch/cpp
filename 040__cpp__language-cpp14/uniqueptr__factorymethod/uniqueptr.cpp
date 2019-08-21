@@ -73,21 +73,20 @@ auto delete_fruit = [](Fruit* pFruit)
 
 // revised return type, version with customized delete
 
-// C++11
-template< typename... Ts>
-unique_ptr< Fruit, decltype(delete_fruit) >
-makeJuice(Ts&&... params)
+// C++14: simple version (with still customized delete function)
+auto makeJuice()
 {
   // pointer to be returned
   unique_ptr< Fruit, decltype(delete_fruit) > pFruit(nullptr, delete_fruit);
 
   if (is_orange_juice) {
-    pFruit.reset(new Orange(std::forward< Ts >(params)...));
+    pFruit.reset(new Orange());
   } else {
-    pFruit.reset(new Lemon(std::forward< Ts >(params)...));
+    pFruit.reset(new Lemon());
   }
   return pFruit;
 }
+
 
 
 int main(void)
