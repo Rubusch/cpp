@@ -5,6 +5,22 @@
 
   demonstrates operations with 'std::shared_ptr'
 
+
+  conclusion:
+
+  - 'std::shared_ptr's offer convenience approaching that of garbage collection
+    for the shared lifetime management of arbitrary resources
+
+  - compared to 'std::unique_ptr', 'std::shared_ptr' objects are typically twice
+    as big, incur overhead for control blocks, and requre atomic reference count
+    manipulation
+
+  - default resource destruction is via 'delete', but custom deleters are
+    supported; the type of the deleter has no effect on the type of the
+    'std::shared_ptr'
+
+  - avoid creating 'std::shared_ptr's from variables of raw pointer type
+
   @author: lothar Rubusch
  */
 

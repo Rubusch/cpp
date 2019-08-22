@@ -3,7 +3,7 @@
 
   'std::shared_ptr' may transfer ownership to other smartpointers
 
-  Conclusion:
+  conclusion:
 
   - 'std::shared_ptr's offer convenience approaching that of garbage collection
     for the shared lifetime management of arbitrary resources
