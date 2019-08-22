@@ -335,3 +335,4 @@ jobs:
       - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/uniqueptr && make && ./*.exe
