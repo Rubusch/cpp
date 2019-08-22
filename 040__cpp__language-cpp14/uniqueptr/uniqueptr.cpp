@@ -15,12 +15,21 @@ using namespace std;
 class Box
 {
 private:
-  auto number_of_toys;
+  int number_of_toys;
 
 public:
   Box( int number) : number_of_toys(number)
   {
-    cout << "CALLED: Box()" << endl;
+    cout << "CALLED: Box(" << number << ")" << endl;
+  }
+  ~Box()
+  {
+    cout << "CALLED: ~Box()" << endl;
+  }
+
+  auto box_content() const
+  {
+    return number_of_toys;
   }
 };
 
@@ -28,7 +37,10 @@ public:
 
 int main(void)
 {
-// TODO
+  std::unique_ptr< Box > pBox( new Box(12) );
+
+  auto content = pBox->box_content();
+  cout << "The box contains " << content << " toys" << endl;
 
   cout << "READY." << endl;
 }
