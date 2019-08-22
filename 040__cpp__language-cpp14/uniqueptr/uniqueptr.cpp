@@ -44,9 +44,6 @@ int main(void)
   // creating a pointer and initialization
   std::unique_ptr< Box > pBox( new Box(12) );
 
-  // ERROR: not copyable
-//  std::unique_ptr< Box > pCopyBox = pBox;
-
   // creation of an empty pointer is possible
   std::unique_ptr< Box > pAnotherBox;
 
@@ -59,12 +56,31 @@ int main(void)
   auto content = pBox->box_content();
   cout << "the box contains " << content << " toys" << endl;
 
-  // reset a unique_ptr
-  pBox.reset();
+  // ERROR: not copyable
+//  std::unique_ptr< Box > pCopyBox = pBox;
 
+  // BUT: moveable
+  pAnotherBox = std::move(pBox);
+
+  // the moving pointer is now obsolete
   if (nullptr == pBox) {
     cout << "the box disappeared...." << endl;
   }
+  cout << "the moved box contains " << pAnotherBox->box_content() << " toys" << endl;
+
+  // reset a unique_ptr
+  cout << "trash the box" << endl;
+  pAnotherBox.reset();
+
+
+  // creating (must point to dynamic memory)..
+  auto val = 123;
+  cout << "create another pointer with " << val << endl;
+  std::unique_ptr< int > pInt( new int(val) );
+
+  // release the pointer to a raw pointer
+  auto *pVal = pInt.release();
+  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal << endl;
 
   cout << "READY." << endl;
 
