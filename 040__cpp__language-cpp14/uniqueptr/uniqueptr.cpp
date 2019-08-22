@@ -49,12 +49,12 @@ int main(void)
 
   // check if a pointer is empty
   if (!pAnotherBox) {
-    cout << "there is no other box" << endl;
+    cout << "there is no pAnotherBox content" << endl;
   }
 
   // check if a pointer is empty
   auto content = pBox->box_content();
-  cout << "the box contains " << content << " toys" << endl;
+  cout << "the pBox contains " << content << " toys" << endl;
 
   // ERROR: not copyable
 //  std::unique_ptr< Box > pCopyBox = pBox;
@@ -64,18 +64,17 @@ int main(void)
 
   // the moving pointer is now obsolete
   if (nullptr == pBox) {
-    cout << "the box disappeared...." << endl;
+    cout << "the pBox disappeared...." << endl;
   }
-  cout << "the moved box contains " << pAnotherBox->box_content() << " toys" << endl;
+  cout << "the moved pAnotherBox contains " << pAnotherBox->box_content() << " toys" << endl;
 
   // reset a unique_ptr
-  cout << "trash the box" << endl;
+  cout << "trash the pAnotherBox" << endl;
   pAnotherBox.reset();
-
 
   // creating (must point to dynamic memory)..
   auto val = 123;
-  cout << "create another pointer with " << val << endl;
+  cout << "create another pointer pInt with " << val << endl;
   std::unique_ptr< int > pInt( new int(val) );
 
   // release the pointer to a raw pointer
