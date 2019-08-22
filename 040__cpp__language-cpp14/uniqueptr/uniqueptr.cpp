@@ -82,6 +82,7 @@ int main(void)
   auto *pVal = pInt.release();
   cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal << endl;
 
+
   cout << "READY." << endl;
 
   return EXIT_SUCCESS;
