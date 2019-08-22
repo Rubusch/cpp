@@ -6,7 +6,7 @@
   demonstrates operations with 'std::shared_ptr'
 
 
-  conclusion:
+  CONCLUSION:
 
   - 'std::shared_ptr's offer convenience approaching that of garbage collection
     for the shared lifetime management of arbitrary resources
@@ -20,6 +20,8 @@
     'std::shared_ptr'
 
   - avoid creating 'std::shared_ptr's from variables of raw pointer type
+
+  resources: Effective Modern C++, Scott Meyers, 2015
 
   @author: lothar Rubusch
  */

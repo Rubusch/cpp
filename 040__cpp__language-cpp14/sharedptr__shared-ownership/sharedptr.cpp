@@ -3,7 +3,15 @@
 
   'std::shared_ptr' may transfer ownership to other smartpointers, uses refcnt
 
-  conclusion:
+
+  IMPORTANT:
+
+  - 'std::shared_ptr's are twice the size of a raw pointer!
+  - memory for the reference count must be dynamically allocated!
+  - increments and decrements of the reference count must be atomic!
+
+
+  CONCLUSION:
 
   - 'std::shared_ptr's offer convenience approaching that of garbage collection
     for the shared lifetime management of arbitrary resources
@@ -18,6 +26,8 @@
 
   - avoid creating 'std::shared_ptr's from variables of raw pointer type
 
+  resources: Effective Modern C++, Scott Meyers, 2015
+
   @author: lothar Rubusch
  */
 
@@ -29,7 +39,7 @@ using namespace std;
 
 int main(void)
 {
-// TODO
+// TODO use make_shared() // avoid allocation costs
 
   cout << "READY." << endl;
 
