@@ -1,7 +1,7 @@
 /*
   C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers / item 19)
 
-  'std::shared_ptr' may transfer ownership to other smartpointers
+  'std::shared_ptr' may transfer ownership to other smartpointers; uses refcnt
 
   demonstrates operations with 'std::shared_ptr'
 
