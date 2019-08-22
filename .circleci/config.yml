@@ -336,4 +336,5 @@ jobs:
       - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/uniqueptr && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/sharedptr && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/sharedptr && make && ./*.ex
+      - run: cd 040__cpp__language-cpp14/sharedptr__shared-ownership && make && ./*.exe
