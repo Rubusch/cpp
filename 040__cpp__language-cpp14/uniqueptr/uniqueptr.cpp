@@ -44,6 +44,9 @@ int main(void)
   // creating a pointer and initialization
   std::unique_ptr< Box > pBox( new Box(12) );
 
+  // ERROR: not copyable
+//  std::unique_ptr< Box > pCopyBox = pBox;
+
   // creation of an empty pointer is possible
   std::unique_ptr< Box > pAnotherBox;
 
