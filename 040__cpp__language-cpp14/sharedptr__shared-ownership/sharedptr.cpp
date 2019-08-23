@@ -50,7 +50,7 @@ public:
 int main(void)
 {
   // unique_ptr to shared_ptr
-  cout << "create unique_ptr pU" << endl;
+  cout << "create unique_ptr pLemon" << endl;
   std::unique_ptr< Lemon > pLemon(new Lemon());
   cout << "pLemon->juice(): " << pLemon->juice() << endl;
 
