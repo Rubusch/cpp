@@ -40,7 +40,7 @@ using namespace std;
 int main(void)
 {
   // unique_ptr to shared_ptr
-  cout << "create unique_ptr pU" << endl
+  cout << "create unique_ptr pU" << endl;
 //  std::unique_ptr< int > pU(// TODO;
 
 // TODO use make_shared() // avoid allocation costs
