@@ -54,11 +54,22 @@ int main(void)
   std::unique_ptr< Lemon > pLemon(new Lemon());
   cout << "pLemon->juice(): " << pLemon->juice() << endl;
 
+  std::shared_ptr< Lemon > pSharedLemon;
+  if (nullptr == pSharedLemon) {
+    cout << "pSharedLemon is null" << endl;
+  }
 
+  cout << "moving unique_ptr() to shared_ptr()" << endl;
+  pSharedLemon = std::move(pLemon);
+  cout << "pSharedLemon->juice(): " << pSharedLemon->juice() << endl;
 
-// TODO use make_shared() // avoid allocation costs
+  if (nullptr == pLemon) {
+    cout << "pLemon is now null" << endl;
+  }
 
   // ERROR! shared_ptr cannot be converted to unique_ptr
+//  std::unique_ptr< Lemon > pYetAnotherLemon;
+//  pYetAnotherLemon = std::move( pSharedLemon );
 
   cout << "READY." << endl;
 
