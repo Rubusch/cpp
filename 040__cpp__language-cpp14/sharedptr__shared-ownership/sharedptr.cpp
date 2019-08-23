@@ -39,7 +39,13 @@ using namespace std;
 
 int main(void)
 {
+  // unique_ptr to shared_ptr
+  cout << "create unique_ptr pU" << endl
+//  std::unique_ptr< int > pU(// TODO;
+
 // TODO use make_shared() // avoid allocation costs
+
+  // ERROR! shared_ptr cannot be converted to unique_ptr
 
   cout << "READY." << endl;
 
