@@ -36,12 +36,25 @@
 
 using namespace std;
 
+class Lemon
+{
+public:
+  Lemon() = default;
+  auto juice() const
+  {
+    return "Lemon Juice";
+  }
+};
+
 
 int main(void)
 {
   // unique_ptr to shared_ptr
   cout << "create unique_ptr pU" << endl;
-//  std::unique_ptr< int > pU(// TODO;
+  std::unique_ptr< Lemon > pLemon(new Lemon());
+  cout << "pLemon->juice(): " << pLemon->juice() << endl;
+
+
 
 // TODO use make_shared() // avoid allocation costs
 
