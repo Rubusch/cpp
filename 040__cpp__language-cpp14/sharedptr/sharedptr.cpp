@@ -99,7 +99,7 @@ int main(void)
   // creating (must point to dynamic memory)..
   auto val = 123;
   cout << "create another pointer pInt with " << val << endl;
-  std::shared_ptr< int > pInt( new int(val) );
+  std::shared_ptr< int > pInt = std::make_shared< int >( val );
 
   // get (shred_ptr) corresponds to release (unique_ptr)
   // pass the pointee to a raw pointer
