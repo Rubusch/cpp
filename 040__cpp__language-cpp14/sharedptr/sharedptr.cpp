@@ -21,6 +21,12 @@
 
   - avoid creating 'std::shared_ptr's from variables of raw pointer type
 
+  - 'std::shared_ptr' does not have an operator[] (C++11)
+
+  - a 'std::shared_ptr' to a raw array is almost always a sign of bad design
+
+  - never mix an array of 'std::shared_ptr's with raw pointers
+
   resources: Effective Modern C++, Scott Meyers, 2015
 
   @author: lothar Rubusch
