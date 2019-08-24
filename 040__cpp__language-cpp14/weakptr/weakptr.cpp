@@ -8,6 +8,9 @@
   - 'std::weak_ptr' can't be tested for nullness
   - 'std::weak_ptr' is an augmentation to 'std::shared_ptr' and not a standalone smartpointer
 
+  CONCLUSION
+  
+
   resource: Effective Modern C++, Scott Meyers, 2015
 
   'std::shared_ptr' is a typical implementation of 'std::weak_ptr'
@@ -21,6 +24,7 @@
 
 #include <iostream>
 #include <memory> /* weak_ptr */
+#include <exception> /* exception */
 
 using namespace std;
 
@@ -84,6 +88,18 @@ int main(void)
   // 'std::weak_ptr's that dangle are said to have 'expired'
   if (pAnotherBox.expired()) cout << "pAnotherBox has expired i.e. is a dangling pointer" << endl;
   cout << endl;
+
+
+  // 'std::weak_ptr's can be converted to 'std::shard_ptr's via constructor
+  // if the 'std::weak_ptr' is a dangling pointer, an exception is thrown
+  cout << "conversion to shared_ptr is possible, but may fail if weak_ptr is dangling" << endl;
+  try {
+    std::shared_ptr< Box > pConversionBox( pAnotherBox );
+  } catch (bad_weak_ptr &e) {
+    cout << "exception: " << e.what() << endl;
+  }
+  cout << endl;
+
 
   cout << "READY." << endl;
 
