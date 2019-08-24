@@ -53,50 +53,26 @@ int main(void)
   // creation of an empty pointer is possible
   cout << "create empty 'std::weak_ptr' pAnotherBox" << endl;
   std::weak_ptr< Box > pAnotherBox;
+  cout << endl;
 
   cout << "assign pBox to pAnotherBox" << endl;
   pAnotherBox = pBox;
 
+  // get content of weak pointer: lock() converts to shared_ptr
+  if (auto content = pAnotherBox.lock()) cout << "pAnotherBox contains " << content->box_content() << " toys" << endl;
+  else cout << "FAILED! pAnotherBox has no content" << endl;
+  cout << endl;
+
   // check if a pointer is empty
   cout << "now reset shared_ptr pBox" << endl;
   pBox.reset();
-  if (!pBox) cout << "WARNING: pBox has no content" << endl;
+  if (!pBox) cout << "pBox has no content" << endl;
   else  cout << "FAILED" << endl;
 
-/*
-  // check if a pointer is empty
-  auto content = pAnotherBox->box_content();
-  cout << "the pAnotherBox contains " << content << " toys" << endl;
-
-  // copyable
-  std::weak_ptr< Box > pCopyBox = pBox;
-  cout << "copy of pBox, pCopyBox: " << pCopyBox->box_content() << endl;
-
-  // BUT: moveable
-  pAnotherBox = std::move(pBox);
-
-  // the moving pointer is now obsolete
-  if (nullptr == pBox) {
-    cout << "the pBox disappeared...." << endl;
-  }
-  cout << "the moved pAnotherBox contains " << pAnotherBox->box_content() << " toys" << endl;
-
-  // reset a weak_ptr
-  cout << "trash the pAnotherBox" << endl;
-  pAnotherBox.reset();
-
-  // creating (must point to dynamic memory)..
-  auto val = 123;
-  cout << "create another pointer pInt with " << val << endl;
-  std::weak_ptr< int > pInt( new int(val) );
-
-  // release the pointer to a raw pointer
-// TODO dangling
-// TODO conversion to shared_ptr?
-
-//  auto *pVal = pInt.release();
-//  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal << endl;
-// */
+  // get content of weak pointer: lock() converts to shared_ptr
+  if (auto content = pAnotherBox.lock()) cout << "FAILED! pAnotherBox contains " << content->box_content() << " toys" << endl;
+  else cout << "pAnotherBox has no content" << endl;
+  cout << endl;
 
 
   cout << "READY." << endl;
