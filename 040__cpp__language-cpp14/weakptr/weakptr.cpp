@@ -2,8 +2,15 @@
   C++11 - use 'std::weak_ptr' for 'std::shared_ptr' like pointers that can dangle
   (Meyers / item 20)
 
+  // TODO
 
-  resources: Effective Modern C++, Scott Meyers, 2015
+  resource: Effective Modern C++, Scott Meyers, 2015
+
+  'std::shared_ptr' is a typical implementation of 'std::weak_ptr'
+  - a pointer to the control block; and
+  - the stored pointer of the shared_ptr it was constructed from
+
+  resource: cppreference.com
 
  @author: lothar Rubusch
  */
@@ -40,19 +47,26 @@ public:
 int main(void)
 {
   // creating a pointer and initialization
-  std::weak_ptr< Box > pBox( new Box(12) );
+  cout << "create 'std::shared_ptr' pBox" << endl;
+  std::shared_ptr< Box > pBox( new Box(12) );
 
   // creation of an empty pointer is possible
+  cout << "create empty 'std::weak_ptr' pAnotherBox" << endl;
   std::weak_ptr< Box > pAnotherBox;
 
-  // check if a pointer is empty
-  if (!pAnotherBox) {
-    cout << "there is no pAnotherBox content" << endl;
-  }
+  cout << "assign pBox to pAnotherBox" << endl;
+  pAnotherBox = pBox;
 
   // check if a pointer is empty
-  auto content = pBox->box_content();
-  cout << "the pBox contains " << content << " toys" << endl;
+  cout << "now reset shared_ptr pBox" << endl;
+  pBox.reset();
+  if (!pBox) cout << "WARNING: pBox has no content" << endl;
+  else  cout << "FAILED" << endl;
+
+/*
+  // check if a pointer is empty
+  auto content = pAnotherBox->box_content();
+  cout << "the pAnotherBox contains " << content << " toys" << endl;
 
   // copyable
   std::weak_ptr< Box > pCopyBox = pBox;
@@ -82,7 +96,7 @@ int main(void)
 
 //  auto *pVal = pInt.release();
 //  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal << endl;
-
+// */
 
 
   cout << "READY." << endl;
