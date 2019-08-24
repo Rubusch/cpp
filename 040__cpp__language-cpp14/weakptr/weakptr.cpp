@@ -9,7 +9,8 @@
   - 'std::weak_ptr' is an augmentation to 'std::shared_ptr' and not a standalone smartpointer
 
   CONCLUSION
-  
+  - use 'std::weak_ptr' for 'std::shared_ptr' like pointers that can dangle
+  - potential use cases for 'std::weak_ptr' include caching, observer lists, and the prevention of 'std::shared_ptr' cycles
 
   resource: Effective Modern C++, Scott Meyers, 2015
 
