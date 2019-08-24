@@ -59,6 +59,7 @@ int main(void)
   pAnotherBox = pBox;
 
   // get content of weak pointer: lock() converts to shared_ptr
+  // a 'std::weak_ptr' can dangle i.e. the returned pointer needs not to be valid!
   if (auto content = pAnotherBox.lock()) cout << "pAnotherBox contains " << content->box_content() << " toys" << endl;
   else cout << "FAILED! pAnotherBox has no content" << endl;
   cout << endl;
@@ -70,6 +71,7 @@ int main(void)
   else  cout << "FAILED" << endl;
 
   // get content of weak pointer: lock() converts to shared_ptr
+  // a 'std::weak_ptr' can dangle i.e. the returned pointer needs not to be valid!
   if (auto content = pAnotherBox.lock()) cout << "FAILED! pAnotherBox contains " << content->box_content() << " toys" << endl;
   else cout << "pAnotherBox has no content" << endl;
   cout << endl;
