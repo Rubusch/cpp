@@ -2,7 +2,11 @@
   C++11 - use 'std::weak_ptr' for 'std::shared_ptr' like pointers that can dangle
   (Meyers / item 20)
 
-  // TODO
+  NOTE
+  - 'std::weak_ptr' can dangle!
+  - 'std::weak_ptr' can't be dereferenced (conversion to a 'std::shared_ptr' via lock(), then dereference the 'std::shared_ptr')
+  - 'std::weak_ptr' can't be tested for nullness
+  - 'std::weak_ptr' is an augmentation to 'std::shared_ptr' and not a standalone smartpointer
 
   resource: Effective Modern C++, Scott Meyers, 2015
 
@@ -76,6 +80,10 @@ int main(void)
   else cout << "pAnotherBox has no content" << endl;
   cout << endl;
 
+
+  // 'std::weak_ptr's that dangle are said to have 'expired'
+  if (pAnotherBox.expired()) cout << "pAnotherBox has expired i.e. is a dangling pointer" << endl;
+  cout << endl;
 
   cout << "READY." << endl;
 
