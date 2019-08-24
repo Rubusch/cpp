@@ -339,3 +339,4 @@ jobs:
       - run: cd 040__cpp__language-cpp14/sharedptr && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/sharedptr__shared-ownership && make && ./*.exe
       - run: cd 040__cpp__language-cpp14/sharedptr__delete && make && ./*.exe
+      - run: cd 040__cpp__language-cpp14/weakptr && make && ./*.exe
