@@ -46,26 +46,31 @@ public:
   Widget( const Widget& rhs);
   Widget& operator=(const Widget& rhs);
 
-  std::string content();
+  void setContent(std::string str);
+  std::string getContent() const;
 };
 
 
 /** implementation ************************************************************/
 
 // implementation
+//
+// access the implementation via smartptr, the access is hidden to the user of
+// the representation, the representation only provides the regular interface
+// to the user
+//
+// pImpl is about separation and stable interfaces to the outside, many changes
+// can happen inside without impact to the representation and its user
 struct Widget::Impl {
   std::string content;
 // ...
 
-  std::string content() const
-  {
-    return content;
-  }
+  void setContent( std::string str ) { content = str; }
+  std::string getContent() { return content; }
 };
 
 Widget::Widget()
 : pImpl( std::make_unique< Impl >())
-, name("Obelix")
 {
   cout << "CALLED: Widget()" << endl;
 }
@@ -95,26 +100,37 @@ Widget::operator=(const Widget& rhs)
   } else {
     *pImpl = *rhs.pImpl;
   }
+  return *this;
 }
 
-std::string Widget::content() const
+
+void Widget::setContent(std::string str)
 {
-  return pImpl->content();
+  pImpl->setContent(str);
+}
+
+std::string Widget::getContent() const
+{
+  return pImpl->getContent();
 }
 
 
+/** main **********************************************************************/
 
 int main(void)
 {
-  cout << "creating 'Widget w1'" << endl;
+  cout << "creating 'Widget w1' and setting a name as 'content'" << endl;
   Widget w1;
+  w1.setContent("Obelix");
+  cout << endl;
 
   cout << "moving w1 to w2" << endl;
   auto w2(std::move(w1));
+  cout << endl;
 
-  auto content = w2.content();
-  cout << "w2->content: " << content << endl;
-
+  auto content = w2.getContent();
+  cout << "w2->content: '" << content << "'" << endl;
+  cout << endl;
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
