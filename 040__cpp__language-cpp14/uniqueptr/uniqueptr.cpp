@@ -6,6 +6,7 @@
   pointer looses its ownership, can mean it will be destroyed after moving)
 
   demonstrates basic operations with unique_ptr
+  resources: Effective Modern C++, Scott Meyers, 2015
 
  @author: lothar Rubusch
  */
