@@ -19,6 +19,7 @@
    deleters increase the size of 'std::unique_ptr' objects
 
  - converting a 'std::unique_ptr' to a 'std::shared_ptr' is easy
+  resources: Effective Modern C++, Scott Meyers, 2015
 
  @author: lothar Rubusch
  */
