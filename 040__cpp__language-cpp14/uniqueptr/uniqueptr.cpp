@@ -43,7 +43,12 @@ public:
 int main(void)
 {
   // creating a pointer and initialization
+/*
   std::unique_ptr< Box > pBox( new Box(12) );
+/*/
+  // prefer make_unique() and make_shared() to new semantics
+  auto pBox = make_unique< Box >( 12 );
+// */
 
   // creation of an empty pointer is possible
   std::unique_ptr< Box > pAnotherBox;
