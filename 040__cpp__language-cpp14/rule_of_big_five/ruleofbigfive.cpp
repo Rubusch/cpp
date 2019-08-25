@@ -20,6 +20,9 @@
  use of moved objects after the move can implicitely be dangerous,
  but is guaranteed for the STL and should always be implemented as best practice
 
+ if move is applied to e.g. 'const string' or any other const, move will rather copy the content than move anything!
+ (Item 23, Effective Modern C++, Meyers, 2015)
+
  @author: lothar Rubusch
  */
 
