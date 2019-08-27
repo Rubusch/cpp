@@ -134,7 +134,8 @@ jobs:
       - run: cd 010__cpp__language-techniques/typelist__cpp11 && make && ./*.exe
       - run: cd 010__cpp__language-techniques/typemapping__primitive_to_any_type && make && ./*.exe
       - run: cd 010__cpp__language-techniques/typemapping__type_to_type && make && ./*.exe
-     
+      - run: cd 010__cpp__language-techniques/number_to_string_to_number && make && ./*.exe
+
 ## 20: stl
       - run: cd 020__cpp__stl/algorithm-modifying_fill && make && ./*.exe
       - run: cd 020__cpp__stl/algorithm-modifying_swap_ranges && make && ./*.exe
