@@ -65,7 +65,8 @@ int main(void)
   cout << "the pBox contains " << content << " toys" << endl;
 
   // copyable
-  std::shared_ptr< Box > pCopyBox = pBox;
+  //std::shared_ptr< Box > pCopyBox = pBox;
+  auto pCopyBox = pBox;
   cout << "copy of pBox, pCopyBox: " << pCopyBox->box_content() << endl;
 
   // BUT: moveable
@@ -85,7 +86,7 @@ int main(void)
   // creating (must point to dynamic memory)..
   auto val = 123;
   cout << "create another pointer pInt with " << val << endl;
-  std::shared_ptr< int > pInt = std::make_shared< int >( val );
+  auto pInt = std::make_shared< int >( val );
 
   // get (shred_ptr) corresponds to release (unique_ptr)
   // pass the pointee to a raw pointer
@@ -94,6 +95,5 @@ int main(void)
 
 
   cout << "READY." << endl;
-
   return EXIT_SUCCESS;
 }
