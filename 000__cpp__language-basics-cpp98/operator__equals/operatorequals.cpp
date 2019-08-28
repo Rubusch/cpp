@@ -20,7 +20,16 @@ public:
   T getVal() const;
 
   // operator
-  int operator==(const SomeType<T> rhs) const;
+//*
+  bool operator==(const SomeType<T>& rhs) const;
+/*/
+  // outside of class it would be somethin like
+  inline
+  bool operator==(const SomeType<T>& lhs, const SomeType<T>& rhs) const
+  {
+    return lhs.getVal() == rhs.getVal();
+  }
+// */
 };
 
 template<class T>
@@ -34,13 +43,14 @@ T SomeType<T>::getVal() const
   return value;
 }
 
+//*
 template<class T>
-int SomeType<T>::operator==(const SomeType<T> rhs) const
+bool SomeType<T>::operator==(const SomeType<T>& rhs) const
 {
   // by default only compares the size with an int rhs int value
   return value == rhs.getVal();
 }
-
+// */
 
 
 /*
