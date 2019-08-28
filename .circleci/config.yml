@@ -175,7 +175,7 @@ jobs:
       - run: cd 020__cpp__language-techniques/traits__optimized-parameter-traits-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/traits__pointer-to-member-traits-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/traits__pointer-traits-cpp98 && make && ./*.exe
-      - run: cd 020__cpp__language-techniques/traits__stripping-qualifiers-cpp0x && make && ./*.exe
+      - run: cd 020__cpp__language-techniques/traits__stripping-qualifiers-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typelist__new-style-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typelist__no-duplicates-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typelist__old-style-cpp0x && make && ./*.exe
