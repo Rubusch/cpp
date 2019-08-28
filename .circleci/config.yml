@@ -153,7 +153,7 @@ jobs:
       - run: cd 020__cpp__language-techniques/lazy_fetching && make && ./*.exe
       - run: cd 020__cpp__language-techniques/local_class && make && ./*.exe
       - run: cd 020__cpp__language-techniques/mixin_class && make && ./*.exe
-      - run: cd 020__cpp__language-techniques/policy__optional-functionality-cpp0x && make && ./*.exe
+      - run: cd 020__cpp__language-techniques/policy__optional-functionality-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/policy__policy-classes-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/policy__policy-design-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/policy__structure-policy-cpp0x && make && ./*.exe
