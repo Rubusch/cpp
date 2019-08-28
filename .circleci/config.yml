@@ -146,7 +146,7 @@ jobs:
       - run: cd 020__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__functor-loki-style-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__functor-tests-cpp98 && make && ./*.exe
-      - run: cd 020__cpp__language-techniques/functor__functor-with-returntype-conversion-cpp0x && make && ./*.exe
+      - run: cd 020__cpp__language-techniques/functor__functor-with-returntype-conversion-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__member-functions-functionpointer && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__member-functions-functor-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/inline && make && ./*.exe
