@@ -73,6 +73,56 @@ jobs:
       - run: cd 000__cpp__language-basics-cpp98/returntypes && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/returntypes__scope && make && ./*.exe
 
+## 10: cpp11/cpp14/cpp17 update examples
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3638__return_reference && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3651__constexpr_variable_templates && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3648__Initialized_lambda_captures && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3781__Single-quotation-mark_as_a_digit_separator && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3651__constexpr_variable_templates__pod-strcmp && make && ./*.exe
+#      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3664__Clarifying_memory_allocation && make && ./*.exe # just a README.txt
+#      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3778__Sized_deallocation && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3649__Generic_lambdas && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3472__binary_literals && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3652__Relaxing_requirements_on_constexpr_functions && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3653__Member_initializers_and_aggregates && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3323__Tweak_to_certain_CPP_contextual_conversions && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3760__deprecated_attribute && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3638__Return_type_deduction_for_functions && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/type-deduction__auto-type && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/type-deduction__template-type && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/decltype__return && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/auto__implicit-type && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/auto__explicit-type && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/initializer__braces-parentheses && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/nullptr && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/alias-declaration && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/enum__scoped-enums && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/function__delete && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/constexpr__objects && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/constexpr__functions && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/constexpr__class && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/lambda && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/rule_of_big_five && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/rule_of_big_zero && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/function__override && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/const-iterator && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/function__final && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/const-iterator && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/function__noexcept && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__mutex && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__atomic && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/sharedptr && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/sharedptr__shared-ownership && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/sharedptr__delete && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/weakptr && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/sharedptr__make-shared && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pimpl && make && ./*.exe
+
 
 ## 10: language-techniques
       - run: cd 010__cpp__language-techniques/allocator_for_small_objects && make && ./*.exe
@@ -294,52 +344,3 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/memento2 && make && ./*.exe
 
-## 40: cpp11/cpp14/cpp17 update examples
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3638__return_reference && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3651__constexpr_variable_templates && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3648__Initialized_lambda_captures && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3781__Single-quotation-mark_as_a_digit_separator && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3651__constexpr_variable_templates__pod-strcmp && make && ./*.exe
-#      - run: cd 040__cpp__language-cpp14/XXX__notes/N3664__Clarifying_memory_allocation && make && ./*.exe # just a README.txt
-#      - run: cd 040__cpp__language-cpp14/XXX__notes/N3778__Sized_deallocation && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3649__Generic_lambdas && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3472__binary_literals && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3652__Relaxing_requirements_on_constexpr_functions && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3653__Member_initializers_and_aggregates && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3323__Tweak_to_certain_CPP_contextual_conversions && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3760__deprecated_attribute && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/XXX__notes/N3638__Return_type_deduction_for_functions && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/type-deduction__auto-type && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/type-deduction__template-type && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/decltype__return && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/auto__implicit-type && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/auto__explicit-type && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/initializer__braces-parentheses && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/nullptr && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/alias-declaration && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/enum__scoped-enums && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/function__delete && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/constexpr__objects && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/constexpr__functions && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/constexpr__class && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/lambda && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/rule_of_big_five && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/rule_of_big_zero && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/function__override && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/const-iterator && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/function__final && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/const-iterator && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/function__noexcept && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/thread__mutex && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/thread__atomic && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/thread && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/uniqueptr && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/sharedptr && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/sharedptr__shared-ownership && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/sharedptr__delete && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/weakptr && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/sharedptr__make-shared && make && ./*.exe
-      - run: cd 040__cpp__language-cpp14/uniqueptr__pimpl && make && ./*.exe
