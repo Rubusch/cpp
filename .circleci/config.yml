@@ -179,7 +179,7 @@ jobs:
       - run: cd 020__cpp__language-techniques/typelist__new-style-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typelist__no-duplicates-cpp0x && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typelist__old-style-cpp0x && make && ./*.exe
-#      - run: cd 020__cpp__language-techniques/typelist__tylelist-linear-cpp0x__TODO && make && ./*.exe
+#      - run: cd 020__cpp__language-techniques/typelist__tylelist-linear-cpp98__TODO && make && ./*.exe
 #      - run: cd 020__cpp__language-techniques/typelist__tylelist-scattered-cpp98__TODO && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typelist__cpp11 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/typemapping__primitive_to_any_type && make && ./*.exe
