@@ -9,6 +9,9 @@
   rvalue    - has no accessible address, e.g. a plain number value (stored only
               temporarlily)
 
+  universal reference - the type of the function parameter is rvalue reference
+              to type template parameter
+
 
   move semantics: makes it possible for compilers to replace expensive copying
   operations with less expensive moves. In the same way that copy constructors
@@ -23,6 +26,14 @@
   functions
 
 
+  Names of rvalue reference variables are lvalues and have to be converted to
+  xvalues to be bound to the function overloads that accept rvalue reference
+  parameters, which is why move constructors and move assignment operators
+  typically use std::move
+  One exception is when the type of the function parameter is rvalue reference
+  to type template parameter ("forwarding reference" or "universal reference"),
+  in which case std::forward is used instead.
+
   CONCLUSION
 
   - 'std::move' performs an unconditional cast to an rvalue. In and of itself,
@@ -33,17 +44,36 @@
 
   - neither 'std::move' nor 'std::forward' do anything at runtime
 
-  resources: Effective Modern C++, Scott Meyers, 2015
+  resources:
+  Effective Modern C++, Scott Meyers, 2015
+  cppreference.com, 2019
  */
 
 #include <iostream>
+#include <utility>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 
 int main(void)
 {
-  // TODO
+  string str = "hello";
+  vector< string > vec;
+
+  cout << "vec.push_back( str )" << endl;
+  vec.push_back( str );
+  cout << "after, str = '" << str << "'" << endl;
+  cout << endl;
+
+  cout << "vec.push_back( std::move( str ) )" << endl;
+  vec.push_back( std::move(str) );
+  cout << "after, str = '" << str << "'" << endl;
+  cout << endl;
+
+  cout << "content of vec: '" << vec[0] << "', '" << vec[1] << "'" << endl;
+
 
   cout << "READY." << endl;
 }
