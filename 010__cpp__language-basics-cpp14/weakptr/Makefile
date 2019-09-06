@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = weakptr.exe
 SOURCE	= weakptr.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-weakptr.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: weakptr.exe
+all: $(TARGET)
 
 clean:
-	-${RM} weakptr.exe *.o *~ core
+	-$(RM) $(TARGET) $(OBJECTS) *~ core
 
 .PHONY: clean
