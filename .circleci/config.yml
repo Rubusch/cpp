@@ -38,7 +38,6 @@ jobs:
       - run: cd 000__cpp__language-basics-cpp98/operator__equals && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/operator__new-and-delete && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/operator__new-and-delete-freelist && make && ./*.exe
-      - run: cd 000__cpp__language-basics-cpp98/operator__assignment-move && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/operator__new-and-delete-memorypool && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/operator__new-handler && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/operator__or && cat operatoror.cpp
@@ -87,6 +86,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3323__Tweak_to_certain_CPP_contextual_conversions && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3760__deprecated_attribute && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/XXX__notes/N3638__Return_type_deduction_for_functions && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/operator__assignment-move && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/copy-move-constructor && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/type-deduction__auto-type && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/type-deduction__template-type && make && ./*.exe
