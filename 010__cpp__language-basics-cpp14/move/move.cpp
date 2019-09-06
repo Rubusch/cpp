@@ -1,7 +1,9 @@
 /*
   C++11 - rvalue reference, move semantics and perfect forwarding (Meyers / item 23)
 
-  ---
+
+
+  DEFINITIONS (by Scott Meyers)
 
   lvalue    - has an address, e.g. a user maintained variable or memory with
               accessible address
@@ -25,6 +27,32 @@
   funcitons receive exactly the same arguments as were passed to the forwarding
   functions
 
+
+
+  DEFINITIONS (by cppreference.com)
+
+  glvalue ('generalized' lvalue) is an expression whose evaluation determines
+          the identity of an object, bit-field, or function
+
+  prvalue ('pure' rvalue) is an expression whose evaluation either
+        - computes the value of the operand of an operator (such prvalue has
+          no result object), or
+        - initializes an object or a bit-field (such prvalue is said to have
+          a result object). All class and array prvalues have a result object
+          even if it is discarded. In certain contexts, temporary
+          materialization occurs to create a temporary as the result object;
+
+  xvalue (an 'eXpiring' value) is a glvalue that denotes an object or
+          xvalue (an “eXpiring” value) is a glvalue that denotes an object or
+          bit-field whose resources can be reusedxvalue (an “eXpiring” value)
+          is a glvalue that denotes an object or bit-field whose resources can
+          be reusedxvalue (an “eXpiring” value) is a glvalue that denotes an
+          object or bit-field whose resources can be reusedbit-field whose
+          resources can be reused
+
+  lvalue (so-called, historically, because lvalues could appear on the
+          left-hand side of an assignment expression) is a glvalue that is not
+          an xvalue
 
   Names of rvalue reference variables are lvalues and have to be converted to
   xvalues to be bound to the function overloads that accept rvalue reference
