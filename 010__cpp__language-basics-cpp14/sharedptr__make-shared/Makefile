@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = sharedptr.exe
 SOURCE	= sharedptr.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-sharedptr.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: sharedptr.exe
+all: $(TARGET)
 
 clean:
-	-${RM} sharedptr.exe *.o *~ core
+	-$(RM) $(TARGET) $(OBJECTS) *~ core
 
 .PHONY: clean

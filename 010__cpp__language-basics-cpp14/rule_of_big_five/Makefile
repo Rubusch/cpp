@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = ruleofbigfive.exe
 SOURCE	= ruleofbigfive.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror
 RM		= rm -f
 
 .c.o:
-	${CC} -c ${CPPFLAGS} $<
+	$(CC) -c $(CPPFLAGS) $<
 
-ruleofbigfive.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) -lm
 
-all: ruleofbigfive.exe
+all: $(TARGET)
 
 clean:
-	-${RM} ruleofbigfive.exe *.o core
+	-$(RM) $(TARGET) $(OBJECTS) core
 
 .PHONY: clean

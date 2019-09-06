@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = initializer.exe
 SOURCE	= initializer.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror -Wno-unused-variable
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-initializer.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: initializer.exe
+all: $(TARGET)
 
 clean:
-	-${RM} initializer.exe *.o core *~
+	-$(RM) $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean

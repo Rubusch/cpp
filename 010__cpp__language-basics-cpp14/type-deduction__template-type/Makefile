@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = typededuction.exe
 SOURCE	= typededuction.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror -std=c++11
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-typededuction.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: typededuction.exe
+all: $(TARGET)
 
 clean:
-	-${RM} typededuction.exe *.o core *~
+	-$(RM) $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean

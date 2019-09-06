@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = autotypededuction.exe
 SOURCE	= autotypededuction.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror -std=c++11
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-autotypededuction.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: autotypededuction.exe
+all: $(TARGET)
 
 clean:
-	-${RM} autotypededuction.exe *.o core *~
+	-$(RM) $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean
