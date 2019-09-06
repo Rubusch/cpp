@@ -1,22 +1,21 @@
 # Makefile for C++ Class
+TARGET = enum.exe
 SOURCE	= enum.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror -Wno-unused-variable
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-enum.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: enum.exe
+all: $(TARGET)
 
 clean:
-	-${RM} enum.exe *.o core *~
+	-$(RM) $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean

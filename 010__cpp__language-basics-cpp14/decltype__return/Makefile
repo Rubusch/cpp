@@ -1,9 +1,8 @@
 # Makefile for C++ Class
+TARGET = decltypereturn.exe
 SOURCE	= decltypereturn.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= ${SOURCE:.cpp=.o}
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Wno-return-local-addr -Wno-unused-variable -Werror -std=c++14
 RM		= rm -f
@@ -11,12 +10,12 @@ RM		= rm -f
 .c.o:
 	${CC} ${CPPFLAGS} -c $<
 
-decltypereturn.exe: ${OBJECTS}
+$(TARGET): ${OBJECTS}
 	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
 
-all: decltypereturn.exe
+all: $(TARGET)
 
 clean:
-	-${RM} decltypereturn.exe *.o core *~
+	-${RM} $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean
