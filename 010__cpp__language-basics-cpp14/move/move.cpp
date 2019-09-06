@@ -54,6 +54,9 @@
           left-hand side of an assignment expression) is a glvalue that is not
           an xvalue
 
+  rvalue (so-called, historically, because rvalues could appear on the
+          right-hand side of an assignment expression) is a prvalue or an xvalue
+
   Names of rvalue reference variables are lvalues and have to be converted to
   xvalues to be bound to the function overloads that accept rvalue reference
   parameters, which is why move constructors and move assignment operators
@@ -61,6 +64,8 @@
   One exception is when the type of the function parameter is rvalue reference
   to type template parameter ("forwarding reference" or "universal reference"),
   in which case std::forward is used instead.
+
+
 
   CONCLUSION
 
