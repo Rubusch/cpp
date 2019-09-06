@@ -122,6 +122,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/weakptr && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/sharedptr__make-shared && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pimpl && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/move && make && ./*.exe
 
 
 ## 20: language-techniques
