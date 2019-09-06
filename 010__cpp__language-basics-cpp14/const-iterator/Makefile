@@ -1,9 +1,8 @@
 # Makefile for C++ Class
+TARGET = constiterator.exe
 SOURCE	= constiterator.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
-
-.PREFIXES	= .c .o
+OBJECTS	= ${SOURCE:.cpp=.o}
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror
 RM		= rm -f
@@ -11,12 +10,12 @@ RM		= rm -f
 .c.o:
 	${CC} ${CPPFLAGS} -c $<
 
-constiterator.exe: ${OBJECTS}
+$(TARGET): ${OBJECTS}
 	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
 
-all: constiterator.exe
+all: $(TARGET)
 
 clean:
-	-${RM} constiterator.exe *.o core *~
+	-${RM} $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean

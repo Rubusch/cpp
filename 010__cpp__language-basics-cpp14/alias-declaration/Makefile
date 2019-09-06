@@ -1,22 +1,22 @@
 # Makefile for C++ Class
+TARGET = alias.exe
 SOURCE	= alias.cpp
-#HEADERS	=
-OBJECTS	= ${SOURCE:.c=.o}
+OBJECTS	= $(SOURCE:.cpp=.o)
 
-.PREFIXES	= .c .o
+.PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror -Wno-unused-local-typedefs
 RM		= rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-alias.exe: ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: alias.exe
+all: $(TARGET)
 
 clean:
-	-${RM} alias.exe *.o core *~
+	-$(RM) $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean
