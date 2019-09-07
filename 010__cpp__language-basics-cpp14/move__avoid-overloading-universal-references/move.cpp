@@ -84,6 +84,18 @@
     typically better matches than copy constructors for non-const lvalues, and
     they can hijack derived class calls to base class copy and move constructors
 
+  - alternatives to the combination of universal references and overloading
+    include the use of distinct function names, passing parameters by
+    lvalue-reference-to-const, passing parameters by value, and using tag
+    dispatch
+
+  - constraining templates via 'std::enable_if' permits the use of universal
+    references and overloading together, but it controls the conditions under
+    which compilers may use the universal reference overloads
+
+  - universal reference parameters often have efficiency advantages, but they
+    typically have usability disadvantages
+
   resources:
   Effective Modern C++, Scott Meyers, 2015
   cppreference.com, 2019
