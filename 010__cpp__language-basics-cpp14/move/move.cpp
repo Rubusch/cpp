@@ -42,13 +42,8 @@
           even if it is discarded. In certain contexts, temporary
           materialization occurs to create a temporary as the result object;
 
-  xvalue (an 'eXpiring' value) is a glvalue that denotes an object or
-          xvalue (an “eXpiring” value) is a glvalue that denotes an object or
-          bit-field whose resources can be reusedxvalue (an “eXpiring” value)
-          is a glvalue that denotes an object or bit-field whose resources can
-          be reusedxvalue (an “eXpiring” value) is a glvalue that denotes an
-          object or bit-field whose resources can be reusedbit-field whose
-          resources can be reused
+  xvalue (an 'eXpiring' value) is a glvalue that denotes an object or bit-field
+          whose resources can be reused
 
   lvalue (so-called, historically, because lvalues could appear on the
           left-hand side of an assignment expression) is a glvalue that is not
@@ -102,10 +97,12 @@ int main(void)
 
   cout << "vec.push_back( std::move( str ) )" << endl;
   vec.push_back( std::move(str) );
-  cout << "after, str = '" << str << "'" << endl;
+  cout << "after, str = '" << str << "' [moved, original should be empty]" << endl;
   cout << endl;
 
   cout << "content of vec: '" << vec[0] << "', '" << vec[1] << "'" << endl;
+
+
 
 
   cout << "READY." << endl;
