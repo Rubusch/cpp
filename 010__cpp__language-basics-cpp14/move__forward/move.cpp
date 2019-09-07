@@ -2,7 +2,6 @@
   C++11 - rvalue reference, move semantics and perfect forwarding (Meyers / item 23)
 
 
-
   DEFINITIONS (by Scott Meyers)
 
   lvalue    - has an address, e.g. a user maintained variable or memory with
