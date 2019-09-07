@@ -1,7 +1,9 @@
 // explicitconstructor.cpp
 /*
-  Constructors can be declared explicit, and if they are, compilers are prohibited from invoking
-  them for purposes of implicit type conversion. Explicit conversions are still legal, however.
+  Constructors can be declared explicit
+
+  if they are, compilers are prohibited from invoking them for purposes of
+  implicit type conversion. Explicit conversions are still legal, however.
 
   further demonstrates a simple checked input conversion from string to int
 //*/
