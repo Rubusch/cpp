@@ -113,6 +113,7 @@ void logAndAdd1(const string& name)
 
 // should be tuned version
 // perfect forwarding of universal reference
+// problem: overloading of this does not work anymore - catches all!
 template< typename T >
 void logAndAdd2(T&& name)
 {
@@ -122,6 +123,25 @@ void logAndAdd2(T&& name)
 
   chrono::duration< double > diff = stop - start;
   cout << "diff: " << diff.count() << endl;;
+}
+
+
+// alternatives to overloading of universal references
+void logAndAddImpl();
+{
+  auto start = chrono::system_clock::now();
+  names.emplace( forward< T >(name) ); // using forward inside emplace()
+  auto stop = chrono::system_clock::now();
+
+  chrono::duration< double > diff = stop - start;
+  cout << "diff: " << diff.count() << endl;;
+}
+
+
+template< typename T >
+void logAndAdd3(T&& name)
+{
+  logAndAddImpl(forward< T >(name), is_integral< T >());// TODO
 }
 
 
@@ -156,6 +176,21 @@ int main(void)
 
   cout << "pass string literal" << endl;
   logAndAdd2("Patty Dog"); // pass string literal
+  cout << endl;
+
+
+  cout << "template< typename T> logAndAdd3(T&&)" << endl;
+
+  cout << "pass lvalue" << endl;
+  logAndAdd3(petName); // pass lvalue std::string
+  cout << endl;
+
+  cout << "pass rvalue" << endl;
+  logAndAdd3(string("Persephone")); // pass rvalue std::string
+  cout << endl;
+
+  cout << "pass string literal" << endl;
+  logAndAdd3("Patty Dog"); // pass string literal
   cout << endl;
 
   cout << "READY." << endl;
