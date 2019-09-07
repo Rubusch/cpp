@@ -97,8 +97,10 @@ public:
   Some() { cout << "Some(), ctor" << endl; }
 };
 
-void func(Some&& param) { cout << "func(Some&&), rvalue reference" << endl; }
+void func(Some&& param) // rvalue reference, declaration
+{ cout << "func(Some&&), rvalue reference" << endl; }
 
+// declarations
 template< typename T > // rvalue reference
 void func(vector< T >&& param) { cout << "func(vector< T >&&), addr vec: " << &param << endl; }
 
@@ -109,34 +111,17 @@ void func(T&& param) { cout << "func(T&&)" << endl; }
 
 int main(void)
 {
-  cout << "rvalue reference" << endl;
-  void func(Some&& param); // rvalue reference, declaration
-  cout << endl;
 
   cout << "rvalue reference" << endl;
   Some&& var1 = Some(); // rvalue reference
   cout << "addr var1: " << &var1 << endl;
   cout << endl;
 
-  cout << "universal reference" << endl;
+  cout << "universal reference" << endl; // auto&& or T&& are rather..
   auto&& var2 = var1; // universal reference (forwarding reference)
   cout << "addr var2: " << &var2 << endl;
   cout << endl;
 
-/*
-  cout << "rvalue reference" << endl;
-  vector< string > vec;
-  vec.push_back( "foo" );
-  func(vec); // lvalue init
-  cout << endl;
-// */
-
-/*
-  cout << "universal reference" << endl;
-  int val = 123;
-  func(std::move(val)); // lvalue init
-  cout << endl;
-// */
 
   cout << "READY." << endl;
 }
