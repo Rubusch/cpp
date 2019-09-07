@@ -48,9 +48,11 @@
   lvalue (so-called, historically, because lvalues could appear on the
           left-hand side of an assignment expression) is a glvalue that is not
           an xvalue
+          examples: *a, --a, ++a
 
   rvalue (so-called, historically, because rvalues could appear on the
           right-hand side of an assignment expression) is a prvalue or an xvalue
+          examples: &a, a--, a++
 
   Names of rvalue reference variables are lvalues and have to be converted to
   xvalues to be bound to the function overloads that accept rvalue reference
@@ -92,7 +94,7 @@ int main(void)
 
   cout << "vec.push_back( str )" << endl;
   vec.push_back( str );
-  cout << "after, str = '" << str << "'" << endl;
+  cout << "after, str = '" << str << "' [" << &str << "]" << endl;
   cout << endl;
 
   cout << "vec.push_back( std::move( str ) )" << endl;
@@ -100,9 +102,7 @@ int main(void)
   cout << "after, str = '" << str << "' [moved, original should be empty]" << endl;
   cout << endl;
 
-  cout << "content of vec: '" << vec[0] << "', '" << vec[1] << "'" << endl;
-
-
+  cout << "content of vec[0]: '" << vec[0] << "' [" << &vec[0] << "], vec[1]: '" << vec[1] << "' [" << &vec[1] << "]" << endl;
 
 
   cout << "READY." << endl;
