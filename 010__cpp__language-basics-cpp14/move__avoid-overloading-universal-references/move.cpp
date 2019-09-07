@@ -111,7 +111,7 @@ void logAndAdd1(const string& name)
 }
 
 
-// should be tuned version
+// should be tuned version towards
 // perfect forwarding of universal reference
 // problem: overloading of this does not work anymore - catches all!
 template< typename T >
@@ -126,8 +126,14 @@ void logAndAdd2(T&& name)
 }
 
 
-// alternatives to overloading of universal references
-void logAndAddImpl();
+// further improvement: distinguish integral and non-integral types
+// perfect forwarding at overloading of universal references
+// i.e.
+// although one implementation uses universal references (T&&), there
+// might be an overloaded version of the function using e.g. an 'int'
+// argument, the trick is as follows...
+template< typename T >
+void logAndAddImpl(T&& name, std::false_type)
 {
   auto start = chrono::system_clock::now();
   names.emplace( forward< T >(name) ); // using forward inside emplace()
@@ -137,11 +143,18 @@ void logAndAddImpl();
   cout << "diff: " << diff.count() << endl;;
 }
 
+// this now allows for an overloading of the function, e.g. with an
+// 'int' argument
+void logAndAddImpl(int idx, std::true_type)
+{
+  cout << "look up idx " << idx << ", and obtain the information from somewhere else..." << endl;
+}
 
 template< typename T >
 void logAndAdd3(T&& name)
 {
-  logAndAddImpl(forward< T >(name), is_integral< T >());// TODO
+  logAndAddImpl(forward< T >(name), is_integral< typename remove_reference< T >::type >());// TODO
+  // alternatively 'std::enable_if' is a possiblity for TAG DISPATCH design
 }
 
 
@@ -179,7 +192,7 @@ int main(void)
   cout << endl;
 
 
-  cout << "template< typename T> logAndAdd3(T&&)" << endl;
+  cout << "TAG DISPATCH - template< typename T> logAndAdd3(T&&)" << endl;
 
   cout << "pass lvalue" << endl;
   logAndAdd3(petName); // pass lvalue std::string
@@ -191,6 +204,10 @@ int main(void)
 
   cout << "pass string literal" << endl;
   logAndAdd3("Patty Dog"); // pass string literal
+  cout << endl;
+
+  cout << "pass int" << endl;
+  logAndAdd3(7);
   cout << endl;
 
   cout << "READY." << endl;
