@@ -1,6 +1,6 @@
 /*
   C++11 - rvalue reference, move semantics and perfect forwarding
-  (Meyers / item 26)
+  (Meyers / item 26, 27)
 
   Use 'std::move' on rvalue referneces and 'std::forward' on
   universal references!!!
