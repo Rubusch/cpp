@@ -126,7 +126,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/explicit_constructor && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move__universal-reference && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move__forward-universal-references && make && ./*.exe
-
+      - run: cd 010__cpp__language-basics-cpp14/move__avoid-overloading-universal-references && make && ./*.exe
 
 ## 20: language-techniques
       - run: cd 020__cpp__language-techniques/allocator_for_small_objects && make && ./*.exe
