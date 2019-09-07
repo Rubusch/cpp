@@ -1,5 +1,12 @@
 /*
-  C++11 - rvalue reference, move semantics and perfect forwarding (Meyers / item 23)
+  C++11 - rvalue reference, move semantics and perfect forwarding
+  (Meyers / item 25)
+
+  Use 'std::move' on rvalue referneces and 'std::forward' on
+  universal references!!!
+
+  Local objects which could be returned fall under the RVO (return value
+  optimization), and should not be moved or forwarded.
 
 
   DEFINITIONS (by Scott Meyers)
@@ -65,13 +72,14 @@
 
   CONCLUSION
 
-  - 'std::move' performs an unconditional cast to an rvalue. In and of itself,
-  it doesn't move anything
+  - apply 'std::move' to rvalue references and 'std::forward' to universal
+    references the last time each is used
 
-  - 'std::forward' casts its argument to an rvalue only if that argument is
-  bound to an rvalue
+  - do the same thing for rvalue references and universal references being
+    returned from functions that return by value
 
-  - neither 'std::move' nor 'std::forward' do anything at runtime
+  - never apply 'std::move' or 'std::forward' to local objects if they would
+    otherwise be eligible for the return value optimization!!!
 
   resources:
   Effective Modern C++, Scott Meyers, 2015
