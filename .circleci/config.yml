@@ -28,7 +28,6 @@ jobs:
       - run: cd 000__cpp__language-basics-cpp98/exception2 && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/exception3 && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/exception4 && make && ./*.exe
-      - run: cd 000__cpp__language-basics-cpp98/explicit_constructor && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/new-delete1 && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/new-delete2 && make && ./*.exe
       - run: cd 000__cpp__language-basics-cpp98/no_reference_on_locals && make && ./*.exe
@@ -124,6 +123,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pimpl && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move__forward && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/explicit_constructor && make && ./*.exe
 
 
 ## 20: language-techniques
