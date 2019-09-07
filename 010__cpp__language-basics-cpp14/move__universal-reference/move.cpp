@@ -1,6 +1,6 @@
 /*
   C++11 - difference between universal reference and rvalue reference
-  (Meyers / item 23)
+  (Meyers / item 24)
 
 
 
