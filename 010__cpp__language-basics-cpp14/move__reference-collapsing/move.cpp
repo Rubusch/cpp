@@ -101,124 +101,13 @@
 
 
 #include <iostream>
-#include <set>
-#include <chrono>
 
 using namespace std;
 
 
-multiset< string > names;
-
-// the naive approach
-void logAndAdd1(const string& name)
-{
-  auto start = chrono::system_clock::now();
-  names.insert(name);
-  auto stop = chrono::system_clock::now();
-
-  chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
-}
-
-
-// should be tuned version towards
-// perfect forwarding of universal reference
-// problem: overloading of this does not work anymore - catches all!
-template< typename T >
-void logAndAdd2(T&& name)
-{
-  auto start = chrono::system_clock::now();
-  names.emplace( forward< T >(name) ); // using forward inside emplace()
-  auto stop = chrono::system_clock::now();
-
-  chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
-}
-
-
-// further improvement: distinguish integral and non-integral types
-// perfect forwarding at overloading of universal references
-// i.e.
-// although one implementation uses universal references (T&&), there
-// might be an overloaded version of the function using e.g. an 'int'
-// argument, the trick is as follows...
-template< typename T >
-void logAndAddImpl(T&& name, std::false_type)
-{
-  auto start = chrono::system_clock::now();
-  names.emplace( forward< T >(name) ); // using forward inside emplace()
-  auto stop = chrono::system_clock::now();
-
-  chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
-}
-
-// this now allows for an overloading of the function, e.g. with an
-// 'int' argument
-void logAndAddImpl(int idx, std::true_type)
-{
-  cout << "look up idx " << idx << ", and obtain the information from somewhere else..." << endl;
-}
-
-template< typename T >
-void logAndAdd3(T&& name)
-{
-  logAndAddImpl(forward< T >(name), is_integral< typename remove_reference< T >::type >());// TODO
-  // alternatively 'std::enable_if' is a possiblity for TAG DISPATCH design
-}
-
-
 int main(void)
 {
-  string petName("Darla");
-
-  cout << "logAndAdd1(const string&)" << endl;
-
-  cout << "pass lvalue" << endl;
-  logAndAdd1(petName); // pass lvalue std::string
-  cout << endl;
-
-  cout << "pass rvalue" << endl;
-  logAndAdd1(string("Persephone")); // pass rvalue std::string
-  cout << endl;
-
-  cout << "pass string literal" << endl;
-  logAndAdd1("Patty Dog"); // pass string literal
-  cout << endl;
-
-
-  cout << "template< typename T> logAndAdd2(T&&)" << endl;
-
-  cout << "pass lvalue" << endl;
-  logAndAdd2(petName); // pass lvalue std::string
-  cout << endl;
-
-  cout << "pass rvalue" << endl;
-  logAndAdd2(string("Persephone")); // pass rvalue std::string
-  cout << endl;
-
-  cout << "pass string literal" << endl;
-  logAndAdd2("Patty Dog"); // pass string literal
-  cout << endl;
-
-
-  cout << "TAG DISPATCH - template< typename T> logAndAdd3(T&&)" << endl;
-
-  cout << "pass lvalue" << endl;
-  logAndAdd3(petName); // pass lvalue std::string
-  cout << endl;
-
-  cout << "pass rvalue" << endl;
-  logAndAdd3(string("Persephone")); // pass rvalue std::string
-  cout << endl;
-
-  cout << "pass string literal" << endl;
-  logAndAdd3("Patty Dog"); // pass string literal
-  cout << endl;
-
-  cout << "pass int" << endl;
-  logAndAdd3(7);
-  cout << endl;
+  // TODO
 
   cout << "READY." << endl;
 }
