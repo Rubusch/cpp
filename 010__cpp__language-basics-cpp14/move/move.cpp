@@ -86,23 +86,80 @@
 
 using namespace std;
 
+template< typename T >
+typename remove_reference< T >::type&&
+my_move11(T&& param)
+{
+  using ReturnType = typename remove_reference< T >::type&&;
+  return static_cast< ReturnType >(param);
+}
+
+template< typename T >
+decltype(auto) my_move14(T&& param)
+{
+  using ReturnType = remove_reference_t< T >&&;
+  return static_cast< ReturnType >(param);
+}
+
 
 int main(void)
 {
-  string str = "hello";
+  string str = "first", another_str = "second", yet_another_str = "third";
   vector< string > vec;
 
+
+  // copy, still leaves original existent
+  cout << "copy:" << endl;
   cout << "vec.push_back( str )" << endl;
   vec.push_back( str );
   cout << "after, str = '" << str << "' [" << &str << "]" << endl;
   cout << endl;
 
+  cout << "content of " << endl
+       << "vec[0]: '" << vec[0] << "' [" << &vec[0] << "]" << endl;
+  cout << endl;
+
+
+  // move, passes ownership and existence via cast (nothing at runtime), original does not exist anymore (undefined)
+  cout << "move:" << endl;
   cout << "vec.push_back( std::move( str ) )" << endl;
   vec.push_back( std::move(str) );
   cout << "after, str = '" << str << "' [moved, original should be empty]" << endl;
   cout << endl;
 
-  cout << "content of vec[0]: '" << vec[0] << "' [" << &vec[0] << "], vec[1]: '" << vec[1] << "' [" << &vec[1] << "]" << endl;
+  cout << "content of " << endl
+       << "vec[0]: '" << vec[0] << "' [" << &vec[0] << "]," << endl
+       << "vec[1]: '" << vec[1] << "' [" << &vec[1] << "]" << endl;
+  cout << endl;
+
+
+  // C++11 version
+  cout << "move - just a remove_reference cast (C++11):" << endl;
+  cout << "vec.push_back( std::my_move11( str ) )" << endl;
+  vec.push_back( my_move11(another_str) );
+  cout << "after, another_str = '" << another_str << "' [moved, original should be empty]" << endl;
+  cout << endl;
+
+  cout << "content of " << endl
+       << "vec[0]: '" << vec[0] << "' [" << &vec[0] << "]," << endl
+       << "vec[1]: '" << vec[1] << "' [" << &vec[1] << "]," << endl
+       << "vec[2]: '" << vec[2] << "' [" << &vec[2] << "]" << endl;
+  cout << endl;
+
+
+  // C++14 version
+  cout << "move - just a remove_reference cast (C++14):" << endl;
+  cout << "vec.push_back( std::my_move14( str ) )" << endl;
+  vec.push_back( my_move14(yet_another_str) );
+  cout << "after, yet_another_str = '" << yet_another_str << "' [moved, original should be empty]" << endl;
+  cout << endl;
+
+  cout << "content of " << endl
+       << "vec[0]: '" << vec[0] << "' [" << &vec[0] << "]," << endl
+       << "vec[1]: '" << vec[1] << "' [" << &vec[1] << "]," << endl
+       << "vec[2]: '" << vec[2] << "' [" << &vec[2] << "]," << endl
+       << "vec[3]: '" << vec[3] << "' [" << &vec[3] << "]" << endl;
+  cout << endl;
 
 
   cout << "READY." << endl;
