@@ -124,6 +124,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/move && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move__forward && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/explicit_constructor && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/move__universal-reference && make && ./*.exe
 
 
 ## 20: language-techniques
