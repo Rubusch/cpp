@@ -105,6 +105,12 @@
 using namespace std;
 
 
+class Fruit
+{
+public:
+
+};
+
 int main(void)
 {
   // TODO
