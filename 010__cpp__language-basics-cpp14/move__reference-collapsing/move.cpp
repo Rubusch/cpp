@@ -101,6 +101,7 @@
 
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -111,24 +112,39 @@ public:
   Fruit() { cout << "CALLED: Fruit::Fruit()" << endl; }
 };
 
-void func(Fruit& fruit)
+template< typename T >
+void func(T&& fruit)
 {
   cout << "CALLED: func(Fruit&)" << endl;
 }
 
-
 Fruit fruitFactory()
 {
-  return Fruit(); // returning rvalue
+  return Fruit();
 }
 
-Fruit fruit; // an lvalue
 
-func(fruit); // an lvalue
-
+// calls
 int main(void)
 {
-  // TODO
+  cout << "rvalue: Fruit factoryFruit = factoryFruit()" << endl;
+  Fruit factoryFruit = fruitFactory(); // returning rvalue
+  cout << endl;
 
+  cout << "lvalue: Fruit fruit;" << endl;
+  Fruit fruit; // an lvalue
+  cout << endl;
+
+  cout << "lvalue: func(fruit);" << endl;
+  func(fruit); // an lvalue, T deduced to be an 'Fruit&'
+  cout << endl;
+
+  cout << "rvalue: func(Fruit());" << endl;
+  func(Fruit()); // an rvalue, T deduced to be an 'Fruit'
+  cout << endl;
+
+
+  vector<Fruit> vec;
+  vec.push_back(factoryFruit);
   cout << "READY." << endl;
 }
