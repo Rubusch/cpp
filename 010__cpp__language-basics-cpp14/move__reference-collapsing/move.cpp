@@ -135,11 +135,11 @@ int main(void)
   Fruit fruit; // an lvalue
   cout << endl;
 
-  cout << "lvalue: func(fruit);" << endl;
+  cout << "lvalue: func(fruit); // T&& reduced to 'Fruit&'" << endl;
   func(fruit); // an lvalue, T deduced to be an 'Fruit&'
   cout << endl;
 
-  cout << "rvalue: func(Fruit());" << endl;
+  cout << "rvalue: func(Fruit()); // T&& reduced to 'Fruit'" << endl;
   func(Fruit()); // an rvalue, T deduced to be an 'Fruit'
   cout << endl;
 
