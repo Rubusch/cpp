@@ -108,8 +108,23 @@ using namespace std;
 class Fruit
 {
 public:
-
+  Fruit() { cout << "CALLED: Fruit::Fruit()" << endl; }
 };
+
+void func(Fruit& fruit)
+{
+  cout << "CALLED: func(Fruit&)" << endl;
+}
+
+
+Fruit fruitFactory()
+{
+  return Fruit(); // returning rvalue
+}
+
+Fruit fruit; // an lvalue
+
+func(fruit); // an lvalue
 
 int main(void)
 {
