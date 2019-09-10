@@ -27,10 +27,41 @@
 
 using namespace std;
 
+struct BitField
+{
+  // defines a 'three bit unsigned int field', allows values are: 0,1,2,3,4,5,6,7
+  unsigned int bits : 3;
+};
+
+struct DerivedBitFiled
+: public BitField
+{
+  unsigned int another_bits : 2;
+};
+
 
 int main(void)
 {
-  // TODO
+  // initialization with '6'
+  cout << "bitfield bf created" << endl;
+  BitField bf = { 6 };
+  cout << "bf.bits: " << bf.bits << endl;
+  cout << endl;
+
+  // increment, now storing '7' as content
+  cout << "bitfield bf incremented" << endl;
+  ++bf.bits;
+  cout << "bf.bits: " << bf.bits << endl;
+  cout << endl;
+
+  cout << "bitfield bf incremented, again" << endl;
+  ++bf.bits;
+  cout << "bf.bits: " << bf.bits << endl;
+  cout << endl;
+
+// TODO sizes
+
+  
 
   cout << "READY." << endl;
 }
