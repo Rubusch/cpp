@@ -33,7 +33,7 @@ struct BitField
   unsigned int bits : 3;
 };
 
-struct DerivedBitFiled
+struct DerivedBitField
 : public BitField
 {
   unsigned int another_bits : 2;
@@ -61,7 +61,13 @@ int main(void)
 
 // TODO sizes
 
-  
+    // initialization with '6'
+  cout << "derived bitfield dbf created" << endl;
+  DerivedBitField dbf = DerivedBitField();
+  dbf.bits = 7;
+  dbf.another_bits = 2;
+  cout << "dbf.bits: " << dbf.bits << ", dbf.another_bits: " << dbf.another_bits << endl;
+  cout << endl;
 
   cout << "READY." << endl;
 }
