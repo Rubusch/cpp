@@ -24,6 +24,7 @@ public:
   {
     cout << iteration << " : " << " (member function)" << endl;
   }
+};
 
 class SquareRoot
 {
@@ -69,8 +70,12 @@ private:
 int main() {
   SquareRoot sr;
 
+  // member function callback, needs a temporary instance
+  MemberFunctionPointer cb_b_tmp;
+
+  // then a connection via std::bind() for passing the arguments
   auto cb_b = std::bind(&MemberFunctionPointer::call
-                        , &cb_b
+                        , &cb_b_tmp
                         , std::placeholders::_1
                         , std::placeholders::_2);
   sr.add_callback(cb_b);
