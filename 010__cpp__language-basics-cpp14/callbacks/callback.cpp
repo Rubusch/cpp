@@ -1,8 +1,10 @@
 /*
   callbacks in cpp
 
+  example based on the example of the blog post of davis vigneault on the topic
+
   resources:
-  https://sudomakeinstall.io/posts/2017/11/30/callbacks-in-cpp11/ , blog post, 2017
+  https://sudomakeinstall.io/posts/2017/11/30/callbacks-in-cpp11/  davis.vigneault@gmail.com, blog post, 2017
   Effective Modern C++, Scott Meyers, 2015
   cppreference.com, 2019
  */
@@ -15,6 +17,11 @@
 
 using namespace std;
 
+// function pointer callback
+void functionPointerCallback(const size_t iteration, const double guess)
+{
+  cout << iteration << " : " << guess << " (function pointer callback)" << endl;
+}
 
 class SquareRoot {
 public:
@@ -58,6 +65,11 @@ private:
 
 int main() {
   SquareRoot sr;
+
+  // function pointer callback
+  auto *cb_a = functionPointerCallback;
+  sr.add_callback(cb_a);
+
   std::cout << "Result: " << sr.run(1234.5*1234.5) << std::endl;
 
   cout << "READY." << endl;
