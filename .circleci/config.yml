@@ -131,6 +131,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/bitfield && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/callback__function-pointer && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/callback__member-function-pointer && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/callback__functor && make && ./*.exe
 
 
 ## 20: language-techniques
