@@ -14,7 +14,7 @@ using namespace std;
 
 int main(void)
 {
-  // TODO
+  cout << "TODO" << endl;
 
   cout << "READY." << endl;
 }
