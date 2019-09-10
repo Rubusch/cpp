@@ -129,6 +129,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/move__avoid-overloading-universal-references && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move__reference-collapsing && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/bitfield && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/callbacks && make && ./*.exe
 
 
 ## 20: language-techniques
