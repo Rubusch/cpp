@@ -22,7 +22,7 @@ class MemberFunctionPointer
 public:
   void call(const size_t iteration, const double guess)
   {
-    cout << iteration << " : " << " (member function)" << endl;
+    cout << iteration << " : " << guess << " (member function)" << endl;
   }
 };
 
@@ -71,14 +71,14 @@ int main() {
   SquareRoot sr;
 
   // member function callback, needs a temporary instance
-  MemberFunctionPointer cb_b_tmp;
+  MemberFunctionPointer cb_tmp;
 
   // then a connection via std::bind() for passing the arguments
-  auto cb_b = std::bind(&MemberFunctionPointer::call
-                        , &cb_b_tmp
+  auto cb = std::bind(&MemberFunctionPointer::call
+                        , &cb_tmp
                         , std::placeholders::_1
                         , std::placeholders::_2);
-  sr.add_callback(cb_b);
+  sr.add_callback(cb);
 
   std::cout << "Result: " << sr.run(1234.5*1234.5) << std::endl;
 
