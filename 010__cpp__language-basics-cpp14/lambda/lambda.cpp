@@ -2,6 +2,9 @@
 /*
   demonstrates lambdas (>=cpp11)
 
+  terminology:
+  TODO
+
   syntax variants:
   [capture] (params) mutable exception attribute -> ret { body }
   [capture] (params) -> ret { body }
@@ -34,40 +37,40 @@
 using namespace std;
 
 
-class Greek
+class Fruit
 {
 private:
   const string *pItem = nullptr;
 
 public:
-  Greek(const string *item)
+  Fruit(const string *item)
   {
     pItem = item;
   }
 
   // !!! always respect rule of five having member pointer to allocated things !!!
   //
-  // copy assignment constructor: needed for iterating on vector<Greek>
-  Greek(const Greek& gr)
+  // copy assignment constructor: needed for iterating on vector<Fruit>
+  Fruit(const Fruit& fruit)
   {
-    if (this == &gr) return;
-    pItem = new string(*gr.pItem);
+    if (this == &fruit) return;
+    pItem = new string(*fruit.pItem);
   }
 
   // !!! always respect rule of five having member pointer to allocated things !!!
   //
-  // copy move constructor: needed for vector<Greek>::push_back()
-  Greek(Greek&& gr)
+  // copy move constructor: needed for vector<Fruit>::push_back()
+  Fruit(Fruit&& fruit)
   {
-    if (this == &gr) return;
-    pItem = gr.pItem;
-    gr.pItem = nullptr;
+    if (this == &fruit) return;
+    pItem = fruit.pItem;
+    fruit.pItem = nullptr;
   }
 
   // !!! always respect rule of five having member pointer to allocated things !!!
   //
-  // copy move constructor: needed for vector<Greek>::push_back()
-  ~Greek()
+  // copy move constructor: needed for vector<Fruit>::push_back()
+  ~Fruit()
   {
     if (nullptr != pItem) delete pItem;
     pItem = nullptr;
@@ -76,11 +79,11 @@ public:
   // !!! always respect rule of five having member pointer to allocated things !!!
   //
   // needed for remove_if() and lambda
-  constexpr Greek& operator=(const Greek& gr)
+  constexpr Fruit& operator=(const Fruit& fruit)
   {
-    if (this != &gr) {
+    if (this != &fruit) {
       if (pItem) delete pItem;
-      pItem = new string(*gr.pItem);
+      pItem = new string(*fruit.pItem);
     }
     return *this;
   }
@@ -93,40 +96,40 @@ public:
 
   // print out class
   friend
-  ostream& operator<<(ostream& out, Greek& gr);
+  ostream& operator<<(ostream& out, Fruit& fruit);
 };
 
-ostream& operator<<(ostream& out, Greek& gr)
+ostream& operator<<(ostream& out, Fruit& fruit)
 {
-  if (gr.pItem) return out << *gr.pItem; // segfaults: when copy assignment ctor is missing
+  if (fruit.pItem) return out << *fruit.pItem; // segfaults: when copy assignment ctor is missing
   return out << "";
 }
 
 
 int main(void)
 {
-  vector<Greek> box;
-  box.push_back( Greek(new string("Perikles"))); // double free: when copy move ctor missing
-  box.push_back( Greek(new string("Poplicola")));
-  box.push_back( Greek(new string("Nikias")));
-  box.push_back( Greek(new string("Themistokles")));
+  vector<Fruit> box;
+  box.push_back( Fruit(new string("Lemon"))); // double free: when copy move ctor missing
+  box.push_back( Fruit(new string("Orange")));
+  box.push_back( Fruit(new string("Banana")));
+  box.push_back( Fruit(new string("Ananas")));
 
   cout << "before:" << endl;
-  for (Greek gr : box) cout << "  " << gr;
+  for (Fruit fruit : box) cout << "  " << fruit;
   cout << endl << endl;
 
   // the lambda function passed to the remove_if()
-  string x = "Poplicola";
+  string x = "Banana";
   cout << "now removing '" << x << "'" << endl;
   box.erase( remove_if( box.begin(), box.end()
-                        , [x](Greek gr){
-                            cout << "CALLED: lambda for '" << *gr.getItem() << "' " << endl;
-                            return *gr.getItem() == x;
+                        , [x](Fruit fruit){
+                            cout << "CALLED: lambda for '" << *fruit.getItem() << "' " << endl;
+                            return *fruit.getItem() == x;
                           }), box.end() );
   cout << endl;
 
   cout << "after:" << endl;
-  for (Greek gr : box) cout << "  " << gr;
+  for (Fruit fruit : box) cout << "  " << fruit;
   cout << endl << endl;
 
   cout << "READY." << endl;
