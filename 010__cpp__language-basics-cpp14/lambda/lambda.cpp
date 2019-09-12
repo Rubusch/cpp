@@ -3,7 +3,28 @@
   demonstrates lambdas (>=cpp11)
 
   terminology:
-  TODO
+  auto var = [x] (int y) {return x * y > 123; };
+
+  auto var : closure
+    the lambda object is called 'closure'
+
+  [x] : capture
+    which symbols are captured and thus visible for the lambda body, e.g.
+    [a,&b]   a as by value copy, b as reference
+    [this]   this pointer as a by value copy
+    [&]      all symbols available in function scope as reference
+    [=]      all symbols available in function scoe as a copy
+    []       nothing captured
+
+  (int y) : params
+    list of parameters
+
+  ret : return type (optional)
+    optional return type or use auto, defaults to "void"
+
+  {return x * y > 123; }; : function body
+    implementation of the lambda class
+
 
   syntax variants:
   [capture] (params) mutable exception attribute -> ret { body }
@@ -16,16 +37,16 @@
   exception = exception specification, or noexcept
   attribute = attribute specificatio for the closure type
 
-  capture = which symbols are captured and thus visible for the lambda body
-  e.g.
-    [a,&b]   a as by value copy, b as reference
-    [this]   this pointer as a by value copy
-    [&]      all symbols available in function scope as reference
-    [=]      all symbols available in function scoe as a copy
-    []       nothing captured
 
-  params = list of parameters
-  ret = return type, defaults to "void"
+  C++11 - TODO
+  (Meyers / item 25)
+
+  CONCLUSION
+
+  - TODO    
+
+  resources:
+  TODO
 
 //*/
 
