@@ -35,9 +35,10 @@
     which symbols are captured and thus visible for the lambda body, e.g.
     [a,&b]   a as by value copy, b as reference
     [this]   this pointer as a by value copy
-    [&]      all symbols available in function scope as reference
-    [=]      all symbols available in function scope as a copy
+    [&]      by-reference: all symbols available in function scope as reference
+    [=]      by-value: all symbols available in function scope as a copy
     []       nothing captured
+    CAUTION: references can be dangling references!
 
   (int y) : params
     list of parameters
@@ -58,6 +59,9 @@
 
   C++11 - avoid default capture modes
   (Meyers / item 31)
+
+  C++11 - use init capture to move objects into closures
+  (Meyers / item 32)
 
   CONCLUSION
 
@@ -89,6 +93,8 @@ void addFilter_byReferenceDangling()
 
   // fails, and only returns '0', since by-reference will dangle the reference
   // to function local 'divisor' when executed via the container somewhere else
+  // [&] - if 'divisor' would be defined here, the by-reference capture would
+  //       dangle since 'divisor's scope is function local to this add function!
   filters.emplace_back(
       [&](int value){return value % divisor == 0;}
       // DANGER: reference to 'divisor' will dangle!!!
@@ -113,12 +119,9 @@ void addFilter_byReferenceAlsoDangling()
 void addFilter_byValue()
 {
   auto divisor = 2;
-  // [&] - if 'divisor' would be defined here, the by-reference capture would
-  //       dangle since 'divisor's scope is function local to this add function!
   // [=] - the solution: by-value capture
   filters.emplace_back(
       [=](int value){return value % divisor == 0;}
-      // DANGER: reference to 'divisor' will dangle!!!
                        );
 }
 
@@ -126,7 +129,6 @@ void addFilter_byValueStatic()
 {
   static auto divisor = 2; // should be static, since the closure are not self-contained
   // to make them more "self contained" passed values should be static
-
   // [] - fails, no local variable
   // [divisor] - fails, also since no local variable can be passed
   filters.emplace_back(
@@ -138,6 +140,7 @@ void addFilter_byReferenceMoved()
 {
   auto divisor = 2;
 
+  // init capture - moved local variable into the closure
   filters.emplace_back(
       [divisor = std::move(divisor)](int value){return value % divisor == 0;}
                        );
@@ -146,8 +149,8 @@ void addFilter_byReferenceMoved()
 
 int main(void)
 {
-  addFilter_byReferenceDangling(); // not working, only returns '0'
-  addFilter_byReferenceAlsoDangling(); // not working, only returns '0'
+  addFilter_byReferenceDangling(); // not working due to dangling reference, always returning '0', though no warning / error
+  addFilter_byReferenceAlsoDangling(); // not working due to dangling reference, always returning '0', though no warning / error
   addFilter_byValue();
   addFilter_byValueStatic();
   addFilter_byReferenceMoved();
@@ -155,7 +158,9 @@ int main(void)
   for (int idx=0; idx < 3; ++idx) {
     for (const auto &filtered : filters) {
       // print the lambda computed value and verify
-      cout << "item(" << idx << ") : " << (filtered(idx) == (idx%2==0)?"ok":"failed") << endl;
+      cout << "item(" << idx << ") : "
+           << (filtered(idx) == (idx%2==0)?"ok":"failed")
+           << endl;
     }
     cout << endl;
   }
