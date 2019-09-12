@@ -29,7 +29,7 @@ public:
 class SquareRoot
 {
 public:
-  // function pointer: 'returntype ? (parameters)
+  // function pointer: 'returntype (parameters)'
   using TCallback = std::function< void (const size_t, const double)>;
 
   // vector of function pointers to make them interchangeable
@@ -43,13 +43,15 @@ public:
   // main logic of class.
   double run(const double input)
   {
-    if (input < 0.0) throw 0; // error checking.
-    this->iteration = 0;      // reset iteration number.
-    double guess = input;     // set initial guess to input.
+    if (input < 0.0) throw 0; // error checking
+    this->iteration = 0;      // reset iteration number
+    double guess = input;     // set initial guess to input
 
     // heron algorithm
     while (std::fabs(guess - input/guess) > this->epsilon) {
       for (const auto &cb : m_callbacks) {
+        // ideally: different "printers" could be in the callbacks list, the
+        // for-loop would call all of them at each while-iteration
         cb(iteration, guess);
       }
       guess = (guess + input / guess) / 2.0;

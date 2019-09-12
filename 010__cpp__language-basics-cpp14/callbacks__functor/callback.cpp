@@ -17,6 +17,7 @@
 
 using namespace std;
 
+
 class FunctorCallback
 {
 public:
@@ -29,8 +30,8 @@ public:
 class SquareRoot
 {
 public:
-  // function pointer: 'returntype ? (parameters)
-  using TCallback = std::function< void (const size_t, const double)>;
+  // function pointer: 'returntype (parameters)'
+  using TCallback = std::function< void (const size_t, const double) >;
 
   // vector of function pointers to make them interchangeable
   using TCallbackVector = vector< TCallback >;
@@ -50,6 +51,8 @@ public:
     // heron algorithm
     while (std::fabs(guess - input/guess) > this->epsilon) {
       for (const auto &cb : m_callbacks) {
+        // ideally: different "printers" could be in the callbacks list, the
+        // for-loop would call all of them at each while-iteration
         cb(iteration, guess);
       }
       guess = (guess + input / guess) / 2.0;
