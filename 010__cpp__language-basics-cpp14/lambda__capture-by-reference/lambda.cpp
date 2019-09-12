@@ -2,7 +2,7 @@
 /*
   Lambda (>=cpp11) constructs a closure: an unnamed function object capable of capturing variables in scope.
 
-  This example shows basic usage of lambda expressions.
+  This example shows dangers at capture by-reference.
 
 
   ---
@@ -71,109 +71,94 @@
   cppreference.com, 2019
 //*/
 
-#include <vector> /* vector */
-#include <algorithm> /* remove_if() */
-#include <functional> /* lambda */
 #include <iostream>
+#include <vector>
+#include <functional>
 
 using namespace std;
 
+// function pointer type for container and container definition
+using FilterContainer = std::vector< std::function< bool(int) > >;
 
-class Fruit
+// container instance
+FilterContainer filters;
+
+void addFilter_byReferenceDangling()
 {
-private:
-  const string *pItem = nullptr;
+  auto divisor = 2;
 
-public:
-  Fruit(const string *item)
-  {
-    pItem = item;
-  }
+  // fails, and only returns '0', since by-reference will dangle the reference
+  // to function local 'divisor' when executed via the container somewhere else
+  filters.emplace_back(
+      [&](int value){return value % divisor == 0;}
+      // DANGER: reference to 'divisor' will dangle!!!
+                       );
 
-  // !!! always respect rule of five having member pointer to allocated things !!!
-  //
-  // copy assignment constructor: needed for iterating on vector<Fruit>
-  Fruit(const Fruit& fruit)
-  {
-    if (this == &fruit) return;
-    pItem = new string(*fruit.pItem);
-  }
+}
 
-  // !!! always respect rule of five having member pointer to allocated things !!!
-  //
-  // copy move constructor: needed for vector<Fruit>::push_back()
-  Fruit(Fruit&& fruit)
-  {
-    if (this == &fruit) return;
-    pItem = fruit.pItem;
-    fruit.pItem = nullptr;
-  }
 
-  // !!! always respect rule of five having member pointer to allocated things !!!
-  //
-  // copy move constructor: needed for vector<Fruit>::push_back()
-  ~Fruit()
-  {
-    if (nullptr != pItem) delete pItem;
-    pItem = nullptr;
-  }
-
-  // !!! always respect rule of five having member pointer to allocated things !!!
-  //
-  // needed for remove_if() and lambda
-  constexpr Fruit& operator=(const Fruit& fruit)
-  {
-    if (this != &fruit) {
-      if (pItem) delete pItem;
-      pItem = new string(*fruit.pItem);
-    }
-    return *this;
-  }
-
-  // some getter
-  const string* getItem() const
-  {
-    return pItem;
-  }
-
-  // print out class
-  friend
-  ostream& operator<<(ostream& out, Fruit& fruit);
-};
-
-ostream& operator<<(ostream& out, Fruit& fruit)
+void addFilter_byReferenceAlsoDangling()
 {
-  if (fruit.pItem) return out << *fruit.pItem; // segfaults: when copy assignment ctor is missing
-  return out << "";
+  auto divisor = 2;
+
+  // C++14 allows auto parameters, still same problem: dangling reference to
+  // 'divisor' as above
+  filters.emplace_back(
+      [&](const auto& value){return value % divisor == 0;}
+      // DANGER: reference to 'divisor' will dangle!!!
+                       );
+
+}
+
+void addFilter_byValue()
+{
+  auto divisor = 2;
+  // [&] - if 'divisor' would be defined here, the by-reference capture would
+  //       dangle since 'divisor's scope is function local to this add function!
+  // [=] - the solution: by-value capture
+  filters.emplace_back(
+      [=](int value){return value % divisor == 0;}
+      // DANGER: reference to 'divisor' will dangle!!!
+                       );
+}
+
+void addFilter_byValueStatic()
+{
+  static auto divisor = 2; // should be static, since the closure are not self-contained
+  // to make them more "self contained" passed values should be static
+
+  // [] - fails, no local variable
+  // [divisor] - fails, also since no local variable can be passed
+  filters.emplace_back(
+      [=](int value){return value % divisor == 0;}
+                       );
+}
+
+void addFilter_byReferenceMoved()
+{
+  auto divisor = 2;
+
+  filters.emplace_back(
+      [divisor = std::move(divisor)](int value){return value % divisor == 0;}
+                       );
 }
 
 
 int main(void)
 {
-  vector<Fruit> box;
-  box.push_back( Fruit(new string("Lemon"))); // double free: when copy move ctor missing
-  box.push_back( Fruit(new string("Orange")));
-  box.push_back( Fruit(new string("Banana")));
-  box.push_back( Fruit(new string("Ananas")));
+  addFilter_byReferenceDangling(); // not working, only returns '0'
+  addFilter_byReferenceAlsoDangling(); // not working, only returns '0'
+  addFilter_byValue();
+  addFilter_byValueStatic();
+  addFilter_byReferenceMoved();
 
-  cout << "before:" << endl;
-  for (Fruit fruit : box) cout << "  " << fruit;
-  cout << endl << endl;
-
-  // the lambda function passed to the remove_if()
-  string x = "Banana";
-  cout << "now removing '" << x << "'" << endl;
-  box.erase( remove_if( box.begin(), box.end()
-                        , [x](Fruit fruit){
-                            cout << "CALLED: lambda for '" << *fruit.getItem() << "' " << endl;
-                            return *fruit.getItem() == x;
-                          }), box.end() );
-  cout << endl;
-
-  cout << "after:" << endl;
-  for (Fruit fruit : box) cout << "  " << fruit;
-  cout << endl << endl;
+  for (int idx=0; idx < 3; ++idx) {
+    for (const auto &filtered : filters) {
+      // print the lambda computed value and verify
+      cout << "item(" << idx << ") : " << (filtered(idx) == (idx%2==0)?"ok":"failed") << endl;
+    }
+    cout << endl;
+  }
 
   cout << "READY." << endl;
 }
-
