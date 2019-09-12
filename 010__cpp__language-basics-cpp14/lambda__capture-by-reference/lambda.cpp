@@ -85,6 +85,7 @@
 
 using namespace std;
 
+
 // function pointer type for container and container definition
 using FilterContainer = std::vector< std::function< bool(int) > >;
 
