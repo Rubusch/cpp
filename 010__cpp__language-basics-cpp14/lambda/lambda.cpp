@@ -1,10 +1,18 @@
 // lambda.cpp
 /*
-  lambdas (>=cpp11)
-  constructs a closure: an unnamed function object capable of capturing variables in scope
+  Lambda (>=cpp11) constructs a closure: an unnamed function object capable of capturing variables in scope.
+
+  This example shows basic usage of lambda expressions.
 
 
+  ---
 
+
+  fundamentals
+  ------------
+
+  int x = 10;
+  (...)
   auto var = [x] (int y) constexpr -> int {return x * y > 123; };
 
 
@@ -28,7 +36,7 @@
     [a,&b]   a as by value copy, b as reference
     [this]   this pointer as a by value copy
     [&]      all symbols available in function scope as reference
-    [=]      all symbols available in function scoe as a copy
+    [=]      all symbols available in function scope as a copy
     []       nothing captured
 
   (int y) : params
