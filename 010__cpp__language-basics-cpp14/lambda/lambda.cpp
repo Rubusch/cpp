@@ -1,9 +1,24 @@
 // lambda.cpp
 /*
-  demonstrates lambdas (>=cpp11)
+  lambdas (>=cpp11)
+  constructs a closure: an unnamed function object capable of capturing variables in scope
+
+
+
+  auto var = [x] (int y) constexpr -> int {return x * y > 123; };
+
+
+
+  syntax variants:
+
+  [capture] (params) mutable exception attribute -> ret { body }
+  [capture] (params) -> ret { body }
+  [capture] (params) { body }
+  [capture] { body }
+
+
 
   terminology:
-  auto var = [x] (int y) {return x * y > 123; };
 
   auto var : closure
     the lambda object is called 'closure'
@@ -19,35 +34,33 @@
   (int y) : params
     list of parameters
 
-  ret : return type (optional)
-    optional return type or use auto, defaults to "void"
+  constexpr -> int : (optional, can be left out)
+    specifier: mutable, constexpr, consteval (opt)
+    where:
+      mutable = allows the body to modify copied params and to call their non-const member functions
+      exception = exception specification, or noexcept
+      attribute = attribute specificatio for the closure type
+
+    return type or use auto for closure, defaults to "void" (opt)
 
   {return x * y > 123; }; : function body
     implementation of the lambda class
 
 
-  syntax variants:
-  [capture] (params) mutable exception attribute -> ret { body }
-  [capture] (params) -> ret { body }
-  [capture] (params) { body }
-  [capture] { body }
 
-  where:
-  mutable = allows the body to modify copied params and to call their non-const member functions
-  exception = exception specification, or noexcept
-  attribute = attribute specificatio for the closure type
-
-
-  C++11 - TODO
-  (Meyers / item 25)
+  C++11 - avoid default capture modes
+  (Meyers / item 31)
 
   CONCLUSION
 
-  - TODO    
+  - Default by-reference capture can lead to dangling references.
+
+  - Default by-value capture is susceptible to dangling pointers (especially this),
+    and it misleadingly suggests that lambdas are self-contained.
 
   resources:
-  TODO
-
+  Effective Modern C++, Scott Meyers, 2015
+  cppreference.com, 2019
 //*/
 
 #include <vector> /* vector */
