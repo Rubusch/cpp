@@ -86,10 +86,25 @@ public:
 auto closure = CompilerGeneratedClosureClassName();
 // */
 
+//*
+auto anotherClosure = [](auto&& par){ return (par % 3); };
+/*/ // generates something like this
+// TODO
+class CompilerGeneratedClosureClassName
+{
+public:
+  template< typename T >
+  auto operator()(T par) const
+  { return (par % 3); }
+};
+auto anotherClosure = CompilerGeneratedClosureClassName();
+// */
+
+
 int main(void)
 {
   for (auto idx=0; idx<10; ++idx) {
-    cout << "item(" << idx << ") : " << closure(idx) << endl;
+    cout << "item(" << idx << ") : " << closure(idx) << ", moved: " << anotherClosure(idx) << endl;
   }
   cout << "READY." << endl;
 }
