@@ -75,7 +75,7 @@ using namespace std;
 
 //*
 auto closure = [](auto par){ return (par % 3); };
-/*/ generates something like this
+/*/ // generates something like this
 class CompilerGeneratedClosureClassName
 {
 public:
