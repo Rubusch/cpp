@@ -70,6 +70,10 @@
   - Default by-value capture is susceptible to dangling pointers (especially this),
     and it misleadingly suggests that lambdas are self-contained.
 
+  - User C++14's init capture to move objects into closures.
+
+  - In C++11, emulate init capture via hand-written classes or std::bind
+
   resources:
   Effective Modern C++, Scott Meyers, 2015
   cppreference.com, 2019
@@ -96,7 +100,7 @@ void addFilter_byReferenceDangling()
   // [&] - if 'divisor' would be defined here, the by-reference capture would
   //       dangle since 'divisor's scope is function local to this add function!
   filters.emplace_back(
-      [&](int value){return value % divisor == 0;}
+      [&](int value){ return value % divisor == 0; }
       // DANGER: reference to 'divisor' will dangle!!!
                        );
 
@@ -110,7 +114,7 @@ void addFilter_byReferenceAlsoDangling()
   // C++14 allows auto parameters, still same problem: dangling reference to
   // 'divisor' as above
   filters.emplace_back(
-      [&](const auto& value){return value % divisor == 0;}
+      [&](const auto& value){ return value % divisor == 0; }
       // DANGER: reference to 'divisor' will dangle!!!
                        );
 
@@ -121,7 +125,7 @@ void addFilter_byValue()
   auto divisor = 2;
   // [=] - the solution: by-value capture
   filters.emplace_back(
-      [=](int value){return value % divisor == 0;}
+      [=](int value){ return value % divisor == 0; }
                        );
 }
 
@@ -132,17 +136,35 @@ void addFilter_byValueStatic()
   // [] - fails, no local variable
   // [divisor] - fails, also since no local variable can be passed
   filters.emplace_back(
-      [=](int value){return value % divisor == 0;}
+      [=](int value){ return value % divisor == 0; }
                        );
 }
 
-void addFilter_byReferenceMoved()
+/*
+void addFilter_byReferenceInitCaptureCpp11()
+{
+  auto divisor = 2;
+
+  // init capture - moved local variable into the closure
+
+  // 1. moving the object to be captured into a function object produced by std::bind and
+  // 2. giving the lambda a reference to the captured object
+  //
+  // this technique does not allow easily mixing init captured params with regular params (set later)
+  //
+  filters.emplace_back(
+      std::bind( [](int value, const int& divisor) mutable { return value % divisor == 0; }, TODO: expression for 'value' may be caputred later, std::move(divisor) )
+                       );
+}
+// */
+
+void addFilter_byReferenceInitCaptureCpp14()
 {
   auto divisor = 2;
 
   // init capture - moved local variable into the closure
   filters.emplace_back(
-      [divisor = std::move(divisor)](int value){return value % divisor == 0;}
+      [divisor = std::move(divisor)](int value){ return value % divisor == 0; }
                        );
 }
 
@@ -153,7 +175,8 @@ int main(void)
   addFilter_byReferenceAlsoDangling(); // not working due to dangling reference, always returning '0', though no warning / error
   addFilter_byValue();
   addFilter_byValueStatic();
-  addFilter_byReferenceMoved();
+//  addFilter_byReferenceInitCaptureCpp11();
+  addFilter_byReferenceInitCaptureCpp14();
 
   for (int idx=0; idx < 3; ++idx) {
     for (const auto &filtered : filters) {
