@@ -73,6 +73,7 @@
 
 using namespace std;
 
+// lambda to filter by '%3'
 //*
 auto closure = [](auto par){ return (par % 3); };
 /*/ // generates something like this
@@ -86,27 +87,22 @@ public:
 auto closure = CompilerGeneratedClosureClassName();
 // */
 
-//*
-// TODO 'par' not accepted as lvalue reference 
-//auto anotherClosure = [](auto&& par){ return std::forward< decltype(par) >(par % 3); };
-/*/ // generates something like this
-// TODO
-class CompilerGeneratedClosureClassName
-{
-public:
-  template< typename T >
-  auto operator()(T par) const
-  { return (par % 3); }
-};
-auto anotherClosure = CompilerGeneratedClosureClassName();
-// */
+// if lambda treats lvalues differently from rvalues, the above lambda is not sufficient (perfect forwarding)
+auto forwardingClosure = [](auto&& par){ return std::forward< decltype(par) >(par) %3; };
+
+// variadic extension of the lambda
+// FIXME
+//auto variadicClosure = [](auto&& ...par){ return (std::forward< decltype(par) >(par)...) %3; };
 
 
 int main(void)
 {
   for (auto idx=0; idx<10; ++idx) {
-    cout << "item(" << idx << ") : " << closure(idx) << endl;
-//    cout << "item(" << idx << ") : " << closure(idx) << ", moved: " << anotherClosure(idx) << endl;
+
+    cout << "item(" << idx << ") : " << closure(idx)
+         << ", forwarding closure: " << forwardingClosure(idx)
+//         << ", variadic: " << variadicClosure(idx)
+         << endl;
   }
   cout << "READY." << endl;
 }
