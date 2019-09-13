@@ -135,6 +135,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/callbacks__member-function-pointer && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/callbacks__functor && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/callbacks__lambda && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/bind && make && ./*.exe
 
 
 ## 20: language-techniques
