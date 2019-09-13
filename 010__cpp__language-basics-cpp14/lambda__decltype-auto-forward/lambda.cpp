@@ -88,7 +88,7 @@ auto closure = CompilerGeneratedClosureClassName();
 // */
 
 // if lambda treats lvalues differently from rvalues, the above lambda is not sufficient (perfect forwarding)
-auto forwardingClosure = [](auto&& par){ return std::forward< decltype(par) >(par) %3; };
+auto forwardingClosure = [](auto&& par){ return (std::forward< decltype(par) >(par)) %3; };
 
 // variadic extension of the lambda
 // FIXME
