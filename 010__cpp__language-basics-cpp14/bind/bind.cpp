@@ -81,14 +81,14 @@ int main()
   cout << endl;
 
   // common use case: binding a RNG with a distribution
-  std::default_random_engine e;
-  std::uniform_int_distribution<> d(0, 10);
-  auto rnd = std::bind(d, e); // a copy of e is stored in rnd
-  for(int n=0; n<10; ++n) {
+  std::default_random_engine dre;
+  std::uniform_int_distribution<> uid(0, 10);
+  auto rnd = std::bind(uid, dre); // a copy of e is stored in rnd
+  for(int cnt=0; cnt<10; ++cnt) {
     cout << rnd() << ' ';
   }
-  cout << '\n';
-
+  cout << endl;
+ 
   // bind to a pointer to member function
   Foo foo;
   auto func3 = std::bind(&Foo::print_sum, &foo, 95, _1);
