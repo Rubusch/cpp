@@ -2,7 +2,7 @@
 /*
   bind
 
-  demostrates the usage of bind (C++11)
+  demostrates the usage of bind (C++11), argument reordering and pass-by-reference
 
   'std::bind' is likely to disappear in later versions of C++ than C++11
 
@@ -26,8 +26,8 @@
   cppreference.com, 2019
 //*/
 
-#include <random>
 #include <iostream>
+#include <random>
 #include <memory>
 #include <functional>
 
@@ -48,25 +48,32 @@ int anotherFunc(int n1)
 
 
 struct Foo {
-  void print_sum(int n1, int n2)
-  {
-    cout << n1+n2 << '\n';
-  }
   int data = 10;
+
+  void print_sum(int val1, int val2)
+  {
+    cout << val1 + val2 << '\n';
+  }
 };
 
 
 int main()
 {
-  // demonstrates argument reordering and pass-by-reference
-  int n = 7;
+  int num = 7;
+
   // (_1 and _2 are from std::placeholders, and represent future
   // arguments that will be passed to func1)
-  auto func1 = std::bind(func, _2, 42, _1, std::cref(n), n);
-  n = 10;
-  func1(1, 2, 1001); // 1 is bound by _1, 2 is bound by _2, 1001 is unused
-  // makes a call to func(2, 42, 1, n, 7)
-
+  cout << "bind arguments to printer function" << endl;
+  auto func1 = std::bind(func, _2, 42, _1, std::cref(num), num);
+  num = 10;
+  func1(1, 2, 1001);
+  cout << endl;
+  // '1' is bound by '_1',
+  // '2' is bound by '_2',
+  // '1001' is unused
+  //
+  // this makes a call to func(2, 42, 1, n, 7)
+  
   // nested bind subexpressions share the placeholders
   auto func2 = std::bind(func, _3, std::bind(anotherFunc, _3), _3, 4, 5);
   func2(10, 11, 12); // makes a call to func(12, anotherFunc(12), 12, 4, 5);
