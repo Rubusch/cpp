@@ -35,7 +35,7 @@ using namespace std;
 using namespace std::placeholders;  // for _1, _2, _3...
 
 
-void func(int n1, int n2, int n3, const int& n4, int n5)
+void printer(int n1, int n2, int n3, const int& n4, int n5)
 {
   cout << n1 << ' ' << n2 << ' ' << n3 << ' ' << n4 << ' ' << n5 << '\n';
 }
@@ -64,7 +64,7 @@ int main()
   // (_1 and _2 are from std::placeholders, and represent future
   // arguments that will be passed to func1)
   cout << "bind arguments to printer function" << endl;
-  auto func1 = std::bind(func, _2, 42, _1, std::cref(num), num);
+  auto func1 = std::bind(printer, _2, 42, _1, std::cref(num), num);
   num = 10;
   func1(1, 2, 1001);
   cout << endl;
@@ -73,10 +73,12 @@ int main()
   // '1001' is unused
   //
   // this makes a call to func(2, 42, 1, n, 7)
-  
-  // nested bind subexpressions share the placeholders
-  auto func2 = std::bind(func, _3, std::bind(anotherFunc, _3), _3, 4, 5);
-  func2(10, 11, 12); // makes a call to func(12, anotherFunc(12), 12, 4, 5);
+
+  // nested bind subexpressions share the placeholders!!!
+  cout << "nested bind subexpressions share the placeholders!" << endl;
+  auto func2 = std::bind(printer, _3, std::bind(anotherFunc, _3), _3, 4, 5);
+  func2(10, 11, 12); // makes a call to printer(12, anotherFunc(12), 12, 4, 5);
+  cout << endl;
 
   // common use case: binding a RNG with a distribution
   std::default_random_engine e;
