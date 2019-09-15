@@ -45,10 +45,35 @@
 #include <string>
 #include <mutex>
 #include <chrono> /* system_clock::now(), chrono::duration< double > */
+#include <cassert>
 
 using namespace std;
 
 
+
+vector< unsigned long > checkPrimes(unsigned long num)
+{
+  vector< unsigned long > primes = { 2 };
+  for (unsigned long idx=3; idx<num; ++idx) {
+    bool isPrime = true;
+    for (auto item : primes) {
+      if (0 == idx % item) {
+        isPrime = false;
+        break;
+      }
+    }
+
+    if (isPrime) {
+      primes.push_back(idx);
+    }
+  }
+
+  return primes;
+}
+
+
+
+/*
 std::mutex mtx;
 
 struct Fruit {
@@ -68,45 +93,49 @@ struct Fruit {
     return idx + 10;
   }
 };
+// */
 
-
-template <typename RandomIt>
-int parallel_sum(RandomIt beg, RandomIt end)
-{
-  auto len = end - beg;
-  if (len < 1000) return std::accumulate(beg, end, 0);
-
-  // iterator
-  RandomIt mid = beg + len/2;
-
-  // call itself as 'std::async()' in parallel recursively (launch-policy: async)
-// TODO
-  auto handle = std::async(std::launch::async, parallel_sum< RandomIt >, mid, end);  
-
-  // call itself recursively
-  int sum = parallel_sum(beg, mid);
-
-  sum += handle.get();  
-  return sum;
-}
 
 
 int main()
 {
-  cout << "function using potentially async functions in recursion for computation" << endl;
-  std::vector<int> vec(10000, 1);
-  auto start = chrono::system_clock::now();
-  cout << "The sum is " << parallel_sum(vec.begin(), vec.end()) << endl;
-  auto stop = chrono::system_clock::now();
+  vector< unsigned long > asyncVec, vec;
+  auto limit = 1000000;
 
-  chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
-  cout << endl;
+  // async approach (launch-policy: async)
+  {
+    auto start = chrono::system_clock::now();
+    auto handle = std::async(std::launch::async, checkPrimes, limit);
+    auto stop = chrono::system_clock::now();
+    // yield the result
+    asyncVec = handle.get();
+    chrono::duration< double > diff = stop - start;
+    cout << "diff (std::async): " << diff.count() << " secs" << endl;
+    cout << endl;
+  }
 
-  exit(EXIT_SUCCESS); // XXX
- 
 
+  // iterative approach (way slower!)
+  {
+    auto start = chrono::system_clock::now();
+    vec = checkPrimes(limit);
+    auto stop = chrono::system_clock::now();
+    // check via assert, that the result matches
+    for (unsigned long idx=0; idx < vec.size(); ++idx) assert(vec[idx] == asyncVec[idx]);
+    chrono::duration< double > diff = stop - start;
+    cout << "diff (iterative): " << diff.count() << " secs"  << endl;
+    cout << endl;
+  }
 
+/*
+  // printer of the resulting primes
+  cout << "result of the algorithm: " << endl;
+  for (auto item : vec) cout << item << ' ';
+  cout << endl << endl;
+// */
+
+// TODO
+/*
   Fruit fresh_fruit;
 
   // calls (&x)->lemon(42, "Hello") with default policy:
@@ -124,6 +153,7 @@ int main()
   a2.wait();                     // prints "world!"
   cout << a3.get() << endl;      // prints "53"
   // if a1 is not done at this point, destructor of a1 prints "Hello 42" here
+// */
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
