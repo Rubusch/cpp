@@ -40,6 +40,7 @@
 #include <mutex>
 
 std::mutex m;
+
 struct X {
   void foo(int i, const std::string& str) {
     std::lock_guard<std::mutex> lk(m);
@@ -55,6 +56,7 @@ struct X {
         return i + 10;
     }
 };
+
 
 template <typename RandomIt>
 int parallel_sum(RandomIt beg, RandomIt end)
