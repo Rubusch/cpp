@@ -3,6 +3,7 @@
   bind
 
   demostrates the usage of bind (C++11), argument reordering and pass-by-reference
+  then bind examples then are shown as lambda implementation
 
   'std::bind' is likely to disappear in later versions of C++ than C++11
 
@@ -105,21 +106,26 @@ int main()
   std::default_random_engine dre;
   std::uniform_int_distribution<> uid(0, 10);
   auto randomDistributionObject = std::bind(uid, dre); // a copy of dre is stored in rnd
-  cout << "called:\t\t" << endl
-       << "resulting:\t";
-  for (auto cnt=0; cnt<10; ++cnt) {
-    cout << randomDistributionObject() << '\t';
-  }
+  auto randomDistributionLambda = [&uid, &dre](){ return uid(dre); };
+  cout << "called:\t\t" << endl;
+  cout << "resulting:\t";
+  for (auto cnt=0; cnt<10; ++cnt) cout << randomDistributionObject() << '\t';
+  cout << endl;
+  cout << "lambda:\t\t";
+  for (auto cnt=0; cnt<10; ++cnt) cout << randomDistributionLambda() << '\t';
   cout << endl << endl;
 
   // bind to a pointer to member function
   cout << "bind arguments to a member function pointer (summing up)" << endl
-       << "bind\t\t&foo\t95\[_1]" << endl;
+       << "bind\t\t&foo\t95\t[_1]" << endl;
   SomeClass foo;
   auto memberFunctionObject = std::bind(&SomeClass::print_sum, &foo, 95, _1);
-  cout << "called:\t\t5" << endl
-       << "resulting:\t";
+  auto memberFunctionLambda = [&foo](int n1){ return foo.print_sum(95, n1); };
+  cout << "called:\t\t5" << endl;
+  cout << "resulting:\t";
   memberFunctionObject(5);
+  cout << "lambda:\t\t";
+  memberFunctionLambda(5);
   cout << endl;
 
   // bind to a pointer to data member
