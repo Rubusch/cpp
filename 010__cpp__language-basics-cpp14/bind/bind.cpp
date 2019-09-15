@@ -76,11 +76,9 @@ int main()
   auto printerLambda = [cnum=std::cref(num), num](int n1, int n2, int ignored){ printer( n2, 42, n1, cnum, num); };
   num = 10;
   // calling the printer object with arguments
-  cout << "called:\t\t1\t2\t1001" << endl
-       << "resulting:\t";
-  printerObject(1, 2, 1001);
-  cout << "lambda:\t\t";
-  printerLambda(1, 2, 1001);
+  cout << "called:\t\t1\t2\t1001" << endl;
+  cout << "resulting:\t"; printerObject(1, 2, 1001);
+  cout << "lambda:\t\t"; printerLambda(1, 2, 1001);
   cout << endl;
   // '1' is bound by '_1',
   // '2' is bound by '_2',
@@ -92,12 +90,10 @@ int main()
        << "bind:\t\t[_3]\t[bind]\t[_3]\t4\t5\t// [_3] via nested bind() to anotherFunction" << endl;
   auto anotherPrinterObject = std::bind(printer, _3, std::bind(anotherFunc, _3), _3, 4, 5);
   auto anotherPrinterLambda = [](int n1, int n2, int n3){ printer(n3, anotherFunc(n3), n3, 4, 5); };
-  cout << "called:\t\t10\t11\t12" << endl
-       << "resulting:\t";
+  cout << "called:\t\t10\t11\t12" << endl;
   // calls anotherPrinterObject(12, anotherFunc(12), 12, 4, 5);
-  anotherPrinterObject(10, 11, 12);
-  cout << "lambda:\t\t";
-  anotherPrinterLambda(10, 11, 12);
+  cout << "resulting:\t"; anotherPrinterObject(10, 11, 12);
+  cout << "lambda:\t\t"; anotherPrinterLambda(10, 11, 12);
   cout << endl;
 
   // create 10 values a uniform int distribution by a rng
@@ -108,12 +104,9 @@ int main()
   auto randomDistributionObject = std::bind(uid, dre); // a copy of dre is stored in rnd
   auto randomDistributionLambda = [&uid, &dre](){ return uid(dre); };
   cout << "called:\t\t" << endl;
-  cout << "resulting:\t";
-  for (auto cnt=0; cnt<10; ++cnt) cout << randomDistributionObject() << '\t';
+  cout << "resulting:\t"; for (auto cnt=0; cnt<10; ++cnt) cout << randomDistributionObject() << '\t'; cout << endl;
+  cout << "lambda:\t\t"; for (auto cnt=0; cnt<10; ++cnt) cout << randomDistributionLambda() << '\t'; cout << endl;
   cout << endl;
-  cout << "lambda:\t\t";
-  for (auto cnt=0; cnt<10; ++cnt) cout << randomDistributionLambda() << '\t';
-  cout << endl << endl;
 
   // bind to a pointer to member function
   cout << "bind arguments to a member function pointer (summing up)" << endl
@@ -122,25 +115,38 @@ int main()
   auto memberFunctionObject = std::bind(&SomeClass::print_sum, &foo, 95, _1);
   auto memberFunctionLambda = [&foo](int n1){ return foo.print_sum(95, n1); };
   cout << "called:\t\t5" << endl;
-  cout << "resulting:\t";
-  memberFunctionObject(5);
-  cout << "lambda:\t\t";
-  memberFunctionLambda(5);
+  cout << "resulting:\t"; memberFunctionObject(5);
+  cout << "lambda:\t\t"; memberFunctionLambda(5);
   cout << endl;
 
   // bind to a pointer to data member
   cout << "bind a pointer to a data member as static instruction, then passing the specific object" << endl
        << "bind:\t\t" << "[_1]" << endl;
   auto dataMemberObject = std::bind(&SomeClass::data, _1);
-  cout << "called:\t\tfoo" << endl
-       << "resulting:\t";
-  cout << dataMemberObject(foo) << endl;
+  auto dataMemberLambda = [](SomeClass &sc){ return sc.data; };
+  cout << "called:\t\tfoo" << endl;
+  cout << "resulting:\t" << dataMemberObject(foo) << endl;
+  cout << "lambda:\t\t" << dataMemberLambda(foo) << endl;
   cout << endl;
 
-  // smart pointers can be used to call members of the referenced objects, too
-  cout << "now using smart pointers to the data member" << endl;
-  cout << "shared ptr: " << dataMemberObject(make_shared<SomeClass>(foo)) << endl
-       << "unique ptr: " << dataMemberObject(make_unique<SomeClass>(foo)) << endl;
+  // particularity to 'std::bind': the '_1' is ignoring parts of the type
+  // information's adornments, e.g. object or function pointer to the object
+  // can be handled equally
+  cout << "smart pointers can be used to call members of the referenced objects, too" << endl;
+  cout << "shared ptr: " << dataMemberObject(make_shared<SomeClass>(foo)) << endl;
+  cout << "unique ptr: " << dataMemberObject(make_unique<SomeClass>(foo)) << endl;
+
+  // access through shared pointers will be less convenient (better solution possible? )
+  // since shared_ptr / unique_ptr are more type safe than the vague 'std::bind'
+  // sometimes this may be an advantage in convenience of 'std::bind' though
+  cout << "shared ptr (lambda): " << dataMemberLambda( *make_shared<SomeClass>(foo).get() ) << endl;
+  cout << "unique ptr (lambda): " << dataMemberLambda( *make_unique<SomeClass>(foo).get() ) << endl;
+
+  // explicit shared_ptr variants of the lambda might look as follows
+  auto shPtrDataMemberLambda = [](shared_ptr<SomeClass> psc){ return psc->data; };
+  cout << "special shared ptr lambda: " << shPtrDataMemberLambda(make_shared<SomeClass>(foo)) << endl;
+
+
   cout << endl;
 
   cout << "READY." << endl;
