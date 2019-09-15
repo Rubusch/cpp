@@ -7,7 +7,6 @@
   'std::bind' is likely to disappear in later versions of C++ than C++11
 
 
-
   placeholders
 
   _1, _2 and _3 are from std::placeholders, and represent future
