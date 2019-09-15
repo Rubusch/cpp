@@ -69,26 +69,34 @@ int main()
 
   cout << "bind arguments to printer function, and create a parametrized printer object" << endl
        << "bind:\t\t[_2]\t42\t[_1]\t7\t7" << endl;
+  // cref(num) - the current value as reference, later will be '10'
+  // num - the value of num at the moment as copy by-value, '7'
   auto printerObject = std::bind(printer, _2, 42, _1, std::cref(num), num);
+  auto printerLambda = [cnum=std::cref(num), num](int n1, int n2, int ignored){ printer( n2, 42, n1, cnum, num); };
   num = 10;
   // calling the printer object with arguments
   cout << "called:\t\t1\t2\t1001" << endl
        << "resulting:\t";
   printerObject(1, 2, 1001);
+  cout << "lambda:\t\t";
+  printerLambda(1, 2, 1001);
   cout << endl;
   // '1' is bound by '_1',
   // '2' is bound by '_2',
-  // '1001' is unused
+  // '1001' is unused / ignored
   // finally calls printerObject(2, 42, 1, n, 7)
 
   // nested bind subexpressions share the placeholders!!!
   cout << "nested bind in bind, the bind subexpression shares the placeholders!" << endl
-       << "bind:\t\t[_3]\t[bind]\t4\t5\t// [_3] via nested bind() to anotherFunction" << endl;
+       << "bind:\t\t[_3]\t[bind]\t[_3]\t4\t5\t// [_3] via nested bind() to anotherFunction" << endl;
   auto anotherPrinterObject = std::bind(printer, _3, std::bind(anotherFunc, _3), _3, 4, 5);
+  auto anotherPrinterLambda = [](int n1, int n2, int n3){ printer(n3, anotherFunc(n3), n3, 4, 5); };
   cout << "called:\t\t10\t11\t12" << endl
        << "resulting:\t";
   // calls anotherPrinterObject(12, anotherFunc(12), 12, 4, 5);
   anotherPrinterObject(10, 11, 12);
+  cout << "lambda:\t\t";
+  anotherPrinterLambda(10, 11, 12);
   cout << endl;
 
   // create 10 values a uniform int distribution by a rng
