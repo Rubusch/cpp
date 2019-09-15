@@ -1,12 +1,18 @@
 /*
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
+
+
   runs a function asynchronously (potentially in a new thread) and returns a
   std::future that will hold the result
 
   The template function async runs the function f asynchronously (potentially in
   a separate thread which may be part of a thread pool) and returns a
   std::future that will eventually hold the result of that function call.
+
+  The implementation may extend the behavior of the first overload of std::async
+  by enabling additional (implementation-defined) bits in the default launch
+  policy.
 
 
 
@@ -38,27 +44,28 @@
 #include <future>
 #include <string>
 #include <mutex>
+#include <chrono> /* system_clock::now(), chrono::duration< double > */
 
 using namespace std;
 
 
 std::mutex mtx;
 
-struct X {
-  void foo(int i, const std::string& str) {
+struct Fruit {
+  void lemon(int idx, const std::string& str) {
     std::lock_guard< std::mutex > lock(mtx);
-    cout << str << ' ' << i << endl;
+    cout << "CALLED: Fruit::lemon() " << str << ' ' << idx << endl;
   }
 
-  void bar(const std::string& str) {
+  void orange(const std::string& str) {
     std::lock_guard< std::mutex > lock(mtx);
-    cout << str << endl;
+    cout << "CALLED: Fruit::orange() " << str << endl;
   }
 
-  int operator()(int i) {
+  int operator()(int idx) {
     std::lock_guard< std::mutex > lock(mtx);
-    cout << i << endl;
-    return i + 10;
+    cout << "CALLED: Fruit::operator() " << idx << endl;
+    return idx + 10;
   }
 };
 
@@ -69,35 +76,53 @@ int parallel_sum(RandomIt beg, RandomIt end)
   auto len = end - beg;
   if (len < 1000) return std::accumulate(beg, end, 0);
 
+  // iterator
   RandomIt mid = beg + len/2;
 
-  // call itself as 'std::async()' in parallel recursively
-  auto handle = std::async(std::launch::async, parallel_sum< RandomIt >, mid, end);
+  // call itself as 'std::async()' in parallel recursively (launch-policy: async)
+// TODO
+  auto handle = std::async(std::launch::async, parallel_sum< RandomIt >, mid, end);  
 
   // call itself recursively
   int sum = parallel_sum(beg, mid);
 
-  return sum + handle.get();
+  sum += handle.get();  
+  return sum;
 }
 
 
 int main()
 {
-  std::vector<int> v(10000, 1);
-  cout << "The sum is " << parallel_sum(v.begin(), v.end()) << '\n';
+  cout << "function using potentially async functions in recursion for computation" << endl;
+  std::vector<int> vec(10000, 1);
+  auto start = chrono::system_clock::now();
+  cout << "The sum is " << parallel_sum(vec.begin(), vec.end()) << endl;
+  auto stop = chrono::system_clock::now();
 
-  X x;
-  // calls (&x)->foo(42, "Hello") with default policy:
+  chrono::duration< double > diff = stop - start;
+  cout << "diff: " << diff.count() << endl;;
+  cout << endl;
+
+  exit(EXIT_SUCCESS); // XXX
+ 
+
+
+  Fruit fresh_fruit;
+
+  // calls (&x)->lemon(42, "Hello") with default policy:
   //   may print "Hello 42" concurrently or defer execution
-  auto a1 = std::async(&X::foo, &x, 42, "Hello");
-  // Calls x.bar("world!") with deferred policy
+  auto a1 = std::async(&Fruit::lemon, &fresh_fruit, 42, "sour");
+
+  // calls x.bar("world!") with deferred policy
   // prints "world!" when a2.get() or a2.wait() is called
-  auto a2 = std::async(std::launch::deferred, &X::bar, x, "world!");
-  // Calls X()(43); with async policy
+  auto a2 = std::async(std::launch::deferred, &Fruit::orange, fresh_fruit, "sweet");
+
+  // calls X()(43); with async policy
   // prints "43" concurrently
-  auto a3 = std::async(std::launch::async, X(), 43);
+  auto a3 = std::async(std::launch::async, Fruit(), 43);
+
   a2.wait();                     // prints "world!"
-  std::cout << a3.get() << '\n'; // prints "53"
+  cout << a3.get() << endl;      // prints "53"
   // if a1 is not done at this point, destructor of a1 prints "Hello 42" here
 
   cout << "READY." << endl;
