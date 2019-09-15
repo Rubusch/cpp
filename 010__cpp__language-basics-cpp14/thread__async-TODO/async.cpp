@@ -39,16 +39,11 @@
  */
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <numeric>
-#include <future>
-#include <string>
-#include <mutex>
+#include <future> /* std::async() */
 #include <chrono> /* system_clock::now(), chrono::duration< double > */
-#include <cassert>
+#include <cassert> /* assert() */
 
 using namespace std;
-
 
 
 vector< unsigned long > checkPrimes(unsigned long num)
@@ -70,31 +65,6 @@ vector< unsigned long > checkPrimes(unsigned long num)
 
   return primes;
 }
-
-
-
-/*
-std::mutex mtx;
-
-struct Fruit {
-  void lemon(int idx, const std::string& str) {
-    std::lock_guard< std::mutex > lock(mtx);
-    cout << "CALLED: Fruit::lemon() " << str << ' ' << idx << endl;
-  }
-
-  void orange(const std::string& str) {
-    std::lock_guard< std::mutex > lock(mtx);
-    cout << "CALLED: Fruit::orange() " << str << endl;
-  }
-
-  int operator()(int idx) {
-    std::lock_guard< std::mutex > lock(mtx);
-    cout << "CALLED: Fruit::operator() " << idx << endl;
-    return idx + 10;
-  }
-};
-// */
-
 
 
 int main()
@@ -132,27 +102,6 @@ int main()
   cout << "result of the algorithm: " << endl;
   for (auto item : vec) cout << item << ' ';
   cout << endl << endl;
-// */
-
-// TODO
-/*
-  Fruit fresh_fruit;
-
-  // calls (&x)->lemon(42, "Hello") with default policy:
-  //   may print "Hello 42" concurrently or defer execution
-  auto a1 = std::async(&Fruit::lemon, &fresh_fruit, 42, "sour");
-
-  // calls x.bar("world!") with deferred policy
-  // prints "world!" when a2.get() or a2.wait() is called
-  auto a2 = std::async(std::launch::deferred, &Fruit::orange, fresh_fruit, "sweet");
-
-  // calls X()(43); with async policy
-  // prints "43" concurrently
-  auto a3 = std::async(std::launch::async, Fruit(), 43);
-
-  a2.wait();                     // prints "world!"
-  cout << a3.get() << endl;      // prints "53"
-  // if a1 is not done at this point, destructor of a1 prints "Hello 42" here
 // */
 
   cout << "READY." << endl;
