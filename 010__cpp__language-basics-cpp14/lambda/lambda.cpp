@@ -154,7 +154,7 @@ int main(void)
   box.push_back( Fruit(new string("Lemon"))); // double free: when copy move ctor missing
   box.push_back( Fruit(new string("Orange")));
   box.push_back( Fruit(new string("Banana")));
-  box.push_back( Fruit(new string("Ananas")));
+  box.push_back( Fruit(new string("Pineapple")));
 
   cout << "before:" << endl;
   for (Fruit fruit : box) cout << "  " << fruit;
