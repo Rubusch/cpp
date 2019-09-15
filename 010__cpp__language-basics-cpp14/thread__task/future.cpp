@@ -37,15 +37,40 @@ void doAsyncWork()
 
 int main(void)
 {
-  // thread
-  std::thread thr(doAsyncWork);
+  cout << "future from a packaged task" << endl;
+  std::packaged_task< int() > task( [](){ return 7; } );
+//  std::packaged_task< int() > task( &doAsyncWork );
+  std::future< int > future_from_task = task.get_future();
+  std::thread thr( std::move(task) );
+  cout << endl;
+
+  cout << "future from an async()" << endl;
+  std::future< int > future_from_async = std::async( std::launch::async, [](){ return 8; } );
+  cout << endl;
+
+  cout << "future from a promise" << endl;
+  std::promise< int > promi;
+  std::future< int > future_from_promise = promi.get_future();
+  std::thread( [&promi](){ promi.set_value_at_thread_exit(9); } ).detach();
+  cout << endl;
+
+
+  cout << "waiting..." << endl << std::flush;
+  future_from_task.wait();
+  future_from_async.wait();
+  future_from_promise.wait();
 
   // future, a task
-  auto fut = std::async(doAsyncWork);
+//  auto fut = std::async(doAsyncWork);
+//  cout << "TODO" << endl;
 
-  cout << "TODO" << endl;
+  cout << "Yield results: " << future_from_task.get() << ' '
+       << future_from_async.get() << ' '
+       << future_from_promise.get() << endl;
+
+  thr.join(); // ERROR if this is missing: 'terminate called without an active exception'
 
   cout << "READY." << endl;
-  return 0;
+  return EXIT_SUCCESS;
 }
 
