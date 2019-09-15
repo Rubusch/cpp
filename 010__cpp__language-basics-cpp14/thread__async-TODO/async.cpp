@@ -42,22 +42,22 @@
 using namespace std;
 
 
-std::mutex m;
+std::mutex mtx;
 
 struct X {
   void foo(int i, const std::string& str) {
-    std::lock_guard< std::mutex > lk(m);
-    cout << str << ' ' << i << '\n';
+    std::lock_guard< std::mutex > lock(mtx);
+    cout << str << ' ' << i << endl;
   }
 
   void bar(const std::string& str) {
-    std::lock_guard< std::mutex > lk(m);
-    cout << str << '\n';
+    std::lock_guard< std::mutex > lock(mtx);
+    cout << str << endl;
   }
 
   int operator()(int i) {
-    std::lock_guard< std::mutex > lk(m);
-    cout << i << '\n';
+    std::lock_guard< std::mutex > lock(mtx);
+    cout << i << endl;
     return i + 10;
   }
 };
