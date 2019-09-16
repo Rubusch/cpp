@@ -14,6 +14,10 @@
   by enabling additional (implementation-defined) bits in the default launch
   policy.
 
+
+
+  THEORY
+
   The three meanings of 'thread' in concurrent C++ software:
 
   * Hardware Threads: are the threads that actually perform computation.
