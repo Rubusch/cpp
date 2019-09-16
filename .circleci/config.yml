@@ -110,9 +110,15 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/function__final && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/const-iterator && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/function__noexcept && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/thread__mutex && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/thread__atomic && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/thread && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__async && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__async-launch-policies && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__atomic && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__future && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__future-shared && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__mutex && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__packed-task && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/thread__promise && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.exe
