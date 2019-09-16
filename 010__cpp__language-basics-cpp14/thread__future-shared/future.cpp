@@ -2,6 +2,18 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
+  The class template std::shared_future provides a mechanism to access the
+  result of asynchronous operations, similar to std::future, except that
+  multiple threads are allowed to wait for the same shared state. Unlike
+  std::future, which is only moveable (so only one instance can refer to any
+  particular asynchronous result), std::shared_future is copyable and multiple
+  shared future objects may refer to the same shared state.
+
+  Access to the same shared state from multiple threads is safe if each thread
+  does it through its own copy of a shared_future object.
+
+
+
   THEORY
 
   The three meanings of 'thread' in concurrent C++ software:
@@ -40,8 +52,13 @@
   * Task-based programming via 'std::async' with the default launch policy
     handles most of these issues for you.
 
-  resources: Effective Modern C++, Scott Meyers, 2015
-  cppreference.com, 2019
+
+
+  RESOURCES
+
+  * Effective Modern C++, Scott Meyers, 2015
+
+  * cppreference.com, 2019
  */
 
 #include <iostream>
