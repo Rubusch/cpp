@@ -53,17 +53,21 @@ int main()
 #include <thread> /* thread, this_thread::sleep_for() */
 #include <future>
 #include <chrono> /* chrono::seconds for sleep */
+#include <mutex>
 
 using namespace std;
 
-int doAsyncWork()
+std::mutex mtx;
+
+int doAsyncWork(string str)
 {
+  std::lock_guard< std::mutex > lock(mtx);
   int cnt=0;
-  for (cnt=0; cnt<10; ++cnt) {
-    cout << cnt << endl;
+  for (cnt=0; cnt<3; ++cnt) {
+    cout << str << " " << cnt << endl;
     this_thread::sleep_for(chrono::seconds(1));
   }
-  return cnt;
+  return 0;
 }
 
 
@@ -71,21 +75,23 @@ int main(void)
 {
   cout << "future from a packaged task" << endl;
   // set up a packaged_task with a lambda, then obtain the future out of the task
-  std::packaged_task< int() > task( [](){ return doAsyncWork(); } );
+  std::packaged_task< int() > task( [](){ return doAsyncWork("task"); } );
   std::future< int > future_from_task = task.get_future();
   // move the task into a separate thread, to set it "join()" later
   std::thread thr( std::move(task) );
-  cout << endl;
 
   cout << "future from an async()" << endl;
-  std::future< int > future_from_async = std::async( std::launch::async, [](){ return doAsyncWork(); } );
-  cout << endl;
+  std::future< int > future_from_async = std::async( std::launch::async, [](){ return doAsyncWork("async"); } );
 
+  // promise for one-shot async tasks
   cout << "future from a promise" << endl;
   std::promise< int > promi;
   std::future< int > future_from_promise = promi.get_future();
-  std::thread( [&promi](){ promi.set_value_at_thread_exit(9); } ).detach();
-  cout << endl;
+  std::thread( [&promi]()
+               {
+                 doAsyncWork("promise");
+                 promi.set_value_at_thread_exit(9);
+               } ).detach();
 
 
   cout << "waiting..." << endl << std::flush;
@@ -93,13 +99,14 @@ int main(void)
   future_from_async.wait();
   future_from_promise.wait();
 
-  // future, a task
-//  auto fut = std::async(doAsyncWork);
-//  cout << "TODO" << endl;
+  // yield results
+  auto res_from_task = future_from_task.get();
+  auto res_from_async = future_from_async.get();
+  auto res_from_promise = future_from_promise.get();
 
-  cout << "Yield results: " << future_from_task.get() << ' '
-       << future_from_async.get() << ' '
-       << future_from_promise.get() << endl;
+  cout << "result from task: " << res_from_task << endl;
+  cout << "result from async: " << res_from_async << endl;
+  cout << "result from promise: " << res_from_promise << endl;
 
   // join the first task's thread, this will actually start the thread
   thr.join(); // if this is missing: 'ERROR terminate called without an active exception'
