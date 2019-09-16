@@ -1,5 +1,6 @@
 /*
-  C++11 - prefer task-based programming to thread-based (Meyers / item 35)
+  C++11 - specify 'std::launch::async' if asynchronicity is essential
+  (Meyers / item 36)
 
 
 
@@ -40,15 +41,14 @@
 
   CONCLUSION
 
-  * The 'std::thread' API offers no direct way to get return values from
-    asynchronously run functions, and if those functions throw, the program is
-    terminated.
+  * The default launch policy for 'std::async' permits both asynchronous and
+    synchronous task execution.
 
-  * Thread-based programming calls for manual management of thread exhaustion,
-    oversubscription, load balancing, and adaptation to new platforms.
+  * This flexibility leads to uncertainty when accessing 'thread_locals' (TLS,
+    Thread Local Storage), implies that the task may never execute, and affects
+    program logic for timeout-based wait calls.
 
-  * Task-based programming via 'std::async' with the default launch policy
-    handles most of these issues for you.
+  * Specify 'std::launch::async' if asynchronous task execution is essential.
 
 
 
@@ -60,14 +60,8 @@
 
  */
 #include <iostream>
-//#include <vector>
-//#include <algorithm>
-//#include <numeric>
 #include <future>
-//#include <string>
 #include <mutex>
-//#include <chrono> /* system_clock::now(), chrono::duration< double > */
-//#include <cassert>
 
 using namespace std;
 
