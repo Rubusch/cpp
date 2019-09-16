@@ -3,8 +3,8 @@
 
 
 
-  runs a function asynchronously (potentially in a new thread) and returns a
-  std::future that will hold the result
+  The 'std::async' creates a task, that may be parallelized by the compiler to
+  asynchronous threads.
 
   The template function async runs the function f asynchronously (potentially in
   a separate thread which may be part of a thread pool) and returns a
@@ -13,6 +13,28 @@
   The implementation may extend the behavior of the first overload of std::async
   by enabling additional (implementation-defined) bits in the default launch
   policy.
+
+  The three meanings of 'thread' in concurrent C++ software:
+
+  * Hardware Threads: are the threads that actually perform computation.
+    Contemporary machine architectures offer one or more hardware threads per
+    CPU core.
+
+  * Software Threads: (also known as OS threads or system threads) are the
+    threads that the operating system manages across all processes and schedules
+    for execution on hardware threads. It's typically possible to create more
+    software threads than hardware threads, because when a software thread is
+    blocked (e.g. on I/O or waiting for a mutex or condition variable),
+    throughput can be improved by executing other, unblocked threads.
+
+  * std::threads are objects in a C++ process that act as handles to underlying
+    software threads. Some 'std::thread' objects represent "null" handles, i.e.,
+    correspond to no software thread, because they're in a default-constructed
+    state (hence have no function to execute), have been moved from (the
+    moved-to 'std::thread' then acts as the handle to the underlying software
+    thread), have been joined (the function they were to run has finished), or
+    have been detached (the connection between them and their underlying
+    software thread has been severed).
 
 
 
