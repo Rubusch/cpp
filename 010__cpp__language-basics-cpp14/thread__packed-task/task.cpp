@@ -89,34 +89,45 @@ using namespace std;
 
 
 // unique function to avoid disambiguating the std::pow overload set
-int f(int x, int y) { return std::pow(x,y); }
+int func(int x, int y) { return std::pow(x,y); }
+
 
 void task_lambda()
 {
-  std::packaged_task< int(int, int) > task( [](int a, int b) { return std::pow(a, b); } );
+  // better replacement for a bind version, may be stricter on type checking
+  // (or at least has some while bind may leave certain things open)
+  cout << "lambda: setup task" << endl;
+  std::packaged_task< int(int, int) > task( [](int a, int b) { return func(a, b); } );
   std::future< int > result = task.get_future();
 
-  task(2, 9);
+  cout << "lambda: start task" << endl;
+  task(3, 5);
 
-  cout << "task_lambda:\t" << result.get() << '\n';
+  cout << "lambda:\t" << result.get() << '\n';
 }
 
 void task_bind()
 {
-  std::packaged_task<int()> task(std::bind(f, 2, 11));
-  std::future<int> result = task.get_future();
+  // bind approach is somehow the legacy approach for the lambda version
+  cout << "bind: setup task" << endl;
+  std::packaged_task< int() > task(std::bind(func, 3, 5));
+  std::future< int > result = task.get_future();
 
+  cout << "bind: start task" << endl;
   task();
 
-  cout << "task_bind:\t" << result.get() << '\n';
+  cout << "bind:\t" << result.get() << '\n';
 }
 
 void task_thread()
 {
-  std::packaged_task<int(int,int)> task(f);
-  std::future<int> result = task.get_future();
+  // classic approach with most flexibility, the hand-made thread implementation
+  cout << "thread: setup task" << endl;
+  std::packaged_task<int(int,int)> task(func);
+  std::future< int > result = task.get_future();
 
-  std::thread task_td(std::move(task), 2, 10);
+  cout << "thread: start task" << endl;
+  std::thread task_td(std::move(task), 3, 5);
   task_td.join();
 
   cout << "task_thread:\t" << result.get() << '\n';
@@ -125,8 +136,11 @@ void task_thread()
 
 int main()
 {
+  cout << "compare lambda, bind and thread solution for a task generated via 'std::packaged_task'" << endl;
   task_lambda();
+
   task_bind();
+
   task_thread();
 
   cout << "READY." << endl;
