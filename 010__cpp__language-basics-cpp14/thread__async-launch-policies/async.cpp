@@ -7,6 +7,10 @@
   The 'std::async' creates a task, that may be parallelized by the compiler to
   asynchronous threads.
 
+  std::launch::async - start asynchronously
+
+  std::launch::deferred - start later, at 'wait()'
+
   The template function async runs the function f asynchronously (potentially in
   a separate thread which may be part of a thread pool) and returns a
   std::future that will eventually hold the result of that function call.
@@ -14,6 +18,10 @@
   The implementation may extend the behavior of the first overload of std::async
   by enabling additional (implementation-defined) bits in the default launch
   policy.
+
+
+
+  THEORY
 
   The three meanings of 'thread' in concurrent C++ software:
 
@@ -62,54 +70,69 @@
 #include <iostream>
 #include <future>
 #include <mutex>
+#include <chrono> /* chrono::seconds */
 
 using namespace std;
 
 
-std::mutex mtx;
+std::mutex mtx; // needed to lock while thread execution
 
-class Fruit {
+class FruitBox {
 public:
-  void lemon(int idx, const std::string& str) {
+  void lemon(const std::string& str, int num)
+  {
     std::lock_guard< std::mutex > lock(mtx);
-    cout << "CALLED: Fruit::lemon() " << str << ' ' << idx << endl;
+    for (auto idx=0; idx<num; ++idx) {
+      cout << "LEMON (" << str << ")" << endl;
+      this_thread::sleep_for(chrono::seconds(1));
+    }
   }
 
-  void orange(const std::string& str) {
+  void orange(const std::string& str, int num)
+  {
     std::lock_guard< std::mutex > lock(mtx);
-    cout << "CALLED: Fruit::orange() " << str << endl;
+    for (auto idx=0; idx<num; ++idx) {
+      cout << "ORANGE (" << str << ")" << endl;
+      this_thread::sleep_for(chrono::seconds(1));
+    }
   }
 
-  int operator()(int idx) {
+  int operator()(int num)
+  {
     std::lock_guard< std::mutex > lock(mtx);
-    cout << "CALLED: Fruit::operator() " << idx << endl;
-    return idx + 10;
+    for (auto idx=0; idx<num; ++idx) {
+      cout << "FRUITBOX (async)" << endl;
+      this_thread::sleep_for(chrono::seconds(1));
+    }
+    return num + 1;
   }
 };
 
 
 int main()
 {
-  Fruit fresh_fruit;
-  // calls (&x)->lemon(42, "Hello") with default policy:
-  //   may print "Hello 42" concurrently or defer execution
-  auto a1 = std::async(&Fruit::lemon, &fresh_fruit, 42, "sour");
+  FruitBox fresh_fruit;
 
-  // calls x.bar("world!") with deferred policy
-  // prints "world!" when a2.get() or a2.wait() is called
-  auto a2 = std::async(std::launch::deferred, &Fruit::orange, fresh_fruit, "sweet");
+  auto idx=0;
+  do {
+    // calls '(&fresh_fruit)->lemon("unspecified", idx);'
+    // with default policy, may print concurrently or defer execution
+    auto a1 = std::async(&FruitBox::lemon, &fresh_fruit, "unspecified", idx);
 
-  // calls X()(43); with async policy
-  // prints "43" concurrently
-  auto a3 = std::async(std::launch::async, Fruit(), 43);
+    // calls 'fresh_fruit.orange("deferred", idx);'
+    // with deferred policy (later)
+    auto a2 = std::async(std::launch::deferred, &FruitBox::orange, fresh_fruit, "deferred", idx);
 
-  a2.wait();                     // prints "world!"
-  cout << a3.get() << endl;      // prints "53"
+    // calls 'FruitBox()(idx);'
+    // with async policy
+    auto a3 = std::async(std::launch::async, FruitBox(), idx);
 
-  // if a1 is not done at this point, destructor of a1 prints "Hello 42" here
+    a2.wait(); // now starts a2 threads
+    idx=a3.get(); // a3 yields incremented idx
 
+    // if a1 is not done at this point, destructor of a1 prints "LEMON" here
+  } while (idx<5);
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
 }
-
