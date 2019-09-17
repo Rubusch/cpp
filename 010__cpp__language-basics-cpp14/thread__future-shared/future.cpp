@@ -2,10 +2,13 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
-  The example shows signaling a kickoff to two threads and measure their
-  execution time.
+  Shared futures share their state and TLS (thread local storage).
 
-  The example uses chrono, promise, futures and async.
+  The example shows signaling a kickoff to two threads and measure their
+  execution time. In order to realize a start and retrieve mechanism the
+  start promise will run in a shared future.
+
+  The example uses chrono, promise, shared futures and async.
 
 
   The class template std::shared_future provides a mechanism to access the
@@ -76,43 +79,45 @@ using namespace std;
 
 int main()
 {
-  // oneshot command 'start' to threads via 'std::promise' (promise -> oneshot command)
+  // oneshot command 'start' for the threads via 'std::promise'
   std::promise< void > ready_promise;
+
+  // obtain a _SHARED_ future from the promise - has to be shared among the threads
   std::shared_future< void > ready_future(ready_promise.get_future());
-
-  // receivers for oneshot command 'start'
-  std::promise< void > t1_ready_promise;
-  std::promise< void > t2_ready_promise;
-
 
   // time measuring
   std::chrono::time_point< std::chrono::high_resolution_clock > start;
 
-  // initializing a function pointer
+  // oneshot command for returning the measured value
+  std::promise< void > t1_ready_promise;
+  std::promise< void > t2_ready_promise;
+
+  // initializing a function pointer by a lambda
   auto func1 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
   {
-   t1_ready_promise.set_value();
-   ready_future.wait(); // waits for the signal from main()
+   t1_ready_promise.set_value(); // set result to specific value
+   ready_future.wait(); // thread waits for the signal from main()
    return std::chrono::high_resolution_clock::now() - start;
   };
-
-  // initializing another function pointer
   auto func2 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
   {
    t2_ready_promise.set_value();
-   ready_future.wait(); // waits for the signal from main()
+   ready_future.wait();
    return std::chrono::high_resolution_clock::now() - start;
   };
 
-  auto future1 = t1_ready_promise.get_future();
-  auto future2 = t2_ready_promise.get_future();
-
+  // setup 'std::async' for launching the function pointer
   auto result1 = std::async(std::launch::async, func1);
   auto result2 = std::async(std::launch::async, func2);
+
+  // get futures out of the return promises, to set them to 'wait()'
+  auto future1 = t1_ready_promise.get_future();
+  auto future2 = t2_ready_promise.get_future();
 
   // wait for the threads to become ready
   future1.wait();
   future2.wait();
+
 
   // the threads are ready, start the clock
   start = std::chrono::high_resolution_clock::now();
@@ -120,12 +125,13 @@ int main()
   // signal the threads to go
   ready_promise.set_value();
 
-  cout << "Thread 1 received the signal "
-       << result1.get().count() << " ms after start\n"
-       << "Thread 2 received the signal "
-       << result2.get().count() << " ms after start\n";
+  auto res1 = result1.get().count();
+  auto res2 = result2.get().count();
 
-  cout << "TODO" << endl;        
+  cout << "Thread 1 received the signal "
+       << res1 << " ms after start\n"
+       << "Thread 2 received the signal "
+       << res2 << " ms after start\n";
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
