@@ -2,6 +2,12 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
+  The example shows signaling a kickoff to two threads and measure their
+  execution time.
+
+  The example uses chrono, promise, futures and async.
+
+
   The class template std::shared_future provides a mechanism to access the
   result of asynchronous operations, similar to std::future, except that
   multiple threads are allowed to wait for the same shared state. Unlike
@@ -70,35 +76,43 @@ using namespace std;
 
 int main()
 {
-  std::promise<void> ready_promise, t1_ready_promise, t2_ready_promise;
-  std::shared_future<void> ready_future(ready_promise.get_future());
+  // oneshot command 'start' to threads via 'std::promise' (promise -> oneshot command)
+  std::promise< void > ready_promise;
+  std::shared_future< void > ready_future(ready_promise.get_future());
 
-  std::chrono::time_point<std::chrono::high_resolution_clock> start;
+  // receivers for oneshot command 'start'
+  std::promise< void > t1_ready_promise;
+  std::promise< void > t2_ready_promise;
 
-  auto fun1 = [&, ready_future]() -> std::chrono::duration<double, std::milli>
+
+  // time measuring
+  std::chrono::time_point< std::chrono::high_resolution_clock > start;
+
+  // initializing a function pointer
+  auto func1 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
   {
    t1_ready_promise.set_value();
    ready_future.wait(); // waits for the signal from main()
    return std::chrono::high_resolution_clock::now() - start;
   };
 
-
-  auto fun2 = [&, ready_future]() -> std::chrono::duration<double, std::milli>
+  // initializing another function pointer
+  auto func2 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
   {
    t2_ready_promise.set_value();
    ready_future.wait(); // waits for the signal from main()
    return std::chrono::high_resolution_clock::now() - start;
   };
 
-  auto fut1 = t1_ready_promise.get_future();
-  auto fut2 = t2_ready_promise.get_future();
+  auto future1 = t1_ready_promise.get_future();
+  auto future2 = t2_ready_promise.get_future();
 
-  auto result1 = std::async(std::launch::async, fun1);
-  auto result2 = std::async(std::launch::async, fun2);
+  auto result1 = std::async(std::launch::async, func1);
+  auto result2 = std::async(std::launch::async, func2);
 
   // wait for the threads to become ready
-  fut1.wait();
-  fut2.wait();
+  future1.wait();
+  future2.wait();
 
   // the threads are ready, start the clock
   start = std::chrono::high_resolution_clock::now();
