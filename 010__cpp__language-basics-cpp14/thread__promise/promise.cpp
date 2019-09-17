@@ -2,6 +2,8 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
+  A normal 'std::promise' is a oneshot task and cannot be reused.
+
 
   CONCLUSION
 
@@ -15,18 +17,56 @@
   * Task-based programming via 'std::async' with the default launch policy
     handles most of these issues for you.
 
-  resources: Effective Modern C++, Scott Meyers, 2015
-  cppreference.com, 2019
+  RESOURCES
+
+  * Effective Modern C++, Scott Meyers, 2015
+
+  * cppreference.com, 2019
  */
 
+
+#include <vector>
+#include <thread>
+#include <future>
+#include <numeric>
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
 
-int main(void)
+void accumulate(vector< int >::iterator first,
+                vector< int >::iterator last,
+                std::promise< int > accumulate_promise)
 {
-  // TODO
+  int sum = std::accumulate(first, last, 0);
+  accumulate_promise.set_value(sum);  // Notify future
+}
+
+void do_work(std::promise< void > barrier)
+{
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    barrier.set_value();
+}
+
+int main()
+{
+  // demonstrate using promise< int > to transmit a result between threads.
+  std::vector< int > numbers = { 1, 2, 3, 4, 5, 6 };
+  std::promise< int > accumulate_promise;
+  std::future< int > accumulate_future = accumulate_promise.get_future();
+  std::thread work_thread(accumulate, numbers.begin(), numbers.end(),
+                          std::move(accumulate_promise));
+  accumulate_future.wait();  // wait for result
+  cout << "result=" << accumulate_future.get() << endl;
+  work_thread.join();  // wait for thread completion
+
+  // demonstrate using promise<void> to signal state between threads.
+  std::promise<void> barrier;
+  std::future<void> barrier_future = barrier.get_future();
+  std::thread new_work_thread(do_work, std::move(barrier));
+  barrier_future.wait();
+  new_work_thread.join();
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
