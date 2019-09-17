@@ -82,15 +82,15 @@ int main()
   // oneshot command 'start' for the threads via 'std::promise'
   std::promise< void > ready_promise;
 
-  // obtain a _SHARED_ future from the promise - has to be shared among the threads
+  // promise -> SHARED_ future - has to be shared among the threads
   std::shared_future< void > ready_future(ready_promise.get_future());
 
-  // time measuring
   std::chrono::time_point< std::chrono::high_resolution_clock > start;
 
-  // oneshot command for returning the measured value
+  // thread promises (oneshot commands)
   std::promise< void > t1_ready_promise;
   std::promise< void > t2_ready_promise;
+  std::promise< void > t3_ready_promise;
 
   // initializing a function pointer by a lambda
   auto func1 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
@@ -105,19 +105,28 @@ int main()
    ready_future.wait();
    return std::chrono::high_resolution_clock::now() - start;
   };
+  auto func3 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
+  {
+   t3_ready_promise.set_value();
+   ready_future.wait();
+   return std::chrono::high_resolution_clock::now() - start;
+  };
 
-  // setup 'std::async' for launching the function pointer
+  // pack functions in 'std::async' tasks, lauch is 'std::launch::async'
+  // they will wait at the future::wait()
   auto result1 = std::async(std::launch::async, func1);
   auto result2 = std::async(std::launch::async, func2);
+  auto result3 = std::async(std::launch::async, func3);
 
-  // get futures out of the return promises, to set them to 'wait()'
+  // thread promises -> thread futures...
   auto future1 = t1_ready_promise.get_future();
   auto future2 = t2_ready_promise.get_future();
+  auto future3 = t3_ready_promise.get_future();
 
-  // wait for the threads to become ready
+  // thread futures are needed to wait for the threads to become ready
   future1.wait();
   future2.wait();
-
+  future3.wait();
 
   // the threads are ready, start the clock
   start = std::chrono::high_resolution_clock::now();
@@ -127,11 +136,11 @@ int main()
 
   auto res1 = result1.get().count();
   auto res2 = result2.get().count();
+  auto res3 = result3.get().count();
 
-  cout << "Thread 1 received the signal "
-       << res1 << " ms after start\n"
-       << "Thread 2 received the signal "
-       << res2 << " ms after start\n";
+  cout << "Thread 1 received the signal " << res1 << " ms after start" << endl
+       << "Thread 2 received the signal " << res2 << " ms after start" << endl
+       << "Thread 3 received the signal " << res3 << " ms after start" << endl;
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
