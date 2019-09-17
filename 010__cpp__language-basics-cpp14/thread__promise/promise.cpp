@@ -32,11 +32,10 @@
 #include <iostream>
 #include <chrono>
 
-using namespace std;
+// using namespace std; // ERROR using std here, with call to thread()
 
-
-void accumulate(vector< int >::iterator first,
-                vector< int >::iterator last,
+void accumulate(std::vector< int >::iterator first,
+                std::vector< int >::iterator last,
                 std::promise< int > accumulate_promise)
 {
   int sum = std::accumulate(first, last, 0);
@@ -49,19 +48,24 @@ void do_work(std::promise< void > barrier)
     barrier.set_value();
 }
 
+//using namespace std;
 int main()
 {
-  // demonstrate using promise< int > to transmit a result between threads.
+  // demonstrate using promise< int > to transmit a result between threads
+  // promise -> future -> thread / async
+  std::cout << "promise< int >: ";
   std::vector< int > numbers = { 1, 2, 3, 4, 5, 6 };
   std::promise< int > accumulate_promise;
   std::future< int > accumulate_future = accumulate_promise.get_future();
-  std::thread work_thread(accumulate, numbers.begin(), numbers.end(),
-                          std::move(accumulate_promise));
+  std::thread work_thread(accumulate, numbers.begin(), numbers.end(), std::move(accumulate_promise));
   accumulate_future.wait();  // wait for result
-  cout << "result=" << accumulate_future.get() << endl;
+  std::cout << "result = " << accumulate_future.get() << std::endl;
   work_thread.join();  // wait for thread completion
 
-  // demonstrate using promise<void> to signal state between threads.
+  using namespace std;
+
+  // demonstrate using promise< void > to signal state between threads
+  cout << "promise< void >" << endl;
   std::promise<void> barrier;
   std::future<void> barrier_future = barrier.get_future();
   std::thread new_work_thread(do_work, std::move(barrier));
@@ -71,4 +75,3 @@ int main()
   cout << "READY." << endl;
   return EXIT_SUCCESS;
 }
-
