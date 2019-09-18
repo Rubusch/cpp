@@ -2,7 +2,7 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
-  The 'std::future' provides a mechanism or communication among threads, pass
+  The 'std::future' provides a mechanism for communication among threads, pass
   values or retrieve resulting values in an asynchronous operation.
 
   Shared futures share their state and TLS (thread local storage) among tasks

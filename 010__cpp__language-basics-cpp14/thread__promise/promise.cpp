@@ -2,7 +2,19 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
-  A normal 'std::promise' is a oneshot task and cannot be reused.
+  A normal 'std::promise' prepares a oneshot communication and cannot be
+  reused.
+
+  The 'std::future' provides a mechanism for communication among threads, pass
+  values or retrieve resulting values in an asynchronous operation.
+
+  Shared futures share their state and TLS (thread local storage) among tasks
+  or threads, respectively. Thus one future's value can be checked in several
+  threads.
+
+
+  In the example a promise provides a oneshot 'std::future' for passing a return
+  value and for passing a barrier. Parallelism is implemented via 'std::async'.
 
 
   CONCLUSION
