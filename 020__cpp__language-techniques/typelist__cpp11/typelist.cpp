@@ -339,7 +339,8 @@ int main()
 
 
   cout << "now check the type \"unsigned long int\" (not in the list)\n";
-  static constexpr auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
+//  static constexpr auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
+  auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
   assert(-1 == idxNotInList);
   cout << endl;
