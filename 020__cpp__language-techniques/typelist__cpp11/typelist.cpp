@@ -332,7 +332,9 @@ int main()
   cout << "calculating length\n";
   auto iLength = MyTypelist_t::size();
   cout << iLength << endl;
-  assert(3 == MyTypelist_t::size());
+  {
+    assert(3 == MyTypelist_t::size());
+  }
   cout << endl;
 
 
@@ -340,7 +342,9 @@ int main()
   cout << "now check the type \"unsigned long int\" (not in the list)\n";
   auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
-  assert(-1 == idxNotInList);
+  {
+    assert(-1 == idxNotInList);
+  }
   cout << endl;
 
 
@@ -353,9 +357,11 @@ int main()
   cout << "index of \"unsigned long int\" is now: "
        << idxUnsignedLongInt
        << endl;
-  assert(3 == idxUnsignedLongInt);
-  assert(3 == MyTypelist_t::size());
-  assert(4 == MyNewTypelist_t::size());
+  {
+    assert(3 == idxUnsignedLongInt);
+    assert(3 == MyTypelist_t::size());
+    assert(4 == MyNewTypelist_t::size());
+  }
   cout << endl;
 
 
@@ -367,13 +373,15 @@ int main()
   using MyNewSmallerTypelist_t = typename TL::Erase< unsigned char, MyNewTypelist_t >::type;
   cout << "done.\n";
   cout << "length after\t: " << MyNewSmallerTypelist_t::size() << endl;
-  assert(3 == MyTypelist_t::size());
-  assert(4 == MyNewTypelist_t::size());
-  assert(3 == MyNewSmallerTypelist_t::size());
-  auto assUCBefore = TL::IndexOf< unsigned char, MyNewTypelist_t >::value;
-  assert(0 == assUCBefore);
-  auto assUCAfter = TL::IndexOf< unsigned char, MyNewSmallerTypelist_t >::value;
-  assert(-1 == assUCAfter);
+  {
+    assert(3 == MyTypelist_t::size());
+    assert(4 == MyNewTypelist_t::size());
+    assert(3 == MyNewSmallerTypelist_t::size());
+    auto assIdxBefore = TL::IndexOf< unsigned char, MyNewTypelist_t >::value;
+    assert(0 == assIdxBefore);
+    auto assIdxAfter = TL::IndexOf< unsigned char, MyNewSmallerTypelist_t >::value;
+    assert(-1 == assIdxAfter);
+  }
   cout << endl;
 
 
@@ -387,7 +395,14 @@ int main()
   using MyReducedTypelist_t = typename TL::EraseAll< ExclusiveType_t, MyNewTypelist_t >::type;
   cout << "done.\n";
   cout << "length after\t: " << MyReducedTypelist_t::size() << endl;
-// TODO assert              
+  {
+    assert(4 == MyNewTypelist_t::size());
+    assert(3 == MyReducedTypelist_t::size());
+    auto assIdxBefore = TL::IndexOf< unsigned int, MyNewTypelist_t >::value;         
+    assert(2 == assIdxBefore);
+    auto assIdxAfter = TL::IndexOf< unsigned int, MyReducedTypelist_t >::value;
+    assert(-1 == assIdxAfter);
+  }
   cout << endl;
 
 
@@ -403,6 +418,7 @@ int main()
   cout << "now second element is \"unsigned char\"?\t: "
        << ((typeid(unsigned char) == typeid(typename TL::TypeAt< 2, MyReplacedTypelist_t >::type)) ? "true" : "false")
        << endl;
+  cout << "TODO" << endl;
 // TODO assert              
   cout << endl;
 
@@ -416,6 +432,7 @@ int main()
   cout << "done.\n";
   cout << "length after: " << MyTypelistWithoutDuplicates_t::size()
        << endl;
+  cout << "TODO" << endl;
 // TODO assert              
   cout << endl;
 
