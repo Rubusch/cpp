@@ -25,6 +25,8 @@
 #include <typeinfo>
 #include <type_traits> /* integral_constant */
 
+#include <cassert>
+
 #include "conversion.hpp"
 
 
@@ -322,7 +324,7 @@ int main()
 
 
   // init a TYPELIST_3 - old style: avoid MACROs!
-  cout << "init a typelist\n";
+  cout << "init a typelist with 3 types\n";
   using MyTypelist_t = TL::Typelist< unsigned char, unsigned short int, unsigned int >;
   cout << endl;
 
@@ -331,6 +333,7 @@ int main()
   cout << "calculating length\n";
   constexpr static auto iLength = MyTypelist_t::size();
   cout << iLength << endl;
+  assert(3 == iLength);
   cout << endl;
 
 
@@ -338,6 +341,7 @@ int main()
   cout << "now check the type \"unsigned long int\" (not in the list)\n";
   static constexpr auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
+  assert(-1 == idxNotInList);
   cout << endl;
 
 
@@ -349,6 +353,7 @@ int main()
   cout << "index of \"unsigned long int\" is now: "
        << TL::IndexOf< unsigned long int, MyNewTypelist_t >::value
        << endl;
+// TODO assert              
   cout << endl;
 
 
@@ -360,6 +365,7 @@ int main()
   using MyNewSmallerTypelist_t = typename TL::Erase< unsigned char, MyNewTypelist_t >::type;
   cout << "done.\n";
   cout << "length after\t: " << MyNewSmallerTypelist_t::size() << endl;
+// TODO assert              
   cout << endl;
 
 
@@ -373,6 +379,7 @@ int main()
   using MyReducedTypelist_t = typename TL::EraseAll< ExclusiveType_t, MyNewTypelist_t >::type;
   cout << "done.\n";
   cout << "length after\t: " << MyReducedTypelist_t::size() << endl;
+// TODO assert              
   cout << endl;
 
 
@@ -388,6 +395,7 @@ int main()
   cout << "now second element is \"unsigned char\"?\t: "
        << ((typeid(unsigned char) == typeid(typename TL::TypeAt< 2, MyReplacedTypelist_t >::type)) ? "true" : "false")
        << endl;
+// TODO assert              
   cout << endl;
 
 
@@ -400,9 +408,9 @@ int main()
   cout << "done.\n";
   cout << "length after: " << MyTypelistWithoutDuplicates_t::size()
        << endl;
-
-
+// TODO assert              
   cout << endl;
+
   cout << "READY.\n";
   return 0;
 }
