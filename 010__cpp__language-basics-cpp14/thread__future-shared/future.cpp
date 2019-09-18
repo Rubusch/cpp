@@ -2,7 +2,13 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
-  Shared futures share their state and TLS (thread local storage).
+  The 'std::future' provides a mechanism or communication among threads, pass
+  values or retrieve resulting values in an asynchronous operation.
+
+  Shared futures share their state and TLS (thread local storage) among tasks
+  or threads, respectively. Thus one future's value can be checked in several
+  threads.
+
 
   The example shows signaling a kickoff to two threads and measure their
   execution time. In order to realize a start and retrieve mechanism the
