@@ -2,8 +2,8 @@
   C++11 - prefer task-based programming to thread-based (Meyers / item 35)
 
 
-  The temlate std::future provides a mechanism to access the result of
-  asynchronous operations.
+  The 'std::future' provides a mechanism or communication among threads, pass
+  values or retrieve resulting values in an asynchronous operation.
 
 
 

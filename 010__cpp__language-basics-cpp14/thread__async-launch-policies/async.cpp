@@ -7,9 +7,8 @@
   The 'std::async' creates a task, that may be parallelized by the compiler to
   asynchronous threads.
 
-  std::launch::async - start asynchronously
-
-  std::launch::deferred - start later, at 'wait()'
+  It may start right away (std::launch::async) or its start may be deferred
+  (std::launch::deferred), triggered at a call to 'wait()' or get results.
 
   The template function async runs the function f asynchronously (potentially in
   a separate thread which may be part of a thread pool) and returns a
