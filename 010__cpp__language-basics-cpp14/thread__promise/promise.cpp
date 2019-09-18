@@ -1,8 +1,9 @@
 /*
-  C++11 - prefer task-based programming to thread-based (Meyers / item 35)
+  C++11 - consider void futures for one-shot event communication
+  (Meyers / item 39)
 
 
-  A normal 'std::promise' prepares a oneshot communication and cannot be
+  A normal 'std::promise' prepares a one-shot communication and cannot be
   reused.
 
   The 'std::future' provides a mechanism for communication among threads, pass
@@ -13,21 +14,28 @@
   threads.
 
 
-  In the example a promise provides a oneshot 'std::future' for passing a return
+  In the example a promise provides a one-shot 'std::future' for passing a return
   value and for passing a barrier. Parallelism is implemented via 'std::async'.
+
 
 
   CONCLUSION
 
-  * The 'std::thread' API offers no direct way to get return values from
-    asynchronously run functions, and if those functions throw, the program is
-    terminated.
+  * For simple event communication, condvar-based design require a superfluous
+    mutex, impose constraints on the relative progress of detecting and reacting
+    tasks, and require reacting tasks to verify that the event has taken place.
 
-  * Thread-based programming calls for manual management of thread exhaustion,
-    oversubscription, load balancing, and adaptation to new platforms.
+  * Designs employing a flag avoid those problems, but are based on polling not
+    blocking.
 
-  * Task-based programming via 'std::async' with the default launch policy
-    handles most of these issues for you.
+  * A condvar and flag can be used together, but the resulting communications
+    mechanism is somewhat stilted.
+
+  * Using 'std::promises' and 'std::futures' dodges these issues, but the
+    approach uses heap memory for shared states, and it's limited to one-shot
+    communication.
+
+
 
   RESOURCES
 
@@ -46,7 +54,8 @@
 
 using namespace std;
 
-// NOTE: if this is called 'accumulate(' a 'using namespace std;' will throw errors, std::accumulate or this function?
+// NOTE: if this is called 'accumulate(' a 'using namespace std;' will throw
+// errors, std::accumulate or this function?
 void do_accumulate(vector< int >::iterator first,
                 vector< int >::iterator last,
                 std::promise< int > accumulate_promise)

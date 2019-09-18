@@ -1,5 +1,5 @@
 /*
-  C++11 - prefer task-based programming to thread-based (Meyers / item 35)
+  futures
 
 
   The 'std::future' provides a mechanism for communication among threads, pass
@@ -33,20 +33,30 @@
 
 
 
+  C++11 - be aware of varying thread handle destructor behavior
+  (Meyers / item 38)
+
+                             shared state
+  +--------+               +----------------+                     +--------+
+  | Caller |<--- future ---| Callee's State |<--- std::promise ---| Callee |
+  +--------+               |   Result       |                     +--------+
+                           +----------------+
+
+
   CONCLUSION
 
-  * The 'std::thread' API offers no direct way to get return values from
-    asynchronously run functions, and if those functions throw, the program is
-    terminated.
+  * Future destructors normally just destroy the future's data members.
 
-  * Thread-based programming calls for manual management of thread exhaustion,
-    oversubscription, load balancing, and adaptation to new platforms.
+  * The final future referring to a shared state for a non-deferred task
+    launched via 'std::async' blocks until the task completes.
 
-  * Task-based programming via 'std::async' with the default launch policy
-    handles most of these issues for you.
 
-  resources: Effective Modern C++, Scott Meyers, 2015
-  cppreference.com, 2019
+
+  RESOURCES
+
+  * Effective Modern C++, Scott Meyers, 2015
+
+  * cppreference.com, 2019
  */
 
 /*
