@@ -25,10 +25,9 @@
 #include <typeinfo>
 #include <type_traits> /* integral_constant */
 
-#include <cassert>
-
 #include "conversion.hpp"
 
+#include <cassert>
 
 namespace TL
 {
@@ -331,15 +330,14 @@ int main()
 
   // calculating length
   cout << "calculating length\n";
-  constexpr static auto iLength = MyTypelist_t::size();
+  auto iLength = MyTypelist_t::size();
   cout << iLength << endl;
-  assert(3 == iLength);
+  assert(3 == MyTypelist_t::size());
   cout << endl;
 
 
 
   cout << "now check the type \"unsigned long int\" (not in the list)\n";
-//  static constexpr auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
   assert(-1 == idxNotInList);
@@ -348,13 +346,16 @@ int main()
 
   // append to typelist
   cout << "append to typelist\n";
-  cout << "append new type \"unsigned long int\"...";
+  cout << "append new type \"unsigned long int\", MyTypeList_t becomes MyNewTypeList_t";
   using MyNewTypelist_t = typename TL::PushBack< unsigned long int, MyTypelist_t >::type;
+  auto idxUnsignedLongInt = TL::IndexOf< unsigned long int, MyNewTypelist_t >::value;
   cout << "done.\n";
   cout << "index of \"unsigned long int\" is now: "
-       << TL::IndexOf< unsigned long int, MyNewTypelist_t >::value
+       << idxUnsignedLongInt
        << endl;
-// TODO assert              
+  assert(3 == idxUnsignedLongInt);
+  assert(3 == MyTypelist_t::size());
+  assert(4 == MyNewTypelist_t::size());
   cout << endl;
 
 
@@ -366,7 +367,13 @@ int main()
   using MyNewSmallerTypelist_t = typename TL::Erase< unsigned char, MyNewTypelist_t >::type;
   cout << "done.\n";
   cout << "length after\t: " << MyNewSmallerTypelist_t::size() << endl;
-// TODO assert              
+  assert(3 == MyTypelist_t::size());
+  assert(4 == MyNewTypelist_t::size());
+  assert(3 == MyNewSmallerTypelist_t::size());
+  auto assUCBefore = TL::IndexOf< unsigned char, MyNewTypelist_t >::value;
+  assert(0 == assUCBefore);
+  auto assUCAfter = TL::IndexOf< unsigned char, MyNewSmallerTypelist_t >::value;
+  assert(-1 == assUCAfter);
   cout << endl;
 
 
