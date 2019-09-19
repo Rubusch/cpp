@@ -395,12 +395,21 @@ int main()
   cout << "length after\t: " << MyNewSmallerTypelist_t::size() << endl;
   {
     assert(3 == MyTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
+
     assert(4 == MyNewTypelist_t::size());
+    idx = TL::IndexOf< unsigned char, MyNewTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyNewTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyNewTypelist_t >::value; assert(2 == idx);
+    idx = TL::IndexOf< unsigned long int, MyNewTypelist_t >::value; assert(3 == idx);
+
     assert(3 == MyNewSmallerTypelist_t::size());
-    auto assIdxBefore = TL::IndexOf< unsigned char, MyNewTypelist_t >::value;
-    assert(0 == assIdxBefore);
-    auto assIdxAfter = TL::IndexOf< unsigned char, MyNewSmallerTypelist_t >::value;
-    assert(-1 == assIdxAfter);
+    idx = TL::IndexOf< unsigned short int, MyNewSmallerTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned int, MyNewSmallerTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned long int, MyNewSmallerTypelist_t >::value; assert(2 == idx);
+    idx = TL::IndexOf< unsigned char, MyNewSmallerTypelist_t >::value; assert(-1 == idx);
   }
   cout << endl;
 
@@ -417,11 +426,15 @@ int main()
   cout << "length after\t: " << MyReducedTypelist_t::size() << endl;
   {
     assert(4 == MyNewTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyNewTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyNewTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyNewTypelist_t >::value; assert(2 == idx);
+    idx = TL::IndexOf< unsigned long int, MyNewTypelist_t >::value; assert(3 == idx);
+
     assert(3 == MyReducedTypelist_t::size());
-    auto assIdxBefore = TL::IndexOf< unsigned int, MyNewTypelist_t >::value;
-    assert(2 == assIdxBefore);
-    auto assIdxAfter = TL::IndexOf< unsigned int, MyReducedTypelist_t >::value;
-    assert(-1 == assIdxAfter);
+    idx = TL::IndexOf< unsigned char, MyReducedTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyReducedTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned long int, MyReducedTypelist_t >::value; assert(2 == idx);
   }
   cout << endl;
 
@@ -438,7 +451,7 @@ int main()
        << ((typeid(unsigned char) == typeid(typename TL::TypeAt< 2, MyReplacedTypelist_t >::type)) ? "true" : "false")
        << endl;
   {
-    bool isType = (typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)); // NOTE: this comparison might not do exactly what it seems
+    bool isType = (typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)); // NOTE: this check might not do exactly what was intended to check
     assert(isType);
 
     assert(3 == MyTypelist_t::size());
@@ -457,16 +470,22 @@ int main()
 
   // erase duplicates
   cout << "erase duplicates\n";
-  cout << "length before: " << MyReplacedTypelist_t::size()
-       << endl;
+  cout << "length before: " << MyReplacedTypelist_t::size() << endl;
   cout << "do no duplicates...";
   using MyTypelistWithoutDuplicates_t = typename TL::EraseDuplicates< MyReplacedTypelist_t >::type;
   cout << "done.\n";
-  cout << "length after: " << MyTypelistWithoutDuplicates_t::size()
-       << endl;
+  cout << "length after: " << MyTypelistWithoutDuplicates_t::size() << endl;
   {
     assert(3 == MyReplacedTypelist_t::size());
-    assert(2 == MyTypelistWithoutDuplicates_t::size()); // FIXME: check if should be 1 or 2?
+    auto idx = TL::IndexOf< unsigned int, MyReplacedTypelist_t >::value; assert(-1 == idx);
+    idx = TL::IndexOf< unsigned char, MyReplacedTypelist_t >::value; assert(0 == idx); // first occurence
+    idx = TL::IndexOf< unsigned short int, MyReplacedTypelist_t >::value; assert(1 == idx);
+    // idx == 2 should be unsigned int, too
+
+    assert(2 == MyTypelistWithoutDuplicates_t::size());
+    idx = TL::IndexOf< unsigned char, MyTypelistWithoutDuplicates_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelistWithoutDuplicates_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelistWithoutDuplicates_t >::value; assert(-1 == idx);
   }
   cout << endl;
 
