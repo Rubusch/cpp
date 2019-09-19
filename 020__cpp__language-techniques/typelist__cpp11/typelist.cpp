@@ -421,14 +421,22 @@ int main()
   {
     bool isType = (typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)); // NOTE: this comparison might not do exactly what it seems
     assert(isType);
-    assert(4 == MyNewTypelist_t::size());
-//    assert(4 == MyReplacedTypelist_t::size()); // FIXME, is 3, should be 4
-    auto assIdxBefore = TL::IndexOf< unsigned int, MyNewTypelist_t >::value;
-    assert(2 == assIdxBefore);
-    auto assIdxAfter = TL::IndexOf< unsigned int, MyReplacedTypelist_t >::value;
-    assert(-1 == assIdxAfter);
-//    auto assIdxReplacement = TL::IndexOf< unsigned char, MyReplacedTypelist_t >::value; // FIXME     
-//    assert(2 == assIdxReplacement); // unsigned char is at 0, should be 2, too (note: might only return 0, first occurence)    
+    assert(3 == MyTypelist_t::size()); // before
+
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value;
+    assert(0 == idx); // unsigned char is at 0, should be also at 2 (note:first occurence)
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value;
+    assert(1 == idx); // unsigned short int
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value;
+    assert(2 == idx); // before
+
+    assert(3 == MyReplacedTypelist_t::size()); // after
+    idx = TL::IndexOf< unsigned int, MyReplacedTypelist_t >::value;
+    assert(-1 == idx); // after
+    idx = TL::IndexOf< unsigned char, MyReplacedTypelist_t >::value;
+    assert(0 == idx); // unsigned char is at 0, should be also at 2 (note:first occurence)
+    idx = TL::IndexOf< unsigned short int, MyReplacedTypelist_t >::value;
+    assert(1 == idx); // unsigned short int
   }
   cout << "FIXME: replacement" << endl;
   cout << endl;
