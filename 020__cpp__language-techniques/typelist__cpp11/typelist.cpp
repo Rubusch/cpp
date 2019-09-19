@@ -325,6 +325,12 @@ int main()
   // init a TYPELIST_3 - old style: avoid MACROs!
   cout << "init a typelist with 3 types\n";
   using MyTypelist_t = TL::Typelist< unsigned char, unsigned short int, unsigned int >;
+  {
+    assert(3 == MyTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
+  }
   cout << endl;
 
 
@@ -421,24 +427,20 @@ int main()
   {
     bool isType = (typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)); // NOTE: this comparison might not do exactly what it seems
     assert(isType);
-    assert(3 == MyTypelist_t::size()); // before
 
-    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value;
-    assert(0 == idx); // unsigned char is at 0, should be also at 2 (note:first occurence)
-    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value;
-    assert(1 == idx); // unsigned short int
-    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value;
-    assert(2 == idx); // before
+    // before
+    assert(3 == MyTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
 
-    assert(3 == MyReplacedTypelist_t::size()); // after
-    idx = TL::IndexOf< unsigned int, MyReplacedTypelist_t >::value;
-    assert(-1 == idx); // after
-    idx = TL::IndexOf< unsigned char, MyReplacedTypelist_t >::value;
-    assert(0 == idx); // unsigned char is at 0, should be also at 2 (note:first occurence)
-    idx = TL::IndexOf< unsigned short int, MyReplacedTypelist_t >::value;
-    assert(1 == idx); // unsigned short int
+    // after
+    assert(3 == MyReplacedTypelist_t::size());
+    idx = TL::IndexOf< unsigned int, MyReplacedTypelist_t >::value; assert(-1 == idx);
+    idx = TL::IndexOf< unsigned char, MyReplacedTypelist_t >::value; assert(0 == idx); // first occurence
+    idx = TL::IndexOf< unsigned short int, MyReplacedTypelist_t >::value; assert(1 == idx);
+    // idx == 2 should be unsigned int, too
   }
-  cout << "FIXME: replacement" << endl;
   cout << endl;
 
 
