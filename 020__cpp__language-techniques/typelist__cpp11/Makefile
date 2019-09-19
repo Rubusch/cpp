@@ -1,26 +1,24 @@
 # Makefile (simple)
 #
-# use -O, -O1, -O2 for optimization
-
-
+TARGET = typelist.exe
 SOURCE = typelist.cpp
 HEADERS = conversion.hpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CPPFLAGS = -g -Wall -Werror -pedantic -std=c++17
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CPPFLAGS) -c $<
 
-typelist.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: typelist.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) typelist.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
