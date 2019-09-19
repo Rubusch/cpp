@@ -326,7 +326,6 @@ int main()
   cout << "init a typelist with 3 types\n";
   using MyTypelist_t = TL::Typelist< unsigned char, unsigned short int, unsigned int >;
   {
-    assert(3 == MyTypelist_t::size());
     auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
     idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
     idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
@@ -340,6 +339,9 @@ int main()
   cout << iLength << endl;
   {
     assert(3 == MyTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
   }
   cout << endl;
 
@@ -349,6 +351,11 @@ int main()
   auto idxNotInList = TL::IndexOf< unsigned long int, MyTypelist_t >::value;
   cout << "the index was: " << idxNotInList << endl;
   {
+    assert(3 == MyTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
+    idx = TL::IndexOf< unsigned long int, MyTypelist_t >::value; assert(-1 == idx);
     assert(-1 == idxNotInList);
   }
   cout << endl;
@@ -364,9 +371,16 @@ int main()
        << idxUnsignedLongInt
        << endl;
   {
-    assert(3 == idxUnsignedLongInt);
     assert(3 == MyTypelist_t::size());
+    auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
+
     assert(4 == MyNewTypelist_t::size());
+    idx = TL::IndexOf< unsigned char, MyNewTypelist_t >::value; assert(0 == idx);
+    idx = TL::IndexOf< unsigned short int, MyNewTypelist_t >::value; assert(1 == idx);
+    idx = TL::IndexOf< unsigned int, MyNewTypelist_t >::value; assert(2 == idx);
+    idx = TL::IndexOf< unsigned long int, MyNewTypelist_t >::value; assert(3 == idx);
   }
   cout << endl;
 
@@ -418,7 +432,6 @@ int main()
        << ((typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)) ? "true" : "false")
        << endl;
   cout << "replacing elmenet \"unsigned int\" with \"unsigned char\"...";
-// FIXME:  replacement seems not to work                                    
   using MyReplacedTypelist_t = typename TL::ReplaceAll< unsigned char, unsigned int, MyTypelist_t >::type;
   cout << "done.\n";
   cout << "now second element is \"unsigned char\"?\t: "
@@ -428,13 +441,11 @@ int main()
     bool isType = (typeid(unsigned int) == typeid(typename TL::TypeAt< 2, MyTypelist_t >::type)); // NOTE: this comparison might not do exactly what it seems
     assert(isType);
 
-    // before
     assert(3 == MyTypelist_t::size());
     auto idx = TL::IndexOf< unsigned char, MyTypelist_t >::value; assert(0 == idx);
     idx = TL::IndexOf< unsigned short int, MyTypelist_t >::value; assert(1 == idx);
     idx = TL::IndexOf< unsigned int, MyTypelist_t >::value; assert(2 == idx);
 
-    // after
     assert(3 == MyReplacedTypelist_t::size());
     idx = TL::IndexOf< unsigned int, MyReplacedTypelist_t >::value; assert(-1 == idx);
     idx = TL::IndexOf< unsigned char, MyReplacedTypelist_t >::value; assert(0 == idx); // first occurence
