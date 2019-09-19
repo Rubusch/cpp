@@ -31,19 +31,15 @@
 
 namespace TL
 {
-
-
   /*
-    The typelist itself
+    TypeList
 
-    cpp11: before a typelist needed always to contain at least one element,
-    this made an empty element necessary
-
-    in cpp11 also an empty Typelist is possible
-
+    NOTE: before a typelist needed always to contain at least one element,
+    this made an empty element necessary, in this cpp11 implementation also an
+    empty Typelist is possible
 
     usage:
-    using MyList = Typelist< Type1, Type2, Type3 >;
+      using MyList = Typelist< Type1, Type2, Type3 >;
   //*/
   template< typename ...Ts >
   struct Typelist
@@ -55,7 +51,6 @@ namespace TL
   };
 
   using Typelist_empty = Typelist<>;
-
 
   // is list empty? member definition: type, value_type and value
   template< class List >
@@ -77,9 +72,9 @@ namespace TL
 
 
   /*
-    type at index
+    TypeAt
 
-    cpp11: TypeAt
+    type at index
 
     usage:
       using type_at_4 = typename TypeAt< 4, MyList >::type;
@@ -115,10 +110,12 @@ namespace TL
 
 
   /*
+    IndexOf
+
     indexed access
 
-
-    cpp11: version of IndexOf
+    NOTE: the int should be 'constexpr static' to let the compiler do all the work,
+    leaving away 'constexpr static' is not an error, though
 
     usage:
       constexpr static auto idx = IndexOf< Type, MyList>::value;
@@ -159,15 +156,18 @@ namespace TL
 
 
   /*
-    Appending to Typelists
+    PushBack/PushFront
 
+    appending to Typelists
 
-    cpp11: PushBack/PushFront
+    NOTE: since a typelist defines a compile time static type, every
+    modification will result in a new typelist definition, thus 'MyList' becomes
+    'MyNewList'
 
     Usage:
-      using MyList = typename PushBack< Type, MyList >::type;
+      using MyNewList = typename PushBack< Type, MyList >::type;
     or
-      using MyList = typename PushFront< Type, MyList >::type;
+      using MyNewList = typename PushFront< Type, MyList >::type;
   // */
   template< typename T, class List >
   struct PushFront;
@@ -190,12 +190,12 @@ namespace TL
 
 
   /*
-    Erasing a Type from a Typelist
+    Erase
 
-    cpp11: TODO
+    erase a Type from a Typelist
 
     usage:
-      using MyList = typename Erase< Type, MyList >::type;
+      using MyNewList = typename Erase< Type, MyList >::type;
   // */
   template< typename T, class List >
   struct Erase;
@@ -223,12 +223,10 @@ namespace TL
   /*
     Erase All
 
-    Returns a typelist that is MyTypelist without any occurence of T
-
-    cpp11: TODO
+    return a typelist that is MyTypelist without any occurence of T
 
     Usage:
-    using MyList = typename EraseAll< MyList >::type;
+    using MyNewList = typename EraseAll< MyList >::type;
   //*/
   template< typename T, class List >
   struct EraseAll;
@@ -254,12 +252,12 @@ namespace TL
 
 
   /*
-    Erase Duplicates
+    EraseDuplicates
 
-    cpp11: TODO
+    return a list type without duplicate types
 
     usage:
-      using MyList = typename EraseDuplicates< MyList >::type;
+      using MyNewList = typename EraseDuplicates< MyList >::type;
   // */
   template< class List >
   struct EraseDuplicates;
@@ -282,12 +280,12 @@ namespace TL
 
 
   /*
-    Replacing an Element in Typelist
+    ReplaceAll
 
-    cpp11: TODO
+    replace all occurrences of an element type in Typelist
 
     Usage:
-    using MyReplacedElementsList = typename ReplaceAll< NewType, Type, MyList >::type;
+      using MyReplacedElementsList = typename ReplaceAll< NewType, Type, MyList >::type;
   //*/
   template< typename R, typename T, class List >
   struct ReplaceAll;
@@ -309,13 +307,12 @@ namespace TL
   {
     using type = typename PushFront< H, typename ReplaceAll< H, T, Typelist< Ts... > >::type >::type;
   };
-  // */
 };
 
 
 
 /*
-  main..
+  demo main with some assertions..
 //*/
 int main()
 {
