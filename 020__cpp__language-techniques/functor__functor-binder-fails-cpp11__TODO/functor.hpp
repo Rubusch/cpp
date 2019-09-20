@@ -27,7 +27,8 @@
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 
-// Last update: June 20, 2001
+// last update: June 20, 2001
+// adjusted and modified: 2019
 
 #ifndef FUNCTOR_INC_
 #define FUNCTOR_INC_
@@ -78,7 +79,7 @@ struct Select< false, T, U >
 
 /*
   The typelist itself
-// TODO implement variadic templates here!!! 
+// TODO use variadic templates here!!! 
 //*/
 template< class T, class U >
 struct Typelist_
