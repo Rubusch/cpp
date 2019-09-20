@@ -2,9 +2,9 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
+TARGET = functor.exe
 SOURCE =  functor.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
@@ -12,14 +12,14 @@ CFLAGS = -g -Wall
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) -c $(CFLAGS) $<
 
-functor.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) -lm
 
-all: functor.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) functor.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 .PHONY: clean
