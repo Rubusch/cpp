@@ -57,7 +57,7 @@ int main()
   cout << endl;
 
   cout << "Base base = derived; ";
-  base = derived;
+  base = derived; // assignment (slicing)
   cout << "// ...after assignment:" << endl;
   cout << "> base.getVar() = " << base.getVar() << endl;
   cout << "> (crazy_cast< Derived >(base)).getNewVar() = FAIL" /*<< (crazy_cast< Derived >(base)).getNewVar()*/ << endl; // SLICING - FAILES!
@@ -67,8 +67,10 @@ int main()
 
 /*
   Slicing Problem:
-  slicing occurs with dynamic information, since the static pointer to Base is not updated with all information of the dynamic instance
-  the features of the derived class's object are not copied, though this kind of copy is allowed
+  slicing occurs with static information, at (simple) assignment from Derived to Base object, Derived qualities are cut off!
+
+  slicing with dynamic instance at assignment to pointer to Base, keeps all information of the dynamic instance
+  and can be accessed with a down cast
 */
 
   int dynBaseVar = 3;
@@ -86,7 +88,7 @@ int main()
   cout << endl;
 
   cout << "Base *pNewBase = pDerived;";
-  Base *pNewBase = pDerived;
+  Base *pNewBase = pDerived; // assignment
   cout << "// ...after assignment:" << endl;
   cout << "> pNewBase->getVar() = " << pNewBase->getVar() << endl;
   cout << "> pNewBase->getVar() = " << pNewBase->getVar() << endl;
