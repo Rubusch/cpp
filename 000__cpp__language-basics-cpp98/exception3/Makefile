@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
+TARGET = exception3.exe
 SOURCE = exception3.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-exception3.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: exception3.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) exception3.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
