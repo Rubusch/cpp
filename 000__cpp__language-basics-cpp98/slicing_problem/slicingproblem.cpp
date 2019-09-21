@@ -87,7 +87,7 @@ int main()
   cout << "> base ptr init to derived:" << endl;
   cout << "> pBase->getVar() = " << pBase->getVar() << endl;
   cout << "> pBase->me() = " << pBase->me() << endl;
-  cout << "> pBase->getNewVar() = " << (dynamic_cast< Derived* >(pBase))->getNewVar() << endl; // FAILS, or needs down-cast!
+  cout << "> pBase->getNewVar() = " << (dynamic_cast< Derived* >(pBase))->getNewVar() << endl; // SLICING -> FAILS, needs down-cast!
   cout << endl;
 
   delete pBase;
