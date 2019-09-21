@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
+TARGET = operatornewanddeletefreelist.exe
 SOURCE = operatornewanddeletefreelist.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-operatornewanddeletefreelist.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: operatornewanddeletefreelist.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) operatornewanddeletefreelist.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
