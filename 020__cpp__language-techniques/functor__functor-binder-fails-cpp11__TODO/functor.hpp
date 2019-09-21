@@ -471,8 +471,11 @@ private:
 
 public:
   // typelists
-/*
-  
+//*
+  using UnsignedInts_t = TL::Typelist< unsigned char, unsigned short int, unsigned int, unsigned long int >;
+  using SignedInts_t = TL::Typelist< signed char, short int, int, long int >;
+  using OtherInts_t = TL::Typelist< bool, char >;
+  using Floats_t = TL::Typelist< float, double >;
 /*/
   typedef TYPELIST_4( unsigned char, unsigned short int, unsigned int, unsigned long int )
     UnsignedInts_t;
@@ -487,7 +490,8 @@ public:
     Floats_t;
 // */
 
-// TODO
+// TODO                               
+
   // isStdArith
   enum { isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0 };
   enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
