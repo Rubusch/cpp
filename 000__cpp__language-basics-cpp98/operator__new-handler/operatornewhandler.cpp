@@ -74,7 +74,11 @@ void* NewHandlerSupport<T>::operator new(size_t size)
 
   try{
     memory = ::operator new(size);
-  }catch(bad_alloc){
+  }catch(bad_alloc &e){
+    // better don't deal with exception catching & handling here,
+    // leave this to the specific user/consumer and w/o exception
+    // management here, leave this source 'exception neutral'
+    // see Exceptional C++, Herb Sutter (2000)
     set_new_handler(globalHandler);
     throw;
   }
