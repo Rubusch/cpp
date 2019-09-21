@@ -62,7 +62,7 @@ int main()
   cout << "> base.getVar() = " << base.getVar() << endl;
   cout << "> (crazy_cast< Derived >(base)).getNewVar() = FAIL" /*<< (crazy_cast< Derived >(base)).getNewVar()*/ << endl; // SLICING - FAILES!
   // ...in static implementation Derived-only functions/values are sliced off!
-  cout << "> base.me() = " << base.me() << endl; // overwritten virtual base implementation
+  cout << "> base.me() = " << base.me() << endl; // SLICING - this is Base!!!
   cout << endl;
 
 /*
@@ -87,11 +87,13 @@ int main()
 
   cout << "Base *pNewBase = pDerived;";
   Base *pNewBase = pDerived;
-  cout << "// ...after slicing (base changed), but the Derived's attributes are \"sliced off\":" << endl;
+  cout << "// ...after assignment:" << endl;
   cout << "> pNewBase->getVar() = " << pNewBase->getVar() << endl;
   cout << "> pNewBase->getVar() = " << pNewBase->getVar() << endl;
-  cout << "> (dynamic_cast< Derived* >(pNewBase))->getNewVar() = " << (dynamic_cast< Derived* >(pNewBase))->getNewVar() << endl; // derived-only funcs are hidden to Base pointer -> FAILS, needs down-cast!
-  cout << "> pNewBase->me() = " << pNewBase->me() << endl; // overwritten virtual base implementation, and working correctly (Derrived's output with Base pointer)
+  cout << "> (dynamic_cast< Derived* >(pNewBase))->getNewVar() = " << (dynamic_cast< Derived* >(pNewBase))->getNewVar() << endl;
+  // SLICING - derived-only funcs are hidden to Base pointer (dynamic) -> works with down-cast!
+  cout << "> pNewBase->me() = " << pNewBase->me() << endl;
+  // overwritten virtual base implementation, and working correctly for dynamic assignment (Derrived's output with Base pointer)
   cout << endl;
 
 
