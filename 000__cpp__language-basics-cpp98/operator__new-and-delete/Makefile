@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
+TARGET = operatornewanddelete.exe
 SOURCE = operatornewanddelete.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall 
-RM = rm -f 
+CFLAGS = -g -Wall -Werror -pedantic
+RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	${CC} ${CFLAGS} -c $<
 
-operatornewanddelete.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): ${OBJECTS}
+	${CC} ${CFLAGS} -o $@ ${OBJECTS} -lm
 
-all: operatornewanddelete.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) operatornewanddelete.exe *~ core
+	${RM} $(OBJECTS) $(TARGET) *~ core
 
 
