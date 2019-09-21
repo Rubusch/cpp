@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
+TARGET = operatornewanddeletememorypool.exe
 SOURCE = operatornewanddeletememorypool.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-operatornewanddeletememorypool.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: operatornewanddeletememorypool.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) operatornewanddeletememorypool.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
