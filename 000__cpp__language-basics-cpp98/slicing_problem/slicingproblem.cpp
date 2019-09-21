@@ -10,55 +10,44 @@
 using namespace std;
 
 
-/*
-  some base class
-//*/
-template<class T>
 class Base
 {
 protected:
-  T temp;
+  int temp;
 
 public:
-  Base(T initTemp);
-  T getTemp();
+  Base(int initTemp);
+  int getTemp();
 };
 
-template<class T>
-Base<T>::Base(T initTemp)
+
+Base::Base(int initTemp)
   :temp(initTemp)
 {}
 
-template<class T>
-T Base<T>::getTemp()
+int Base::getTemp()
 {
   return temp;
 }
 
 
-/*
-  some derived class
-//*/
-template<class T>
 class Derived
-: public Base<T>
+: public Base
 {
 private:
-  T newTemp;
+  int newTemp;
 
 public:
-  Derived(T initNewTemp, T initTemp);
-  T getNewTemp();
+  Derived(int initNewTemp, int initTemp);
+  int getNewTemp();
 };
 
-template<class T>
-Derived<T>::Derived(T initNewTemp, T initTemp)
-  : Base<T>(initTemp)
-    , newTemp(initNewTemp)
+Derived::Derived(int initNewTemp, int initTemp)
+  : Base(initTemp)
+  , newTemp(initNewTemp)
 {}
 
-template<class T>
-T Derived<T>::getNewTemp()
+int Derived::getNewTemp()
 {
   return newTemp;
 }
@@ -71,12 +60,14 @@ int main()
 {
   int baseVar = 1, derivedBaseVar = 2, derivedVar = 22;
 
-  Base<int> base(baseVar);
-  cout << "base:\nvariable (base) = " << base.getTemp() << endl;
+  Base base(baseVar);
+  cout << "base:" << endl
+       << "variable (base) = " << base.getTemp() << endl;
 
-  Derived<int> derived(derivedBaseVar, derivedVar);
-  cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << endl;
-
+  Derived derived(derivedBaseVar, derivedVar);
+  cout << "derived:" << endl
+       << "variable (base) = " << derived.getTemp() << ";\t "
+       << "variable (derived) = " << derived.getNewTemp() << endl;
   cout << endl;
 
   cout << "base = derived;" << endl;
@@ -88,9 +79,12 @@ int main()
   base = derived;
   cout << "...after slicing the results are (base changed, but the Derived's attributes are \"sliced off\":" << endl << endl;
 
-  cout << "base:\nvariable (base) = " << base.getTemp() << endl;
-  cout << "derived:\nvariable (base) = " << derived.getTemp() << ";\t variable (derived) = " << derived.getNewTemp() << endl;
+  cout << "base:" << endl
+       << "variable (base) = " << base.getTemp() << endl;
+  cout << "derived:" << endl
+       << "variable (base) = " << derived.getTemp() << ";\t "
+       << "variable (derived) = " << derived.getNewTemp() << endl;
 
-  cout << "READY.\n";
+  cout << "READY." << endl;
   return 0;
 }

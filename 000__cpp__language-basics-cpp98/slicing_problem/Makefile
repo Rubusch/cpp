@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
+TARGET = slicingproblem.exe
 SOURCE = slicingproblem.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	${CC} ${CFLAGS} -c $<
 
-slicingproblem.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): ${OBJECTS}
+	${CC} ${CFLAGS} -o $@ ${OBJECTS} -lm
 
-all: slicingproblem.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) slicingproblem.exe *~ core
+	${RM} $(OBJECTS) $(TARGET) *~ core
 
 
