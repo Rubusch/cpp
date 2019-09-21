@@ -57,13 +57,13 @@ void* Foobar::operator new(size_t size)
   // MISSING: in case use a new-handler here
 
   void* memory;
-  try{
+//  try{ // keep it 'exception neutral', i.e. let exception handling happen totally on client site (sh. Exceptional C++, Herb Sutter)
     memory = ::operator new(size);
-  }catch(std::bad_alloc){
-    std::cerr << "Uh-oh.. something went wrong with the \"operator new()\"" << std::endl; // some comment
-    // MISSING: in case of a modified new-handler reset here to the global new-handler
-    throw;
-  }
+//  }catch(std::bad_alloc &e){
+//    std::cerr << "Uh-oh.. something went wrong with the \"operator new()\"" << std::endl; // some comment
+//    // MISSING: in case of a modified new-handler reset here to the global new-handler
+//    throw;
+//  }
   std::cerr << "\"operator new()\" succeeded!" << std::endl; // some comment
 
   return memory;
