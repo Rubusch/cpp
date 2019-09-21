@@ -77,10 +77,199 @@ struct Select< false, T, U >
 /*****************************************************************************/
 
 
+namespace TL
+{
+  /*
+    TypeList
+
+    NOTE: before a typelist needed always to contain at least one element,
+    this made an empty element necessary, in this cpp11 implementation also an
+    empty Typelist is possible
+
+    usage:
+      using MyList = Typelist< Type1, Type2, Type3 >;
+  //*/
+  template< typename ...Ts >
+  struct Typelist
+  {
+    using type = Typelist;
+
+    // cpp11: number of elements is 'sizeof...(Ts)'
+    static constexpr size_t size() noexcept { return sizeof...(Ts); }
+  };
+
+  using Typelist_empty = Typelist<>;
+
+  // is list empty? member definition: type, value_type and value
+  template< class List >
+  struct isEmpty
+  {
+    using type = std::false_type; // integral_constant< bool, false >;
+    using value_type = typename type::value_type;
+    static constexpr value_type value = type::value;
+  };
+
+  // empty list
+  template<>
+  struct isEmpty< Typelist<> >
+  {
+    using type = std::true_type; // integral_constant< bool, true >;
+    using value_type = type::value_type;
+    static constexpr value_type value = type::value;
+  };
+
+  /*
+    TypeAt
+
+    type at index
+
+    usage:
+      using type_at_4 = typename TypeAt< 4, MyList >::type;
+  // */
+  template< size_t idx, class List >
+  struct TypeAt_impl;
+
+  template< typename T, typename... Ts >
+  struct TypeAt_impl< 0, Typelist< T, Ts... > > // end of search, type was found
+  {
+    using type = T;
+  };
+
+  template< size_t idx, typename T, typename... Ts >
+  struct TypeAt_impl< idx, Typelist< T, Ts... > > // recursion
+  {
+    using type = typename TypeAt_impl< idx - 1, Typelist< Ts... > >::type;
+  };
+
+  // wrapper
+  template< size_t idx, class List >
+  struct TypeAt;
+
+  template< size_t idx, typename... Ts >
+  struct TypeAt< idx, Typelist< Ts... > >
+  {
+    private:
+      static_assert(sizeof...(Ts) > idx, "TypeAt: index out of bounds or called on empty type");
+    public:
+      using type = typename TypeAt_impl< idx, Typelist< Ts... > >::type;
+  };
+  // */
+
+  /*
+    IndexOf
+
+    indexed access
+
+    NOTE: the int should be 'constexpr static' to let the compiler do all the work,
+    leaving away 'constexpr static' is not an error, though
+
+    usage:
+      constexpr static auto idx = IndexOf< Type, MyList>::value;
+  // */
+  template< size_t idx, typename T, class List >
+  struct IndexOf_impl; // has index as template parameter
+
+  template< size_t idx, typename T > // type T not in list
+  struct IndexOf_impl< idx, T, Typelist<> >
+  {
+    using type = std::integral_constant< int, -1 >;
+  };
+
+  template< size_t idx, typename T, typename... Ts >
+  struct IndexOf_impl< idx, T, Typelist< T, Ts... > > // type is found
+  {
+    using type = std::integral_constant< int, idx >;
+  };
+
+  template< size_t idx, typename T, typename H, typename... Ts >
+  struct IndexOf_impl< idx, T, Typelist< H, Ts... > > // recursion
+  {
+    using type = typename IndexOf_impl< idx + 1, T, Typelist< Ts... > >::type;
+  };
+
+  // support of Head for index 0
+  template< typename T, class List >
+  struct IndexOf;
+
+  template< typename T, typename... Ts >
+  struct IndexOf< T, Typelist< Ts... > >
+  {
+    using type = typename IndexOf_impl< 0, T, Typelist< Ts... > >::type;
+    using value_type = typename type::value_type;
+    static constexpr value_type value = type::value;
+  };
+  // */
+
+  /*
+    PushBack/PushFront
+
+    appending to Typelists
+
+    NOTE: since a typelist defines a compile time static type, every
+    modification will result in a new typelist definition, thus 'MyList' becomes
+    'MyNewList'
+
+    Usage:
+      using MyNewList = typename PushBack< Type, MyList >::type;
+    or
+      using MyNewList = typename PushFront< Type, MyList >::type;
+  // */
+  template< typename T, class List >
+  struct PushFront;
+
+  template< typename T, typename... Ts >
+  struct PushFront< T, Typelist< Ts... > >
+  {
+    using type = Typelist< T, Ts... >;
+  };
+
+  template< typename T, class List >
+  struct PushBack;
+
+  template< typename T, typename... Ts >
+  struct PushBack< T, Typelist< Ts... > >
+  {
+    using type = Typelist< Ts..., T >;
+  };
+  // */
+
+
+  /*
+    Erase
+
+    erase a Type from a Typelist
+
+    usage:
+      using MyNewList = typename Erase< Type, MyList >::type;
+  // */
+  template< typename T, class List >
+  struct Erase;
+
+  template< typename T >
+  struct Erase< T, Typelist<> >
+  {
+    using type = Typelist<>;
+  };
+
+  template< typename T, typename... Ts >
+  struct Erase< T, Typelist< T, Ts...> >
+  {
+    using type = Typelist< Ts... >;
+  };
+
+  template< typename T, typename H, typename... Ts >
+  struct Erase< T, Typelist< H, Ts... > >
+  {
+    using type = typename PushFront< H, typename Erase< T, Typelist< Ts... > >::type >::type;
+  };
+  // */
+
+
+                          
 /*
   The typelist itself
 // TODO use variadic templates here!!! 
-//*/
+// * /
 template< class T, class U >
 struct Typelist_
 {
@@ -96,7 +285,7 @@ struct Typelist_
   Linearizing Typelist Creation
 
   The "old fashion" implementation uses macros
-//*/
+// * /
 #define TYPELIST_1(T1) Typelist_< T1, NIL >
 #define TYPELIST_2(T1, T2) Typelist_< T1, TYPELIST_1(T2) >
 #define TYPELIST_3(T1, T2, T3) Typelist_< T1, TYPELIST_2(T2, T3) >
@@ -105,7 +294,7 @@ struct Typelist_
 
 /*
   typelist operations
-//*/
+// * /
 namespace TL
 {
   /*
@@ -123,7 +312,7 @@ namespace TL
 
     Usage:
     TL::TypeAt< MyTypelist, idx >::Result variable;
-  //*/
+  // * /
 
   // basic template form
   template< class TList, unsigned int index >
@@ -160,7 +349,7 @@ namespace TL
 
     Usage:
     int idx = IndexOf< MyTypelist, TypeToLookUp >::value;
-  //*/
+  // * /
   template< class TList, class T >
   struct IndexOf;
 
@@ -199,7 +388,7 @@ namespace TL
 
     Usage:
     typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;
-  //*/
+  // * /
   template< class TList, class T >
   struct Erase;
 
