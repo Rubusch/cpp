@@ -415,8 +415,9 @@ namespace TL
     typedef Typelist_< Head, typename Erase< Tail, T >::Result >
       Result;
   };
+// */
 }
-
+                          
 
 /*****************************************************************************/
 
@@ -470,6 +471,9 @@ private:
 
 public:
   // typelists
+/*
+  
+/*/
   typedef TYPELIST_4( unsigned char, unsigned short int, unsigned int, unsigned long int )
     UnsignedInts_t;
 
@@ -481,7 +485,9 @@ public:
 
   typedef TYPELIST_2( float, double )
     Floats_t;
+// */
 
+// TODO
   // isStdArith
   enum { isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0 };
   enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
