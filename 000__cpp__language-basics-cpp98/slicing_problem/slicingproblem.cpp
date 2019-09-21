@@ -13,44 +13,27 @@ using namespace std;
 class Base
 {
 protected:
-  int temp;
+  int var_;
 
 public:
-  Base(int initTemp);
-  int getTemp();
+  Base(int initVar) :var_(initVar) {}
+  virtual ~Base(){}; // needed for Derived
+  int getVar() { return var_; }
+  virtual string me() { return "BASE"; } // to be overwritten
 };
-
-
-Base::Base(int initTemp)
-  :temp(initTemp)
-{}
-
-int Base::getTemp()
-{
-  return temp;
-}
 
 
 class Derived
 : public Base
 {
 private:
-  int newTemp;
+  int newVar_;
 
 public:
-  Derived(int initNewTemp, int initTemp);
-  int getNewTemp();
+  Derived(int initVar, int initNewVar) : Base(initVar), newVar_(initNewVar) {}
+  int getNewVar() { return newVar_; }
+  virtual string me() { return "DERIVED"; }
 };
-
-Derived::Derived(int initNewTemp, int initTemp)
-  : Base(initTemp)
-  , newTemp(initNewTemp)
-{}
-
-int Derived::getNewTemp()
-{
-  return newTemp;
-}
 
 
 /*
@@ -58,32 +41,56 @@ int Derived::getNewTemp()
 //*/
 int main()
 {
-  int baseVar = 1, derivedBaseVar = 2, derivedVar = 22;
-
+  int baseVar = 1;
+  cout << "Base base(" << baseVar << ");" << endl;
   Base base(baseVar);
-  cout << "base:" << endl
-       << "variable (base) = " << base.getTemp() << endl;
-
-  Derived derived(derivedBaseVar, derivedVar);
-  cout << "derived:" << endl
-       << "variable (base) = " << derived.getTemp() << ";\t "
-       << "variable (derived) = " << derived.getNewTemp() << endl;
   cout << endl;
 
-  cout << "base = derived;" << endl;
+  cout << "> base:" << endl
+       << "> base.getVar() = " << base.getVar() << endl;
+  cout << endl;
+
+  int derivedVar = 2, derivedNewVar = 22;
+  cout << "Derived derived(" << derivedVar << ", " << derivedNewVar << ");" << endl;
+  Derived derived(derivedVar, derivedNewVar);
+  cout << endl;
+
+  cout << "> derived:" << endl;
+  cout << "> derived.getVar() = " << derived.getVar() << endl;
+  cout << "> derived.getNewVar() = " << derived.getNewVar() << endl;
+  cout << "> derived.me() = " << derived.me() << endl;
+  cout << endl;
+
 /*
   Slicing Problem:
   slicing occurs here since the features of the derived class's
   object are not copied, though this kind of copy is allowed
 */
+  cout << "Base base = derived; ";
   base = derived;
-  cout << "...after slicing the results are (base changed, but the Derived's attributes are \"sliced off\":" << endl << endl;
+  cout << "// ...after slicing (base changed), but the Derived's attributes are \"sliced off\":" << endl << endl;
 
-  cout << "base:" << endl
-       << "variable (base) = " << base.getTemp() << endl;
-  cout << "derived:" << endl
-       << "variable (base) = " << derived.getTemp() << ";\t "
-       << "variable (derived) = " << derived.getNewTemp() << endl;
+  cout << "> base:" << endl
+       << "> base.getVar() = " << base.getVar() << endl;
+  cout << endl;
+
+  cout << "> derived:" << endl;
+  cout << "> derived.getVar() = " << derived.getVar() << endl;
+  cout << "> derived.getNewVar() = " << derived.getNewVar() << endl;
+  cout << "> derived.me() = " << derived.me() << endl;
+  cout << endl;
+
+  int derivedVarP = 3, derivedNewVarP = 33;
+  cout << "Base* pBase = new Derived(" << derivedVarP << ", " << derivedNewVarP << ");" << endl;
+  Base* pBase = new Derived(derivedVarP, derivedNewVarP);
+
+  cout << "> base ptr init to derived:" << endl;
+  cout << "> pBase->getVar() = " << pBase->getVar() << endl;
+  cout << "> pBase->me() = " << pBase->me() << endl;
+  cout << "> pBase->getNewVar() = " << (dynamic_cast< Derived* >(pBase))->getNewVar() << endl; // FAILS, or needs down-cast!
+  cout << endl;
+
+  delete pBase;
 
   cout << "READY." << endl;
   return 0;
