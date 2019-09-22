@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE = binder.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = visitor.exe
+SOURCE = *.cpp
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-binder.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: binder.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) binder.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 

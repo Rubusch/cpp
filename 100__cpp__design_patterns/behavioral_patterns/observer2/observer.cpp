@@ -84,6 +84,7 @@ std::ostream& operator<<(std::ostream& os, State &state)
 class Observer
 {
 public:
+  virtual ~Observer(){}
   virtual void update() = 0;
 };
 
@@ -100,7 +101,7 @@ private:
   std::list< Observer* > lst_;
 
 public:
-  ~Subject()
+  virtual ~Subject()
   {
     std::cout << "\tSubject::~Subject() - dtor\n";
   }
@@ -146,7 +147,7 @@ public:
     std::cout << "\tConcreteSubject::ConcreteSubject() - ctor\n";
     try{
       subjectState_ = new State(666, "murder");
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation of state failed!\n";
       std::exit(-1);
     }
@@ -199,7 +200,7 @@ public:
     std::cout << "\tConcreteObserver::ConcreteObserver() - ctor\n";
     try{
       observerState_ = new State(999, "redrum");
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation of observer state failed!\n";
       std::exit(-2);
     }

@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE =  observer.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = observer.exe
+SOURCE = *.cpp
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-observer.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: observer.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) observer.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
