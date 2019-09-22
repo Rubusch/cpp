@@ -34,6 +34,7 @@
 
 
 #include <iostream>
+#include <memory>
 
 
 /*
@@ -45,7 +46,7 @@
 class Flyweight
 {
 public:
-  virtual ~Flyweight()[]
+  virtual ~Flyweight(){}
   virtual void operation() = 0;
 };
 
@@ -62,10 +63,10 @@ class SharedConcreteFlyweight
   : public Flyweight
 {
 private:
-  std::string *pStr_;
+  const std::string *pStr_;
 
 public:
-  SharedConcreteFlyweight(std::string &str)
+  SharedConcreteFlyweight(const std::string &str)
     : pStr_(&str)
   {
     std::cout << "\tSharedConcreteFlyweight::SharedConcreteFlyweight(std::string &str) - ctor\n";
@@ -91,11 +92,11 @@ class UnsharedConcreteFlyweight
   : public Flyweight
 {
 private:
-  std::string str_;
+  const std::string str_;
   unsigned int num_;
 
 public:
-  UnsharedConcreteFlyweight(std::string& str, unsigned int& num)
+  UnsharedConcreteFlyweight(const std::string& str, const unsigned int& num)
     : str_(str), num_(num)
   {
     std::cout << "\tUnsharedConcreteFlyweight::UnsharedConcreteFlyweight(std::string& str, unsigned int& number) - ctor\n";
@@ -122,8 +123,7 @@ class FlyweightFactory
 private:
   std::string str_;
   unsigned int num_;
-
-  Flyweight* pFlyweight;
+  std::shared_ptr< Flyweight > pFlyweight;
 
 public:
   FlyweightFactory()
@@ -133,18 +133,18 @@ public:
     num_ = 777;
   }
 
-  Flyweight& getSharedFlyweight()
+  std::shared_ptr< Flyweight > getSharedFlyweight()
   {
     std::cout << "\tFlyweightFactory::getSharedFlyweight()\n";
-    pFlyweight = new SharedConcreteFlyweight(str_);
-    return *pFlyweight;
+    pFlyweight = std::make_shared< SharedConcreteFlyweight >(str_);
+    return pFlyweight;
   }
 
-  Flyweight& getUnsharedFlyweight()
+  std::shared_ptr< Flyweight > getUnsharedFlyweight()
   {
     std::cout << "\tFlyweightFactory::getUnsharedFlyweight()\n";
-    pFlyweight = new UnsharedConcreteFlyweight(str_, num_);
-    return *pFlyweight;
+    pFlyweight = std::make_shared< UnsharedConcreteFlyweight >(str_, num_);
+    return pFlyweight;
   }
 };
 
@@ -165,13 +165,13 @@ int main()
 
 
   cout << "get concrete shared flyweight..\n";
-  Flyweight *pFly_1 = &(factory.getSharedFlyweight());
+  auto pFly_1 = factory.getSharedFlyweight();
   pFly_1->operation();
   cout << endl;
 
 
   cout << "get unshared concrete flyweight..\n";
-  Flyweight *pFly_2 = &(factory.getUnsharedFlyweight());
+  auto pFly_2 = factory.getUnsharedFlyweight();
   pFly_2->operation();
   cout << endl;
 
