@@ -113,7 +113,7 @@ public:
 
     // do copy, stored here to enable the undo operation
     try{
-      arr_orig_ = new unsigned int(size);
+      arr_orig_ = new unsigned int[size];
     }catch(...){
       std::cerr << "Receiver::ERROR: allocation failed!";
       exit(-1);
@@ -329,7 +329,6 @@ int main()
   arrayInvoker.undo();
   show( arr, size);
   cout << endl;
-
 
   cout << "READY.\n";
   return 0;
