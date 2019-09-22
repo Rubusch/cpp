@@ -76,6 +76,7 @@ std::ostream& operator<<(std::ostream& os, State &state)
 
 struct Observer
 {
+  virtual ~Observer(){}
   virtual void update() = 0;
 };
 
@@ -86,19 +87,21 @@ private:
   std::list< Observer* > lst_;
 
 public:
-  void attach(Observer* pObserver)
+  virtual ~Subject(){}
+
+  virtual void attach(Observer* pObserver)
   {
     if(!pObserver) return;
     lst_.push_back(pObserver);
   }
 
-  void detach(Observer* pObserver)
+  virtual void detach(Observer* pObserver)
   {
     if(!pObserver) return;
     lst_.remove(pObserver);
   }
 
-  void notify()
+  virtual void notify()
   {
     std::for_each(lst_.begin(), lst_.end(), std::mem_fun( &Observer::update));
   }
@@ -117,7 +120,7 @@ public:
   {
     try{
       subjectState_ = new State(666, "murder");
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation of state failed!\n";
       std::exit(-1);
     }
@@ -158,7 +161,7 @@ public:
   {
     try{
       observerState_ = new State(999, "redrum");
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation of observer state failed!\n";
       std::exit(-2);
     }
