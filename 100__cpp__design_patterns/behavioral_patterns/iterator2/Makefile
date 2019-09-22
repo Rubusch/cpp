@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE =  iterator.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = iterator.exe
+SOURCE = *.cpp
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-iterator.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: iterator.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) iterator.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 

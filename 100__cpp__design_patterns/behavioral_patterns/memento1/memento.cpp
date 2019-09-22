@@ -81,7 +81,7 @@ private:
   {
     try{
       state_ = new State(*state);
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation in Memento failed!\n";
       std::exit(-1);
     }
@@ -104,7 +104,7 @@ public:
   {
     try{
       state_ = new State(123, "foobar");
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation of State failed!\n";
       std::exit(-2);
     }
@@ -123,7 +123,7 @@ public:
     Memento *pMemento = NULL;
     try{
       pMemento = new Memento();
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation of Memento failed!\n";
       std::exit(-3);
     }
@@ -145,7 +145,7 @@ public:
     // set the state, as deep copy
     try{
       state_ = new State(*memento->getState());
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation failed setting the Memento!\n";
       std::exit(-4);
     }
@@ -163,7 +163,7 @@ public:
 
     try{
       state_ = new State(777, "something odd...");
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "Allocation failed somewhere!\n";
       std::exit(-5);
     }
