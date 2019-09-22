@@ -47,6 +47,7 @@ template<class T>
 class NewHandlerSupport
 {
 public:
+  virtual ~NewHandlerSupport(){}
   static new_handler set_new_handler(new_handler p);
   static void* operator new(size_t size);
   // MISSING: "operator delete()" -
@@ -92,7 +93,8 @@ void* NewHandlerSupport<T>::operator new(size_t size)
 /*
   3. a derived class: uses the new-handler support class
 //*/
-class Foobar : public NewHandlerSupport<Foobar>
+class Foobar
+  : public NewHandlerSupport<Foobar>
 {
   string str;
 

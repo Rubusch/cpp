@@ -35,6 +35,7 @@ protected:
   int variable;
 
 public:
+  virtual ~Base(){}
   void display()
   {
     std::cout << "Base::variable = " << variable << "\n";

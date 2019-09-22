@@ -36,6 +36,7 @@ protected:
   int variable;
 
 public:
+  virtual ~Base(){}
   void display()
   {
     std::cout << "Base::variable = " << variable << "\n";
@@ -58,6 +59,8 @@ public:
     variable = 1;
   }
 
+  virtual ~DerivedA(){}
+
   void display_derivedA()
   {
     std::cout << "DerivedA -> Base::variable = " << variable << "\n";
@@ -76,6 +79,8 @@ public:
   {
     variable = 2;
   }
+
+  virtual ~DerivedB(){}
 
   void display_derivedB()
   {

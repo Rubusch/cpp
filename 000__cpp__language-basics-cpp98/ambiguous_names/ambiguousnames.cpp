@@ -3,16 +3,31 @@
   ambiguous naming is possible due to different parameters, a different return
   value leads to a compile error!
 
-  (Scott Meyers - lection 26)
+
+  Generally try to avoid inheritance in favor of aggregation patterns.
+  Inheritance is only needed when virtual functions (functions need to be
+  overwriteable), or members are within a protected block are around.
+  By Liskov public inheritance implements a 'IS-A' relation. Everything else
+  should be modeled as aggregation 'HAS-A', or 'IS-IMPLEMENTED-WITH' (which
+  can also be private inheritance). [Sutter, 2000]
+
+
+  RESOURCES
+
+  * Scott Meyers, lection 26
+
+  * Exceptional C++, Herb Sutter, 2000
 //*/
 
 #include <iostream>
+
 using namespace std;
 
 
 class Base1
 {
 public:
+  virtual ~Base1(){}
   void ambiguous_param(char chr){ cout << "Base1 - param: " << chr << endl; }
   int ambiguous_return(){ return 7; }
 };
@@ -24,6 +39,7 @@ void global_ambiguous_param(char chr){ cout << "global - param: " << chr << endl
 class Base2
 {
 public:
+  virtual ~Base2(){}
   void ambiguous_param(int i){ cout << "Base1 - param: " << i << endl; }
   char ambiguous_return(){ return 'd'; }
 };
@@ -71,5 +87,5 @@ int main()
   chr = static_cast<char>(d.ambiguous_return());
   cout << "Derived - chr: " << chr << endl;
   //*/
-    return 0;
+  return 0;
 }
