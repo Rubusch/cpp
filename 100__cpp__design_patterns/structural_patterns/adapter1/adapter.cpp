@@ -44,6 +44,7 @@
 
 struct Adaptee
 {
+  virtual ~Adaptee(){}
   void specificRequest(std::string str1, std::string str2)
   {
     std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'" << str2 << "\'\n";
@@ -53,6 +54,7 @@ struct Adaptee
 
 struct Target
 {
+  virtual ~Target(){}
   virtual void request(std::string){}
 };
 
@@ -75,7 +77,6 @@ int main()
 {
   Target *pTarget = new Adapter();
   pTarget->request("foo");
-
   delete pTarget;
   return 0;
 }
