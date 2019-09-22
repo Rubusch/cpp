@@ -1,4 +1,4 @@
-// binder.cpp
+// binder.cpp (C++98)
 /*
   implements the Visitor-situation and its solution using STL binders
 

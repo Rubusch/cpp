@@ -66,6 +66,7 @@ class Visitor;
 
 struct Element
 {
+  virtual ~Element(){}
   virtual void accept(Visitor* visitor) = 0;
 };
 
@@ -119,6 +120,7 @@ public:
 class Visitor
 {
 public:
+  virtual ~Visitor(){}
   virtual void visit(Element1&) const = 0;
   virtual void visit(Element2&) const = 0;
 
