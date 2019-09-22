@@ -334,8 +334,8 @@ jobs:
       - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/factory-method1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/factory-method__protocol-class && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/creational_patterns/singleton1 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/creational_patterns/prototype1 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/builder1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command1 && make && ./*.exe
