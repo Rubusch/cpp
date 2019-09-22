@@ -44,7 +44,7 @@ class State;
 class Context
 {
 private:
-  friend class State;
+  friend class State; // generally try to avoid 'friend' declarations (closest connection)
   void changeState( State* state);
 
 private:
@@ -72,7 +72,7 @@ class State
 public:
   // can implement several request handlers
   virtual void handleRequest( Context*) = 0;
-  ~State()
+  virtual ~State()
   {
     std::cout << "\tState::~State() - dtor\n";
   }
@@ -108,7 +108,7 @@ public:
     std::cout << "\tStateA::instance()\n";
     try{
       return new StateA();
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "\tAllocation of StateA failed!\n";
       exit(-1);
     }
@@ -144,7 +144,7 @@ public:
     std::cout << "\tStateB::instance()\n";
     try{
       return new StateB();
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "\tAllocation of StateB failed!\n";
       exit(-2);
     }

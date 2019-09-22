@@ -45,11 +45,13 @@ private:
   }
 
 public:
+  virtual ~State(){}
+
   static State* instance()
   {
     try{
       return new State(false);
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "\tAllocation of StateA failed!\n";
       exit(-1);
     }

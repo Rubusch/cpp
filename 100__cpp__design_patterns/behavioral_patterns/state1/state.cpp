@@ -54,6 +54,7 @@ public:
 class State
 {
 public:
+  virtual ~State(){}
   virtual void handleRequest( Context*) = 0;
 
 protected:
@@ -75,7 +76,7 @@ public:
   {
     try{
       return new StateA();
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "\tAllocation of StateA failed!\n";
       exit(-1);
     }
@@ -100,7 +101,7 @@ public:
   {
     try{
       return new StateB();
-    }catch(std::bad_alloc){
+    }catch(std::bad_alloc &e){
       std::cerr << "\tAllocation of StateB failed!\n";
       exit(-2);
     }

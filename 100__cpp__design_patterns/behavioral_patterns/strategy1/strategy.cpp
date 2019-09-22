@@ -36,6 +36,7 @@
 
 struct Strategy
 {
+  virtual ~Strategy(){}
   virtual double algorithm(double arg) = 0;
 };
 

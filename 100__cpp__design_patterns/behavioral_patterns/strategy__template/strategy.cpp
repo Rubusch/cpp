@@ -45,6 +45,7 @@
 class Strategy
 {
 public:
+  virtual ~Strategy(){}
   virtual double algorithm(double arg) = 0;
 };
 
