@@ -55,7 +55,7 @@
 
 
 #include <iostream>
-
+#include <memory>
 
 /*
   Singleton
@@ -68,7 +68,7 @@
 class Singleton
 {
 private:
-  static Singleton *pInstance_;
+  static Singleton* pInstance_;
 
   // only one instance -> private ctor
   Singleton()
@@ -77,25 +77,22 @@ private:
   }
 
   // no copy constructor -> private
-  Singleton(const Singleton&);
+  Singleton(const Singleton&) = delete;
 
   // no assignment -> private
-  const Singleton& operator=( Singleton const&);
+  const Singleton& operator=( Singleton const&) = delete;
 
   // no public dtor -> private, will never be called
-  ~Singleton()
-  {
-    std::cout << "Singleton::~Singleton() - dtor, will never be called!\n";
-  }
+  ~Singleton() = delete; // FIXME
 
 public:
   // global point of access
   static Singleton* getInstance()
   {
-    if(NULL == pInstance_){
-      if(NULL == (pInstance_ = new(std::nothrow) Singleton)){
+    if (nullptr == pInstance_) {
+      pInstance_ = new Singleton();
+      if (nullptr == pInstance_) {
         std::cerr << "ERROR: Singleton instantiation failed!\n";
-        pInstance_ = NULL;
       }
     }
     return pInstance_;
@@ -108,9 +105,8 @@ public:
   }
 };
 
-
 // static initialization: outside of class definition!
-Singleton* Singleton::pInstance_ = NULL;
+Singleton* Singleton::pInstance_ = nullptr;
 
 
 /*
@@ -121,11 +117,11 @@ int main()
   using namespace std;
 
   // pointer to the static singleton instance
-  Singleton* ptr = NULL;
+  auto ptr = Singleton::getInstance();
 
   do{
     cout << "create Singleton:\n";
-    if(NULL == (ptr = Singleton::getInstance())){
+    if (nullptr == ptr) {
       cout << "Singleton allocation failed!\n";
       break;
     }
@@ -136,7 +132,7 @@ int main()
     cout << endl;
 
     cout << "destroy Singleton.. - is not permitted!\n";
-  }while(false);
+  } while (false);
 
   cout << "READY.\n";
   return 0;
