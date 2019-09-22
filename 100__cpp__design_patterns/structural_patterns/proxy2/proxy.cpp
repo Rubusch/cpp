@@ -39,6 +39,7 @@
 class Subject
 {
 public:
+  virtual ~Subject(){}
   virtual void request() = 0;
 };
 

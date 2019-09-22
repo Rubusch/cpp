@@ -50,12 +50,9 @@
 class Component
 {
 public:
+  virtual ~Component(){}
   virtual void operation() = 0; // will NEVER be called -> abstract class!
-
-  void commonOperation()
-  {
-    std::cout << "> test of an inherited base functionalty!\n";
-  }
+  void commonOperation(){ std::cout << "> test of an inherited base functionalty!\n"; }
 };
 
 

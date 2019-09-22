@@ -18,7 +18,12 @@
   class to distinguish between lvalue and rvalue usages of operator[]
 
 
-  (Gang of Four), (More Effective C++ / 30 / Meyers)
+
+  RESOURCES
+
+  * Design Patterns, Gang of Four, 1995
+
+  * More Effective C++ / 30, Scott Meyers
 //*/
 
 #include <iostream>
@@ -59,7 +64,8 @@ public:
   /*
     some idividual exception - this is optional and can be also a catch(...)
   //*/
-  class BadProxyException : public exception
+  class BadProxyException
+    : public exception
   {
   private:
     string message;

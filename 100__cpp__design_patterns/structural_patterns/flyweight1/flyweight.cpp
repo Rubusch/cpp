@@ -38,6 +38,7 @@
 
 struct Flyweight
 {
+  virtual ~Flyweight(){}
   virtual void operation() = 0;
 };
 

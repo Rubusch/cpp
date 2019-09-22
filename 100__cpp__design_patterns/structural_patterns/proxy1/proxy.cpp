@@ -32,6 +32,7 @@
 
 struct Subject
 {
+  virtual ~Subject(){}
   virtual void request() = 0;
 };
 
@@ -45,7 +46,8 @@ struct RealSubject : public Subject
 };
 
 
-struct Proxy : public Subject
+struct Proxy
+  : public Subject
 {
   Proxy()
     : pRealSubject_(NULL)

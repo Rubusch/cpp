@@ -45,6 +45,7 @@
 class Flyweight
 {
 public:
+  virtual ~Flyweight()[]
   virtual void operation() = 0;
 };
 

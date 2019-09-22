@@ -43,6 +43,7 @@
 
 struct Component
 {
+  virtual ~Component(){}
   virtual void operation() = 0; // will NEVER be called -> abstract class!
 
   void commonOperation()
