@@ -211,7 +211,7 @@ int main()
     }
     cout << endl;
 
-  }catch(Matrix_2D<string>::BadProxyException exp){
+  }catch(Matrix_2D<string>::BadProxyException &exp){
     cout << exp.whatchamecallit() << endl;
     exit(-1);
   }
