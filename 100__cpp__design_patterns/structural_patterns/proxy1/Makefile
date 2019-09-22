@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE = proxy.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = proxy.exe
+SOURCE = *.cpp
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-proxy.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: proxy.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) proxy.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
