@@ -84,6 +84,7 @@ public:
 class AbstractExpression
 {
 public:
+  virtual ~AbstractExpression(){}
   virtual bool interpret( Context* context) = 0;
 };
 

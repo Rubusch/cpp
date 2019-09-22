@@ -71,6 +71,7 @@ public:
 struct AbstractExpression
 {
   virtual bool interpret( Context* context) = 0;
+  virtual ~AbstractExpression(){}
 };
 
 

@@ -47,6 +47,7 @@ protected:
   Mediator* pMediator_;
 
 public:
+  virtual ~Collegue(){}
   virtual void requestSomething() = 0;
   virtual std::string handleSomething() = 0;
   virtual void setMediator(Mediator* mediator)

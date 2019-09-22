@@ -63,6 +63,8 @@ protected:
   Mediator* pMediator_;
 
 public:
+  virtual ~Collegue(){}
+
   // request
   virtual void requestSomething() = 0;
 
