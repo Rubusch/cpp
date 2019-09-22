@@ -10,7 +10,7 @@
   +---------------------+                       +---------------------+
   | construct()         |                       | buildPart()         |
   +-----------------|---+                       +---------------------+
-                                                          /_\
+                                                           A
                     |                                      |
                                                            |
                     |                                      |
@@ -196,11 +196,10 @@ public:
 class Director
 {
 private:
-  Builder* builder_;
+  std::shared_ptr< Builder > builder_;
 
 public:
   Director()
-    :builder_(NULL)
   {
     std::cout << "\tDirector::Director() - ctor\n";
   }
@@ -208,10 +207,9 @@ public:
   ~Director()
   {
     std::cout << "\tDirector::~Director() - dtor\n";
-    builder_ = NULL;
   }
 
-  void setBuilder(Builder* builder)
+  void setBuilder(std::shared_ptr< Builder > builder)
   {
     std::cout << "\tDirector::setBuilder()\n";
     builder_ = builder;
@@ -247,23 +245,23 @@ int main()
   cout << endl;
 
   // builder A
-  cout << "builder A\n";
-  ConcreteBuilderA concBuilderA;
-  director.setBuilder( &concBuilderA);
+  cout << "builder A" << endl;
+  auto concBuilderA = std::make_shared< ConcreteBuilderA >();
+  director.setBuilder(concBuilderA);
   director.construct();
   product = director.getProduct();
   product->showProduct();
   cout << endl;
 
   // builder B
-  cout << "builder B\n";
-  ConcreteBuilderB concBuilderB;
-  director.setBuilder( &concBuilderB);
+  cout << "builder B" << endl;
+  auto concBuilderB = std::make_shared< ConcreteBuilderB >();
+  director.setBuilder(concBuilderB);
   director.construct();
   product = director.getProduct();
   product->showProduct();
   cout << endl;
 
-  cout << "READY.\n";
+  cout << "READY." << endl;
   return 0;
 }
