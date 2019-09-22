@@ -41,6 +41,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 
 /*
@@ -56,18 +57,11 @@
 class Component
 {
 public:
+  virtual ~Component(){}
   virtual void operation() = 0;
-
-  virtual void add(Component*)
-  {}
-
-  virtual void remove(Component*)
-  {}
-
-  virtual Component* getChild(int)
-  {
-    return NULL;
-  }
+  virtual void add(std::shared_ptr< Component>){}
+  virtual void remove(std::shared_ptr< Component>){}
+  virtual std::shared_ptr< Component> getChild(int){ return nullptr; }
 };
 
 
@@ -100,7 +94,7 @@ class Composite
   : public Component
 {
 private:
-  std::vector< Component* > components_;
+  std::vector< std::shared_ptr< Component> > components_;
 
   // forbid copying
   Composite( Composite const&);
@@ -117,31 +111,31 @@ public:
     std::cout << "-> operation in the Composite class\n";
 
     // remember avoid for loops: check mem_fun()
-    std::for_each( components_.begin(), components_.end(), std::mem_fun(&Component::operation));
+    for( auto iter : components_){ [&iter](){ iter->operation(); }; };
   }
 
-  void add( Component *pComponent)
+  void add( std::shared_ptr< Component > pComponent)
   {
-    std::cout << "\tComposite::add( Component*)\n";
-    if(NULL == pComponent) return;
+    std::cout << "\tComposite::add(std::shared_ptr< Component>)\n";
+    if(nullptr == pComponent) return;
     components_.push_back( pComponent);
   }
 
-  void remove( Component *pComponent)
+  void remove( std::shared_ptr< Component > pComponent)
   {
-    std::cout << "\tComposite::remove( Component*)\n";
-    if(NULL == pComponent) return;
+    std::cout << "\tComposite::remove(std::shared_ptr< Component>)\n";
+    if(nullptr == pComponent) return;
 
     // remember: end() points AFTER the last element
-    std::vector< Component* >::iterator iter = std::find(components_.begin(), components_.end(), pComponent);
+    auto iter = std::find(components_.begin(), components_.end(), pComponent);
 
     // remember: if find failed, it points to the last index, hence end() which is outside the vector
     if(iter == components_.end()) return;
 
-    components_.erase( iter);
+    components_.erase(iter);
   }
 
-  Component* getChild( int idx)
+  std::shared_ptr< Component> getChild( int idx)
   {
     std::cout << "\tComposite::getChild( int)\n";
     return components_.at(idx);
@@ -160,11 +154,11 @@ int main()
 
   cout << "init..\n";
   Composite composite;
-  Leaf leaf;
+  auto leaf = std::make_shared< Leaf >();
   cout << endl;
 
   cout << "add new Leaf object\n";
-  composite.add(&leaf);
+  composite.add(leaf);
   cout << endl;
 
   cout << "call the \'operation\'\n";
@@ -172,7 +166,7 @@ int main()
   cout << endl;
 
   cout << "remove Leaf object\n";
-  composite.remove(&leaf);
+  composite.remove(leaf);
   cout << endl;
 
   cout << "call the \'operation\'\n";

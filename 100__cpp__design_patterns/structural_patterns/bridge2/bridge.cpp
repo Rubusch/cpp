@@ -112,7 +112,7 @@ public:
   {
     std::cout << "\tConcreteConcept::function()\n";
 
-    ConcreteImplementor* pConcImpl = NULL;
+    ConcreteImplementor* pConcImpl = nullptr;
 
     pConcImpl = static_cast< ConcreteImplementor* >(pImplementor_);
 

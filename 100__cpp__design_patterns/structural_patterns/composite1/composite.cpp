@@ -40,27 +40,18 @@
 
 struct Component
 {
+  virtual ~Component(){}
   virtual void operation() = 0;
-
-  virtual void add(Component*)
-  {}
-
-  virtual void remove(Component*)
-  {}
-
-  virtual Component* getChild(int)
-  {
-    return NULL;
-  }
+  virtual void add(Component*){}
+  virtual void remove(Component*){}
+  virtual Component* getChild(int){ return NULL; }
 };
 
 
-struct Leaf : public Component
+struct Leaf
+  : public Component
 {
-  void operation()
-  {
-    std::cout << "-> operation in a Leaf class\n";
-  }
+  void operation(){ std::cout << "-> operation in a Leaf class\n"; }
 };
 
 
