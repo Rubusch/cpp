@@ -105,7 +105,7 @@ private:
 
 public:
   // dtor
-  ~MonsterProtocol(){};
+  virtual ~MonsterProtocol(){};
 
   // content
   virtual string getName() const = 0;
@@ -119,7 +119,7 @@ public:
     string message;
   public:
     BadMonsterException(const string& msg)
-      :message(msg) // throw() XXX
+      :message(msg)
     {}
 
     ~BadMonsterException() throw()
@@ -131,8 +131,7 @@ public:
 
   static MonsterProtocol<T>* factory( const T& name
                                       , const Size_type<T>& size
-                                      , const Color_type<T>& color)
-    throw (BadMonsterException);
+                                      , const Color_type<T>& color);
 
   friend
   ostream& operator<< <T>(ostream& out, MonsterProtocol<T>& rhs);
@@ -159,7 +158,6 @@ template<class T>
 MonsterProtocol<T>* MonsterProtocol<T>::factory( const T& name
                                              , const Size_type<T>& size
                                              , const Color_type<T>& color)
-  throw (MonsterProtocol<T>::BadMonsterException)
 {
   return new RealMonster<T>(name, size, color);
   throw BadMonsterException("Allocation failed!");
@@ -169,7 +167,8 @@ MonsterProtocol<T>* MonsterProtocol<T>::factory( const T& name
 /*------------------------------------------------------------------------------*/
 
 template<class T>
-class RealMonster : public MonsterProtocol<T>
+class RealMonster
+: public MonsterProtocol<T>
 {
 private:
   T name_;
@@ -236,7 +235,7 @@ int main()
        << "to base, handles the deduced object without any problems.\n";
   try{
     pMonster = MonsterProtocol<string>::factory("Super Furry Animal", size, color);
-  }catch(MonsterProtocol<string>::BadMonsterException exp){
+  }catch(MonsterProtocol<string>::BadMonsterException &exp){
     exp.getMessage();
   }
   cout << endl;
