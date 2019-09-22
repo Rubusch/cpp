@@ -84,6 +84,8 @@ public:
     std::cout << "\tHandler::Handler( Handler*) - ctor\n";
   }
 
+  virtual ~Handler(){}
+
   virtual void handleRequest(Request* request) = 0;
 };
 
