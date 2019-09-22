@@ -2,22 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE = adapter.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = adapter.exe
+SOURCE = *.cpp
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-adapter.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: adapter.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) adapter.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
+
+
