@@ -40,6 +40,8 @@ public:
     : data("empty")
   {}
 
+  virtual ~Implementor(){}
+
   virtual void functionImpl() = 0;
 
   std::string getData() const
@@ -70,12 +72,9 @@ public:
     :pImplementor_(&implementor)
   {}
 
+  virtual ~Concept(){}
   virtual void function() = 0;
-
-  virtual void show()
-  {
-    std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n";
-  }
+  virtual void show(){ std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n"; }
 };
 
 

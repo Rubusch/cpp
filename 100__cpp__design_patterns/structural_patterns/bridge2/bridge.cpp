@@ -48,13 +48,11 @@ public:
     : data("empty")
   {}
 
+  virtual ~Implementor(){}
+
   // abstract implementation body
   virtual void functionImpl() = 0;
-
-  std::string getData() const
-  {
-    return data;
-  }
+  std::string getData() const { return data; }
 };
 
 
@@ -91,13 +89,9 @@ public:
   Concept( Implementor& implementor)
     :pImplementor_(&implementor)
   {}
-
+  virtual ~Concept(){}
   virtual void function() = 0;
-
-  virtual void show()
-  {
-    std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n";
-  }
+  virtual void show(){ std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n"; }
 };
 
 
