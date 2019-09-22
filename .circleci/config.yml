@@ -314,9 +314,9 @@ jobs:
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter__wrapper && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/bridge2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp11 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp11 && make && ./*.ex
+      - run: cd 100__cpp__design_patterns/structural_patterns/proxy__inner-proxy-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/bridge1 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/structural_patterns/proxy__inner-proxy && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/decorator1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter__wrapper2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp98 && make && ./*.exe
