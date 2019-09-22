@@ -50,6 +50,7 @@
 class Adaptee
 {
 public:
+  virtual ~Adaptee(){}
   void specificRequest(std::string str1, std::string str2)
   {
     std::cout << "\tAdaptee::specificRequest(std::string, std::string)\n";
@@ -66,6 +67,7 @@ public:
 class Target
 {
 public:
+  virtual ~Target(){}
   virtual void request(std::string){}
 };
 
