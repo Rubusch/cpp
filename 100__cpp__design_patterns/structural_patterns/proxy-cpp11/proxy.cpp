@@ -28,6 +28,7 @@
 
 
 #include <iostream>
+#include <memory>
 
 
 /*
@@ -89,35 +90,21 @@ class Proxy
   : public Subject
 {
 private:
-  RealSubject* pRealSubject_;
+  std::shared_ptr< RealSubject > pRealSubject_;
 
 protected:
   void getSubject()
   {
     std::cout << "\tProxy::getSubject()\n";
-    if(NULL != pRealSubject_) return;
-
-    try{
-      pRealSubject_ = new RealSubject;
-    }catch(...){
-      std::cerr << "allocation failed\n";
-    }
+    if (nullptr != pRealSubject_) return;
+    pRealSubject_ = std::make_shared< RealSubject >(); // shift exception handling to client
   }
 
 public:
   Proxy()
-    : pRealSubject_(NULL)
   {
     std::cout << "\tProxy::Proxy() - ctor\n";
     getSubject();
-  }
-
-  ~Proxy()
-  {
-    std::cout << "\tProxy::~Proxy() - dtor\n";
-    if(NULL == pRealSubject_) return;
-    delete pRealSubject_;
-    pRealSubject_ = NULL;
   }
 
   void request()
@@ -136,11 +123,11 @@ int main()
   using namespace std;
 
   cout << "init..\n";
-  Proxy proxy;
+  auto proxy = make_unique< Proxy >();
   cout << endl;
 
   cout << "call subject's request via proxy\n";
-  proxy.request();
+  proxy->request();
   cout << endl;
 
   cout << "READY.\n";
