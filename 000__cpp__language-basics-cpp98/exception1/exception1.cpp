@@ -65,6 +65,43 @@
   To pass a temporary object to a NOT constant parameter for functions is NOT allowed, but for exceptions!
 
   There is NO implicit type conversion for exceptions!
+
+
+  ---
+
+
+  EXCEPTIONS
+
+  * If a function should forward all exceptions if it is not supposed to handle
+    the exceptions or to absorb exceptions.
+
+  * Destructors, operator delete() or operator delete[]() are supposed to handle
+    exceptions and should never throw or forward an exception.
+
+  * Basic Exception Guarantee (Dave Abrahams): Make sure that in presence of
+    exceptions there are no resource leaks, already allocated memory must be
+    freed at exception handling.
+
+  * Advanced Exception Guarantee (Dave Abrahams): Keep the state unchanged at
+    presence of exceptions, i.e. "go back to before the exception was thrown"
+    (not possible with streams or already placed output.
+
+  * Absolute Guarantee (Herb Sutter): Make sure no exceptions are needed.
+
+
+
+  DEFINITIONS
+
+  * exception safety: code still works correctly in presence of exceptions
+
+  * exception neutrality: forwards all exceptions without integrity problems
+
+
+
+  RESOURCES
+
+  * Exceptional C++, Herb Sutter, 2000
+
 //*/
 
 
