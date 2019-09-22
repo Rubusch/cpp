@@ -2,24 +2,24 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE =  command.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = command.exe
+SOURCE = *.cpp
+OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CFLAGS) -c $<
 
-command.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
 
-all: command.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) command.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 
