@@ -40,13 +40,13 @@ protected:
   }
 
 public:
-  Prototype() : data_("")
-  {}
+  Prototype() : data_(""){}
 
   Prototype( Prototype const& pt)
   {
     data_ = pt.data_;
   }
+  virtual ~Prototype() {}
 
   virtual Prototype* clone() const = 0;
   virtual void show() = 0;
