@@ -92,7 +92,7 @@ public:
 class Builder
 {
 protected:
-  std::auto_ptr< Product > product_;
+  std::shared_ptr< Product > product_;
 
 public:
   Builder()
@@ -105,7 +105,7 @@ public:
     std::cout << "\t\tBuilder::~Builder() - dtor\n";
   }
 
-  std::auto_ptr< Product > getProduct()
+  std::shared_ptr< Product > getProduct()
   {
     std::cout << "\t\tBuilder::getProduct()\n";
     return product_;
@@ -217,7 +217,7 @@ public:
     builder_ = builder;
   }
 
-  std::auto_ptr< Product > getProduct()
+  std::shared_ptr< Product > getProduct()
   {
     std::cout << "\tDirector::getProduct()\n";
     return builder_->getProduct();
@@ -243,7 +243,7 @@ int main()
   // init
   cout << "init..\n";
   Director director;
-  std::auto_ptr< Product > product;
+  auto product = std::make_shared< Product >();
   cout << endl;
 
   // builder A

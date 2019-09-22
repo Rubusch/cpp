@@ -43,7 +43,10 @@
 
 
 class Product
-{};
+{
+public:
+  virtual ~Product(){}
+};
 
 
 class ConcreteProduct
@@ -65,6 +68,7 @@ public:
 class Creator
 {
 public:
+  virtual ~Creator(){}
   virtual Product* factoryMethod() = 0;
 };
 
