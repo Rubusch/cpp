@@ -55,6 +55,8 @@
 class AbstractClass
 {
 public:
+  virtual ~AbstractClass(){}
+
   int templateMethod(int arg)
   {
     std::cout << "\tAbstractClass::templateMethod(int&)\n";
