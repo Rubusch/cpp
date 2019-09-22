@@ -44,6 +44,8 @@
 class AbstractClass
 {
 public:
+  virtual ~AbstractClass(){};
+
   int templateMethod(int arg)
   {
     operation1(arg);
@@ -59,7 +61,7 @@ public:
     return arg;
   }
 
-protected:
+protected: // can also be private
   virtual void operation1(int& arg)
   {
     std::cout << "\t\t...do nothing or default\n";
