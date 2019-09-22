@@ -4,7 +4,9 @@
 
   Use the copy constructor especially for classes with dynamically allocated memory!
 
-  (11/Meyers)
+  RESOURCES
+
+  * Effective & More Effective C++, Scott Meyers
 //*/
 
 #include <iostream>
