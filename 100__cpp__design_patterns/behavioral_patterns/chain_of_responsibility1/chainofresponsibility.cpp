@@ -74,6 +74,8 @@ public:
     : pSuccessor_(successor)
   {}
 
+  virtual ~Handler(){}
+
   virtual void handleRequest(Request* request) = 0;
 };
 
