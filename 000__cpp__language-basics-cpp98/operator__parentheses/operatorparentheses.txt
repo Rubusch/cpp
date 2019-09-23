@@ -73,3 +73,14 @@ A typical situation for a functor with two arguements is a comparator.
         cout << "red Monster was bigger" << endl;
     }
 
+
+/*
+  * operator(), operator[] and operator-> must be element functions
+
+  * operator<< and operator>> are never element functions, if needed 'friends'
+
+  * all other operators: 
+
+  RESOURCES
+  * Exceptional C++, Herb Sutter, 2000
+*/
