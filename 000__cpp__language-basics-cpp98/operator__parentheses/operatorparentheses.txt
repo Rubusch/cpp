@@ -79,7 +79,11 @@ A typical situation for a functor with two arguements is a comparator.
 
   * operator<< and operator>> are never element functions, if needed 'friends'
 
-  * all other operators: 
+  * all other operators:
+  ** if the function is 'virtual' it should be an element function
+  ** if type conversion is needed for the most left element, it should be an element function (or friend)
+  ** if it only can be implemented with the public interface, it should NOT be an element function
+
 
   RESOURCES
   * Exceptional C++, Herb Sutter, 2000
