@@ -1,21 +1,22 @@
 # Makefile for C++ Class
+
 TARGET = noexcept.exe
-SOURCE	= noexcept.cpp
-OBJECTS	= ${SOURCE:.cpp=.o}
-.PREFIXES	= .cpp .o
-CC		= g++
-CPPFLAGS	= -g -Wall -Werror -Wpedantic
-RM		= rm -f
+SOURCE	= *.cpp
+OBJECTS	= $(SOURCE:.cpp=.o)
+.PREFIXES = .cpp .o
+CC = g++
+CPPFLAGS = -g -Wall -Werror -Wpedantic
+RM = rm -f
 
 .c.o:
-	${CC} ${CPPFLAGS} -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
-$(TARGET): ${OBJECTS}
-	${CC} ${CPPFLAGS} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
 all: $(TARGET)
 
 clean:
-	-${RM} $(TARGET) $(OBJECTS) core *~
+	-$(RM) $(TARGET) $(OBJECTS) core *~
 
 .PHONY: clean
