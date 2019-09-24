@@ -19,6 +19,7 @@ template<class T>
 class Base
 {
 public:
+  virtual ~Base(){}
   /*
     virtual - the as BASE passed object will call the function of the instance, hence of the derived
     class!
@@ -28,6 +29,7 @@ public:
   //*/
 
   //  virtual void play();      // virtual version
+
   void play();              // non-virtual version
 };
 

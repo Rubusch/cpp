@@ -44,7 +44,7 @@ protected:
   }
 
 
-  ~NewPolicy()
+  virtual ~NewPolicy()
   {
     std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n";
   }

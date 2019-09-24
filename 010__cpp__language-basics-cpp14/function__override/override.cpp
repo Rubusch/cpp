@@ -41,6 +41,7 @@ using namespace std;
 class Base
 {
 public:
+  virtual ~Base(){}
   virtual void doWork()
   {
     cout << "CALLED: Base::doWork();" << endl;
@@ -84,6 +85,7 @@ Widget makeWidget()
 class BaseNew
 {
 public:
+  virtual ~BaseNew(){}
   virtual void mf1() const
   {
     cout << "CALLED: BaseNew::mf1() const" << endl;

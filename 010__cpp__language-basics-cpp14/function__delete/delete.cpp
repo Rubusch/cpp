@@ -1,4 +1,4 @@
-/*
+s/*
   C++11 - prefer delete functions to private undefined (Meyers / item 11)
 
   ---
@@ -21,9 +21,9 @@
  */
 
 #include <iostream>
-//#include <traits>
 
 using namespace std;
+
 
 // C++98 approach
 template <class charT, class traits = char_traits<charT> >
@@ -55,6 +55,8 @@ public:
 class Box
 {
 public:
+  virtual ~Box(){}
+
   bool isLucky(int number)
   {
     return true;

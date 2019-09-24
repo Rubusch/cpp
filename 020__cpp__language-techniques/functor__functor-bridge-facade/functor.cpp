@@ -89,7 +89,10 @@ BaseFunctorImpl< Result >::~BaseFunctorImpl()
 template< typename Result, typename Arg1, typename Arg2 >
 class ConcFunctorImpl
   : public BaseFunctorImpl< Result >
-{};
+{
+public:
+  virtual ~ConcFunctorImpl(){}
+};
 
 // template specialization for a concrete functor implementation class
 template<>

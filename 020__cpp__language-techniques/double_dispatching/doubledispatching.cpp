@@ -41,7 +41,10 @@ using namespace std;
 
 
 class SpaceFighter_t
-{};
+{
+public:
+  virtual ~SpaceFighter_t(){}
+};
 
 
 class StarDestroyer_t

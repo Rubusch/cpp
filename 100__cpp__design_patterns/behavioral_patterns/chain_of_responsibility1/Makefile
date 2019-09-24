@@ -2,20 +2,19 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = chainofresponsibility.exe
-SOURCE = *.cpp
+SOURCE = chainofresponsibility.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
-
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall -Werror -pedantic
+CPPFLAGS = -g -Wall -Werror -pedantic
 RM = rm -f
 
 .cpp.o:
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
 all: $(TARGET)
 

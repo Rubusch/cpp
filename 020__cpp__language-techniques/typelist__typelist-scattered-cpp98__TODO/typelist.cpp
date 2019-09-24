@@ -501,6 +501,7 @@ class GenScatterHierarchy : public Unit< AtomicType >
 {
   typedef typename Unit< AtomicType >
     LeftBase;
+// virtual ~GenScatterHierarchy(){} // TODO      
 };
 
 // Do nothing for NullType

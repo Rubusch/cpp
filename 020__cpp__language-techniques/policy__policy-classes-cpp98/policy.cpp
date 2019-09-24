@@ -150,7 +150,7 @@ protected:
   }
 
 
-  ~MallocPolicy()
+  virtual ~MallocPolicy()
   {
     std::cout << "\t\tMallocPolicy::~MallocPolicy() - dtor\n";
   }
