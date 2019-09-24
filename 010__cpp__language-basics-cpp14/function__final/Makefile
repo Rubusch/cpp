@@ -1,6 +1,6 @@
 # Makefile for C++ Class
-TARGET = final.exe
-SOURCE	= *.cpp
+SOURCE = final.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++

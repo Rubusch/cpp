@@ -1,7 +1,7 @@
 # Makefile for C++ Class
 
-TARGET = noexcept.exe
-SOURCE	= *.cpp
+SOURCE	= noexcept.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++

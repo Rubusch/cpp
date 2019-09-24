@@ -42,7 +42,7 @@ struct BitField
   // defines a 'three bit unsigned int field', allows values are: 0,1,2,3,4,5,6,7
   unsigned int bits : 3;
 
-  virtual ~BitFiled(){}
+  virtual ~BitField(){}; // interestingly: w/o virtual dtor, the braced initializer is working
 };
 
 struct DerivedBitField
@@ -57,7 +57,8 @@ int main(void)
 {
   // initialization with '6'
   cout << "bitfield bf created" << endl;
-  BitField bf = { 6 };
+  BitField bf; // {} not working, initializer list (...)
+  bf.bits = 6;
   cout << "bf.bits: " << bf.bits << endl;
   cout << endl;
 

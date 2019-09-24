@@ -1,6 +1,7 @@
 # Makefile for C++ Class
-TARGET = bitfield.exe
-SOURCE	= *.cpp
+
+SOURCE	= bitfield.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++

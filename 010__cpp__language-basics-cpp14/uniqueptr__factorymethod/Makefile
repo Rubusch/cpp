@@ -1,7 +1,6 @@
 # Makefile for C++ Class
-
-TARGET = uniqueptr.exe
-SOURCE	= *.cpp
+SOURCE	= uniqueptr.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++

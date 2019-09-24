@@ -4,7 +4,7 @@ SOURCE	= uniqueptr.cpp
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES	= .cpp .o
 CC		= g++
-CPPFLAGS	= -g -Wall -Werror
+CPPFLAGS	= -g -Wall -Werror -pedantic -std=c++14
 RM		= rm -f
 
 .c.o:
