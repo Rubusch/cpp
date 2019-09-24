@@ -1,4 +1,4 @@
-s/*
+/*
   C++11 - prefer delete functions to private undefined (Meyers / item 11)
 
   ---
@@ -55,7 +55,7 @@ public:
 class Box
 {
 public:
-  virtual ~Box(){}
+  virtual ~Box() = default;
 
   bool isLucky(int number)
   {

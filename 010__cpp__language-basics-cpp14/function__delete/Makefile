@@ -1,6 +1,7 @@
 # Makefile for C++ Class
-TARGET = delete.exe
+
 SOURCE	= delete.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES	= .cpp .o
 CC		= g++
