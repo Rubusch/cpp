@@ -41,6 +41,8 @@ struct BitField
 {
   // defines a 'three bit unsigned int field', allows values are: 0,1,2,3,4,5,6,7
   unsigned int bits : 3;
+
+  virtual ~BitFiled(){}
 };
 
 struct DerivedBitField
