@@ -33,6 +33,8 @@ using namespace std;
 class BaseNew
 {
 public:
+  virtual ~BaseNew(){}
+
   virtual void mf1() const
   {
     cout << "CALLED: BaseNew::mf1() const" << endl;

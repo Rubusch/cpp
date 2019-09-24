@@ -1,11 +1,11 @@
 # Makefile for C++ Class
 TARGET = final.exe
-SOURCE	= final.cpp
+SOURCE	= *.cpp
 OBJECTS	= $(SOURCE:.cpp=.o)
-.PREFIXES	= .cpp .o
-CC		= g++
-CPPFLAGS	= -g -Wall -Werror
-RM		= rm -f
+.PREFIXES = .cpp .o
+CC = g++
+CPPFLAGS = -g -Wall -Werror -pedantic
+RM = rm -f
 
 .c.o:
 	$(CC) $(CPPFLAGS) -c $<
