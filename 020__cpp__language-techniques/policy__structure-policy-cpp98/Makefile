@@ -2,24 +2,23 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
-SOURCE =  policy.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
-
+SOURCE = policy.cpp
+TARGET = $(SOURCE:.cpp=.exe)
+OBJECTS = $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -Werror -pedantic -std=c++98
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) -c $(CFLAGS) $<
 
-policy.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) -lm
 
-all: policy.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) policy.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 

@@ -2,24 +2,23 @@
 #
 # use -O, -O1, -O2 for optimization
 
-
 SOURCE = protocolclass.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
-
+TARGET = $(SOURCE:.cpp=.exe)
+OBJECTS = $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall -std=c++98
+CPPFLAGS = -g -Wall -Werror -pedantic -std=c++98
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) $(CPPFLAGS) -c $<
 
-protocolclass.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
-all: protocolclass.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) protocolclass.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~ core
 
 

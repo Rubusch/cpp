@@ -2,9 +2,8 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = functor.exe
-SOURCE =  functor.cpp
-HEADERS = functor.hpp
+SOURCE = functor.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o

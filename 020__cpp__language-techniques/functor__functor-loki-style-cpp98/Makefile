@@ -2,11 +2,9 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = functor.exe
 SOURCE = functor.cpp
-HEADERS = functor.hpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
-
 .PREFIXES = .cpp .o
 CC = g++
 CFLAGS = -g -Wall -Werror -std=c++98
