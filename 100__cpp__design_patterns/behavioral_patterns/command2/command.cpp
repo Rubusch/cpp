@@ -65,13 +65,16 @@
   Receiver
 
   - knows how to perform the operations associated with carrying out the request
+
+  NOTE: this example Receiver capsulates rather C(-like) code
 //*/
 class Receiver
 {
 private:
-  unsigned int *arr_;
-  unsigned int *arr_orig_;
-  const  unsigned int size_;
+  unsigned int *arr_ = nullptr;
+  unsigned int *arr_orig_ = nullptr;
+  const unsigned int size_; // must be here,
+  // if 'size_' is defined before the array pointers, there will be an 'reorder' error
 
   /*
     this is just some operation to be performed on the data..
@@ -81,9 +84,9 @@ private:
   {
     std::cout << "\tReceiver::doSort()\n";
     if(size_ < 2) return;
-    int tmp=0;
-    unsigned idx=size_-2;
-    bool swapped = true;
+    auto tmp=0;
+    auto idx=size_-2;
+    auto swapped = true;
 
     do{
       if(idx == size_-2){
@@ -96,11 +99,9 @@ private:
         tmp = arr_[idx];
         arr_[idx] = arr_[idx+1];
         arr_[idx+1] = tmp;
-
         swapped = true;
       }
-
-    }while(true);
+    } while (true);
   }
 
 public:
@@ -119,7 +120,9 @@ public:
       std::cerr << "Receiver::ERROR: allocation failed!";
       exit(-1);
     }
-    for(unsigned int idx=0; idx < size_; ++idx){
+
+    unsigned int idx;
+    for (idx=0; idx < size_; ++idx) {
       arr_orig_[idx] = arr_[idx];
     }
   }
@@ -134,7 +137,6 @@ public:
   {
     std::cout << "\tReceiver::undo()\n";
 
-    // checks
     if(nullptr == arr_){
       std::cerr << "\tReceiver::ERROR - original array was nullptr!\n";
       return;
@@ -152,15 +154,11 @@ public:
 
   - declares an interface for executing an operation
 //*/
-class Command
+struct Command
 {
-//private: // TODO rm
-//  std::shared_ptr< Command > pCommand_;
-
-public:
   virtual ~Command(){}
-  virtual void execute() = 0;
-  virtual void undo() = 0;
+  virtual void execute(){};
+  virtual void undo(){};
 };
 
 
@@ -174,23 +172,22 @@ class ConcreteCommand
   : public Command
 {
 private:
-  std::shared_ptr< Receiver > pReceiver_;
-//  Receiver *pReceiver_; // TODO rm
+  const std::shared_ptr< Receiver > pReceiver_;
 
 public:
-  ConcreteCommand(std::shared_ptr< Receiver > &receiver)
+  ConcreteCommand(const std::shared_ptr< Receiver > &receiver)
     : pReceiver_(receiver)
   {
     std::cout << "\tConcreteCommand::ConcreteCommand(int) - ctor\n";
   }
 
-  void execute()
+  void execute() override
   {
     std::cout << "\tConcreteCommand::execute()\n";
     pReceiver_->action();
   }
 
-  void undo()
+  void undo() override
   {
     std::cout << "\tConcreteCommand::undo()\n";
     pReceiver_->undo();
@@ -235,52 +232,12 @@ public:
 //*/
 class Client
 {
-private:
-  std::shared_ptr< Receiver > pReceiver_;
-  std::shared_ptr< ConcreteCommand > pCommand_;
-
 public:
-  Client()
-//    : pReceiver_(nullptr), pCommand_(nullptr)
-  {
-    std::cout << "\tClient::Client() - ctor\n";
-  }
-
-  ~Client()
-  {
-    std::cout << "\tClient::~Client() - dtor\n";
-//    if(nullptr != pReceiver_){
-//      delete pReceiver_;
-//      pReceiver_ = nullptr;
-//    }
-
-//    if(nullptr != pCommand_){
-//      delete pCommand_;
-//      pCommand_ = nullptr;
-//    }
-  }
-
-  std::shared_ptr< Command > getCmd(unsigned int* arr, const unsigned int size)
+  std::shared_ptr< Command > getCmd(unsigned int* arr, const unsigned int size) const
   {
     std::cout << "\tClient::getCmd(unsigned int*, const unsigned int)\n";
-//    try{
-//      pReceiver_ = new Receiver(arr, size);
-//    }catch(...){
-//      std::cerr << "\tClient::getCmd() - allocation of Receiver failed\n";
-//      exit(-1);
-//    }
     auto pReceiver_ = std::make_shared< Receiver >(arr, size);
-
-//    try{
-//      pCommand_ = new ConcreteCommand(*pReceiver_);
-//      pCommand_ = new ConcreteCommand( *(pReceiver_->get()) );
-//    }catch(...){
-//      std::cerr << "\tClient::getCmd() - allocation of ConcreteCommand failed\n";
-//      exit(-1);
-//    }
-    auto pCommand_ = std::make_shared< Command >( pReceiver_ );
-
-//    return *pCommand_;
+    auto pCommand_ = std::make_shared< ConcreteCommand >( pReceiver_ );
     return pCommand_;
   }
 };
@@ -310,17 +267,17 @@ int main()
 
 
   cout << "init data - the data are stored here!\n";
-  unsigned int arr[] = { 2, 3, 5, 4, 7, 6, 1 };
-  unsigned int size = sizeof(arr) / sizeof(unsigned int);
+  unsigned int arr[] = { 2, 3, 5, 4, 7, 6, 1 }; // well...
+  auto size = sizeof(arr) / sizeof(unsigned int);
 
 
   cout << "set a Invoker\n";
-  Invoker arrayInvoker;
+  auto arrayInvoker = Invoker();
   cout << endl;
 
 
   cout << "a client creates a ConcreteCommand object with a receiver\n";
-  Client arrayClient;
+  auto arrayClient = Client();
   show( arr, size);
   cout << endl;
 
