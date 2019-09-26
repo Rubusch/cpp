@@ -2,13 +2,12 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = command.exe
-SOURCE = *.cpp
+SOURCE = command.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
-
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall -Werror -pedantic
+CFLAGS = -g -Wall -Werror -pedantic -std=c++98
 RM = rm -f
 
 .cpp.o:
