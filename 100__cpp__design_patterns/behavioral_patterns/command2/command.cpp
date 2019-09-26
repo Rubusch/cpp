@@ -58,6 +58,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <memory>
 
 
 /*
@@ -109,7 +110,7 @@ public:
     std::cout << "\tReceiver::Receiver(unsigned int*, const unsigned int) - ctor\n";
 
     // checks
-    if( arr_ == NULL) return;
+    if( arr_ == nullptr) return;
 
     // do copy, stored here to enable the undo operation
     try{
@@ -134,8 +135,8 @@ public:
     std::cout << "\tReceiver::undo()\n";
 
     // checks
-    if(NULL == arr_){
-      std::cerr << "\tReceiver::ERROR - original array was NULL!\n";
+    if(nullptr == arr_){
+      std::cerr << "\tReceiver::ERROR - original array was nullptr!\n";
       return;
     }
 
@@ -153,8 +154,8 @@ public:
 //*/
 class Command
 {
-private:
-  Command* pCommand_;
+//private: // TODO rm
+//  std::shared_ptr< Command > pCommand_;
 
 public:
   virtual ~Command(){}
@@ -173,11 +174,12 @@ class ConcreteCommand
   : public Command
 {
 private:
-  Receiver *pReceiver_;
+  std::shared_ptr< Receiver > pReceiver_;
+//  Receiver *pReceiver_; // TODO rm
 
 public:
-  ConcreteCommand(Receiver& receiver)
-    : pReceiver_(&receiver)
+  ConcreteCommand(std::shared_ptr< Receiver > &receiver)
+    : pReceiver_(receiver)
   {
     std::cout << "\tConcreteCommand::ConcreteCommand(int) - ctor\n";
   }
@@ -205,13 +207,13 @@ public:
 class Invoker
 {
 private:
-  std::vector< Command* > commands_;
+  std::vector< std::shared_ptr< Command > > commands_;
 
 public:
-  void operator()(Command& command)
+  void operator()(std::shared_ptr< Command > command)
   {
-    std::cout << "\tInvoker::operator(Command&)\n";
-    commands_.push_back(&command);
+    std::cout << "\tInvoker::operator(Command)\n";
+    commands_.push_back(command);
     commands_.back()->execute();
   }
 
@@ -234,12 +236,12 @@ public:
 class Client
 {
 private:
-  Receiver *pReceiver_;
-  ConcreteCommand *pCommand_;
+  std::shared_ptr< Receiver > pReceiver_;
+  std::shared_ptr< ConcreteCommand > pCommand_;
 
 public:
   Client()
-    : pReceiver_(NULL), pCommand_(NULL)
+//    : pReceiver_(nullptr), pCommand_(nullptr)
   {
     std::cout << "\tClient::Client() - ctor\n";
   }
@@ -247,35 +249,39 @@ public:
   ~Client()
   {
     std::cout << "\tClient::~Client() - dtor\n";
-    if(NULL != pReceiver_){
-      delete pReceiver_;
-      pReceiver_ = NULL;
-    }
+//    if(nullptr != pReceiver_){
+//      delete pReceiver_;
+//      pReceiver_ = nullptr;
+//    }
 
-    if(NULL != pCommand_){
-      delete pCommand_;
-      pCommand_ = NULL;
-    }
+//    if(nullptr != pCommand_){
+//      delete pCommand_;
+//      pCommand_ = nullptr;
+//    }
   }
 
-  Command& getCmd(unsigned int* arr, const unsigned int size)
+  std::shared_ptr< Command > getCmd(unsigned int* arr, const unsigned int size)
   {
     std::cout << "\tClient::getCmd(unsigned int*, const unsigned int)\n";
-    try{
-      pReceiver_ = new Receiver(arr, size);
-    }catch(...){
-      std::cerr << "\tClient::getCmd() - allocation of Receiver failed\n";
-      exit(-1);
-    }
+//    try{
+//      pReceiver_ = new Receiver(arr, size);
+//    }catch(...){
+//      std::cerr << "\tClient::getCmd() - allocation of Receiver failed\n";
+//      exit(-1);
+//    }
+    auto pReceiver_ = std::make_shared< Receiver >(arr, size);
 
-    try{
-      pCommand_ = new ConcreteCommand(*pReceiver_);
-    }catch(...){
-      std::cerr << "\tClient::getCmd() - allocation of ConcreteCommand failed\n";
-      exit(-1);
-    }
+//    try{
+//      pCommand_ = new ConcreteCommand(*pReceiver_);
+//      pCommand_ = new ConcreteCommand( *(pReceiver_->get()) );
+//    }catch(...){
+//      std::cerr << "\tClient::getCmd() - allocation of ConcreteCommand failed\n";
+//      exit(-1);
+//    }
+    auto pCommand_ = std::make_shared< Command >( pReceiver_ );
 
-    return *pCommand_;
+//    return *pCommand_;
+    return pCommand_;
   }
 };
 
