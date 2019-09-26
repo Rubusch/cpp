@@ -29,9 +29,10 @@
 
 
 #include <iostream>
+#include <memory>
 #include <cmath>
 #include <cstdlib>
-
+#include <iomanip> /* setprecision() */
 
 /*
   Strategy
@@ -60,7 +61,7 @@ public:
   double algorithm(double arg)
   {
     std::cout << "\tStrategyA::algorithm()\n";
-    return sin(arg);
+    return round(sin(arg));
   }
 };
 
@@ -77,7 +78,7 @@ public:
   double algorithm(double arg)
   {
     std::cout << "\tStrategyB::algorithm()\n";
-    return cos(arg);
+    return round(cos(arg));
   }
 };
 
@@ -92,10 +93,12 @@ public:
 class Context
 {
 private:
-  Strategy* pStrategy_;
+  std::shared_ptr< Strategy > pStrategy_;
 
 public:
-  Context(Strategy& strategy) : pStrategy_(&strategy)
+//  Context(Strategy& strategy) // TODO rm
+  Context(std::shared_ptr< Strategy > strategy)
+    : pStrategy_( strategy )
   {
     std::cout << "\tContext::Context(Strategy&) - ctor\n";
   }
@@ -116,23 +119,25 @@ int main()
 {
   using namespace std;
 
-  cout << "init\n";
+  cout << "init" << endl;
   double angle = 90;
   cout << endl;
 
-  cout << "first operation in sinus context\n";
-  StrategyA sinus;
+  cout << "first operation in sinus context" << endl;
+  auto sinus = std::make_shared< StrategyA >();
   Context sinusContext(sinus);
-  cout << "sinus(" << angle << ") = " << sinusContext.contextInterface(angle) << " (= 0)\n";
+  auto sin_res = sinusContext.contextInterface(angle);
+  cout << std::fixed << setprecision(3) << "sinus(" << angle << ") = " << sin_res << " (= 0)" << endl;
   cout << endl;
 
-  cout << "second operation in cosinus context\n";
-  StrategyB cosinus;
+  cout << "second operation in cosinus context" << endl;
+  auto cosinus = std::make_shared< StrategyB >();
   Context cosinusContext(cosinus);
-  cout << "cosinus(" << angle << ") = " << cosinusContext.contextInterface(angle) << " (= -1)\n";
+  auto cos_res = cosinusContext.contextInterface(angle);
+  cout << "cosinus(" << angle << ") = " << cos_res << " (= -1)" << endl;
   cout << endl;
 
-  cout << "READY.\n";
+  cout << "READY." << endl;
   return 0;
 }
 
