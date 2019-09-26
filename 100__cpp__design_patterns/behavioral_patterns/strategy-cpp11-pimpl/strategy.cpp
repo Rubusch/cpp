@@ -24,14 +24,23 @@
   Similarity to State Pattern - if you want to vary the algorithm or a behavior,
   take the Strategy Pattern, if you want to vary the value, take the State Pattern.
 
-  (GoF 1995)
+
+  The current implementation avoids inheritance, and favors aggregation.
+  Aggregation is better to maintain and leads to less complexity.
+
+
+
+  RESOURCES
+
+  * Design Patterns, GoF, 1995
+
+  * Exceptional C++, Herb Sutter, 2000
 //*/
 
 
 #include <iostream>
 #include <memory>
 #include <cmath>
-#include <cstdlib>
 #include <iomanip> /* setprecision() */
 
 /*
@@ -41,26 +50,23 @@
   uses this interface to call the algorithm defined by a concrete
   strategy.
 //*/
-class Strategy
+struct Impl_Strategy
 {
-public:
-  virtual ~Strategy(){}
+  virtual ~Impl_Strategy(){}
   virtual double algorithm(double arg) = 0;
 };
-
 
 /*
   StrategyA - a concrete strategy
 
   - implements the algorithm using the Strategy interface
 //*/
-class StrategyA
-  : public Strategy
+struct Impl_StrategyA
+  : public Impl_Strategy
 {
-public:
   double algorithm(double arg)
   {
-    std::cout << "\tStrategyA::algorithm()\n";
+    std::cout << "\tImpl_StrategyA::algorithm()\n";
     return round(sin(arg));
   }
 };
@@ -71,13 +77,12 @@ public:
 
   - implements the algorithm using the Strategy interface
 //*/
-class StrategyB
-  : public Strategy
+struct Impl_StrategyB
+  : public Impl_Strategy
 {
-public:
   double algorithm(double arg)
   {
-    std::cout << "\tStrategyB::algorithm()\n";
+    std::cout << "\tImpl_StrategyB::algorithm()\n";
     return round(cos(arg));
   }
 };
@@ -93,20 +98,26 @@ public:
 class Context
 {
 private:
-  std::shared_ptr< Strategy > pStrategy_;
+  double res_;
 
-public:
-  Context(std::shared_ptr< Strategy > strategy)
-    : pStrategy_( strategy )
+  void conversion()
   {
-    std::cout << "\tContext::Context(Strategy&) - ctor\n";
+    std::cout << "\tContext::conversion()" << std::endl;
+    res_ = res_ / 90 * 3.141592653589793238462643383;
   }
 
-  double contextInterface(double arg)
+public:
+  Context(std::shared_ptr< Impl_Strategy > pImpl, double arg)
+    :res_(arg)
   {
-    std::cout << "\tContext::contextInterface(double) - context interface\n";
-    arg = arg / 90 * 3.141592653589793238462643383;
-    return pStrategy_->algorithm(arg);
+    std::cout << "\tContext:CTOR()" << std::endl;
+    conversion();
+    res_ = pImpl->algorithm(res_);
+  }
+
+  const double& operator()() const
+  {
+    return res_;
   }
 };
 
@@ -118,22 +129,18 @@ int main()
 {
   using namespace std;
 
-  cout << "init" << endl;
+  cout << std::fixed << setprecision(3) << "init" << endl;
   double angle = 90;
   cout << endl;
 
   cout << "first operation in sinus context" << endl;
-  auto sinus = std::make_shared< StrategyA >();
-  Context sinusContext(sinus);
-  auto sin_res = sinusContext.contextInterface(angle);
-  cout << std::fixed << setprecision(3) << "sinus(" << angle << ") = " << sin_res << " (= 0)" << endl;
+  auto sinus = Context( std::make_shared< Impl_StrategyA >(), angle);
+  cout << "sinus(" << angle << ") = " << sinus() << " (= 0)" << endl;
   cout << endl;
 
   cout << "second operation in cosinus context" << endl;
-  auto cosinus = std::make_shared< StrategyB >();
-  Context cosinusContext(cosinus);
-  auto cos_res = cosinusContext.contextInterface(angle);
-  cout << "cosinus(" << angle << ") = " << cos_res << " (= -1)" << endl;
+  auto cosinus = Context( std::make_shared< Impl_StrategyB >(), angle);
+  cout << "cosinus(" << angle << ") = " << cosinus() << " (= -1)" << endl;
   cout << endl;
 
   cout << "READY." << endl;
