@@ -356,11 +356,11 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/chain_of_responsibility2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/template_method1 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state__switch-version && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/memento2 && make && ./*.exe
 
