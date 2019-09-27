@@ -428,7 +428,7 @@ namespace TL
     typedef Typelist< TheMostDerived, L >
       Result;
   };
-};
+}
 
 
 /*

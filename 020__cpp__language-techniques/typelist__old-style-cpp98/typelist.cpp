@@ -351,7 +351,7 @@ namespace TL
     typedef Typelist_< Head, typename Replace< Tail, T, U >::Result>
       Result;
   };
-};
+}
 
 
 /*
