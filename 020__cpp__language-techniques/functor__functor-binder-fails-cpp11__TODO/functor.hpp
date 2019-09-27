@@ -798,7 +798,8 @@ namespace Private
   template< typename R, class TList >
   struct BinderFirstTraits< Functor< R, TList > >
   {
-    typedef typename TL::Erase< TList, typename TL::TypeAt< 0, TList >::Result >::Result ParmList;
+//    typedef typename TL::Erase< typename TL::TypeAt< 0, TList >::Result, TList >::Result ParmList;
+    typedef typename TL::Erase< typename TL::TypeAt< 0, TList >::type, TList >::type ParmList;
     typedef Functor< R, ParmList > BoundFunctorType;
     typedef typename BoundFunctorType::Impl Impl;
   };
