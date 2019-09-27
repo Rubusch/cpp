@@ -40,7 +40,7 @@ int main()
     set up another functor using "bind" to bind to the first functor
     -> the function will be called with one parameter of the first
     and another parameter of the second Functor
-  //*/
+  // * /
   cout << "second function\n";
 //  Functor< string, TYPELIST_1(double) > func2( BindFirst(func1, 10)); // TODO rm
   Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10)); // TODO bind( _1... ), or lambda? 
@@ -51,6 +51,7 @@ int main()
   func2(15);
   cout << endl;
 
+// */
 
   cout << "READY.\n";
   return 0;
