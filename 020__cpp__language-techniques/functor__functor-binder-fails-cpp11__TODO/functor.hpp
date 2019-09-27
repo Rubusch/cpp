@@ -170,7 +170,7 @@ namespace TL
     leaving away 'constexpr static' is not an error, though
 
     usage:
-      constexpr static auto idx = IndexOf< Type, MyList>::value;
+      constexpr static auto idx = IndexOf< Type, MyList >::value;
   // */
   template< size_t idx, typename T, class List >
   struct IndexOf_impl; // has index as template parameter
@@ -498,10 +498,10 @@ public:
 // TODO                               
 
   // isStdArith
-  enum { isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0 };
-  enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
-  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
-  enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
+  enum { isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0 };
+  enum { isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0 };
+  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0 };
+  enum { isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0 };
   enum { isStdArith = isStdIntegral || isStdFloat };
 
   // isPointer
