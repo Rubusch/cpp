@@ -9,8 +9,10 @@
 
   Binding fails with a "logical exception" on gcc 4.3.2 on execution, follows a SIGABRT / 6.
   This version demonstrates the called constructors..
-//*/
 
+
+
+  RESOURCES
 
 ////////////////////////////////////////////////////////////////////////////////
 // The Loki Library
@@ -27,8 +29,12 @@
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 
-// last update: June 20, 2001
-// adjusted and modified: 2019
+   last update: June 20, 2001
+
+   adjusted and modified: 2019
+
+// */
+
 
 #ifndef FUNCTOR_INC_
 #define FUNCTOR_INC_
