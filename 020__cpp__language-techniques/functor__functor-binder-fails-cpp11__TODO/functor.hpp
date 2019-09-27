@@ -274,7 +274,6 @@ namespace TL
                           
 /*
   The typelist itself
-// TODO use variadic templates here!!! 
 // * /
 template< class T, class U >
 struct Typelist_
@@ -287,7 +286,7 @@ struct Typelist_
 };
 
 
-/*
+/ *
   Linearizing Typelist Creation
 
   The "old fashion" implementation uses macros
@@ -298,12 +297,12 @@ struct Typelist_
 #define TYPELIST_4(T1, T2, T3, T4) Typelist_< T1, TYPELIST_3(T2, T3, T4) >
 
 
-/*
+/ *
   typelist operations
 // * /
 namespace TL
 {
-  /*
+  / *
     Indexed Access
 
     The declaration of a template for an indexed operation would look like this:
@@ -341,7 +340,7 @@ namespace TL
   };
 
 
-  /*
+  / *
     Searching Typelists
 
     Algorithm:
@@ -382,7 +381,7 @@ namespace TL
   };
 
 
-  /*
+  / *
     Erasing a Type from a Typelist
 
     Algorithm:
@@ -608,12 +607,13 @@ class FunctorImpl<R, TYPELIST_1(P1), ThreadingModel>
   : public Private::FunctorImplBase<R, ThreadingModel>
 //*/
 template< typename R, typename P1 >
-class FunctorImpl< R, TYPELIST_1( P1 ) >
+//class FunctorImpl< R, TYPELIST_1( P1 ) > // TODO rm
+class FunctorImpl< R, TL::Typelist< P1 > >
   : public Private::FunctorImplBase< R >
 {
  public:
   typedef R ResultType;
-  typedef typename TypeTraits<P1>::ParameterType Parm1;
+  typedef typename TypeTraits< P1 >::ParameterType Parm1;
   virtual R operator()(Parm1) = 0;
 };
 
@@ -629,7 +629,8 @@ class FunctorImpl<R, TYPELIST_2(P1, P2), ThreadingModel>
   : public Private::FunctorImplBase<R, ThreadingModel>
 //*/
 template< typename R, typename P1, typename P2 >
-class FunctorImpl< R, TYPELIST_2(P1, P2) >
+//class FunctorImpl< R, TYPELIST_2(P1, P2) > // TODO rm 
+class FunctorImpl< R, TL::Typelist< P1, P2 > >
   : public Private::FunctorImplBase< R >
 {
 public:
@@ -797,7 +798,7 @@ namespace Private
   template< typename R, class TList >
   struct BinderFirstTraits< Functor< R, TList > >
   {
-    typedef typename TL::Erase< TList, typename TL::TypeAt< TList, 0 >::Result >::Result ParmList;
+    typedef typename TL::Erase< TList, typename TL::TypeAt< 0, TList >::Result >::Result ParmList;
     typedef Functor< R, ParmList > BoundFunctorType;
     typedef typename BoundFunctorType::Impl Impl;
   };
