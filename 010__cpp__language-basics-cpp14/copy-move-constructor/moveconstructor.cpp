@@ -31,7 +31,7 @@ public:
   {
     cout << "CALLED: copy move constructor" << endl;
 
-    if (this == &box) return; // actually interesting in case of move...
+//    if (this == &box) return; // actually interesting in case of move... should not be possible, in the construtor of this 'box' cannot be this, or?
 
     // deep move (reference)!
     //

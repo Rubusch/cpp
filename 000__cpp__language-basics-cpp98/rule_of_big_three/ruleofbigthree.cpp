@@ -85,8 +85,8 @@ template<class T>
 Foobar<T>::Foobar(Foobar<T> const& shallowcopy)
   :ptr(NULL), data(shallowcopy.getData()) // copy of fix data
 {
-  // check self (in case)
-  if(this == &shallowcopy) return;
+  // not needed to check self in the ctor, 'shallowcopy' cannot be passed to it's own ctor - Exceptional C++, Herb Sutter, 2000
+  //if(this == &shallowcopy) return;
 
   // copy of pointer(s) - shallow copy -> no allocation!
   ptr = shallowcopy.ptr;

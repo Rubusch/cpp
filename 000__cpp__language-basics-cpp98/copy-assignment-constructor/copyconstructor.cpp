@@ -37,7 +37,7 @@ public:
   {
     cout << "CALLED: copy assignment constructor" << endl;
 
-    if (this == &box) return;
+    //if (this == &box) return; // code joke: "box" can never be this in this's constructor - this line is useless! (Exceptional C++, Herb Sutter, 2000)
 
     // deep copy!
     //

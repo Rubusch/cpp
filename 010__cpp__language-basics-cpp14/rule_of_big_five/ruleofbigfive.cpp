@@ -35,8 +35,7 @@ using namespace std;
 class Box
 {
 private:
-  const string *pItem = nullptr;
-
+  const string *pItem = nullptr; // TODO better use smart pointer here
 
 public:
   Box()
@@ -54,7 +53,6 @@ public:
   Box(const Box& cpy)
   {
     cout << "CALLED: copy assignment constructor (1/5)" << endl;
-    if (this == &cpy) return;
 
     pItem = new string(*cpy.pItem); // deep copy
   }
@@ -63,7 +61,7 @@ public:
   Box(Box&& mve) noexcept
   {
     cout << "CALLED: copy move constructor (3/5)" << endl;
-    if (this == &mve) return;
+//    if (this == &mve) return; // probably not needed...
 
     pItem = mve.pItem;
     mve.pItem = nullptr;
@@ -82,7 +80,7 @@ public:
   Box& operator=(Box& rhs) noexcept
   {
     cout << "CALLED: assignment operator (2/5)" << endl;
-    if (this != &rhs) {
+    if (this != &rhs) { // can be left out (optimization), then will need exception handling (Exceptional C++, Herb Sutter, 2000)
       if (pItem) delete pItem; // avoid memory leak
       pItem = new string(rhs.getItem()); // deep copy
     }
