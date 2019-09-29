@@ -78,19 +78,19 @@ void Base<T>::getAll()
 }
 
 /*
-  base class - copy assignemnt operator
+  base class - copy assignemnt operator (deep copy)
 //*/
 template<class T>
-Base<T>& Base<T>::operator=(const Base<T>& deepcopy)
+Base<T>& Base<T>::operator=(const Base<T>& other)
 {
-  if(this == &deepcopy) return *this;
+  if(this == &other) return *this;
 
-  baseValue = deepcopy.getBaseValue();
+  baseValue = other.getBaseValue();
 
-  if(NULL != deepcopy.getBasePointer()){
+  if(NULL != other.getBasePointer()){
     // alloc new and init
     T *tmp = new T;
-    *tmp = *(deepcopy.getBasePointer());
+    *tmp = *(other.getBasePointer());
 
     // free old memory
     delete basePointer; basePointer = NULL;
@@ -121,7 +121,7 @@ public:
   ~Derived(); // dtor because we use pointers
 
   // copy assignment operator
-  Derived& operator=(const Derived& deepcopy);
+  Derived& operator=(const Derived& other);
 
   int getDerivedValue() const;
   T* getDerivedPointer() const;
@@ -175,27 +175,30 @@ void Derived<T>::getAll()
 
 /*
   derived class - copy assignment operator
+
+  NOTE: if the copy ctor is implemented, a better approach would be to use
+  'swap(other)' or to use move on a temporary object
 //*/
 template<class T>
-Derived<T>& Derived<T>::operator=(const Derived<T>& deepcopy)
+Derived<T>& Derived<T>::operator=(const Derived<T>& other)
 {
-  if(this == &deepcopy) return *this;
+  if(this == &other) return *this;
 
   // initializing a base class
-  Base<T>::operator=(deepcopy);
+  Base<T>::operator=(other);
 
   // ...or hack for old compilers
-  //static_cast<Base<T>&>(*this) = deepcopy;
+  //static_cast<Base<T>&>(*this) = other;
 
   // static pointer
-  derivedValue = deepcopy.getDerivedValue();
+  derivedValue = other.getDerivedValue();
 
   // dynamic pointer
-  if(NULL != deepcopy.getDerivedPointer()){
+  if(NULL != other.getDerivedPointer()){
 
     // alloc new memory
     T* tmp = new T;
-    *tmp = *(deepcopy.getDerivedPointer());
+    *tmp = *(other.getDerivedPointer());
 
     // discard old memory
     delete derivedPointer; derivedPointer = NULL;
