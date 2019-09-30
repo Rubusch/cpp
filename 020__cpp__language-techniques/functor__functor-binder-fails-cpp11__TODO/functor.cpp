@@ -31,8 +31,6 @@ int main()
 
   // set up a functor
   cout << "first function\n";
-//  using Floats_t = TL::Typelist< float, double >;                     
-//  Functor< const char*, TYPELIST_2(char, int) > func1(function); // TODO rm
   Functor< const char*, TL::Typelist< char, int > > func1(function);
   cout << endl;
 
@@ -42,7 +40,6 @@ int main()
     and another parameter of the second Functor
   // */
   cout << "second function\n";
-//  Functor< string, TYPELIST_1(double) > func2( BindFirst(func1, 10)); // TODO rm
   Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10)); // TODO bind( _1... ), or lambda? 
   cout << endl;
 
@@ -51,7 +48,6 @@ int main()
   func2(15);
   cout << endl;
 
-// */
 
   cout << "READY.\n";
   return 0;
