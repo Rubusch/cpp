@@ -749,9 +749,11 @@ public:
     std::cout << "Functor(const Functor& rhs)\n";
   }
 
-  Functor(std::unique_ptr<Impl> spImpl) : spImpl_(spImpl)
+//  Functor(std::unique_ptr<Impl> spImpl) : spImpl_(spImpl) // TODO rm
+  Functor(std::shared_ptr<Impl> spImpl) : spImpl_(spImpl)
   {
-    std::cout << "Functor(std::unique_ptr<Impl> spImpl)\n";
+//    std::cout << "Functor(std::unique_ptr<Impl> spImpl)\n"; // TODO rm
+    std::cout << "Functor(std::shared_ptr<Impl> spImpl)\n";
   }
 
   template <typename Fun>
@@ -771,10 +773,12 @@ public:
   Functor& operator=(const Functor& rhs)
   {
     Functor copy(rhs);
-    // swap unique_ptrs by hand
-    Impl* p = spImpl_.release();
+
+    // swap smart ptrs by hand
+    Impl *pImpl = spImpl_.release();
     spImpl_.reset(copy.spImpl_.release());
-    copy.spImpl_.reset(p);
+    copy.spImpl_.reset(pImpl);
+
     return *this;
   }
 
@@ -788,7 +792,8 @@ public:
   { return (*spImpl_)(p1, p2); }
 
 private:
-  std::unique_ptr<Impl> spImpl_;
+//  std::unique_ptr<Impl> spImpl_; // TODO rm
+  std::shared_ptr<Impl> spImpl_;
 };
 
 namespace Private
@@ -858,7 +863,8 @@ BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
   typedef typename Private::BinderFirstTraits<Fctor>::BoundFunctorType
     Outgoing;
 
-  return Outgoing(std::unique_ptr<typename Outgoing::Impl>( new BinderFirst<Fctor>(fun, bound)));
+//  return Outgoing(std::unique_ptr<typename Outgoing::Impl>( new BinderFirst<Fctor>(fun, bound))); // TODO rm
+  return Outgoing(std::shared_ptr<typename Outgoing::Impl>( new BinderFirst<Fctor>(fun, bound)));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -905,7 +911,8 @@ private:
 template <class Fun1, class Fun2>
 Fun2 Chain(const Fun1& fun1, const Fun2& fun2)
 {
-  return Fun2(std::unique_ptr<typename Fun2::Impl>(new Chainer<Fun1, Fun2>(fun1, fun2)));
+//  return Fun2(std::unique_ptr<typename Fun2::Impl>(new Chainer<Fun1, Fun2>(fun1, fun2))); // TODO rm
+  return Fun2(std::shared_ptr<typename Fun2::Impl>(new Chainer<Fun1, Fun2>(fun1, fun2)));
 }
 
 
