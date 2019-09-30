@@ -31,8 +31,7 @@
 
    last update: June 20, 2001
 
-   adjusted and modified: 2019
-
+   adjusted and modified: Lothar Rubusch, 2019
 // */
 
 
@@ -268,161 +267,8 @@ namespace TL
   {
     using type = typename PushFront< H, typename Erase< T, Typelist< Ts... > >::type >::type;
   };
-  // */
-
-
-                          
-/*
-  The typelist itself
-// * /
-template< class T, class U >
-struct Typelist_
-{
-  typedef T
-    Head;
-
-  typedef U
-    Tail;
-};
-
-
-/ *
-  Linearizing Typelist Creation
-
-  The "old fashion" implementation uses macros
-// * /
-#define TYPELIST_1(T1) Typelist_< T1, NIL >
-#define TYPELIST_2(T1, T2) Typelist_< T1, TYPELIST_1(T2) >
-#define TYPELIST_3(T1, T2, T3) Typelist_< T1, TYPELIST_2(T2, T3) >
-#define TYPELIST_4(T1, T2, T3, T4) Typelist_< T1, TYPELIST_3(T2, T3, T4) >
-
-
-/ *
-  typelist operations
-// * /
-namespace TL
-{
-  / *
-    Indexed Access
-
-    The declaration of a template for an indexed operation would look like this:
-      template< class TList, unsigned int index > struct TypeAt;
-
-    Algorithm:
-    IF TList is non-null and i is zero, then Result is the head of TList
-    ELSE
-      IF TList is non-null and index i is nonzero, then Result is obtained by applying
-        TypeAt to the tail of TList and i-1
-      ELSE there is an out-of-bound access that translates into a compile-time error
-
-    Usage:
-    TL::TypeAt< MyTypelist, idx >::Result variable;
-  // * /
-
-  // basic template form
-  template< class TList, unsigned int index >
-  struct TypeAt;
-
-  // head
-  template< class Head, class Tail >
-  struct TypeAt< Typelist_< Head, Tail >, 0 >
-  {
-    typedef Head
-      Result;
-  };
-
-  // any element
-  template< class Head, class Tail, unsigned int i >
-  struct TypeAt< Typelist_< Head, Tail >, i>
-  {
-    typedef typename TypeAt< Tail, i-1 >::Result
-      Result;
-  };
-
-
-  / *
-    Searching Typelists
-
-    Algorithm:
-    IF TList is NIL, then value is -1
-    ELSE
-      IF the head of TList is T, then value is 0
-      ELSE
-        Compute the result of IndexOf applied to TList's tail and T into a temporary value temp
-        IF temp is -1, then value is -1
-        ELSE value is 1 plus temp
-
-    Usage:
-    int idx = IndexOf< MyTypelist, TypeToLookUp >::value;
-  // * /
-  template< class TList, class T >
-  struct IndexOf;
-
-  template< class T >
-  struct IndexOf< NIL, T >
-  {
-    enum { value = -1 };
-  };
-
-  template< class T, class Tail >
-  struct IndexOf< Typelist_< T, Tail >, T >
-  {
-    enum { value = 0 };
-  };
-
-  template< class Head, class Tail, class T >
-  struct IndexOf< Typelist_< Head, Tail >, T >
-  {
-  private:
-    enum { temp = IndexOf< Tail, T >::value };
-
-  public:
-    enum { value = temp == -1 ? -1 : 1 + temp };
-  };
-
-
-  / *
-    Erasing a Type from a Typelist
-
-    Algorithm:
-    IF TList is NIL, then Result is NIL
-    ELSE
-      IF T is the same as TList::Head, then Result is TList::Tail
-      ELSE Result is a typelist having TList::Head as its head
-        and the result of applying Erase to TList::Tail and T as its tail
-
-    Usage:
-    typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;
-  // * /
-  template< class TList, class T >
-  struct Erase;
-
-  // Specialization 1
-  template< class T >
-  struct Erase< NIL, T >
-  {
-    typedef NIL
-      Result;
-  };
-
-  // Specialization 2
-  template< class T, class Tail >
-  struct Erase< Typelist_< T, Tail >, T >
-  {
-    typedef Tail
-      Result;
-  };
-
-  // Specialization 3
-  template< class Head, class Tail, class T >
-  struct Erase< Typelist_< Head, Tail > , T >
-  {
-    typedef Typelist_< Head, typename Erase< Tail, T >::Result >
-      Result;
-  };
-// */
 }
-                          
+
 
 /*****************************************************************************/
 
@@ -432,6 +278,8 @@ namespace TL
 
   - parameter type
   returns the optimal type to be used as a parameter for functions that take Ts
+
+  [historic C++98 implementation]
 //*/
 template<typename T>
 class TypeTraits
@@ -476,26 +324,10 @@ private:
 
 public:
   // typelists
-//*
   using UnsignedInts_t = TL::Typelist< unsigned char, unsigned short int, unsigned int, unsigned long int >;
   using SignedInts_t = TL::Typelist< signed char, short int, int, long int >;
   using OtherInts_t = TL::Typelist< bool, char >;
   using Floats_t = TL::Typelist< float, double >;
-/*/
-  typedef TYPELIST_4( unsigned char, unsigned short int, unsigned int, unsigned long int )
-    UnsignedInts_t;
-
-  typedef TYPELIST_4( signed char, short int, int, long int )
-    SignedInts_t;
-
-  typedef TYPELIST_2( bool, char )
-    OtherInts_t;
-
-  typedef TYPELIST_2( float, double )
-    Floats_t;
-// */
-
-// TODO                               
 
   // isStdArith
   enum { isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0 };
@@ -512,12 +344,11 @@ public:
 
   // ReferredType
   enum { isReference = ReferenceTraits< T >::result };
-  typedef typename ReferenceTraits< T >::ReferredType
-    ReferredType;
+
+  using ReferredType = typename ReferenceTraits< T >::ReferredType;
 
   // -> ParameterType
-  typedef typename Select< isStdArith || isPointer || isMemberPointer, T, ReferredType& >::Result
-    ParameterType;
+  using ParameterType = typename Select< isStdArith || isPointer || isMemberPointer, T, ReferredType& >::Result;
 };
 
 
