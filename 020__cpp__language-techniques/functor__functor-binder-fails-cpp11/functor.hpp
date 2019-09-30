@@ -32,6 +32,11 @@
    last update: June 20, 2001
 
    adjusted and modified: Lothar Rubusch, 2019
+
+   TODO: rework typedefs
+   TODO: try to rework enums to enum classes
+   TODO: rework binders
+   TODO: rework ancient traits with modern variadic approach
 // */
 
 
