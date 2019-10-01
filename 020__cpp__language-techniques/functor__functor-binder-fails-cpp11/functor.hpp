@@ -505,12 +505,18 @@ template <class ParentFunctor, typename Fun>
 class FunctorHandler
   : public ParentFunctor::Impl
 {
-  typedef typename ParentFunctor::Impl Base;
+//  typedef typename ParentFunctor::Impl Base; // TODO rm
+  using Base = typename ParentFunctor::Impl;
 
 public:
-  typedef typename Base::ResultType ResultType;
-  typedef typename Base::Parm1 Parm1;
-  typedef typename Base::Parm2 Parm2;
+//  typedef typename Base::ResultType ResultType; // TODO rm
+  using ResultType = typename Base::ResultType;
+
+//  typedef typename Base::Parm1 Parm1; // TODO rm
+  using Parm1 = typename Base::Parm1;
+
+//  typedef typename Base::Parm2 Parm2; // TODO rm
+  using Parm2 = typename Base::Parm2;
 
   FunctorHandler(const Fun& fun) : f_(fun) {}
 
