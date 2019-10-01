@@ -757,12 +757,18 @@ BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
 template <typename Fun1, typename Fun2>
 class Chainer : public Fun2::Impl
 {
-  typedef Fun2 Base;
+//  typedef Fun2 Base; // TODO rm
+  using Base = Fun2;
 
 public:
-  typedef typename Base::ResultType ResultType;
-  typedef typename Base::Parm1 Parm1;
-  typedef typename Base::Parm2 Parm2;
+//  typedef typename Base::ResultType ResultType; // TODO rm
+  using ResultType = typename Base::ResultType;
+
+//  typedef typename Base::Parm1 Parm1; // TODO rm
+  using Parm1 = typename Base::Parm1;
+
+//  typedef typename Base::Parm2 Parm2; // TODO rm
+  using Parm2 = typename Base::Parm2;
 
   Chainer(const Fun1& fun1, const Fun2& fun2) : f1_(fun1), f2_(fun2) {}
 
