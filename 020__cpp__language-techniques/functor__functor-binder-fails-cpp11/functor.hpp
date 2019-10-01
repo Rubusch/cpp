@@ -283,21 +283,8 @@ class TypeTraits
 {
 private:
   // private block - the traits itself
-/* // TODO rm
-  template< typename U > struct PointerTraits
-  {
-    enum { result = false };
-    using PointeeType = NIL;
-  };
 
-  template< typename U > struct PointerTraits< U* >
-  {
-    enum { result = true };
-    using PointeeType = U;
-  };
-// */
-
-  // for 'isReference()' and 'get referred type'
+  // kept as demo: for 'isReference()' and 'get referred type'
   template< typename U > struct ReferenceTraits
   {
     enum { result = false };
@@ -310,16 +297,6 @@ private:
     using ReferredType = U;
   };
 
-  template< typename U > struct PToMTraits
-  {
-    enum { result = false };
-  };
-
-  template< typename U, typename V > struct PToMTraits< U V::*>
-  {
-    enum { result = true };
-  };
-
 public:
   // typelists
   using UnsignedInts_t = TL::Typelist< unsigned char, unsigned short int, unsigned int, unsigned long int >;
@@ -327,7 +304,7 @@ public:
   using OtherInts_t = TL::Typelist< bool, char >;
   using Floats_t = TL::Typelist< float, double >;
 
-  // isStdArith
+  // isStdArith, also C++11 offers std::is_unsigned< T >::value, std::is_signed< T >::value,...
   enum { isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0 };
   enum { isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0 };
   enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0 };
@@ -335,11 +312,10 @@ public:
   enum { isStdArith = isStdIntegral || isStdFloat };
 
   // isPointer
-//  enum { isPointer = PointerTraits< T >::result }; // TODO rm
   enum { isPointer = std::is_pointer< T >::value };
 
   // isMemberPointer
-  enum { isMemberPointer = PToMTraits< T >::result };
+  enum { isMemberPointer = std::is_member_pointer< T >::value };
 
   // ReferredType, alternative use 'std::is_reference< T >::value'
   enum { isReference = ReferenceTraits< T >::result }; // TODO rm
@@ -377,8 +353,9 @@ namespace Private
     template <class U>
     static U* Clone(U* pObj)
     {
-      if (!pObj) return 0;
-      U* pClone = static_cast< U* >(pObj->DoClone());
+      if (!pObj) return nullptr;
+//      U* pClone = static_cast< U* >(pObj->DoClone()); // TODO rm
+      auto pClone = static_cast< U* >(pObj->DoClone());
       assert(typeid(*pClone) == typeid(*pObj));
       return pClone;
     }
@@ -461,12 +438,15 @@ public:
   using Parm1 = typename Base::Parm1;
   using Parm2 = typename Base::Parm2;
 
+  // functor handler function
+  //
+  // the private 'f_()' will be initialized with *this, this has op(), op(p1), op(p1, p2) overloaded,
+  // thus the passed object of template Fun via '*this' can be called as a function via ops()
   FunctorHandler(const Fun& fun) : f_(fun) {}
 
   virtual FunctorHandler* DoClone() const { return new FunctorHandler(*this); }
 
-  // operator() implementations for up to 15 arguments
-
+  // operator() implementations
   ResultType operator()()
   { return f_(); }
 
