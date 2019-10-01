@@ -550,12 +550,18 @@ class MemFunHandler : public ParentFunctor::Impl
 template <class ParentFunctor, typename PointerToObj, typename PointerToMemFn>
 class MemFunHandler : public ParentFunctor::Impl
 {
-  typedef typename ParentFunctor::Impl Base;
+//  typedef typename ParentFunctor::Impl Base; // TODO rm
+  using Base = typename ParentFunctor::Impl;
 
 public:
-  typedef typename Base::ResultType ResultType;
-  typedef typename Base::Parm1 Parm1;
-  typedef typename Base::Parm2 Parm2;
+//  typedef typename Base::ResultType ResultType;
+  using ResultType = typename Base::ResultType;
+
+//  typedef typename Base::Parm1 Parm1; // TODO rm
+  using Parm1 = typename Base::Parm1;
+
+//  typedef typename Base::Parm2 Parm2; // TODO rm
+  using Parm2 = typename Base::Parm2;
 
   MemFunHandler(const PointerToObj& pObj, PointerToMemFn pMemFn)
     : pObj_(pObj), pMemFn_(pMemFn)
@@ -592,11 +598,20 @@ class Functor
 {
 public:
   // Handy type definitions for the body type
-  typedef FunctorImpl<R, TList> Impl;
-  typedef R ResultType;
-  typedef TList ParmList;
-  typedef typename Impl::Parm1 Parm1;
-  typedef typename Impl::Parm2 Parm2;
+//  typedef FunctorImpl<R, TList> Impl; // TODO rm
+  using Impl = FunctorImpl< R, TList >;
+
+//  typedef R ResultType; // TODO rm
+  using ResultType = R;
+
+//  typedef TList ParmList; // TODO rm
+  using ParmList = TList;
+
+//  typedef typename Impl::Parm1 Parm1; // TODO rm
+  using Parm1 = typename Impl::Parm1;
+
+//  typedef typename Impl::Parm2 Parm2; // TODO rm
+  using Parm2 = typename Impl::Parm2;
 
   // Member functions
 
@@ -661,10 +676,14 @@ namespace Private
   template< typename R, class TList >
   struct BinderFirstTraits< Functor< R, TList > >
   {
-//    typedef typename TL::Erase< typename TL::TypeAt< 0, TList >::Result, TList >::Result ParmList;
-    typedef typename TL::Erase< typename TL::TypeAt< 0, TList >::type, TList >::type ParmList;
-    typedef Functor< R, ParmList > BoundFunctorType;
-    typedef typename BoundFunctorType::Impl Impl;
+//    typedef typename TL::Erase< typename TL::TypeAt< 0, TList >::type, TList >::type ParmList; // TODO rm
+    using ParmList = typename TL::Erase< typename TL::TypeAt< 0, TList >::type, TList >::type;
+
+//    typedef Functor< R, ParmList > BoundFunctorType; // TODO rm
+    using BoundFunctorType = Functor< R, ParmList >;
+
+//    typedef typename BoundFunctorType::Impl Impl; // TODO rm
+    using Impl = typename BoundFunctorType::Impl;
   };
 }
 
@@ -677,14 +696,20 @@ template< class OriginalFunctor >
 class BinderFirst
   : public Private::BinderFirstTraits<OriginalFunctor>::Impl
 {
-  typedef typename Private::BinderFirstTraits<OriginalFunctor>::Impl Base;
-  typedef typename OriginalFunctor::ResultType ResultType;
+//  typedef typename Private::BinderFirstTraits<OriginalFunctor>::Impl Base; // TODO rm
+  using Base = typename Private::BinderFirstTraits< OriginalFunctor >::Impl;
 
-  typedef typename OriginalFunctor::Parm1 BoundType;
+//  typedef typename OriginalFunctor::ResultType ResultType;  // TODO rm
+  using ResultType = typename OriginalFunctor::ResultType;
 
-  typedef typename OriginalFunctor::Parm2 Parm1;
+//  typedef typename OriginalFunctor::Parm1 BoundType; // TODO rm
+  using BoundType = typename OriginalFunctor::Parm1;
 
-  typedef EmptyType Param2;
+//  typedef typename OriginalFunctor::Parm2 Parm1; // TODO rm
+  using Parm1 = typename OriginalFunctor::Parm2;
+
+//  typedef EmptyType Param2; // TODO rm
+  using Param2 = EmptyType;
 
 public:
   BinderFirst(const OriginalFunctor& fun, BoundType bound)
@@ -718,8 +743,8 @@ template <class Fctor>
 typename Private::BinderFirstTraits<Fctor>::BoundFunctorType
 BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
 {
-  typedef typename Private::BinderFirstTraits<Fctor>::BoundFunctorType
-    Outgoing;
+//  typedef typename Private::BinderFirstTraits<Fctor>::BoundFunctorType Outgoing;
+  using Outgoing = typename Private::BinderFirstTraits< Fctor >::BoundFunctorType;
 
   return Outgoing(std::shared_ptr<typename Outgoing::Impl>( new BinderFirst<Fctor>(fun, bound)));
 }
