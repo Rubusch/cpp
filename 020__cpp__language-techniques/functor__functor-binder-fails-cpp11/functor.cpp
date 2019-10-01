@@ -54,12 +54,14 @@ int main()
   cout << endl;
 
   cout << "3. function (using std::bind() functor)" << endl;
+//  auto func3 = std::bind(func1, 10, 15);
   auto func3 = std::bind(func1, 10, 15);
   func3(); // TODO bring 'func3(15);' to work
+//  func3(15);
   cout << endl;
 
   cout << "4. function (using std::bind() functor)" << endl;
-  auto func4 = [](int arg2){ my_function(10, arg2); };
+  auto func4 = [&](int arg2){ func1(10, arg2); };
   func4(15);
   cout << endl;
 
