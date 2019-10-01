@@ -2,8 +2,8 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = memento.exe
-SOURCE = *.cpp
+SOURCE = memento.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
