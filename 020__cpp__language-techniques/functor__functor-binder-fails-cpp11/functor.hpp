@@ -74,13 +74,15 @@ struct EmptyType{};
 template< bool flag, typename T, typename U >
 struct Select
 {
-  typedef T Result;
+//  typedef T Result; // TODO rm
+  using Result = T;
 };
 
 template< typename T, typename U >
 struct Select< false, T, U >
 {
-  typedef U Result;
+//  typedef U Result; // TODO rm
+  using Result = U;
 };
 
 
@@ -294,27 +296,29 @@ private:
   template< typename U > struct PointerTraits
   {
     enum { result = false };
-    typedef NIL
-      PointeeType;
+//    typedef NIL PointeeType;  // TODO rm
+    using PointeeType = NIL;
   };
 
   template< typename U > struct PointerTraits< U* >
   {
     enum { result = true };
-    typedef U
-      PointeeType;
+//    typedef U PointeeType; // TODO rm
+    using PointeeType = U;
   };
 
   template< typename U > struct ReferenceTraits
   {
     enum { result = false };
-    typedef U ReferredType;
+//    typedef U ReferredType; // TODO rm
+    using ReferredType = U;
   };
 
   template< typename U > struct ReferenceTraits< U& >
   {
     enum { result = true };
-    typedef U ReferredType;
+//    typedef U ReferredType; // TODO rm
+    using ReferredType = U;
   };
 
   template< typename U > struct PToMTraits
@@ -371,17 +375,21 @@ namespace Private
   template < typename R >
   struct FunctorImplBase
   {
-    typedef R ResultType;
+//    typedef R ResultType; // TODO rm
+    using ResultType = R;
 
-    typedef EmptyType Parm1;
-    typedef EmptyType Parm2;
+//    typedef EmptyType Parm1;  // TODO rm
+    using Parm1 = EmptyType;
+
+//    typedef EmptyType Parm2; // TODO rm
+    using Parm2 = EmptyType;
 
     virtual FunctorImplBase* DoClone() const = 0;
     template <class U>
     static U* Clone(U* pObj)
     {
       if (!pObj) return 0;
-      U* pClone = static_cast<U*>(pObj->DoClone());
+      U* pClone = static_cast< U* >(pObj->DoClone());
       assert(typeid(*pClone) == typeid(*pObj));
       return pClone;
     }
@@ -428,7 +436,8 @@ class FunctorImpl< R, NIL >
   : public Private::FunctorImplBase< R >
 {
 public:
-  typedef R ResultType;
+//  typedef R ResultType;  // TODO rm
+  using ResultType = R;
   virtual R operator()() = 0;
 };
 
@@ -448,8 +457,12 @@ class FunctorImpl< R, TL::Typelist< P1 > >
   : public Private::FunctorImplBase< R >
 {
  public:
-  typedef R ResultType;
-  typedef typename TypeTraits< P1 >::ParameterType Parm1;
+//  typedef R ResultType; // TODO rm
+  using ResultType = R;
+
+//  typedef typename TypeTraits< P1 >::ParameterType Parm1; // TODO rm
+  using Parm1 = typename TypeTraits< P1 >::ParameterType;
+
   virtual R operator()(Parm1) = 0;
 };
 
@@ -470,9 +483,15 @@ class FunctorImpl< R, TL::Typelist< P1, P2 > >
   : public Private::FunctorImplBase< R >
 {
 public:
-  typedef R ResultType;
-  typedef typename TypeTraits< P1 >::ParameterType Parm1;
-  typedef typename TypeTraits< P2 >::ParameterType Parm2;
+//  typedef R ResultType; // TODO rm
+  using ResultType = R;
+
+//  typedef typename TypeTraits< P1 >::ParameterType Parm1; // TODO rm
+  using Parm1 = typename TypeTraits< P1 >::ParameterType;
+
+//  typedef typename TypeTraits< P2 >::ParameterType Parm2; // TODO rm
+  using Parm2 = typename TypeTraits< P2 >::ParameterType;
+
   virtual R operator()(Parm1, Parm2) = 0;
 };
 
