@@ -32,22 +32,19 @@
    last update: June 20, 2001
 
    adjusted and modified: Lothar Rubusch, 2019
-
-   TODO: try to rework enums to enum classes
-   TODO: rework binders
-   TODO: rework ancient traits with modern variadic approach
+   note: ancient traits and binders using modernized variadic approach
 // */
 
 
 #ifndef FUNCTOR_INC_
 #define FUNCTOR_INC_
 
-
+#include <iostream>
 #include <typeinfo>
 #include <memory>
+#include <type_traits>
 #include <cassert>
 
-#include <iostream>
 
 /*****************************************************************************/
 
@@ -286,6 +283,7 @@ class TypeTraits
 {
 private:
   // private block - the traits itself
+/* // TODO rm
   template< typename U > struct PointerTraits
   {
     enum { result = false };
@@ -297,7 +295,9 @@ private:
     enum { result = true };
     using PointeeType = U;
   };
+// */
 
+  // for 'isReference()' and 'get referred type'
   template< typename U > struct ReferenceTraits
   {
     enum { result = false };
@@ -335,14 +335,16 @@ public:
   enum { isStdArith = isStdIntegral || isStdFloat };
 
   // isPointer
-  enum { isPointer = PointerTraits< T >::result };
+//  enum { isPointer = PointerTraits< T >::result }; // TODO rm
+  enum { isPointer = std::is_pointer< T >::value };
 
   // isMemberPointer
   enum { isMemberPointer = PToMTraits< T >::result };
 
-  // ReferredType
-  enum { isReference = ReferenceTraits< T >::result };
+  // ReferredType, alternative use 'std::is_reference< T >::value'
+  enum { isReference = ReferenceTraits< T >::result }; // TODO rm
 
+  // get referred type
   using ReferredType = typename ReferenceTraits< T >::ReferredType;
 
   // -> ParameterType
