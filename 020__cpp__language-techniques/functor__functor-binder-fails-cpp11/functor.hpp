@@ -33,7 +33,6 @@
 
    adjusted and modified: Lothar Rubusch, 2019
 
-   TODO: rework typedefs
    TODO: try to rework enums to enum classes
    TODO: rework binders
    TODO: rework ancient traits with modern variadic approach
@@ -73,17 +72,11 @@ struct EmptyType{};
 //*/
 template< bool flag, typename T, typename U >
 struct Select
-{
-//  typedef T Result; // TODO rm
-  using Result = T;
-};
+{ using Result = T; };
 
 template< typename T, typename U >
 struct Select< false, T, U >
-{
-//  typedef U Result; // TODO rm
-  using Result = U;
-};
+{ using Result = U; };
 
 
 /*****************************************************************************/
@@ -286,7 +279,7 @@ namespace TL
   - parameter type
   returns the optimal type to be used as a parameter for functions that take Ts
 
-  [historic C++98 implementation]
+  [historic C++98 implementation, polished]
 //*/
 template<typename T>
 class TypeTraits
@@ -296,28 +289,24 @@ private:
   template< typename U > struct PointerTraits
   {
     enum { result = false };
-//    typedef NIL PointeeType;  // TODO rm
     using PointeeType = NIL;
   };
 
   template< typename U > struct PointerTraits< U* >
   {
     enum { result = true };
-//    typedef U PointeeType; // TODO rm
     using PointeeType = U;
   };
 
   template< typename U > struct ReferenceTraits
   {
     enum { result = false };
-//    typedef U ReferredType; // TODO rm
     using ReferredType = U;
   };
 
   template< typename U > struct ReferenceTraits< U& >
   {
     enum { result = true };
-//    typedef U ReferredType; // TODO rm
     using ReferredType = U;
   };
 
@@ -377,13 +366,8 @@ namespace Private
   {
     virtual ~FunctorImplBase(){}
 
-//    typedef R ResultType; // TODO rm
     using ResultType = R;
-
-//    typedef EmptyType Parm1;  // TODO rm
     using Parm1 = EmptyType;
-
-//    typedef EmptyType Parm2; // TODO rm
     using Parm2 = EmptyType;
 
     virtual FunctorImplBase* DoClone() const = 0;
@@ -421,7 +405,7 @@ class FunctorImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template FunctorImpl
-// Specialization for 0 (zero) parameters
+// Specialization for 0 (zero) parameters [C++11: probably not needed anymore]
 ////////////////////////////////////////////////////////////////////////////////
 
 template< typename R >
@@ -429,7 +413,6 @@ class FunctorImpl< R, NIL >
   : public Private::FunctorImplBase< R >
 {
 public:
-//  typedef R ResultType;  // TODO rm
   using ResultType = R;
   virtual R operator()() = 0;
 };
@@ -440,15 +423,11 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
 template< typename R, typename P1 >
-//class FunctorImpl< R, TYPELIST_1( P1 ) > // TODO rm
 class FunctorImpl< R, TL::Typelist< P1 > >
   : public Private::FunctorImplBase< R >
 {
  public:
-//  typedef R ResultType; // TODO rm
   using ResultType = R;
-
-//  typedef typename TypeTraits< P1 >::ParameterType Parm1; // TODO rm
   using Parm1 = typename TypeTraits< P1 >::ParameterType;
 
   virtual R operator()(Parm1) = 0;
@@ -460,18 +439,12 @@ class FunctorImpl< R, TL::Typelist< P1 > >
 ////////////////////////////////////////////////////////////////////////////////
 
 template< typename R, typename P1, typename P2 >
-//class FunctorImpl< R, TYPELIST_2(P1, P2) > // TODO rm 
 class FunctorImpl< R, TL::Typelist< P1, P2 > >
   : public Private::FunctorImplBase< R >
 {
 public:
-//  typedef R ResultType; // TODO rm
   using ResultType = R;
-
-//  typedef typename TypeTraits< P1 >::ParameterType Parm1; // TODO rm
   using Parm1 = typename TypeTraits< P1 >::ParameterType;
-
-//  typedef typename TypeTraits< P2 >::ParameterType Parm2; // TODO rm
   using Parm2 = typename TypeTraits< P2 >::ParameterType;
 
   virtual R operator()(Parm1, Parm2) = 0;
@@ -487,17 +460,11 @@ template <class ParentFunctor, typename Fun>
 class FunctorHandler
   : public ParentFunctor::Impl
 {
-//  typedef typename ParentFunctor::Impl Base; // TODO rm
   using Base = typename ParentFunctor::Impl;
 
 public:
-//  typedef typename Base::ResultType ResultType; // TODO rm
   using ResultType = typename Base::ResultType;
-
-//  typedef typename Base::Parm1 Parm1; // TODO rm
   using Parm1 = typename Base::Parm1;
-
-//  typedef typename Base::Parm2 Parm2; // TODO rm
   using Parm2 = typename Base::Parm2;
 
   FunctorHandler(const Fun& fun) : f_(fun) {}
@@ -527,17 +494,11 @@ private:
 template <class ParentFunctor, typename PointerToObj, typename PointerToMemFn>
 class MemFunHandler : public ParentFunctor::Impl
 {
-//  typedef typename ParentFunctor::Impl Base; // TODO rm
   using Base = typename ParentFunctor::Impl;
 
 public:
-//  typedef typename Base::ResultType ResultType;
   using ResultType = typename Base::ResultType;
-
-//  typedef typename Base::Parm1 Parm1; // TODO rm
   using Parm1 = typename Base::Parm1;
-
-//  typedef typename Base::Parm2 Parm2; // TODO rm
   using Parm2 = typename Base::Parm2;
 
   MemFunHandler(const PointerToObj& pObj, PointerToMemFn pMemFn)
@@ -565,29 +526,15 @@ private:
 // A generalized functor implementation with value semantics
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <typename R, class TList = NullType,
-          template<class> class ThreadingModel = DEFAULT_THREADING>
-class Functor
-//*/
 template< typename R, class TList = NIL >
 class Functor
 {
 public:
   // Handy type definitions for the body type
-//  typedef FunctorImpl<R, TList> Impl; // TODO rm
   using Impl = FunctorImpl< R, TList >;
-
-//  typedef R ResultType; // TODO rm
   using ResultType = R;
-
-//  typedef TList ParmList; // TODO rm
   using ParmList = TList;
-
-//  typedef typename Impl::Parm1 Parm1; // TODO rm
   using Parm1 = typename Impl::Parm1;
-
-//  typedef typename Impl::Parm2 Parm2; // TODO rm
   using Parm2 = typename Impl::Parm2;
 
   // Member functions
@@ -653,13 +600,8 @@ namespace Private
   template< typename R, class TList >
   struct BinderFirstTraits< Functor< R, TList > >
   {
-//    typedef typename TL::Erase< typename TL::TypeAt< 0, TList >::type, TList >::type ParmList; // TODO rm
     using ParmList = typename TL::Erase< typename TL::TypeAt< 0, TList >::type, TList >::type;
-
-//    typedef Functor< R, ParmList > BoundFunctorType; // TODO rm
     using BoundFunctorType = Functor< R, ParmList >;
-
-//    typedef typename BoundFunctorType::Impl Impl; // TODO rm
     using Impl = typename BoundFunctorType::Impl;
   };
 }
@@ -673,19 +615,10 @@ template< class OriginalFunctor >
 class BinderFirst
   : public Private::BinderFirstTraits<OriginalFunctor>::Impl
 {
-//  typedef typename Private::BinderFirstTraits<OriginalFunctor>::Impl Base; // TODO rm
   using Base = typename Private::BinderFirstTraits< OriginalFunctor >::Impl;
-
-//  typedef typename OriginalFunctor::ResultType ResultType;  // TODO rm
   using ResultType = typename OriginalFunctor::ResultType;
-
-//  typedef typename OriginalFunctor::Parm1 BoundType; // TODO rm
   using BoundType = typename OriginalFunctor::Parm1;
-
-//  typedef typename OriginalFunctor::Parm2 Parm1; // TODO rm
   using Parm1 = typename OriginalFunctor::Parm2;
-
-//  typedef EmptyType Param2; // TODO rm
   using Param2 = EmptyType;
 
 public:
@@ -711,16 +644,10 @@ private:
 // Binds the first parameter of a Functor object to a specific value
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <class Fctor>
-typename Private::BinderFirstTraits<Fctor>::BoundFunctorType
-BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
-//*/
 template <class Fctor>
 typename Private::BinderFirstTraits<Fctor>::BoundFunctorType
 BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
 {
-//  typedef typename Private::BinderFirstTraits<Fctor>::BoundFunctorType Outgoing;
   using Outgoing = typename Private::BinderFirstTraits< Fctor >::BoundFunctorType;
 
   return Outgoing(std::shared_ptr<typename Outgoing::Impl>( new BinderFirst<Fctor>(fun, bound)));
@@ -734,24 +661,18 @@ BindFirst(const Fctor& fun, typename Fctor::Parm1 bound)
 template <typename Fun1, typename Fun2>
 class Chainer : public Fun2::Impl
 {
-//  typedef Fun2 Base; // TODO rm
   using Base = Fun2;
 
 public:
-//  typedef typename Base::ResultType ResultType; // TODO rm
   using ResultType = typename Base::ResultType;
-
-//  typedef typename Base::Parm1 Parm1; // TODO rm
   using Parm1 = typename Base::Parm1;
-
-//  typedef typename Base::Parm2 Parm2; // TODO rm
   using Parm2 = typename Base::Parm2;
 
   Chainer(const Fun1& fun1, const Fun2& fun2) : f1_(fun1), f2_(fun2) {}
 
   DEFINE_CLONE_FUNCTORIMPL(Chainer)
 
-    // operator() implementations for up to 15 arguments
+  // operator() implementations for up to 15 arguments
 
   ResultType operator()()
   { return f1_(), f2_(); }
