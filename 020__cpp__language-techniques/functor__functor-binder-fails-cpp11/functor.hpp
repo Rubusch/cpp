@@ -287,13 +287,23 @@ private:
   // kept as demo: for 'isReference()' and 'get referred type'
   template< typename U > struct ReferenceTraits
   {
-    enum { result = false };
+    // 'enum { result = false };' converts to modern C++ as follows
+    // NOTE: ReferenceTrais are covered by std::is_reference and so on in C++11 already
+    using type = std::false_type;
+    using value_type = type::value_type;
+    static constexpr value_type result = type::value;
+
     using ReferredType = U;
   };
 
   template< typename U > struct ReferenceTraits< U& >
   {
-    enum { result = true };
+    // 'enum { result = true };' converts to modern (variadic) C++ as follows
+    // NOTE: ReferenceTrais are covered by std::is_reference and so on in C++11 already
+    using type = std::true_type;
+    using value_type = type::value_type;
+    static constexpr value_type result = type::value;
+
     using ReferredType = U;
   };
 
@@ -318,7 +328,7 @@ public:
   enum { isMemberPointer = std::is_member_pointer< T >::value };
 
   // ReferredType, alternative use 'std::is_reference< T >::value'
-  enum { isReference = ReferenceTraits< T >::result }; // TODO rm
+  enum { isReference = ReferenceTraits< T >::result };
 
   // get referred type
   using ReferredType = typename ReferenceTraits< T >::ReferredType;
@@ -354,7 +364,6 @@ namespace Private
     static U* Clone(U* pObj)
     {
       if (!pObj) return nullptr;
-//      U* pClone = static_cast< U* >(pObj->DoClone()); // TODO rm
       auto pClone = static_cast< U* >(pObj->DoClone());
       assert(typeid(*pClone) == typeid(*pObj));
       return pClone;

@@ -53,14 +53,13 @@ int main()
   }
   cout << endl;
 
-  cout << "3. function (using std::bind() functor)" << endl;
-//  auto func3 = std::bind(func1, 10, 15);
-  auto func3 = std::bind(func1, 10, 15);
-  func3(); // TODO bring 'func3(15);' to work
-//  func3(15);
+  cout << "3. function (using std::bind() functor) - one solution in modern C++" << endl;
+  using namespace std::placeholders; // don't forget the using declaration!!!
+  auto func3 = std::bind(func1, 10, _1); // leave the 2. arg open (which is the first _1 variable in bind)
+  func3(15);
   cout << endl;
 
-  cout << "4. function (using std::bind() functor)" << endl;
+  cout << "4. function (using std::bind() functor) - another solution in modern C++" << endl;
   auto func4 = [&](int arg2){ func1(10, arg2); };
   func4(15);
   cout << endl;
