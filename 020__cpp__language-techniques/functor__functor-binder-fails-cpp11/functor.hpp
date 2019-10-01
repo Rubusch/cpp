@@ -314,27 +314,24 @@ public:
   using OtherInts_t = TL::Typelist< bool, char >;
   using Floats_t = TL::Typelist< float, double >;
 
-  // isStdArith, also C++11 offers std::is_unsigned< T >::value, std::is_signed< T >::value,...
-  // convert 'enum { isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0 };' into 'static constexpr auto' definitions
+  // isStdArith
+  // NOTE: C++11 offers std::is_unsigned< T >::value, std::is_signed< T >::value,...
+  // NOTE: conversion of 'enum { isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0 };'
+  // ..into..
+  // 'static constexpr auto' definitions
   static constexpr auto isStdUnsignedInt = TL::IndexOf< T, UnsignedInts_t >::value >= 0;
-  //enum { isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0 }; // TODO rm
   static constexpr auto isStdSignedInt = TL::IndexOf< T, SignedInts_t >::value >= 0;
-  //enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0 }; // TODO rm
   static constexpr auto isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< T, OtherInts_t >::value >= 0;
-  //enum { isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0 }; // TODO rm
   static constexpr auto isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0;
-  //enum { isStdArith = isStdIntegral || isStdFloat }; // TODO rm
   static constexpr auto isStdArith = isStdIntegral || isStdFloat;
 
   // isPointer
   static constexpr auto isPointer = std::is_pointer< T >::value;
 
   // isMemberPointer
-  //enum { isMemberPointer = std::is_member_pointer< T >::value }; // TODO rm
   static constexpr auto isMemberPointer = std::is_member_pointer< T >::value;
 
   // ReferredType, alternative use 'std::is_reference< T >::value'
-  //enum { isReference = ReferenceTraits< T >::result }; // TODO rm
   static constexpr auto isReference = ReferenceTraits< T >::result;
 
   // get referred type
