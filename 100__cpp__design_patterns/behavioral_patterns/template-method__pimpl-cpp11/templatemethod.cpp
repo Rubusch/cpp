@@ -62,7 +62,7 @@ struct WorkerImpl
   virtual void operation1(int& arg) const
   {
     std::cout << "\tConcreteClass1::operation1( int&)\n";
-    int val = 10;
+    auto val = 10;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
@@ -70,7 +70,7 @@ struct WorkerImpl
   virtual void operation2(int& arg) const
   {
     std::cout << "\tConcreteClass1::operation2( int&)\n";
-    int val = 20;
+    auto val = 20;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
@@ -78,7 +78,7 @@ struct WorkerImpl
   virtual void operation3(int& arg) const
   {
     std::cout << "\tConcreteClass1::operation3( int&)\n";
-    int val = 30;
+    auto val = 30;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
@@ -91,7 +91,7 @@ struct ConcWorkerImpl
   void operation1(int& arg) const
   {
     std::cout << "\tConcreteClass2::operation1( int&)\n";
-    int val = 10;
+    auto val = 10;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
@@ -99,7 +99,7 @@ struct ConcWorkerImpl
   void operation3(int& arg) const
   {
     std::cout << "\tConcreteClass2::operation3( int&)\n";
-    int val = 50;
+    auto val = 50;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
