@@ -15,9 +15,9 @@
 /*
   function to test the bind
 //*/
-const char* function(int i, int j)
+const char* my_function(int i, int j)
 {
-  std::cout << "function(" << i << ", " << j << ") called\n";
+  std::cout << "CALLED: my_function(" << i << ", " << j << ")\n";
   return 0;
 }
 
@@ -31,7 +31,7 @@ int main()
 
   // set up a functor
   cout << "first function\n";
-  Functor< const char*, TYPELIST_2(char, int) > func1(function);
+  Functor< const char*, TYPELIST_2(char, int) > func1(my_function);
   cout << endl;
 
   /*
