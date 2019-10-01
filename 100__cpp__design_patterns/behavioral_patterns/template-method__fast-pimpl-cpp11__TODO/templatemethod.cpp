@@ -81,21 +81,21 @@ struct FastArenaObject
   {
     return FixedAllocator::Instance()->Allocate(s);
   }
+
   static void operator delete( void* p)
   {
     FixedAllocator::Instance()->Deallocate(p);
   }
 };
 
-
+//* // TODO
 struct WorkerImpl : private FastArenaObject
 {
   // TODO: private elements here
-};
-// */
-
+/*/
 struct WorkerImpl
 {
+// */
   virtual ~WorkerImpl(){}
 
   virtual void operation1(int& arg) const
