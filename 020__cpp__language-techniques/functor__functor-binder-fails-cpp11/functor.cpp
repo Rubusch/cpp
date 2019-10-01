@@ -31,7 +31,7 @@ int main()
   using namespace std;
 
   // set up a functor
-  cout << "first function" << endl;
+  cout << "1. function" << endl;
   Functor< const char*, TL::Typelist< char, int > > func1(my_function); // TODO function?
   cout << endl;
 
@@ -41,38 +41,27 @@ int main()
     and another parameter of the second Functor
   // */
   try {
-    cout << "second function" << endl;
+    cout << "2. function" << endl;
     Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10));
-    cout << endl;
-
     // prints: "Fun(10, 15) called"
     cout << "function call" << endl;
     func2(15); // problematic for binder
-    cout << endl;
   } catch (exception &e) {
     cout << "!!! AN EXCEPTION WAS CAUGHT (as expected)" << endl;
     cout << "!!! " << e.what() << endl;
     cout << "!!! the BindFirst(func1, 10) failed" << endl;
-    cout << endl;
   }
-/*
-  try {
-    cout << "third function" << endl;
-    Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10));
-//    Functor< string, TL::Typelist< double > > func2( std::bind(func1, _1, 10) );
-    cout << endl;
+  cout << endl;
 
-    // prints: "Fun(10, 15) called"
-    cout << "function call" << endl;
-    func2(15); // problematic for binder
-    cout << endl;
-  } catch (exception &e) {
-    cout << "!!! AN EXCEPTION WAS CAUGHT (as expected)" << endl;
-    cout << "!!! " << e.what() << endl;
-    cout << "!!! the BindFirst(func1, 10) failed" << endl;
-    cout << endl;
-  }
-// */
+  cout << "3. function (using std::bind() functor)" << endl;
+  auto func3 = std::bind(func1, 10, 15);
+  func3(); // TODO bring 'func3(15);' to work
+  cout << endl;
+
+  cout << "4. function (using std::bind() functor)" << endl;
+  auto func4 = [](int arg2){ my_function(10, arg2); };
+  func4(15);
+  cout << endl;
 
   cout << "READY." << endl;
   return 0;
