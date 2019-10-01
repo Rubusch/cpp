@@ -55,6 +55,7 @@
 #include <iostream>
 #include <memory> /* smart pointers */
 
+
 struct WorkerImpl
 {
   virtual ~WorkerImpl(){}
@@ -153,7 +154,7 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int value = 1;
+  auto value = 1;
   cout << endl;
 
   cout << "algoritm 1 - full" << endl;
