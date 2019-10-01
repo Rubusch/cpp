@@ -29,10 +29,9 @@
 //     without express or implied warranty.
 ////////////////////////////////////////////////////////////////////////////////
 
-   last update: June 20, 2001
+   June 20, 2001: last loki update by Nick Thurn
 
-   adjusted and modified: Lothar Rubusch, 2019
-   note: ancient traits and binders using modernized variadic approach
+   August, 2019: adjusted and modified by Lothar Rubusch as a prove of concept
 // */
 
 
