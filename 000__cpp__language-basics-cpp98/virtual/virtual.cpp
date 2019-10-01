@@ -9,6 +9,29 @@
   Without "virtual" you have static binding with some side effects at
   overwriting a method.
 
+  Virtual base classes should not have member variables.
+
+
+
+  Controlled Polymorphism - Liskov Substitution Principle (LSP)
+
+  * IS-A relation: public inheritance
+
+  * IS-A / WORKS-AS / CAN-BE-USED-AS: private and protected inheritance,
+    respectively
+
+  * HAS-A relation: member variable or pointer (aggregation)
+
+  * IS-IMPLEMENTED-WITH: implementation pointer as a member
+
+
+
+  Generally prefer looser relations!!!
+
+  Closer:                                                               Looser:
+
+  friend / composition < pub. inheritance < priv. inheritance < aggr. < assoc.
+
 
   ---
 
@@ -27,12 +50,20 @@
 
   * final: virtual functions that cannot be overwritten anymore
 
+  * try to avoid public virtual method, in favor of the Template Pattern
+
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
   Generally try to avoid inheritance in favor of aggregation patterns.
   Inheritance is only needed when virtual functions (functions need to be
   overwriteable), or members are within a protected block are around.
   By Liskov public inheritance implements a 'IS-A' relation. Everything else
   should be modeled as aggregation 'HAS-A', or 'IS-IMPLEMENTED-WITH' (which
   can also be private inheritance). [Sutter, 2000]
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 
   RESOURCES
