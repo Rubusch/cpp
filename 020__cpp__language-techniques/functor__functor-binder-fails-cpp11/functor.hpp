@@ -376,7 +376,7 @@ class FunctorImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template FunctorImpl
-// Specialization for 0 (zero) parameters [C++11: probably not needed anymore]
+// Specialization for 0 (zero) parameters
 ////////////////////////////////////////////////////////////////////////////////
 
 template< typename R >
@@ -385,6 +385,7 @@ class FunctorImpl< R, NIL >
 {
 public:
   using ResultType = R;
+
   virtual R operator()() = 0;
 };
 
@@ -393,6 +394,7 @@ public:
 // Specialization for 1 parameter
 ////////////////////////////////////////////////////////////////////////////////
 
+// totally abstract!!!
 template< typename R, typename P1 >
 class FunctorImpl< R, TL::Typelist< P1 > >
   : public Private::FunctorImplBase< R >
@@ -409,6 +411,7 @@ class FunctorImpl< R, TL::Typelist< P1 > >
 // Specialization for 2 parameters
 ////////////////////////////////////////////////////////////////////////////////
 
+// totally abstract!!!
 template< typename R, typename P1, typename P2 >
 class FunctorImpl< R, TL::Typelist< P1, P2 > >
   : public Private::FunctorImplBase< R >
@@ -442,9 +445,11 @@ public:
   //
   // the private 'f_()' will be initialized with *this, this has op(), op(p1), op(p1, p2) overloaded,
   // thus the passed object of template Fun via '*this' can be called as a function via ops()
-  FunctorHandler(const Fun& fun) : f_(fun) {}
+  FunctorHandler(const Fun& fun) : f_(fun)
+  {}
 
-  virtual FunctorHandler* DoClone() const { return new FunctorHandler(*this); }
+  virtual FunctorHandler* DoClone() const
+  { return new FunctorHandler(*this); }
 
   // operator() implementations
   ResultType operator()()
@@ -475,11 +480,11 @@ public:
   using Parm1 = typename Base::Parm1;
   using Parm2 = typename Base::Parm2;
 
-  MemFunHandler(const PointerToObj& pObj, PointerToMemFn pMemFn)
-    : pObj_(pObj), pMemFn_(pMemFn)
+  MemFunHandler(const PointerToObj& pObj, PointerToMemFn pMemFn) : pObj_(pObj), pMemFn_(pMemFn)
   {}
 
-  virtual MemFunHandler* DoClone() const { return new MemFunHandler(*this); }
+  virtual MemFunHandler* DoClone() const
+  { return new MemFunHandler(*this); }
 
     ResultType operator()()
   { return ((*pObj_).*pMemFn_)(); }
@@ -547,7 +552,7 @@ public:
     Functor copy(rhs);
 
     // swap smart ptrs by hand
-    Impl *pImpl = spImpl_.release();
+    auto *pImpl = spImpl_.release();
     spImpl_.reset(copy.spImpl_.release());
     copy.spImpl_.reset(pImpl);
 
@@ -564,7 +569,7 @@ public:
   { return (*spImpl_)(p1, p2); }
 
 private:
-  std::shared_ptr<Impl> spImpl_;
+  std::shared_ptr< Impl > spImpl_;
 };
 
 namespace Private
