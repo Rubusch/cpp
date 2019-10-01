@@ -592,7 +592,7 @@ namespace Private
 
 template< class OriginalFunctor >
 class BinderFirst
-  : public Private::BinderFirstTraits<OriginalFunctor>::Impl
+  : public Private::BinderFirstTraits< OriginalFunctor >::Impl
 {
   using Base = typename Private::BinderFirstTraits< OriginalFunctor >::Impl;
   using ResultType = typename OriginalFunctor::ResultType;
