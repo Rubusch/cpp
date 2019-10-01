@@ -2,13 +2,13 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = templatemethod.exe
-SOURCE =  templatemethod.cpp
+SOURCE = templatemethod.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall -Werror -pedantic
+CFLAGS = -g -Wall -Werror -pedantic -std=c++98
 RM = rm -f
 
 .cpp.o:

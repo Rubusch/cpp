@@ -2,8 +2,8 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = templatemethod.exe
-SOURCE =  templatemethod.cpp
+SOURCE = templatemethod.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
