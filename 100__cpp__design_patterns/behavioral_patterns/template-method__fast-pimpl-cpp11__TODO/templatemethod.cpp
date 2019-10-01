@@ -1,5 +1,11 @@
 // templatemethod.cpp
 /*
+  The Fast Impl is a tuning for the Template Method, in case allocation /
+  deallocation becomes a performance issue. Further it shows a combination of
+  the Template Pattern with a use case for a Singleton Pattern.
+
+  First make things correct, before trying to make them fast (tuning)!!!
+
   Define the skeleton of an algorithm in an operation, deferring some steps
   to subclasses.
   Template Method lets a subclasses redefine certain steps in an algorithm
@@ -44,7 +50,6 @@
   in maintenance.
 
 
-
   RESOURCES
 
   * Design Patterns, GoF, 1995
@@ -55,6 +60,39 @@
 #include <iostream>
 #include <memory> /* smart pointers */
 
+
+/* TODO     
+class FixedAllocator
+{
+public:
+  static FixedAllocator& Instance();
+  void* Allocate( size_t );
+  void Deallocate( void* );
+private:
+  // singleton
+  // TODO
+};
+
+struct FastArenaObject
+{
+  // ALWAYS when implementing 'operator new()', also implement 'operator delete()'
+  // and vice versa!!!
+  static void* operator new( size_t s)
+  {
+    return FixedAllocator::Instance()->Allocate(s);
+  }
+  static void operator delete( void* p)
+  {
+    FixedAllocator::Instance()->Deallocate(p);
+  }
+};
+
+
+struct WorkerImpl : private FastArenaObject
+{
+  // TODO: private elements here
+};
+// */
 
 struct WorkerImpl
 {
