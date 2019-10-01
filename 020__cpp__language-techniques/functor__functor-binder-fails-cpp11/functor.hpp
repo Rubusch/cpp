@@ -391,6 +391,7 @@ namespace Private
 #define DEFINE_CLONE_FUNCTORIMPL(Cls) \
     virtual Cls* DoClone() const { return new Cls(*this); }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template FunctorImpl
 // The base class for a hierarchy of functors. The FunctorImpl class is not used
@@ -469,7 +470,8 @@ public:
 
   FunctorHandler(const Fun& fun) : f_(fun) {}
 
-  DEFINE_CLONE_FUNCTORIMPL(FunctorHandler)
+//  DEFINE_CLONE_FUNCTORIMPL(FunctorHandler)
+  virtual FunctorHandler* DoClone() const { return new FunctorHandler(*this); }
 
   // operator() implementations for up to 15 arguments
 
@@ -505,7 +507,8 @@ public:
     : pObj_(pObj), pMemFn_(pMemFn)
   {}
 
-  DEFINE_CLONE_FUNCTORIMPL(MemFunHandler)
+//  DEFINE_CLONE_FUNCTORIMPL(MemFunHandler) // TODO rm
+  virtual MemFunHandler* DoClone() const { return new MemFunHandler(*this); }
 
     ResultType operator()()
   { return ((*pObj_).*pMemFn_)(); }
