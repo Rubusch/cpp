@@ -349,8 +349,9 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor__simple && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/observer1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/observer2 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/template_method1 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/template_method2 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__pimpl-cpp11 && make && ./*.ex
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__fast-pimpl-cpp11__TODO && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/chain_of_responsibility1 && make && ./*.exe
