@@ -384,15 +384,6 @@ namespace Private
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// macro DEFINE_CLONE_FUNCTORIMPL
-// Implements the DoClone function for a functor implementation
-////////////////////////////////////////////////////////////////////////////////
-
-#define DEFINE_CLONE_FUNCTORIMPL(Cls) \
-    virtual Cls* DoClone() const { return new Cls(*this); }
-
-
-////////////////////////////////////////////////////////////////////////////////
 // class template FunctorImpl
 // The base class for a hierarchy of functors. The FunctorImpl class is not used
 //     directly; rather, the Functor class manages and forwards to a pointer to
@@ -470,7 +461,6 @@ public:
 
   FunctorHandler(const Fun& fun) : f_(fun) {}
 
-//  DEFINE_CLONE_FUNCTORIMPL(FunctorHandler)
   virtual FunctorHandler* DoClone() const { return new FunctorHandler(*this); }
 
   // operator() implementations for up to 15 arguments
@@ -507,7 +497,6 @@ public:
     : pObj_(pObj), pMemFn_(pMemFn)
   {}
 
-//  DEFINE_CLONE_FUNCTORIMPL(MemFunHandler) // TODO rm
   virtual MemFunHandler* DoClone() const { return new MemFunHandler(*this); }
 
     ResultType operator()()
@@ -629,7 +618,7 @@ public:
     : f_(fun), b_(bound)
   {}
 
-  DEFINE_CLONE_FUNCTORIMPL(BinderFirst)
+  virtual BinderFirst* DoClone() const { return new BinderFirst(*this); }
 
   ResultType operator()()
   { return f_(b_); }
@@ -673,7 +662,7 @@ public:
 
   Chainer(const Fun1& fun1, const Fun2& fun2) : f1_(fun1), f2_(fun2) {}
 
-  DEFINE_CLONE_FUNCTORIMPL(Chainer)
+  virtual Chainer* DoClone() const { return new Chainer(*this); }
 
   // operator() implementations for up to 15 arguments
 
