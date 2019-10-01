@@ -5,11 +5,10 @@
   (taken from Alexandrescu, 2001)
 //*/
 
+#include "functor.hpp"
 
 #include <iostream>
-
-
-#include "functor.hpp"
+#include <exception>
 
 
 /*
@@ -39,14 +38,20 @@ int main()
     -> the function will be called with one parameter of the first
     and another parameter of the second Functor
   // */
-  cout << "second function\n";
-  Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10)); // TODO bind( _1... ), or lambda? 
-  cout << endl;
+  try {
+    cout << "second function\n";
+    Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10));
+    cout << endl;
 
-  // prints: "Fun(10, 15) called"
-  cout << "function call\n";
-  func2(15);
-  cout << endl;
+    // prints: "Fun(10, 15) called"
+    cout << "function call\n";
+    func2(15);
+    cout << endl;
+  } catch (exception &e) {
+    cout << "!!! AN EXCEPTION WAS CAUGHT (as expected)" << endl;
+    cout << "!!! " << e.what() << endl;
+    cout << "!!! the BindFirst(func1, 10) failed" << endl;
+  }
 
 
   cout << "READY.\n";

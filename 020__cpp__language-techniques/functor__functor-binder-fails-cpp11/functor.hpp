@@ -375,6 +375,8 @@ namespace Private
   template < typename R >
   struct FunctorImplBase
   {
+    virtual ~FunctorImplBase(){}
+
 //    typedef R ResultType; // TODO rm
     using ResultType = R;
 
@@ -385,6 +387,7 @@ namespace Private
     using Parm2 = EmptyType;
 
     virtual FunctorImplBase* DoClone() const = 0;
+
     template <class U>
     static U* Clone(U* pObj)
     {
@@ -413,11 +416,6 @@ namespace Private
 // Specializations of FunctorImpl for up to 15 parameters follow
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <typename R, class TList,
-          template <class> class ThreadingModel = DEFAULT_THREADING>
-class FunctorImpl;
-//*/
 template < typename R, class TList >
 class FunctorImpl;
 
@@ -426,11 +424,6 @@ class FunctorImpl;
 // Specialization for 0 (zero) parameters
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <typename R, template <class> class ThreadingModel>
-class FunctorImpl<R, NullType, ThreadingModel>
-  : public Private::FunctorImplBase<R, ThreadingModel>
-//*/
 template< typename R >
 class FunctorImpl< R, NIL >
   : public Private::FunctorImplBase< R >
@@ -446,11 +439,6 @@ public:
 // Specialization for 1 parameter
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <typename R, typename P1, template <class> class ThreadingModel>
-class FunctorImpl<R, TYPELIST_1(P1), ThreadingModel>
-  : public Private::FunctorImplBase<R, ThreadingModel>
-//*/
 template< typename R, typename P1 >
 //class FunctorImpl< R, TYPELIST_1( P1 ) > // TODO rm
 class FunctorImpl< R, TL::Typelist< P1 > >
@@ -471,12 +459,6 @@ class FunctorImpl< R, TL::Typelist< P1 > >
 // Specialization for 2 parameters
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <typename R, typename P1, typename P2,
-          template <class> class ThreadingModel>
-class FunctorImpl<R, TYPELIST_2(P1, P2), ThreadingModel>
-  : public Private::FunctorImplBase<R, ThreadingModel>
-//*/
 template< typename R, typename P1, typename P2 >
 //class FunctorImpl< R, TYPELIST_2(P1, P2) > // TODO rm 
 class FunctorImpl< R, TL::Typelist< P1, P2 > >
@@ -522,9 +504,9 @@ public:
 
   DEFINE_CLONE_FUNCTORIMPL(FunctorHandler)
 
-    // operator() implementations for up to 15 arguments
+  // operator() implementations for up to 15 arguments
 
-    ResultType operator()()
+  ResultType operator()()
   { return f_(); }
 
   ResultType operator()(Parm1 p1)
@@ -542,11 +524,6 @@ private:
 // Wraps pointers to member functions
 ////////////////////////////////////////////////////////////////////////////////
 
-/*
-template <class ParentFunctor, typename PointerToObj,
-          typename PointerToMemFn>
-class MemFunHandler : public ParentFunctor::Impl
-//*/
 template <class ParentFunctor, typename PointerToObj, typename PointerToMemFn>
 class MemFunHandler : public ParentFunctor::Impl
 {
