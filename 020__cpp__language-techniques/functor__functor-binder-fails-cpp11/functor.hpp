@@ -374,6 +374,7 @@ namespace Private
   };
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // class template FunctorImpl
 // The base class for a hierarchy of functors. The FunctorImpl class is not used
