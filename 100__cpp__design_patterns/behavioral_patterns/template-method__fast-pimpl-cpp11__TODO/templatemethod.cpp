@@ -59,14 +59,32 @@
 
 #include <iostream>
 #include <memory> /* smart pointers */
+#include <exception>
+
+class MemoryDisaster : public std::exception
+{
+public:
+  const char* what() const throw()
+  {
+    return "FIXME: Memory Pool Issues!";
+  }
+};
 
 
 /*
   Small allocator as Singleton.
+
+  NOTE: this allocator is a hip shot and not tested at all, the purpose
+  of the implementation is to show where and how to fix in a customized allocator
+  and not how to implement a correct allocator
 // */
 class FixedAllocator
 {
   static  FixedAllocator* pInstance_;
+
+  static constexpr auto memory_size_ = 10000;
+  static int memory_consumed_;
+  static uint8_t memory_[memory_size_];
 
 public:
   static FixedAllocator& getInstance();
@@ -74,18 +92,56 @@ public:
   void* Allocate( const size_t size )
   {
     std::cout << "CALLED: Allocate()" << std::endl;
-    return malloc(sizeof(void*) * size);
 
-    // alternatively
-    //char ptr[size]; return (void*)ptr;
+// alternative: dynamic allocation with malloc()
+//    return malloc(sizeof(void*) * size);
 
-//    return nullptr;
+// alternative: static allocation with mem pool (simple)
+    size_t header_size = 1; // first item keeps the offset
+    size_t alloc_size = header_size + size;
+
+
+    // check that size is not bigger than capable to keep as offset
+    if (sizeof(uint8_t) > alloc_size) throw MemoryDisaster();
+
+    // check if there's still memory
+    if (memory_size_ < memory_consumed_ + alloc_size) throw MemoryDisaster();
+
+    uint8_t *ptr = memory_ + memory_consumed_;
+
+    // write offset into first element
+    *ptr = alloc_size;
+
+    // shift to 'real' address for user
+    ptr = ptr + header_size;
+
+    // book keeping
+    memory_consumed_ += alloc_size;
+
+    return (void*) ptr;
   }
 
   void Deallocate( void* ptr )
   {
     std::cout << "CALLED: Deallocate()" << std::endl;
-    free(ptr);
+
+// alternative: dynamic
+//    free(ptr);
+
+// alternative: static pool
+    if (nullptr == ptr) throw MemoryDisaster();
+
+    uint8_t* memory_ptr = (uint8_t*) ptr; // FIXME
+    size_t header_size = 1;
+
+    // get address before pointer i.e. the header and read out stored offset value
+    size_t offset = *(memory_ptr - header_size);
+
+    // compute alloc_size
+    size_t alloc_size = header_size + offset;
+
+    if (0 > memory_consumed_ - alloc_size) throw MemoryDisaster();
+    memory_consumed_ -= alloc_size;
   }
 
 private:
@@ -96,6 +152,8 @@ private:
 };
 
 // separate declaration due to 'static'
+int FixedAllocator::memory_consumed_ = 0;
+uint8_t FixedAllocator::memory_[FixedAllocator::memory_size_];
 FixedAllocator* FixedAllocator::pInstance_;
 
 // separate declaration due to 'static'
@@ -110,8 +168,6 @@ FixedAllocator::getInstance()
   }
   return *pInstance_;
 }
-
-
 
 struct FastArenaObject
 {
@@ -129,16 +185,9 @@ struct FastArenaObject
     FixedAllocator::getInstance().Deallocate(p);
   }
 };
-// */
 
-//* // TODO
 struct WorkerImpl : public FastArenaObject
 {
-  // TODO: private elements here
-/*/
-struct WorkerImpl
-{
-// */
   virtual ~WorkerImpl() = default;
 
   virtual void operation1(int& arg) const
