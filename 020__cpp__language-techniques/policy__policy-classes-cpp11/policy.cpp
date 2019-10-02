@@ -48,8 +48,18 @@
 #include <cstdlib>
 
 
+/*
+  the user class implements something as the Template Method Pattern via
+  templates, alternatively an pImpl pointer to a corresponding implementation
+  may be passed
+
+  to the outside only one access method (alternatively ctor or operator()
+  overloaded) is available, here doSomething(), the internal implementation
+  comes from a separate implementor, pImpl or here 'policy' as a template
+ */
 template< typename U, typename allocPolicy_t >
-class UserClass : public allocPolicy_t
+class UserClass
+  : public allocPolicy_t
 {
 private:
   using allocPolicy_t::create;
@@ -61,13 +71,13 @@ public:
     std::cout << "\tUserClass::doSomething()\n";
 
     std::cout << "\t         ::doSomething() - create some variable\n";
-    U* u = create();
+    auto u_obj = create(); // 'U*' is returned
     std::cout << "\t         ::doSomething() - ok.\n"
               << std::endl;
 
 
     std::cout << "\t         ::doSomething() - now destroy\n";
-    destroy( &u);
+    destroy( &u_obj);
     std::cout << "\t         ::doSomething() - ok.\n"
               << std::endl;
 
@@ -87,7 +97,9 @@ public:
 /*
   alloc policy
 
-  uses "new" to allocate
+  uses "new" to allocate - allocator, can also be implemented as static singleton
+
+  policy: is passed as template argument!
 //*/
 template< class T >
 class NewPolicy
@@ -96,7 +108,6 @@ protected:
   static T* create()
   {
     std::cout << "\t\tNewPolicy::create()\n";
-
     return new T;
   }
 
@@ -104,7 +115,6 @@ protected:
   void destroy( T** t)
   {
     std::cout << "\t\tNewPolicy::destroy( T** t)\n";
-
     delete *t; *t = nullptr;
   }
 
@@ -120,6 +130,8 @@ protected:
   alloc policy
 
   uses malloc()
+
+  policy: is passed as template argument!
 //*/
 template< class T >
 class MallocPolicy
