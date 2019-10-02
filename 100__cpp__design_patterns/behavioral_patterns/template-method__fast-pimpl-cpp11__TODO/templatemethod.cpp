@@ -55,7 +55,7 @@
   * Design Patterns, GoF, 1995
 
   * Exceptional C++, Herb Sutter, 2000
-//*/
+// */
 
 #include <iostream>
 #include <memory> /* smart pointers */
@@ -87,8 +87,9 @@ struct FastArenaObject
     FixedAllocator::Instance()->Deallocate(p);
   }
 };
+// */
 
-//* // TODO
+/* // TODO
 struct WorkerImpl : private FastArenaObject
 {
   // TODO: private elements here
