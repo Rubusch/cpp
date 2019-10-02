@@ -2,10 +2,9 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = chainofresponsibility.exe
-SOURCE = *.cpp
+SOURCE = chainofresponsibility.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
-
 .PREFIXES = .cpp .o
 CC = g++
 CFLAGS = -g -Wall -Werror -pedantic
