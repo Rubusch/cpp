@@ -61,43 +61,85 @@
 #include <memory> /* smart pointers */
 
 
-/* TODO     
+/*
+  Small allocator as Singleton.
+// */
 class FixedAllocator
 {
+  static  FixedAllocator* pInstance_;
+
 public:
-  static FixedAllocator& Instance();
-  void* Allocate( size_t );
-  void Deallocate( void* );
+  static FixedAllocator& getInstance();
+
+  void* Allocate( const size_t size )
+  {
+    std::cout << "CALLED: Allocate()" << std::endl;
+    return malloc(sizeof(void*) * size);
+
+    // alternatively
+    //char ptr[size]; return (void*)ptr;
+
+//    return nullptr;
+  }
+
+  void Deallocate( void* ptr )
+  {
+    std::cout << "CALLED: Deallocate()" << std::endl;
+    free(ptr);
+  }
+
 private:
-  // singleton
-  // TODO
+  FixedAllocator() = default;
+  ~FixedAllocator() = default;
+  FixedAllocator(const FixedAllocator&) = delete;
+  const FixedAllocator& operator=( FixedAllocator const& ) = delete;
 };
+
+// separate declaration due to 'static'
+FixedAllocator* FixedAllocator::pInstance_;
+
+// separate declaration due to 'static'
+FixedAllocator&
+FixedAllocator::getInstance()
+{
+  if (nullptr == pInstance_) {
+    pInstance_ = new FixedAllocator(); // OK, if not supposed to be killed
+    if (nullptr == pInstance_) {
+      std::cerr << "ERROR: Singleton instantiation failed!" << std::endl;
+    }
+  }
+  return *pInstance_;
+}
+
+
 
 struct FastArenaObject
 {
+  virtual ~FastArenaObject() = default;
+
   // ALWAYS when implementing 'operator new()', also implement 'operator delete()'
   // and vice versa!!!
   static void* operator new( size_t s)
   {
-    return FixedAllocator::Instance()->Allocate(s);
+    return FixedAllocator::getInstance().Allocate(s);
   }
 
   static void operator delete( void* p)
   {
-    FixedAllocator::Instance()->Deallocate(p);
+    FixedAllocator::getInstance().Deallocate(p);
   }
 };
 // */
 
-/* // TODO
-struct WorkerImpl : private FastArenaObject
+//* // TODO
+struct WorkerImpl : public FastArenaObject
 {
   // TODO: private elements here
 /*/
 struct WorkerImpl
 {
 // */
-  virtual ~WorkerImpl(){}
+  virtual ~WorkerImpl() = default;
 
   virtual void operation1(int& arg) const
   {
@@ -128,6 +170,8 @@ struct WorkerImpl
 struct ConcWorkerImpl
 : public WorkerImpl
 {
+  virtual ~ConcWorkerImpl() = default;
+
   void operation1(int& arg) const
   {
     std::cout << "\tConcreteClass2::operation1( int&)\n";
