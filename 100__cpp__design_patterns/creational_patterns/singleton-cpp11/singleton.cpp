@@ -83,7 +83,7 @@ private:
   const Singleton& operator=( Singleton const&) = delete;
 
   // no public dtor -> private, will never be called
-  ~Singleton() = delete; // FIXME
+  ~Singleton() = delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
 
 public:
   // global point of access
