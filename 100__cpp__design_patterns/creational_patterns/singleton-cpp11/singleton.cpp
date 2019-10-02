@@ -90,7 +90,7 @@ public:
   static Singleton* getInstance()
   {
     if (nullptr == pInstance_) {
-      pInstance_ = new Singleton();
+      pInstance_ = new Singleton(); // OK, if the Singleton is not supposed to be killed and restarted (see discussion in Alexandrescu)
       if (nullptr == pInstance_) {
         std::cerr << "ERROR: Singleton instantiation failed!\n";
       }
