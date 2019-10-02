@@ -327,7 +327,6 @@ jobs:
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy__inner-proxy-cpp98 && make && ./*.exe
-
       - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/builder-cpp98 && make && ./*.exe
@@ -339,7 +338,6 @@ jobs:
       - run: cd 100__cpp__design_patterns/creational_patterns/prototype2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp11 && make && ./*.exe
-
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator1 && make && ./*.exe
@@ -351,7 +349,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/observer2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__pimpl-cpp11 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__fast-pimpl-cpp11__TODO && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__fast-pimpl-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/chain_of_responsibility1 && make && ./*.exe
