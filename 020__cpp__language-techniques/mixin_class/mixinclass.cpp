@@ -8,8 +8,7 @@
 
   (http://en.wikipedia.org/wiki/Mixin)
 
-
-  Examples of mixin classes are Policies or Type Traits.
+  Example of mixin classes are Policies or Type Traits.
 //*/
 
 
@@ -36,6 +35,7 @@ public:
 };
 
 
+/* entinge type as Mixin class (via template) */
 template< typename Engine_t = DefaultImpulseEngine >
 class StarShip
 {
