@@ -119,29 +119,18 @@ int main()
   /*
     define the type to work and instantiate
   //*/
-  typedef HelloWorld<
-    OutputPolicy_PrintMe
-    , LanguagePolicy_English
-    >
-    helloWorld_t;
-
-  helloWorld_t helloWorld_1;
+  using helloWorld_t = HelloWorld< OutputPolicy_PrintMe, LanguagePolicy_English >;
+  auto helloWorld_1 = helloWorld_t();
   helloWorld_1.doSomething();
   cout << endl;
-
 
   cout << "instance \"flavor B\"..\n";
   /*
     now define another type to work using diferent policies
     and instantiate
   //*/
-  typedef HelloWorld<
-    OutputPolicy_PrintMe
-    , LanguagePolicy_French
-    >
-    other_helloWorld_t;
-
-  other_helloWorld_t helloWorld_2;
+  using other_helloWorld_t = HelloWorld< OutputPolicy_PrintMe, LanguagePolicy_French >;
+  auto helloWorld_2 = other_helloWorld_t();
   helloWorld_2.doSomething();
   cout << endl;
 
