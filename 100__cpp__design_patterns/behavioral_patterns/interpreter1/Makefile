@@ -2,20 +2,20 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = interpreter.exe
-SOURCE = *.cpp
+SOURCE = interpreter.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS = $(SOURCE:.cpp=.o)
 
 .PREFIXES = .cpp .o
 CC = g++
-CFLAGS = -g -Wall -Werror -pedantic
+CPPFLAGS = -g -Wall -Werror -pedantic -std=c++98
 RM = rm -f
 
 .cpp.o:
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CPPFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
 
 all: $(TARGET)
 
