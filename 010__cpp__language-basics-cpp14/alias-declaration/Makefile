@@ -1,6 +1,7 @@
 # Makefile for C++ Class
-TARGET = alias.exe
+
 SOURCE	= alias.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 
 .PREFIXES	= .cpp .o
