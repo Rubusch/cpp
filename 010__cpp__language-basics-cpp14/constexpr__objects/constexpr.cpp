@@ -54,7 +54,7 @@ int main(void)
 
   // 3. 'const' doesn't offer the same guarantee as 'constexpr'
   int size3 = 10; // must be initialized
-  const auto arraySize3 = size3; // OK
+  const auto arraySize3 = size3; // OK (never read, will cause warnings!)
 //  std::array<int, arraySize3> data3; // ERROR!
 
   // a 'const' can't be used in this literal expression, since a 'const' needs
