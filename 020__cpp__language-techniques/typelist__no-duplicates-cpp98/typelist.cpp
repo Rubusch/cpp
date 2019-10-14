@@ -12,20 +12,18 @@
   The null type
 //*/
 class NullType
-{};
+{
+};
 
 
 /*
   The typelist itself
 //*/
-template< class T, class U >
-struct Typelist_
-{
-  typedef T
-    Head;
+template < class T, class U >
+struct Typelist_ {
+  typedef T Head;
 
-  typedef U
-    Tail;
+  typedef U Tail;
 };
 
 
@@ -36,33 +34,28 @@ struct Typelist_
 //*/
 
 // declaration for 4 elements
-template< class T1, class T2 = NullType, class T3 = NullType, class T4 = NullType >
-struct Typelist
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
-    type_t;
+template < class T1, class T2 = NullType, class T3 = NullType,
+           class T4 = NullType >
+struct Typelist {
+  typedef Typelist_<
+      T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
+      type_t;
 };
 
 // definitions..
-template< class T1 >
-struct Typelist< T1, NullType, NullType, NullType >
-{
-  typedef Typelist_< T1, NullType >
-    type_t;
+template < class T1 >
+struct Typelist< T1, NullType, NullType, NullType > {
+  typedef Typelist_< T1, NullType > type_t;
 };
 
-template< class T1, class T2 >
-struct Typelist< T1, T2, NullType, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, NullType > >
-    type_t;
+template < class T1, class T2 >
+struct Typelist< T1, T2, NullType, NullType > {
+  typedef Typelist_< T1, Typelist_< T2, NullType > > type_t;
 };
 
-template< class T1, class T2, class T3 >
-struct Typelist< T1, T2, T3, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > >
-    type_t;
+template < class T1, class T2, class T3 >
+struct Typelist< T1, T2, T3, NullType > {
+  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > > type_t;
 };
 
 
@@ -80,17 +73,16 @@ namespace TL
     Usage:
     int iLength = TL::Length< MyTypelist >::value;
   //*/
-  template< class TList >
+  template < class TList >
   struct Length;
 
-  template<> struct Length< NullType >
-  {
+  template <>
+  struct Length< NullType > {
     enum { value = 0 };
   };
 
-  template< class T, class U >
-  struct Length< Typelist_< T, U > >
-  {
+  template < class T, class U >
+  struct Length< Typelist_< T, U > > {
     enum { value = 1 + Length< U >::value };
   };
 
@@ -104,32 +96,28 @@ namespace TL
     Algorithm:
     IF TList is non-null and i is zero, then Result is the head of TList
     ELSE
-      IF TList is non-null and index i is nonzero, then Result is obtained by applying
-        TypeAt to the tail of TList and i-1
-      ELSE there is an out-of-bound access that translates into a compile-time error
+      IF TList is non-null and index i is nonzero, then Result is obtained by
+  applying TypeAt to the tail of TList and i-1 ELSE there is an out-of-bound
+  access that translates into a compile-time error
 
     Usage:
     TL::TypeAt< MyTypelist, idx >::Result variable;
   //*/
 
   // basic template form
-  template< class TList, unsigned int index >
+  template < class TList, unsigned int index >
   struct TypeAt;
 
   // head
-  template< class Head, class Tail >
-  struct TypeAt< Typelist_< Head, Tail >, 0 >
-  {
-    typedef Head
-      Result;
+  template < class Head, class Tail >
+  struct TypeAt< Typelist_< Head, Tail >, 0 > {
+    typedef Head Result;
   };
 
   // any element
-  template< class Head, class Tail, unsigned int i >
-  struct TypeAt< Typelist_< Head, Tail >, i>
-  {
-    typedef typename TypeAt< Tail, i-1 >::Result
-      Result;
+  template < class Head, class Tail, unsigned int i >
+  struct TypeAt< Typelist_< Head, Tail >, i > {
+    typedef typename TypeAt< Tail, i - 1 >::Result Result;
   };
 
 
@@ -146,28 +134,22 @@ namespace TL
     Usage:
     typedef Erase< MyTypelist, TypeToErase >::Result MyNewTypelist;
   //*/
-  template< class TList, class T >
+  template < class TList, class T >
   struct Erase;
 
-  template< class T >
-  struct Erase< NullType, T >
-  {
-    typedef NullType
-      Result;
+  template < class T >
+  struct Erase< NullType, T > {
+    typedef NullType Result;
   };
 
-  template< class T, class Tail >
-  struct Erase< Typelist_< T, Tail >, T >
-  {
-    typedef Tail
-      Result;
+  template < class T, class Tail >
+  struct Erase< Typelist_< T, Tail >, T > {
+    typedef Tail Result;
   };
 
-  template< class Head, class Tail, class T >
-  struct Erase< Typelist_< Head, Tail > , T >
-  {
-    typedef Typelist_< Head, typename Erase< Tail, T >::Result >
-      Result;
+  template < class Head, class Tail, class T >
+  struct Erase< Typelist_< Head, Tail >, T > {
+    typedef Typelist_< Head, typename Erase< Tail, T >::Result > Result;
   };
 
 
@@ -184,29 +166,23 @@ namespace TL
     Usage:
     typedef TL::NoDuplicates< MyTypelist >::Result MyTypelistWithoutDuplicates;
   //*/
-  template< class TList >
+  template < class TList >
   struct NoDuplicates;
 
-  template<>
-  struct NoDuplicates< NullType >
-  {
-    typedef NullType
-      Result;
+  template <>
+  struct NoDuplicates< NullType > {
+    typedef NullType Result;
   };
 
-  template< class Head, class Tail >
-  struct NoDuplicates< Typelist_< Head, Tail > >
-  {
+  template < class Head, class Tail >
+  struct NoDuplicates< Typelist_< Head, Tail > > {
   private:
-    typedef typename NoDuplicates< Tail >::Result
-      L1;
+    typedef typename NoDuplicates< Tail >::Result L1;
 
-    typedef typename Erase< L1, Head >::Result
-      L2;
+    typedef typename Erase< L1, Head >::Result L2;
 
   public:
-    typedef Typelist_< Head, L2 >
-      Result;
+    typedef Typelist_< Head, L2 > Result;
   };
 
 
@@ -222,32 +198,27 @@ namespace TL
         result of applying Replace to TList, T, and U as its tail.
 
     Usage:
-    typedef TL::Replace< MyTypelist, TypeToRemove, TypeToReplace >::Result MyReplacedTypelist;
+    typedef TL::Replace< MyTypelist, TypeToRemove, TypeToReplace >::Result
+  MyReplacedTypelist;
   //*/
-  template< class TList, class T, class U >
+  template < class TList, class T, class U >
   struct Replace;
 
-  template< class T, class U >
-  struct Replace< NullType, T, U >
-  {
-    typedef NullType
-      Result;
+  template < class T, class U >
+  struct Replace< NullType, T, U > {
+    typedef NullType Result;
   };
 
-  template< class T, class Tail, class U >
-  struct Replace< Typelist_< T, Tail >, T, U >
-  {
-    typedef Typelist_< U, Tail >
-      Result;
+  template < class T, class Tail, class U >
+  struct Replace< Typelist_< T, Tail >, T, U > {
+    typedef Typelist_< U, Tail > Result;
   };
 
-  template< class Head, class Tail, class T, class U >
-  struct Replace< Typelist_< Head, Tail >, T, U >
-  {
-    typedef Typelist_< Head, typename Replace< Tail, T, U >::Result>
-      Result;
+  template < class Head, class Tail, class T, class U >
+  struct Replace< Typelist_< Head, Tail >, T, U > {
+    typedef Typelist_< Head, typename Replace< Tail, T, U >::Result > Result;
   };
-}
+} // namespace TL
 
 
 /*
@@ -261,7 +232,7 @@ int main()
   // init a TYPELIST_3 - old style: avoid MACROs!
   cout << "init a typelist...";
   typedef Typelist< unsigned char, unsigned short int, unsigned int >::type_t
-    MyTypelist_t;
+      MyTypelist_t;
   cout << "done.\n";
   cout << "length\t\t: " << TL::Length< MyTypelist_t >::value << endl;
   cout << endl;
@@ -270,26 +241,34 @@ int main()
   // replace elements
   cout << "REPLACE ELEMENTS\n";
   cout << "second element is \"unsigned int\"?\t: "
-       << ((typeid(unsigned int) == typeid(TL::TypeAt< MyTypelist_t, 2 >::Result)) ? "true" : "false")
+       << ((typeid(unsigned int) ==
+            typeid(TL::TypeAt< MyTypelist_t, 2 >::Result))
+               ? "true"
+               : "false")
        << endl;
   cout << "replacing elmenet \"unsigned int\" with \"unsigned char\"...";
   typedef TL::Replace< MyTypelist_t, unsigned int, unsigned char >::Result
-    MyReplacedTypelist_t;
+      MyReplacedTypelist_t;
   cout << "done.\n";
   cout << "now second element is \"unsigned char\"?\t: "
-       << ((typeid(unsigned char) == typeid(TL::TypeAt< MyReplacedTypelist_t, 2 >::Result)) ? "true" : "false")
+       << ((typeid(unsigned char) ==
+            typeid(TL::TypeAt< MyReplacedTypelist_t, 2 >::Result))
+               ? "true"
+               : "false")
        << endl;
   cout << endl;
 
 
   // erase duplicates
   cout << "ERASE DUPLICATES\n";
-  cout << "length before\t: " << TL::Length< MyReplacedTypelist_t >::value << endl;
+  cout << "length before\t: " << TL::Length< MyReplacedTypelist_t >::value
+       << endl;
   cout << "do NoDuplicates...";
   typedef TL::NoDuplicates< MyReplacedTypelist_t >::Result
-    MyTypelistWithoutDuplicates_t;
+      MyTypelistWithoutDuplicates_t;
   cout << "done.\n";
-  cout << "length after\t: " << TL::Length< MyTypelistWithoutDuplicates_t >::value << endl;
+  cout << "length after\t: "
+       << TL::Length< MyTypelistWithoutDuplicates_t >::value << endl;
 
 
   cout << "READY.\n";

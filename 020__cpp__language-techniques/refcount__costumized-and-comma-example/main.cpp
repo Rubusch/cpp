@@ -20,8 +20,8 @@
  * compile the code in this file as a stand-alone program, and you should get  *
  * this output:                                                                *
  *                                                                             *
- *     SomeClass with no changes.                                                 *
- *     SomeClass with    changes.                                                 *
+ *     SomeClass with no changes. *
+ *     SomeClass with    changes. *
  *     10                                                                      *
  *     -1                                                                      *
  *                                                                             *
@@ -79,20 +79,22 @@
     +---------------+ <SomeClass |           |      |
     |               |   Value>   |           |      |
     | RCPtr         |<---------<>|           |      |
-    |  (Smart Ptr)  |    (var)   |+--------------+  |          +----------------+
-    +---------------+            ||              |  |  points  | unspecified    |
-       < >                       ||SomeClassValue|<>---------->| data, here     |
-        |                        ||(inner class) |  |    to    | char*          |
-        |                        |+--------------+  |          +----------------+
-        |                        +----------/|\-----+
-        |                                    |
+    |  (Smart Ptr)  |    (var)   |+--------------+  | +----------------+
+    +---------------+            ||              |  |  points  | unspecified |
+       < >                       ||SomeClassValue|<>---------->| data, here | |
+ ||(inner class) |  |    to    | char*          | | |+--------------+  |
+ +----------------+ |                        +----------/|\-----+ | |
         +------------------------------------+
 
    - RCObject could also be "real" protocoll class for reference counting
-   - RCPtr is a smart pointer used by SomeClass to point to the inner class SomeClassValue
-   - SomeClassValue implements the idea of reference counting and common data itself
-   - SomeClass is a client that also holds a smart pointer to the SomeClassValue object
-   - unspecified data can be stored shared / not-shared, copy on write is also possible
+   - RCPtr is a smart pointer used by SomeClass to point to the inner class
+ SomeClassValue
+   - SomeClassValue implements the idea of reference counting and common data
+ itself
+   - SomeClass is a client that also holds a smart pointer to the SomeClassValue
+ object
+   - unspecified data can be stored shared / not-shared, copy on write is also
+ possible
 
 
 
@@ -115,17 +117,20 @@
     +---------------+  type:     |    |   |         |
     |               |  <Widget>  |    |   |         |
     | RCWidget      |<>--------->|   \|/  |         |
-    |               |    (var)   |+-------------+   |          +----------------+
-    +---------------+            ||             |   |  points  |                |
-                                 || CountHolder |<>----------->| Widget         |
-                                 ||(inner class)|   |    to    |                |
-                                 |+-------------+   |          +----------------+
+    |               |    (var)   |+-------------+   | +----------------+
+    +---------------+            ||             |   |  points  | |
+                                 || CountHolder |<>----------->| Widget |
+                                 ||(inner class)|   |    to    | |
+                                 |+-------------+   | +----------------+
                                  +------------------+
 
    - RCObject could also be "real" protocoll class for reference counting
-   - RCIPtr is a smart pointer that maintains a reference counting class: CountHolder
-   - CountHolder implements the idea of reference counting and common data itself
-   - RCWidget is a client that initializes the RCI Pointer with the type "Widget"
+   - RCIPtr is a smart pointer that maintains a reference counting class:
+ CountHolder
+   - CountHolder implements the idea of reference counting and common data
+ itself
+   - RCWidget is a client that initializes the RCI Pointer with the type
+ "Widget"
    - Widget will be the representation of "data" to store shared / not-shared
 */
 
@@ -154,8 +159,8 @@
 /*******************************************************************************
  * Functions to perform VERY simple test of the above.                         *
  ******************************************************************************/
-#include "someclass.hpp"
 #include "rcwidget.hpp"
+#include "someclass.hpp"
 
 
 /*
@@ -168,8 +173,8 @@ void testRCPtr()
 
   s2[15] = s2[16] = ' ';
 
-  std::cout << s1 << '\n';      // prints "SomeClass with no changes."
-  std::cout << s2 << '\n';      // prints "SomeClass with    changes."
+  std::cout << s1 << '\n'; // prints "SomeClass with no changes."
+  std::cout << s2 << '\n'; // prints "SomeClass with    changes."
 }
 
 
@@ -183,8 +188,8 @@ void testRCIPtr()
 
   w2.doThis();
 
-  std::cout << w1.showThat() << '\n';       // prints 10
-  std::cout << w2.showThat() << '\n';       // prints -1
+  std::cout << w1.showThat() << '\n'; // prints 10
+  std::cout << w2.showThat() << '\n'; // prints -1
 }
 
 

@@ -9,8 +9,8 @@
   rvalue    - has no accessible address, e.g. a plain number value (stored only
               temporarlily)
 
-  literal   - a fixed value, thus compile time constant i.e. known at compile time
-              (a literal type is a type defined at compile time)
+  literal   - a fixed value, thus compile time constant i.e. known at compile
+  time (a literal type is a type defined at compile time)
 
 
   conclusion:
@@ -29,8 +29,8 @@
   resources: Effective Modern C++, Scott Meyers, 2015
  */
 
-#include <iostream>
 #include <array>
+#include <iostream>
 
 using namespace std;
 
@@ -41,34 +41,33 @@ private:
   double x, y;
 
 public:
-  constexpr Point(double xVal = 0, double yVal = 0) noexcept
-    : x(xVal), y(yVal)
-  {}
+  constexpr Point(double xVal = 0, double yVal = 0) noexcept : x(xVal), y(yVal)
+  {
+  }
 
   constexpr double xValue() const noexcept { return x; }
   constexpr double yValue() const noexcept { return y; }
 
-/* // C++11
-  void setX(double newX) noexcept { x = newX; }
-  void setY(double newY) noexcept { y = newY; }
-/*/ // C++14
+  /* // C++11
+    void setX(double newX) noexcept { x = newX; }
+    void setY(double newY) noexcept { y = newY; }
+  /*/ // C++14
   constexpr void setX(double newX) noexcept { x = newX; }
   constexpr void setY(double newY) noexcept { y = newY; }
-// */
-
+  // */
 };
 
-// extension, some other dependent class - initialization also shifted to compile time
-constexpr
-Point midpoint(const Point& p1, const Point& p2) noexcept
+// extension, some other dependent class - initialization also shifted to
+// compile time
+constexpr Point midpoint(const Point &p1, const Point &p2) noexcept
 {
-  return { (p1.xValue() + p2.xValue()) / 2, (p1.yValue() + p2.yValue()) / 2 };
+  return {(p1.xValue() + p2.xValue()) / 2, (p1.yValue() + p2.yValue()) / 2};
 }
 
 //* // C++14: reflection
 //
 // return reflection of p with respect to the origin (C++14)
-constexpr Point reflection(const Point& p) noexcept
+constexpr Point reflection(const Point &p) noexcept
 {
   Point result;
   result.setX(-p.xValue()); // create non constant point
@@ -87,16 +86,17 @@ int main(void)
   cout << "point2(" << p2.xValue() << ", " << p2.yValue() << ")" << endl;
   cout << endl;
 
-  // using even derrived operations e.g. computation of midpoint (analytical geometry) done at compile time
+  // using even derrived operations e.g. computation of midpoint (analytical
+  // geometry) done at compile time
   constexpr auto mid = midpoint(p1, p2);
   cout << "mid(" << mid.xValue() << ", " << mid.yValue() << ")" << endl;
   cout << endl;
 
   constexpr auto reflected_mid = reflection(mid);
-  cout << "reflected_mid(" << reflected_mid.xValue() << ", " << reflected_mid.yValue() << ")" << endl;
+  cout << "reflected_mid(" << reflected_mid.xValue() << ", "
+       << reflected_mid.yValue() << ")" << endl;
   cout << endl;
 
 
   cout << "READY." << endl;
 }
-

@@ -19,7 +19,7 @@
 
   - User Classes
     Template classes that are derived (public or private!) from policy classes,
-	the type of the policy is passed as template type, e.g.:
+        the type of the policy is passed as template type, e.g.:
 
       template< typename allocPolicy_t >
       class UserClass : public allocPolicy_t
@@ -31,7 +31,7 @@
 
   - Policy Classes
     Due to the applied inheritance everything can be implemented in protected or
-	even private mode.
+        even private mode.
 
   - The usage consists in defining the type out of the User Class using the
     right Policy Classes and getting an instance of that to work withh
@@ -44,8 +44,8 @@
  */
 
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 
 /*
@@ -57,9 +57,8 @@
   overloaded) is available, here doSomething(), the internal implementation
   comes from a separate implementor, pImpl or here 'policy' as a template
  */
-template< typename U, typename allocPolicy_t >
-class UserClass
-  : public allocPolicy_t
+template < typename U, typename allocPolicy_t >
+class UserClass : public allocPolicy_t
 {
 private:
   using allocPolicy_t::create;
@@ -72,22 +71,16 @@ public:
 
     std::cout << "\t         ::doSomething() - create some variable\n";
     auto u_obj = create(); // 'U*' is returned
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
 
 
     std::cout << "\t         ::doSomething() - now destroy\n";
-    destroy( &u_obj);
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
-
+    destroy(&u_obj);
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
   }
 
 
-  ~UserClass()
-  {
-    std::cout << "\tUserClass::~UserClass() - dtor\n";
-  }
+  ~UserClass() { std::cout << "\tUserClass::~UserClass() - dtor\n"; }
 };
 
 
@@ -97,32 +90,31 @@ public:
 /*
   alloc policy
 
-  uses "new" to allocate - allocator, can also be implemented as static singleton
+  uses "new" to allocate - allocator, can also be implemented as static
+singleton
 
   policy: is passed as template argument!
 //*/
-template< class T >
+template < class T >
 class NewPolicy
 {
 protected:
-  static T* create()
+  static T *create()
   {
     std::cout << "\t\tNewPolicy::create()\n";
     return new T;
   }
 
 
-  void destroy( T** t)
+  void destroy(T **t)
   {
     std::cout << "\t\tNewPolicy::destroy( T** t)\n";
-    delete *t; *t = nullptr;
+    delete *t;
+    *t = nullptr;
   }
 
 
-  virtual ~NewPolicy()
-  {
-    std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n";
-  }
+  virtual ~NewPolicy() { std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n"; }
 };
 
 
@@ -133,19 +125,20 @@ protected:
 
   policy: is passed as template argument!
 //*/
-template< class T >
+template < class T >
 class MallocPolicy
 {
 protected:
-  static T* create()
+  static T *create()
   {
     std::cout << "\t\tMallocPolicy::create()\n";
 
-    T* t = nullptr;
+    T *t = nullptr;
 
     // if the allocation of *buf fails, return NULL...
-    if (nullptr == (t = static_cast< T* >( std::malloc( sizeof(T) )))) {
-      std::cerr << "\t\t            ::create() - allocation failed" << std::endl;
+    if (nullptr == (t = static_cast< T * >(std::malloc(sizeof(T))))) {
+      std::cerr << "\t\t            ::create() - allocation failed"
+                << std::endl;
       t = nullptr;
     }
 
@@ -154,10 +147,11 @@ protected:
   }
 
 
-  void destroy( T** t)
+  void destroy(T **t)
   {
     std::cout << "\t\tMallocPolicy::destroy( T** t)" << std::endl;
-    free(*t); *t = nullptr;
+    free(*t);
+    *t = nullptr;
   }
 
 
@@ -203,4 +197,3 @@ int main()
   cout << "READY." << endl;
   return 0;
 }
-

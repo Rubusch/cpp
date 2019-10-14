@@ -8,8 +8,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 
 /*
@@ -20,8 +20,7 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int val_a = 1
-    , val_b = 7;
+  int val_a = 1, val_b = 7;
   cout << endl;
 
   cout << "before:\t val_a = " << val_a << " and val_b = " << val_b << endl;

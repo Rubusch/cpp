@@ -50,11 +50,12 @@
 class Adaptee
 {
 public:
-  virtual ~Adaptee(){}
+  virtual ~Adaptee() {}
   void specificRequest(std::string str1, std::string str2)
   {
     std::cout << "\tAdaptee::specificRequest(std::string, std::string)\n";
-    std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'" << str2 << "\'\n";
+    std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'"
+              << str2 << "\'\n";
   }
 };
 
@@ -67,8 +68,8 @@ public:
 class Target
 {
 public:
-  virtual ~Target(){}
-  virtual void request(std::string){}
+  virtual ~Target() {}
+  virtual void request(std::string) {}
 };
 
 
@@ -77,8 +78,7 @@ public:
 
   - adapts the interface of Adaptee to the Target interface
 //*/
-class Adapter
-  : public Adaptee, public Target
+class Adapter : public Adaptee, public Target
 {
 public:
   void request(std::string str1)

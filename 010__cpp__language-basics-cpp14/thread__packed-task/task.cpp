@@ -79,17 +79,17 @@
   * cppreference.com, 2019
  */
 
-#include <iostream>
 #include <cmath>
-#include <thread>
-#include <future>
 #include <functional>
+#include <future>
+#include <iostream>
+#include <thread>
 
 using namespace std;
 
 
 // unique function to avoid disambiguating the std::pow overload set
-int func(int x, int y) { return std::pow(x,y); }
+int func(int x, int y) { return std::pow(x, y); }
 
 
 void task_lambda()
@@ -97,7 +97,8 @@ void task_lambda()
   // better replacement for a bind version, may be stricter on type checking
   // (or at least has some while bind may leave certain things open)
   cout << "lambda: setup task" << endl;
-  std::packaged_task< int(int, int) > task( [](int a, int b) { return func(a, b); } );
+  std::packaged_task< int(int, int) > task(
+      [](int a, int b) { return func(a, b); });
   std::future< int > result = task.get_future();
 
   cout << "lambda: start task" << endl;
@@ -123,7 +124,7 @@ void task_thread()
 {
   // classic approach with most flexibility, the hand-made thread implementation
   cout << "thread: setup task" << endl;
-  std::packaged_task<int(int,int)> task(func);
+  std::packaged_task< int(int, int) > task(func);
   std::future< int > result = task.get_future();
 
   cout << "thread: start task" << endl;
@@ -136,7 +137,9 @@ void task_thread()
 
 int main()
 {
-  cout << "compare lambda, bind and thread solution for a task generated via 'std::packaged_task'" << endl;
+  cout << "compare lambda, bind and thread solution for a task generated via "
+          "'std::packaged_task'"
+       << endl;
   task_lambda();
 
   task_bind();
@@ -146,4 +149,3 @@ int main()
   cout << "READY." << endl;
   return EXIT_SUCCESS;
 }
-

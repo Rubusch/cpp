@@ -1,7 +1,7 @@
 // heapnever.cpp
 /*
-  Demonstrates a class that only can be instantiated on the stack, but not on the heap.
-  private operator new() and operator delete()
+  Demonstrates a class that only can be instantiated on the stack, but not on
+the heap. private operator new() and operator delete()
 //*/
 
 #include <iostream>
@@ -10,7 +10,7 @@
 using namespace std;
 
 
-template<class T>
+template < class T >
 class HeapNever
 {
 public:
@@ -19,18 +19,18 @@ public:
   // ...
 
 private: // private declaration is sufficient!
-  static void* operator new(size_t size);
-  static void operator delete(void* ptr);
+  static void *operator new(size_t size);
+  static void operator delete(void *ptr);
 };
 
-template<class T>
-HeapNever<T>::HeapNever()
+template < class T >
+HeapNever< T >::HeapNever()
 {
   cout << "HeapNever ctor" << endl;
 }
 
-template<class T>
-HeapNever<T>::~HeapNever()
+template < class T >
+HeapNever< T >::~HeapNever()
 {
   cout << "HeapNever dtor" << endl;
 }
@@ -38,7 +38,7 @@ HeapNever<T>::~HeapNever()
 
 int main()
 {
-  HeapNever<string> hn;
+  HeapNever< string > hn;
 
   // ERROR - operator new() is private!
   //  HeapNever<string> *pHn = new HeapNever<string>();
@@ -46,5 +46,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-
-

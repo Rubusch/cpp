@@ -46,24 +46,24 @@ using namespace std;
 
 
 // type investigation via polymorphic
-void isConst(const int& arg) { cout << "const int&"; }
-void isConst(int& arg) { cout << "int&"; }
-void isConst(const int* arg) { cout << "const int*"; }
-void isConst(int* arg) { cout << "int*"; }
-void isConst(int&& arg) { cout << "int&&"; }
+void isConst(const int &arg) { cout << "const int&"; }
+void isConst(int &arg) { cout << "int&"; }
+void isConst(const int *arg) { cout << "const int*"; }
+void isConst(int *arg) { cout << "int*"; }
+void isConst(int &&arg) { cout << "int&&"; }
 
 
 // definition
-template< typename T >
-void funcReference(T& param)
+template < typename T >
+void funcReference(T &param)
 {
   cout << "\t -> funcReference<  ";
   isConst(param);
   cout << "  >";
 }
 
-template< typename T >
-void funcConstReference(const T& param)
+template < typename T >
+void funcConstReference(const T &param)
 {
   cout << "\t -> funcReference<  ";
   isConst(param);
@@ -71,15 +71,15 @@ void funcConstReference(const T& param)
 }
 
 
-template< typename T >
-void funcPointer(T* param)
+template < typename T >
+void funcPointer(T *param)
 {
   cout << "\t -> funcPointer<  ";
   isConst(param);
   cout << "  >";
 }
 
-template< typename T >
+template < typename T >
 void funcByValue(T param)
 {
   cout << "\t -> funcByValue<  ";
@@ -87,8 +87,8 @@ void funcByValue(T param)
   cout << "  >";
 }
 
-template< typename T >
-void funcUniversalReference(T&& param)
+template < typename T >
+void funcUniversalReference(T &&param)
 {
   cout << "\t -> funcUniversalReference<  ";
   isConst(param);
@@ -96,28 +96,30 @@ void funcUniversalReference(T&& param)
 }
 
 // return the array size of a passe-by-value passed array
-template< typename T, std::size_t N >
+template < typename T, std::size_t N >
 constexpr std::size_t arraySize(T (&)[N]) noexcept
 {
   return N;
 }
 
 
-
 int main(void)
 {
   int x = 27;
   const int cx = x;
-  const int& rx = x;
+  const int &rx = x;
 
   cout << "Template Type Deduction" << endl;
   cout << endl;
 
 
-  cout << "case 1: ParamType is a pointer or a reference type, but not a universal reference" << endl;
+  cout << "case 1: ParamType is a pointer or a reference type, but not a "
+          "universal reference"
+       << endl;
 
-  // NOTE: template type here can be 'int&' or 'int' equally, the point is deduction forces
-  // IMPORTANT: template type may be 'const int', but keep * or & as business of expr!
+  // NOTE: template type here can be 'int&' or 'int' equally, the point is
+  // deduction forces IMPORTANT: template type may be 'const int', but keep * or
+  // & as business of expr!
   cout << "Reference:" << endl;
 
   cout << "int x = 27;\t";
@@ -188,12 +190,14 @@ int main(void)
   cout << endl;
 
   cout << "const int cx = x;";
-  funcUniversalReference(cx); // universal reference: deduced const int -> const int&
+  funcUniversalReference(
+      cx); // universal reference: deduced const int -> const int&
   cout << "(cx);";
   cout << endl;
 
   cout << "const int& rx = x;";
-  funcUniversalReference(rx); // universal reference: deduced const int& -> const int&
+  funcUniversalReference(
+      rx); // universal reference: deduced const int& -> const int&
   cout << "(rx);";
   cout << endl;
 
@@ -202,18 +206,21 @@ int main(void)
 
   // special cases:
   cout << "Special Case: funcUniversalReference(13);";
-  funcUniversalReference(13); // universal reference: deduced const int& -> const int&
+  funcUniversalReference(
+      13); // universal reference: deduced const int& -> const int&
   cout << "(rx); [actually: int&&]";
   cout << endl;
 
   cout << endl;
 
 
-  cout << "case 3: ParamType is neither a pointer nor a reference - pass by value" << endl;
+  cout << "case 3: ParamType is neither a pointer nor a reference - pass by "
+          "value"
+       << endl;
 
   cout << "byValue:" << endl;
-  // pass by value means basically we are working on a copy, so if then the original
-  // was const or not, is irrelevant when dealing with its copy
+  // pass by value means basically we are working on a copy, so if then the
+  // original was const or not, is irrelevant when dealing with its copy
 
   cout << "int x = 27;\t";
   funcByValue(x); // byValue: deduced int -> int&
@@ -235,18 +242,18 @@ int main(void)
 
   cout << "Special case: array arguments" << endl;
 
-  const int arr[] = { 1, 2, 3 };
+  const int arr[] = {1, 2, 3};
 
   cout << "const int arr[] = { 1, 2, 3 };";
   funcByValue(arr); // byValue: deduced const int& -> const int&
   cout << "(rx); [but actually: the array was 'T (&)[N]']";
   cout << endl;
 
-  // the difficulty is to figure out a function to determine the correct size of the array
+  // the difficulty is to figure out a function to determine the correct size of
+  // the array
   cout << "const int arr[]: arraySize() - ";
   cout << arraySize(arr);
   cout << endl;
 
   cout << "READY." << endl;
 }
-

@@ -41,17 +41,14 @@ class CommonMonster;
 class FancyMonster;
 
 
-
 /*
   The Type2Type Trick
 //*/
-template< typename T >
-struct Type2Type
-{
+template < typename T >
+struct Type2Type {
   // FIXME: SEEMS A BIT SENSELESS AND CAN ALSO BE COMMENTED OUT!
   typedef T OriginalType;
 };
-
 
 
 /*
@@ -68,13 +65,12 @@ description of mapping function
 Fancy case, it takes an instance of U as argument for the creation of specified
 type object and returns that.
 //*/
-template< class U >
-FancyMonster* createSomething(const U& arg, Type2Type<GuineaPig>)
+template < class U >
+FancyMonster *createSomething(const U &arg, Type2Type< GuineaPig >)
 {
   return new FancyMonster(arg);
 }
 //*/
-
 
 
 /*
@@ -90,12 +86,11 @@ description of mapping function
 Generalized case take one (or more) instance(s) of U as parameter for the
 creation of an instance of type T and return that.
 //*/
-template<class T, class U>
-T* createSomething(const U& arg, Type2Type<T>)
+template < class T, class U >
+T *createSomething(const U &arg, Type2Type< T >)
 {
   return new T(arg);
 }
-
 
 
 /*
@@ -107,18 +102,13 @@ private:
   std::string str;
 
 public:
-  GuineaPig(const std::string& initStr);
+  GuineaPig(const std::string &initStr);
   std::string queeek() const;
 };
 
-GuineaPig::GuineaPig(const std::string& initStr)
-  : str(initStr){}
+GuineaPig::GuineaPig(const std::string &initStr) : str(initStr) {}
 
-std::string GuineaPig::queeek() const
-{
-  return str;
-}
-
+std::string GuineaPig::queeek() const { return str; }
 
 
 /*
@@ -127,24 +117,20 @@ std::string GuineaPig::queeek() const
 class CommonMonster
 {
 private:
-  const GuineaPig* gp;
+  const GuineaPig *gp;
 
 public:
-  CommonMonster( const GuineaPig* initGP);
+  CommonMonster(const GuineaPig *initGP);
   void askGuineaPigCommonly();
 };
 
-CommonMonster::CommonMonster( const GuineaPig* initGP)
-  : gp(initGP){}
+CommonMonster::CommonMonster(const GuineaPig *initGP) : gp(initGP) {}
 
 void CommonMonster::askGuineaPigCommonly()
 {
   std::cout << "\tMapped to \'CommonMonster\'\n"
-            << "\tAsk the Guinea Pig: \""
-            << gp->queeek()
-            << "\"\n";
+            << "\tAsk the Guinea Pig: \"" << gp->queeek() << "\"\n";
 }
-
 
 
 /*
@@ -153,15 +139,14 @@ void CommonMonster::askGuineaPigCommonly()
 class FancyMonster
 {
 private:
-  const GuineaPig* gp;
+  const GuineaPig *gp;
 
 public:
-  FancyMonster( const GuineaPig* initGP);
+  FancyMonster(const GuineaPig *initGP);
   void askGuineaPigFancy();
 };
 
-FancyMonster::FancyMonster( const GuineaPig* initGP)
-  : gp(initGP){}
+FancyMonster::FancyMonster(const GuineaPig *initGP) : gp(initGP) {}
 
 void FancyMonster::askGuineaPigFancy()
 {
@@ -179,21 +164,23 @@ int main()
 
   // algorithm 1:
   cout << "general case:" << endl;
-  CommonMonster *pSm = createSomething(gp, Type2Type<CommonMonster>());
+  CommonMonster *pSm = createSomething(gp, Type2Type< CommonMonster >());
   pSm->askGuineaPigCommonly();
   cout << endl;
 
   // algorithm 2:
   cout << "special case:" << endl;
-  FancyMonster *pAm = createSomething(gp, Type2Type<FancyMonster>());
+  FancyMonster *pAm = createSomething(gp, Type2Type< FancyMonster >());
   pAm->askGuineaPigFancy();
   std::cout << endl;
 
   cout << "READY.\n";
-  delete pSm; pSm = NULL;
-  delete pAm; pAm = NULL;
-  delete gp; gp = NULL;
+  delete pSm;
+  pSm = NULL;
+  delete pAm;
+  pAm = NULL;
+  delete gp;
+  gp = NULL;
 
   return 0;
-
 }

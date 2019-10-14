@@ -22,9 +22,9 @@
 //*/
 
 
+#include <algorithm>
 #include <iostream>
 #include <iterator>
-#include <algorithm>
 
 
 /*
@@ -35,19 +35,19 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 0, 1, 3, 5, 2, 4, 6 };
+  int arr[] = {0, 1, 3, 5, 2, 4, 6};
   cout << endl;
 
   cout << "output before:\n";
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "copy()\n";
-  copy(arr+1, arr+7, arr);
+  copy(arr + 1, arr + 7, arr);
   cout << endl;
 
   cout << "output after:\n";
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

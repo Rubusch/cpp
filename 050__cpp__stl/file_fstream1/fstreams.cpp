@@ -6,8 +6,8 @@
 //*/
 
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 
 /*
@@ -18,12 +18,12 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  const char* const filename = "Jack.txt";
+  const char *const filename = "Jack.txt";
   ofstream out(filename, ios_base::out | ios_base::trunc);
   cout << endl;
 
   cout << "write\n";
-  if(out.is_open()){
+  if (out.is_open()) {
     out << 1234567;
     out.close();
     cout << endl;
@@ -31,7 +31,7 @@ int main()
     cout << "read\n";
     ifstream in;
     in.open(filename);
-    if(in){
+    if (in) {
       int val;
       in >> val;
       cout << val << endl;

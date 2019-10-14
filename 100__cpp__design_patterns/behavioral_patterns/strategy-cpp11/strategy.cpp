@@ -1,7 +1,8 @@
 // strategy.cpp
 /*
-  Define a family of algorithms, encapsulate each one, and make them interchangeble.
-  Strategy lets the algorithm vary independently from clients that use it.
+  Define a family of algorithms, encapsulate each one, and make them
+interchangeble. Strategy lets the algorithm vary independently from clients that
+use it.
 
   +---------------------+                     +-----------------------+
   | Context             |<>------------------>| Strategy              |
@@ -12,7 +13,8 @@
   +-|-------------------+                     +-----------------------+
     |                                                    /_\
   +-----------------------+\                              |
-  | Strategy->algorithm() +-+    +------------------------+---------------------- ...
+  | Strategy->algorithm() +-+ +------------------------+----------------------
+...
   +-------------------------+    |                        |
                                  |                        |
                       +---------------------+  +----------------------+
@@ -22,17 +24,18 @@
                       +---------------------+  +----------------------+
 
   Similarity to State Pattern - if you want to vary the algorithm or a behavior,
-  take the Strategy Pattern, if you want to vary the value, take the State Pattern.
+  take the Strategy Pattern, if you want to vary the value, take the State
+Pattern.
 
   (GoF 1995)
 //*/
 
 
-#include <iostream>
-#include <memory>
 #include <cmath>
 #include <cstdlib>
 #include <iomanip> /* setprecision() */
+#include <iostream>
+#include <memory>
 
 /*
   Strategy
@@ -44,7 +47,7 @@
 class Strategy
 {
 public:
-  virtual ~Strategy(){}
+  virtual ~Strategy() {}
   virtual double algorithm(double arg) = 0;
 };
 
@@ -54,8 +57,7 @@ public:
 
   - implements the algorithm using the Strategy interface
 //*/
-class StrategyA
-  : public Strategy
+class StrategyA : public Strategy
 {
 public:
   double algorithm(double arg)
@@ -71,8 +73,7 @@ public:
 
   - implements the algorithm using the Strategy interface
 //*/
-class StrategyB
-  : public Strategy
+class StrategyB : public Strategy
 {
 public:
   double algorithm(double arg)
@@ -96,8 +97,7 @@ private:
   std::shared_ptr< Strategy > pStrategy_;
 
 public:
-  Context(std::shared_ptr< Strategy > strategy)
-    : pStrategy_( strategy )
+  Context(std::shared_ptr< Strategy > strategy) : pStrategy_(strategy)
   {
     std::cout << "\tContext::Context(Strategy&) - ctor\n";
   }
@@ -126,7 +126,8 @@ int main()
   auto sinus = std::make_shared< StrategyA >();
   Context sinusContext(sinus);
   auto sin_res = sinusContext.contextInterface(angle);
-  cout << std::fixed << setprecision(3) << "sinus(" << angle << ") = " << sin_res << " (= 0)" << endl;
+  cout << std::fixed << setprecision(3) << "sinus(" << angle
+       << ") = " << sin_res << " (= 0)" << endl;
   cout << endl;
 
   cout << "second operation in cosinus context" << endl;
@@ -139,4 +140,3 @@ int main()
   cout << "READY." << endl;
   return 0;
 }
-

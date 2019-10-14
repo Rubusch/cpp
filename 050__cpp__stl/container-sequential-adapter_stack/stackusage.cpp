@@ -22,9 +22,9 @@
   for sequential containers (vector, deque, list)
 //*/
 
-#include <stack>
-#include <list>
 #include <iostream>
+#include <list>
+#include <stack>
 
 int main()
 {
@@ -39,7 +39,7 @@ int main()
   cout << endl;
 
   cout << "show and pop the first element:\n";
-  if(lifo.top() == 5){
+  if (lifo.top() == 5) {
     cout << lifo.top() << endl;
     lifo.pop();
   }

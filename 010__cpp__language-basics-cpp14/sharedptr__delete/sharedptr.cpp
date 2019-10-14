@@ -1,10 +1,12 @@
 /*
-  C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers / item 19)
+  C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers
+  / item 19)
 
   'std::shared_ptr' may transfer ownership to other smartpointers, uses refcnt
 
-  this example demonstrates a shared_ptr with a customized deleter function e.g. to log deletion
-  or do additional work at delete of the object, outside of the dtor
+  this example demonstrates a shared_ptr with a customized deleter function e.g.
+  to log deletion or do additional work at delete of the object, outside of the
+  dtor
 
 
   IMPORTANT:
@@ -42,19 +44,12 @@ using namespace std;
 class Lemon
 {
 public:
-  Lemon()
-  {
-    cout << "CALLED: Lemon()" << endl;
-  }
-  ~Lemon()
-  {
-    cout << "CALLED: ~Lemon()" << endl;
-  }
+  Lemon() { cout << "CALLED: Lemon()" << endl; }
+  ~Lemon() { cout << "CALLED: ~Lemon()" << endl; }
 };
 
 
-auto delete_lemon = [](Lemon *pl)
-{
+auto delete_lemon = [](Lemon *pl) {
   cout << "CALLED: external deleter for Lemon" << endl;
   delete pl;
 };

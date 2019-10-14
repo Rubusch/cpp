@@ -27,29 +27,24 @@
 /*
   Type Traits
 //*/
-template<typename T>
+template < typename T >
 class TypeTraits
 {
 private:
   // de-const Traits
-  template< class U >
-  struct UnConst
-  {
-    typedef U
-      Result;
+  template < class U >
+  struct UnConst {
+    typedef U Result;
   };
 
-  template< class U >
-  struct UnConst< const U >
-  {
-    typedef U
-      Result;
+  template < class U >
+  struct UnConst< const U > {
+    typedef U Result;
   };
 
 public:
   // removes the 'const' qualifier from T, if any
-  typedef typename UnConst< T >::Result
-    NonConstType;
+  typedef typename UnConst< T >::Result NonConstType;
 };
 
 
@@ -61,8 +56,7 @@ int main()
   using namespace std;
 
   cout << "init..\n";
-  typedef const int
-    MyType_t;
+  typedef const int MyType_t;
 
   MyType_t var1 = 123;
   cout << "var1 = " << var1 << "\n";
@@ -70,8 +64,7 @@ int main()
   //  var1 = 777; // this won't compile!
   cout << endl;
 
-  typedef TypeTraits< MyType_t >::NonConstType
-    MyNewType_t;
+  typedef TypeTraits< MyType_t >::NonConstType MyNewType_t;
 
   MyNewType_t var2 = 123;
   cout << "var2 = " << var2 << "\n";

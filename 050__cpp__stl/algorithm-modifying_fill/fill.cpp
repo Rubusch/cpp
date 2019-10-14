@@ -27,15 +27,15 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 
 
-void display(int* arr, int size)
+void display(int *arr, int size)
 {
   std::cout << "arr: ";
-  copy(arr, arr+size, std::ostream_iterator< int >(std::cout, " "));
+  copy(arr, arr + size, std::ostream_iterator< int >(std::cout, " "));
   std::cout << std::endl << std::endl;
 }
 
@@ -49,15 +49,16 @@ int main()
 
   cout << "init:\n";
   int arr[8];
-  display( arr, 8);
+  display(arr, 8);
 
   cout << "fill() with 0:\n";
-  fill(arr, arr+8, 0);
-  display( arr, 8);
+  fill(arr, arr + 8, 0);
+  display(arr, 8);
 
-  cout << "fill_n() - fill with 1, starting from the 2nd element for 4 elements:\n";
-  fill_n(arr+2, 4, 1);
-  display( arr, 8);
+  cout << "fill_n() - fill with 1, starting from the 2nd element for 4 "
+          "elements:\n";
+  fill_n(arr + 2, 4, 1);
+  display(arr, 8);
 
   cout << "READY.\n";
   return 0;

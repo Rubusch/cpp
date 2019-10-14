@@ -1,5 +1,6 @@
 /*
-  C++11 - declare functions noexcept if they won't emit exceptions (Meyers / item 14)
+  C++11 - declare functions noexcept if they won't emit exceptions (Meyers /
+  item 14)
 
   ---
 
@@ -28,22 +29,16 @@
   resources: Effective Modern C++, Scott Meyers, 2015
  */
 
-#include <iostream>
 #include <exception>
+#include <iostream>
 
 using namespace std;
 
 
 // noexcept: function context
-void setup()
-{
-  cout << "setup()" << endl;
-}
+void setup() { cout << "setup()" << endl; }
 
-void cleanup()
-{
-  cout << "cleanup()" << endl;
-}
+void cleanup() { cout << "cleanup()" << endl; }
 
 /*
 int func(int x) throw(); // no exceptions from func(), C++98 style
@@ -68,7 +63,7 @@ int func(int x) noexcept // no exceptions from func(), C++11 style
 class HorrorException : public exception
 {
 public:
-  virtual const char* what() const throw()
+  virtual const char *what() const throw()
   {
     return "HORROR EXCEPTION RAISED!";
   }
@@ -116,11 +111,10 @@ int main(void)
     box.exceptionless_function();
     box.unspecified_function();
     box.throwing_function();
-  } catch (HorrorException& he) {
+  } catch (HorrorException &he) {
     cout << "=> caught exception: " << he.what() << endl;
   }
   cout << endl;
 
   cout << "READY." << endl;
 }
-

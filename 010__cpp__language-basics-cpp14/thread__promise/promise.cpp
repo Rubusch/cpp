@@ -14,8 +14,9 @@
   threads.
 
 
-  In the example a promise provides a one-shot 'std::future' for passing a return
-  value and for passing a barrier. Parallelism is implemented via 'std::async'.
+  In the example a promise provides a one-shot 'std::future' for passing a
+  return value and for passing a barrier. Parallelism is implemented via
+  'std::async'.
 
 
 
@@ -45,24 +46,23 @@
  */
 
 
-#include <vector>
-#include <thread>
-#include <future>
-#include <numeric>
-#include <iostream>
 #include <chrono>
+#include <future>
+#include <iostream>
+#include <numeric>
+#include <thread>
+#include <vector>
 
 using namespace std;
 
 // NOTE: if this is called 'accumulate(' a 'using namespace std;' will throw
 // errors, std::accumulate or this function?
-void do_accumulate(vector< int >::iterator first,
-                vector< int >::iterator last,
-                std::promise< int > accumulate_promise)
+void do_accumulate(vector< int >::iterator first, vector< int >::iterator last,
+                   std::promise< int > accumulate_promise)
 {
   cout << "CALLED: do_accumulate()" << endl;
   int sum = std::accumulate(first, last, 0);
-  accumulate_promise.set_value(sum);  // notify future for return result
+  accumulate_promise.set_value(sum); // notify future for return result
 }
 
 void do_work(std::promise< void > barrier)
@@ -77,14 +77,15 @@ int main()
   // demonstrate using promise< int > to transmit a result between threads
   // promise -> future -> thread / async
   cout << "promise< int > " << endl;
-  vector< int > numbers = { 1, 2, 3, 4, 5, 6 };
+  vector< int > numbers = {1, 2, 3, 4, 5, 6};
   std::promise< int > accumulate_promise;
   std::future< int > accumulate_future = accumulate_promise.get_future();
-  std::thread work_thread(do_accumulate, numbers.begin(), numbers.end(), std::move(accumulate_promise));
-  accumulate_future.wait();  // wait for result
+  std::thread work_thread(do_accumulate, numbers.begin(), numbers.end(),
+                          std::move(accumulate_promise));
+  accumulate_future.wait();           // wait for result
   auto res = accumulate_future.get(); // retrieving a result
   cout << "result = " << res << endl;
-  work_thread.join();  // wait for thread completion
+  work_thread.join(); // wait for thread completion
   cout << endl;
 
   // demonstrate using promise< void > to signal state between threads

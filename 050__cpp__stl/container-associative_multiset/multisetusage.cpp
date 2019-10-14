@@ -14,8 +14,8 @@
   resources: Kuhlins and Schader (2003)
 //*/
 
-#include <set>
 #include <iostream>
+#include <set>
 
 
 /*
@@ -26,8 +26,8 @@ int main()
   using namespace std;
 
   cout << "init..\n";
-  const int arr[] = { 1, 4, 3, 2, 2, 3, 5, 1, 7, 6, 5 };
-  multiset< int, greater< int > > ms(arr, arr+8);
+  const int arr[] = {1, 4, 3, 2, 2, 3, 5, 1, 7, 6, 5};
+  multiset< int, greater< int > > ms(arr, arr + 8);
   cout << endl;
 
   cout << "init multiset iterator\n";
@@ -40,9 +40,8 @@ int main()
 
   cout << "sorting..\n";
   cout << "elements contained:\n";
-  for( multiset< int, greater< int > >::const_iterator iter = ms.begin()
-         ; iter != ms.end()
-         ; ++iter){
+  for (multiset< int, greater< int > >::const_iterator iter = ms.begin();
+       iter != ms.end(); ++iter) {
     cout << *iter << " ";
   }
   cout << endl << endl;

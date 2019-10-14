@@ -46,12 +46,11 @@
   can't be implemented fully virtual here without destroying the
   concept
 //*/
-template< typename Result >
+template < typename Result >
 class BaseFunctorImpl
 {
 public:
-  typedef Result
-    Result_t;
+  typedef Result Result_t;
 
   /*
      more functions e.g. clone()
@@ -59,9 +58,10 @@ public:
   virtual ~BaseFunctorImpl() = 0;
 };
 
-template< typename Result >
+template < typename Result >
 BaseFunctorImpl< Result >::~BaseFunctorImpl()
-{}
+{
+}
 
 
 /*
@@ -86,31 +86,25 @@ BaseFunctorImpl< Result >::~BaseFunctorImpl()
   - divisor
   ...
 //*/
-template< typename Result, typename Arg1, typename Arg2 >
-class ConcFunctorImpl
-  : public BaseFunctorImpl< Result >
+template < typename Result, typename Arg1, typename Arg2 >
+class ConcFunctorImpl : public BaseFunctorImpl< Result >
 {
 public:
-  virtual ~ConcFunctorImpl(){}
+  virtual ~ConcFunctorImpl() {}
 };
 
 // template specialization for a concrete functor implementation class
-template<>
+template <>
 class ConcFunctorImpl< bool, unsigned int, unsigned int >
-  : public BaseFunctorImpl< bool >
+    : public BaseFunctorImpl< bool >
 {
 public:
-  typedef unsigned int
-    Arg1_t;
+  typedef unsigned int Arg1_t;
 
-  typedef unsigned int
-    Arg2_t;
+  typedef unsigned int Arg2_t;
 
   // returns true if arg1 is smaller than arg2
-  virtual Result_t operator()(Arg1_t arg1, Arg2_t arg2)
-  {
-    return arg1 < arg2;
-  }
+  virtual Result_t operator()(Arg1_t arg1, Arg2_t arg2) { return arg1 < arg2; }
 };
 
 
@@ -119,7 +113,7 @@ public:
 
   implements a concept for a functor class
 //*/
-template< typename Result_t, typename Arg1_t, typename Arg2_t >
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
 class BaseFunctor
 {
 public:
@@ -128,9 +122,10 @@ public:
   virtual ~BaseFunctor() = 0;
 };
 
-template< typename Result_t, typename Arg1_t, typename Arg2_t >
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
 BaseFunctor< Result_t, Arg1_t, Arg2_t >::~BaseFunctor()
-{}
+{
+}
 
 
 /*
@@ -145,27 +140,22 @@ BaseFunctor< Result_t, Arg1_t, Arg2_t >::~BaseFunctor()
   ...
   (depending on types, etc)
 //*/
-template< typename Impl >
+template < typename Impl >
 class ConcFunctor
-  : public BaseFunctor< typename Impl::Result_t, typename Impl::Arg1_t, typename Impl::Arg2_t >
+    : public BaseFunctor< typename Impl::Result_t, typename Impl::Arg1_t,
+                          typename Impl::Arg2_t >
 {
 private:
-  typedef typename Impl::Result_t
-    Result_t;
+  typedef typename Impl::Result_t Result_t;
 
-  typedef typename Impl::Arg1_t
-    Arg1_t;
+  typedef typename Impl::Arg1_t Arg1_t;
 
-  typedef typename Impl::Arg2_t
-    Arg2_t;
+  typedef typename Impl::Arg2_t Arg2_t;
 
   Impl impl_;
 
 public:
-  Result_t operator()( Arg1_t arg1, Arg2_t arg2)
-  {
-    return impl_(arg1, arg2);
-  }
+  Result_t operator()(Arg1_t arg1, Arg2_t arg2) { return impl_(arg1, arg2); }
 };
 
 
@@ -175,18 +165,14 @@ public:
   a handler can be an advantage to be used as Facade to 'handle' the
   confusing chaos of functors and functor implementations in behind
 //*/
-template< typename Result, typename Arg1, typename Arg2 >
-class CompareFunctorHandler
-  : public ConcFunctorImpl< Result, Arg1, Arg2 >
+template < typename Result, typename Arg1, typename Arg2 >
+class CompareFunctorHandler : public ConcFunctorImpl< Result, Arg1, Arg2 >
 {
 private:
   ConcFunctor< ConcFunctorImpl< Result, Arg1, Arg2 > > f_;
 
 public:
-  Result operator()(Arg1 arg1, Arg2 arg2)
-  {
-    return f_(arg1, arg2);
-  }
+  Result operator()(Arg1 arg1, Arg2 arg2) { return f_(arg1, arg2); }
 };
 
 
@@ -196,31 +182,36 @@ public:
 /*
   some algorithm function
 //*/
-void doSort(int* arr, unsigned int arr_size, CompareFunctorHandler< bool, unsigned int, unsigned int > comparator)
+void doSort(
+    int *arr, unsigned int arr_size,
+    CompareFunctorHandler< bool, unsigned int, unsigned int > comparator)
 {
-  if(arr_size < 2) return;
+  if (arr_size < 2)
+    return;
 
-  int tmp=0;
-  unsigned idx=arr_size-2;
+  int tmp = 0;
+  unsigned idx = arr_size - 2;
 
   bool swapped = true;
 
-  do{
-    if(idx == arr_size-2){
-      if(!swapped) break;
-      idx=0;
+  do {
+    if (idx == arr_size - 2) {
+      if (!swapped)
+        break;
+      idx = 0;
       swapped = false;
-    }else ++idx;
+    } else
+      ++idx;
 
-    if(!comparator(arr[idx], arr[idx+1])){
+    if (!comparator(arr[idx], arr[idx + 1])) {
       tmp = arr[idx];
-      arr[idx] = arr[idx+1];
-      arr[idx+1] = tmp;
+      arr[idx] = arr[idx + 1];
+      arr[idx + 1] = tmp;
 
       swapped = true;
     }
 
-  }while(true);
+  } while (true);
 }
 
 
@@ -231,10 +222,10 @@ int main()
 {
   using namespace std;
 
-  int arr[] = { 3, 4, 6, 1, 7, 5, 2 };
+  int arr[] = {3, 4, 6, 1, 7, 5, 2};
 
   cout << "before:";
-  for(unsigned int idx=0; idx < sizeof(arr) / sizeof(int); ++idx)
+  for (unsigned int idx = 0; idx < sizeof(arr) / sizeof(int); ++idx)
     cout << " " << arr[idx];
   cout << endl << endl;
 
@@ -242,10 +233,10 @@ int main()
   CompareFunctorHandler< bool, unsigned int, unsigned int > functorHandler;
 
   // sort using the functor
-  doSort(arr, sizeof(arr)/sizeof(int), functorHandler);
+  doSort(arr, sizeof(arr) / sizeof(int), functorHandler);
 
   cout << "after:";
-  for(unsigned int idx=0; idx < sizeof(arr) / sizeof(int); ++idx)
+  for (unsigned int idx = 0; idx < sizeof(arr) / sizeof(int); ++idx)
     cout << " " << arr[idx];
   cout << endl << endl;
 

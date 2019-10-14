@@ -3,7 +3,8 @@
   modifying algorithm
 
   partition - divide a range of elements into two groups
-  stable_partition - divide elements into two groups while preserving their relative order
+  stable_partition - divide elements into two groups while preserving their
+relative order
 
                       ___         ___ ___
                  +---+---+---+---+---+---+---+- -+
@@ -29,10 +30,10 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
-#include <iterator>
 #include <functional>
+#include <iostream>
+#include <iterator>
 #include <vector>
 
 
@@ -44,23 +45,23 @@ int main()
   using namespace std;
 
   cout << "init: \t";
-  int arr[] = { 2, 3, 0, 4, 1, 5, 6 };
-  vector< int > vec(arr, arr+7);
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  int arr[] = {2, 3, 0, 4, 1, 5, 6};
+  vector< int > vec(arr, arr + 7);
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "partition()\n";
-  int *ptr = partition(arr, arr+7, bind2nd(modulus< int >(), 2));
+  int *ptr = partition(arr, arr + 7, bind2nd(modulus< int >(), 2));
   cout << "odd values: \t";
   copy(arr, ptr, ostream_iterator< int >(cout, " "));
   cout << endl;
   cout << "even values: \t";
-  copy(ptr, arr+7, ostream_iterator< int >(cout, " "));
+  copy(ptr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "stable_partition_() - order in case has changed..\n";
   vector< int >::iterator iter;
-  iter =  stable_partition(vec.begin(), vec.end(), bind2nd( modulus< int >(), 2));
+  iter = stable_partition(vec.begin(), vec.end(), bind2nd(modulus< int >(), 2));
   cout << "odd values: \t";
   copy(vec.begin(), iter, ostream_iterator< int >(cout, " "));
   cout << endl;

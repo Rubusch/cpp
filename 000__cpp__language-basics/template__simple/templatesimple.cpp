@@ -7,7 +7,7 @@
 using namespace std;
 
 
-template<class T>
+template < class T >
 class MyClass
 {
 private:
@@ -15,25 +15,26 @@ private:
 
 public:
   // ctor
-  MyClass<T>();
+  MyClass< T >();
 
   void setVariable(T var);
   T getVariable();
 };
 
 
-template<class T>
-MyClass<T>::MyClass()
-{}
+template < class T >
+MyClass< T >::MyClass()
+{
+}
 
-template<class T>
-void MyClass<T>::setVariable(T var)
+template < class T >
+void MyClass< T >::setVariable(T var)
 {
   variable = var;
 }
 
-template<class T>
-T MyClass<T>::getVariable()
+template < class T >
+T MyClass< T >::getVariable()
 {
   return variable;
 }
@@ -44,7 +45,7 @@ T MyClass<T>::getVariable()
 //*/
 int main()
 {
-  MyClass<int> c;
+  MyClass< int > c;
 
   // input
   cout << "set value" << endl;
@@ -56,4 +57,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

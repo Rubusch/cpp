@@ -27,20 +27,20 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 
 
-void display(int* arr, int size)
+void display(int *arr, int size)
 {
   std::cout << "arr: ";
-  copy(arr, arr+size, std::ostream_iterator< int >(std::cout, " "));
+  copy(arr, arr + size, std::ostream_iterator< int >(std::cout, " "));
   std::cout << std::endl << std::endl;
 }
 
 
-template< class T >
+template < class T >
 class Counter
 {
 private:
@@ -48,7 +48,7 @@ private:
 
 public:
   Counter(T start = 1) : idx_(start) {}
-  T operator()(){ return ++idx_; }
+  T operator()() { return ++idx_; }
 };
 
 
@@ -61,15 +61,15 @@ int main()
 
   cout << "init\n";
   int arr[6];
-  fill(arr, arr+6, 0);
+  fill(arr, arr + 6, 0);
   display(arr, 6);
 
   cout << "generate() - set the first 3 elements\n";
-  generate(arr, arr+3, Counter< int >());
+  generate(arr, arr + 3, Counter< int >());
   display(arr, 6);
 
   cout << "generate_n() - set 3 elements starting at the 3rd one\n";
-  generate_n(arr+3, 3, Counter< int >(4));
+  generate_n(arr + 3, 3, Counter< int >(4));
   display(arr, 6);
 
   cout << "READY.\n";

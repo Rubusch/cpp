@@ -24,8 +24,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 
 
@@ -37,14 +37,15 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  const int arr_a[] = { 1, 3, 5, 6, 4, 2 };
-  int arr_b[6]; fill(arr_b, arr_b+6, 0);
+  const int arr_a[] = {1, 3, 5, 6, 4, 2};
+  int arr_b[6];
+  fill(arr_b, arr_b + 6, 0);
   cout << "arr_a:\t ";
-  copy(arr_a, arr_a+6, ostream_iterator< int >(cout, " "));
+  copy(arr_a, arr_a + 6, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "reverse_copy() - copying reversely to arr_b\n";
-  int *ptr = reverse_copy(arr_a, arr_a+6, arr_b);
+  int *ptr = reverse_copy(arr_a, arr_a + 6, arr_b);
   cout << endl;
 
   cout << "arr_b:\t ";

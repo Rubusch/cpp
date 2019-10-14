@@ -19,7 +19,7 @@
 
   - User Classes
     Template classes that are derived (public or private!) from policy classes,
-	the type of the policy is passed as template type, e.g.:
+        the type of the policy is passed as template type, e.g.:
 
       template< typename allocPolicy_t >
       class UserClass : public allocPolicy_t
@@ -31,7 +31,7 @@
 
   - Policy Classes
     Due to the applied inheritance everything can be implemented in protected or
-	even private mode.
+        even private mode.
 
   - The usage consists in defining the type out of the User Class using the
     right Policy Classes and getting an instance of that to work withh
@@ -44,11 +44,11 @@
  */
 
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 
-template< typename U, typename allocPolicy_t >
+template < typename U, typename allocPolicy_t >
 class UserClass : public allocPolicy_t
 {
 private:
@@ -61,23 +61,17 @@ public:
     std::cout << "\tUserClass::doSomething()\n";
 
     std::cout << "\t         ::doSomething() - create some variable\n";
-    U* u = create();
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
+    U *u = create();
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
 
 
     std::cout << "\t         ::doSomething() - now destroy\n";
-    destroy( &u);
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
-
+    destroy(&u);
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
   }
 
 
-  ~UserClass()
-  {
-    std::cout << "\tUserClass::~UserClass() - dtor\n";
-  }
+  ~UserClass() { std::cout << "\tUserClass::~UserClass() - dtor\n"; }
 };
 
 
@@ -89,11 +83,11 @@ public:
 
   uses "new" to allocate
 //*/
-template< class T >
+template < class T >
 class NewPolicy
 {
 protected:
-  static T* create()
+  static T *create()
   {
     std::cout << "\t\tNewPolicy::create()\n";
 
@@ -101,18 +95,16 @@ protected:
   }
 
 
-  void destroy( T** t)
+  void destroy(T **t)
   {
     std::cout << "\t\tNewPolicy::destroy( T** t)\n";
 
-    delete *t; *t = NULL;
+    delete *t;
+    *t = NULL;
   }
 
 
-  ~NewPolicy()
-  {
-    std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n";
-  }
+  ~NewPolicy() { std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n"; }
 };
 
 
@@ -121,18 +113,18 @@ protected:
 
   uses malloc()
 //*/
-template< class T >
+template < class T >
 class MallocPolicy
 {
 protected:
-  static T* create()
+  static T *create()
   {
     std::cout << "\t\tMallocPolicy::create()\n";
 
-    T* t = NULL;
+    T *t = NULL;
 
     // if the allocation of *buf fails, return NULL...
-    if(NULL == (t = static_cast< T* >( std::malloc( sizeof(T) )))){
+    if (NULL == (t = static_cast< T * >(std::malloc(sizeof(T))))) {
       std::cerr << "\t\t            ::create() - allocation failed\n";
       t = NULL;
     }
@@ -142,11 +134,12 @@ protected:
   }
 
 
-  void destroy( T** t)
+  void destroy(T **t)
   {
     std::cout << "\t\tMallocPolicy::destroy( T** t)\n";
 
-    free(*t); *t = NULL;
+    free(*t);
+    *t = NULL;
   }
 
 
@@ -196,4 +189,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

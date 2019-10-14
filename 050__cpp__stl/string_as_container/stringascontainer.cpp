@@ -27,7 +27,7 @@ int main()
 
   cout << "find() - set an iterator to \'.\'\n";
   string::iterator iter;
-  if(strText.end() != (iter = find(strText.begin(), strText.end(), '.'))){
+  if (strText.end() != (iter = find(strText.begin(), strText.end(), '.'))) {
     cout << "found token \'.\' at index: " << (iter - strText.begin()) << endl;
   }
   cout << "-> \'.\' is the last token, it is NOT str.end()!!!\n";
@@ -52,7 +52,8 @@ int main()
     Therefore an explicit cast here!
   //*/
   cout << "transform()\n";
-  transform(strText.begin(), strText.end(), strText.begin(), (int(*) (int)) toupper);
+  transform(strText.begin(), strText.end(), strText.begin(),
+            ( int (*)(int) )toupper);
   copy(strText.begin(), strText.end(), ostream_iterator< char >(cout));
   cout << endl << endl;
 

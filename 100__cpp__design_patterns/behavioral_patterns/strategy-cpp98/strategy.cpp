@@ -13,7 +13,8 @@
   +-|-------------------+                     +-----------------------+
     |                                                    /_\
   +-----------------------+\                              |
-  | Strategy->algorithm() +-+    +------------------------+---------------------- ...
+  | Strategy->algorithm() +-+ +------------------------+----------------------
+...
   +-------------------------+    |                        |
                                  |                        |
                       +---------------------+  +----------------------+
@@ -23,44 +24,41 @@
                       +---------------------+  +----------------------+
 
   Similarity to State Pattern - if you want to vary the algorithm or a behavior,
-  take the Strategy Pattern, if you want to vary the value, take the State Pattern.
+  take the Strategy Pattern, if you want to vary the value, take the State
+Pattern.
 
   (GoF 1995)
 //*/
 
 
-#include <iostream>
 #include <cmath>
 #include <cstdlib>
+#include <iostream>
 
 
-struct Strategy
-{
-  virtual ~Strategy(){}
+struct Strategy {
+  virtual ~Strategy() {}
   virtual double algorithm(double arg) = 0;
 };
 
 
-struct StrategyA : public Strategy
-{
-  double algorithm(double arg){ return sin(arg); }
+struct StrategyA : public Strategy {
+  double algorithm(double arg) { return sin(arg); }
 };
 
 
-struct StrategyB : public Strategy
-{
-  double algorithm(double arg){ return cos(arg); }
+struct StrategyB : public Strategy {
+  double algorithm(double arg) { return cos(arg); }
 };
 
 
 class Context
 {
 private:
-  Strategy* pStrategy_;
+  Strategy *pStrategy_;
 
 public:
-  Context(Strategy& strategy) : pStrategy_(&strategy)
-  {}
+  Context(Strategy &strategy) : pStrategy_(&strategy) {}
 
   double contextInterface(double arg)
   {
@@ -83,15 +81,16 @@ int main()
 
   StrategyA sinus;
   Context sinusContext(sinus);
-  cout << "sinus(" << angle << ") = " << sinusContext.contextInterface(angle) << " (= 0)\n";
+  cout << "sinus(" << angle << ") = " << sinusContext.contextInterface(angle)
+       << " (= 0)\n";
   cout << endl;
 
   StrategyB cosinus;
   Context cosinusContext(cosinus);
-  cout << "cosinus(" << angle << ") = " << cosinusContext.contextInterface(angle) << " (= -1)\n";
+  cout << "cosinus(" << angle
+       << ") = " << cosinusContext.contextInterface(angle) << " (= -1)\n";
   cout << endl;
 
   cout << "READY.\n";
   return 0;
 }
-

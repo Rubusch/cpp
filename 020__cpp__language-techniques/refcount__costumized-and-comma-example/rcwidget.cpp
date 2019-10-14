@@ -9,9 +9,7 @@
 /*
   ctor
 //*/
-RCWidget::RCWidget(int size)
-  : value(new Widget(size))
-{}
+RCWidget::RCWidget(int size) : value(new Widget(size)) {}
 
 
 /*
@@ -27,11 +25,7 @@ void RCWidget::doThis()
 }
 
 
-
 /*
   dummy: present some results
 //*/
-int RCWidget::showThat() const
-{
-  return value->showThat();
-}
+int RCWidget::showThat() const { return value->showThat(); }

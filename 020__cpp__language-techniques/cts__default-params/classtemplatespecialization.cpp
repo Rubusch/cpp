@@ -12,13 +12,13 @@ using namespace std;
 /*  // cpp0x:
 #define MACRO 123
 /*/ // cpp11:
-constexpr auto MACRO=123;
+constexpr auto MACRO = 123;
 //*/
 
 /*
   template class with default template parameter
 //*/
-template< int value=MACRO >
+template < int value = MACRO >
 class SomeClass
 {
 public:

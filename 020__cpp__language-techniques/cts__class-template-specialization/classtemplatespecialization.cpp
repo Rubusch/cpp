@@ -9,25 +9,19 @@
 using namespace std;
 
 
-template< typename T >
+template < typename T >
 class Foobar
 {
 public:
-  void func()
-  {
-    cout << "Foobar< T >::func()\n";
-  }
+  void func() { cout << "Foobar< T >::func()\n"; }
 };
 
 
-template<>
+template <>
 class Foobar< int >
 {
 public:
-  void func()
-  {
-    cout << "Foobar< int >::func()\n";
-  }
+  void func() { cout << "Foobar< int >::func()\n"; }
 };
 
 

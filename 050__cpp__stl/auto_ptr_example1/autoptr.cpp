@@ -23,23 +23,16 @@ private:
   int val_;
 
 public:
-  Foobar(int val = 0)
-    : val_(val)
+  Foobar(int val = 0) : val_(val)
   {
     std::cout << "Foobar::Foobar " << this << std::endl;
   }
 
-  ~Foobar()
-  {
-    std::cout << "Foobar::~Foobar " << this << std::endl;
-  }
+  ~Foobar() { std::cout << "Foobar::~Foobar " << this << std::endl; }
 
-  void func()
-  {
-    std::cout << "Foobar::func" << std::endl;
-  }
+  void func() { std::cout << "Foobar::func" << std::endl; }
 
-  friend std::ostream& operator<<(std::ostream& os, const Foobar& foo)
+  friend std::ostream &operator<<(std::ostream &os, const Foobar &foo)
   {
     return os << foo.val_;
   }
@@ -77,7 +70,8 @@ int main()
   pFoobar1->func();
   cout << endl;
 
-  cout << "release ap_a, assign to another \'real\'-pointer and try to delete that\n";
+  cout << "release ap_a, assign to another \'real\'-pointer and try to delete "
+          "that\n";
   Foobar *pFoobar2 = ap_a.release();
   delete pFoobar2;
   cout << endl;

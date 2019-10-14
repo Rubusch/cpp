@@ -22,48 +22,48 @@ using namespace std;
 
 void passByValue(int v, int p)
 {
-    cout << "Function: ++v; ++p;\t\t";
-    ++v;
-    ++p;
-    cout << "v = " << v << ", p = " << p << endl;
+  cout << "Function: ++v; ++p;\t\t";
+  ++v;
+  ++p;
+  cout << "v = " << v << ", p = " << p << endl;
 };
 
 
 void passByReference_Pointer(int *v, int *p)
 {
-    cout << "Function: ++*v; ++*p;\t\t";
-    ++*v;
-    ++*p;
-    cout << "*v = " << *v << ", *p = " << *p << endl;
+  cout << "Function: ++*v; ++*p;\t\t";
+  ++*v;
+  ++*p;
+  cout << "*v = " << *v << ", *p = " << *p << endl;
 };
 
 
 void passByReference_Reference(const int &v, const int &p)
 {
-    cout << "Function: ++v; ++p; doesn't work due to const! "
-         << "(v + 1) = " << (v + 1) << ", (p + 1) = " << (p + 1) << endl;
+  cout << "Function: ++v; ++p; doesn't work due to const! "
+       << "(v + 1) = " << (v + 1) << ", (p + 1) = " << (p + 1) << endl;
 };
 
 
 int main()
 {
-    int var = 7;
-    int dummy = 8;
-    int* pVar = &dummy;
+  int var = 7;
+  int dummy = 8;
+  int *pVar = &dummy;
 
-    cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
+  cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
 
-    cout << "pass by value" << endl;
-    passByValue(var, *pVar);
-    cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
+  cout << "pass by value" << endl;
+  passByValue(var, *pVar);
+  cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
 
-    cout << "pass by reference - address" << endl;
-    passByReference_Pointer(&var, pVar);
-    cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
+  cout << "pass by reference - address" << endl;
+  passByReference_Pointer(&var, pVar);
+  cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
 
-    cout << "pass by reference - const reference" << endl;
-    passByReference_Reference(var, *pVar);
-    cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
+  cout << "pass by reference - const reference" << endl;
+  passByReference_Reference(var, *pVar);
+  cout << "Main: var = " << var << ", *pVar = " << *pVar << endl << endl;
 
-    return 0;
+  return 0;
 };

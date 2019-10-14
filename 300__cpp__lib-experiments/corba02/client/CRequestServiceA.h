@@ -6,8 +6,8 @@
 #ifndef _C_REQUEST_SERVICE_A_H_
 #define _C_REQUEST_SERVICE_A_H_
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include "Data.hh"
 
@@ -23,12 +23,12 @@ public:
   bool RequestServiceARoutineA();
   bool RequestServiceARoutineB();
 
-  //private: // TODO check
+  // private: // TODO check
   CosNaming::Name m_corbaCosName;
 
   // CORBA ORB
   CORBA::ORB_var m_orb;
-  CORBA::Object_var m_obj; // ORB object
+  CORBA::Object_var m_obj;  // ORB object
   CORBA::Object_var m_obj1; // Resolved id to object reference
 
   // Resolved and narrowed CORBA object for proxy calls
@@ -55,10 +55,7 @@ public:
 class DS_SystemException
 {
 public:
-  DS_SystemException()
-  {
-    std::cerr << "CORBA Exception" << std::endl;
-  }
+  DS_SystemException() { std::cerr << "CORBA Exception" << std::endl; }
 };
 
 
@@ -68,10 +65,7 @@ public:
 class DS_FatalException
 {
 public:
-  DS_FatalException()
-  {
-    std::cerr << "CORBA Fatal Exception" << std::endl;
-  }
+  DS_FatalException() { std::cerr << "CORBA Fatal Exception" << std::endl; }
 };
 
 
@@ -81,11 +75,7 @@ public:
 class DS_Exception
 {
 public:
-  DS_Exception()
-  {
-    std::cerr << "Exception" << std::endl;
-  }
+  DS_Exception() { std::cerr << "Exception" << std::endl; }
 };
 
 #endif
-

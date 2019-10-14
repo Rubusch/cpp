@@ -10,8 +10,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <list>
 
@@ -24,7 +24,7 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  const int arr[] = { 1, 3, 5, 2, 3 };
+  const int arr[] = {1, 3, 5, 2, 3};
   list< int > li(3U, 0);
   list< int >::iterator iter = li.begin();
   cout << endl;

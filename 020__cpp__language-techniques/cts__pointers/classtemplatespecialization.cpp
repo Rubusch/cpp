@@ -1,9 +1,10 @@
 // pts_pointers.cpp
 /*
-  An example that shows the use of partial template specialization using pointer types
-  to avoid mainly duplicate code.
+  An example that shows the use of partial template specialization using pointer
+types to avoid mainly duplicate code.
 
-  (idea: http://www.learncpp.com/cpp-tutorial/146-partial-template-specialization/)
+  (idea:
+http://www.learncpp.com/cpp-tutorial/146-partial-template-specialization/)
 //*/
 
 
@@ -17,18 +18,18 @@ using namespace std;
 
   necessary template declaration to specify the type in a further implementation
 //*/
-template< class T >
+template < class T >
 class Storage;
 
 
 /*
   the partial specialized template implementation
 //*/
-template<typename T>
-class Storage<T*> // specialization the implementation for pointer types
+template < typename T >
+class Storage< T * > // specialization the implementation for pointer types
 {
 private:
-  T* value;
+  T *value;
 
 public:
   // ctor
@@ -39,10 +40,7 @@ public:
   }
 
   // some functions
-  void output()
-  {
-    std::cout << "content:\t#" << *value << "#" << std::endl;
-  }
+  void output() { std::cout << "content:\t#" << *value << "#" << std::endl; }
 };
 
 
@@ -53,7 +51,7 @@ int main()
 {
   // declare a pointer instance to show it works
   int x = 7;
-  Storage<int*> pIntStorage(x);
+  Storage< int * > pIntStorage(x);
 
   cout << "pointer instance - ";
   pIntStorage.output();

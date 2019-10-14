@@ -112,16 +112,13 @@ public:
   Fruit() { cout << "CALLED: Fruit::Fruit()" << endl; }
 };
 
-template< typename T >
-void func(T&& fruit)
+template < typename T >
+void func(T &&fruit)
 {
   cout << "CALLED: func(Fruit&)" << endl;
 }
 
-Fruit fruitFactory()
-{
-  return Fruit();
-}
+Fruit fruitFactory() { return Fruit(); }
 
 
 // calls
@@ -144,7 +141,7 @@ int main(void)
   cout << endl;
 
 
-  vector<Fruit> vec;
+  vector< Fruit > vec;
   vec.push_back(factoryFruit);
   cout << "READY." << endl;
 }

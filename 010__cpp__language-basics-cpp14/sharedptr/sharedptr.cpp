@@ -1,5 +1,6 @@
 /*
-  C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers / item 19)
+  C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers
+  / item 19)
 
   'std::shared_ptr' may transfer ownership to other smartpointers; uses refcnt
 
@@ -44,27 +45,20 @@ private:
   int number_of_toys;
 
 public:
-  Box( int number) : number_of_toys(number)
+  Box(int number) : number_of_toys(number)
   {
     cout << "CALLED: Box(" << number << ")" << endl;
   }
-  ~Box()
-  {
-    cout << "CALLED: ~Box()" << endl;
-  }
+  ~Box() { cout << "CALLED: ~Box()" << endl; }
 
-  auto box_content() const
-  {
-    return number_of_toys;
-  }
+  auto box_content() const { return number_of_toys; }
 };
-
 
 
 int main(void)
 {
   // creating a pointer and initialization
-  std::shared_ptr< Box > pBox( new Box(12) );
+  std::shared_ptr< Box > pBox(new Box(12));
 
   // creation of an empty pointer is possible
   std::shared_ptr< Box > pAnotherBox;
@@ -90,7 +84,8 @@ int main(void)
   if (nullptr == pBox) {
     cout << "the pBox disappeared...." << endl;
   }
-  cout << "the moved pAnotherBox contains " << pAnotherBox->box_content() << " toys" << endl;
+  cout << "the moved pAnotherBox contains " << pAnotherBox->box_content()
+       << " toys" << endl;
 
   // reset a unique_ptr
   cout << "trash pAnotherBox" << endl;
@@ -99,12 +94,13 @@ int main(void)
   // creating (must point to dynamic memory)..
   auto val = 123;
   cout << "create another pointer pInt with " << val << endl;
-  std::shared_ptr< int > pInt = std::make_shared< int >( val );
+  std::shared_ptr< int > pInt = std::make_shared< int >(val);
 
   // get (shred_ptr) corresponds to release (unique_ptr)
   // pass the pointee to a raw pointer
   auto *pVal = pInt.get();
-  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal << endl;
+  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal
+       << endl;
 
 
   cout << "READY." << endl;

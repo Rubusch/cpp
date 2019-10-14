@@ -9,17 +9,15 @@
 
 #include <iostream>
 
-template<class T>
+template < class T >
 class Acceptor
 {
 private:
-  const T* pVal;
+  const T *pVal;
 
 public:
   // Ctor - init in headline!
-  Acceptor()
-  :pVal(NULL)
-  {}
+  Acceptor() : pVal(NULL) {}
 
   // Cpy Ctor
   // ...
@@ -27,10 +25,11 @@ public:
   // Dtor
   ~Acceptor()
   {
-    // when pVal is allocated within the class its destruction should happen here!
-    // Handle the delete of the allocated memory where it has been allocated, too,
-    // or distinguish here between allocated pVal and static pVal (bad style) - a
-    // solution using enum/templates might be possible (Alexandrescu)
+    // when pVal is allocated within the class its destruction should happen
+    // here! Handle the delete of the allocated memory where it has been
+    // allocated, too, or distinguish here between allocated pVal and static
+    // pVal (bad style) - a solution using enum/templates might be possible
+    // (Alexandrescu)
   }
 
   // ops: assignment, index, new, delete, etc
@@ -45,46 +44,38 @@ public:
   /*
     "val" is a stack variable, elements would be accessed by using '.'
 
-    1. CAUTION - when initializing a pointer with some value, don't pass a bare number here as parameter!!!
-    it doesn't have NO allocated space, the proggy will compile but then core dump. This is the case with e.g.:
-    passValue(123);
+    1. CAUTION - when initializing a pointer with some value, don't pass a bare
+  number here as parameter!!! it doesn't have NO allocated space, the proggy
+  will compile but then core dump. This is the case with e.g.: passValue(123);
 
     2. CAUTION - initing a pointer with a value doesn't work like e.g.:
     *pVal = val;
-    This crashes because the value will be copied to a place that is still not allocated.
+    This crashes because the value will be copied to a place that is still not
+  allocated.
   //*/
-  void passValue(T val)
-  {
-    pVal = &val;
-  }
+  void passValue(T val) { pVal = &val; }
 
   /*
     "ref" can be used like stack variable (using '.')
   //*/
-  void passReference(const T& ref)
-  {
-    pVal = &ref;
-  }
+  void passReference(const T &ref) { pVal = &ref; }
 
   /*
     "ptr" will be a dynamical variable, elements are accessed by using '->'
   //*/
-  void passPointer(T* ptr)
-  {
-    pVal = ptr;
-  }
+  void passPointer(T *ptr) { pVal = ptr; }
 
   /*
     output function
   //*/
   void printData()
   {
-    if(!pVal) return;
+    if (!pVal)
+      return;
 
     // in case operator<<() needs here to be overloaded, too
-    std::cout << "pVal:\t" << pVal
-	      << "\n*pVal:\t" << *pVal << "\n&pVal:\t" << &pVal
-	      << "\n*&pVal:\t" << *&pVal << std::endl;
+    std::cout << "pVal:\t" << pVal << "\n*pVal:\t" << *pVal << "\n&pVal:\t"
+              << &pVal << "\n*&pVal:\t" << *&pVal << std::endl;
     std::cout << std::endl;
   }
 };
@@ -96,11 +87,11 @@ public:
 int main()
 {
   // init some objs
-  Acceptor<int> a, b, c, d, e, f;
+  Acceptor< int > a, b, c, d, e, f;
 
   // init targets
   int value = 123;
-  int *pointer =&value;
+  int *pointer = &value;
 
 
   // pass-by-value

@@ -1,4 +1,4 @@
-//Templatenotes
+// Templatenotes
 /*
   Definition of Template classes and what-happens-here explanation:
   notes on templates in C++
@@ -19,19 +19,20 @@
   "typename" and "class" can be used interchangeably in simple template type
   declarations.
 //*/
-template< typename T >
+template < typename T >
 class Foobar
-{};
+{
+};
 
 Foobar< int > fb;
 
 // ...is the same as...
-template< class T >
+template < class T >
 class Foobar
-{};
+{
+};
 
 Foobar< int > fb;
-
 
 
 /*
@@ -40,7 +41,7 @@ Foobar< int > fb;
   "typname" in type declaration is not interchangeable with "class"
   Note: some earlier compilers don't support "typename"
 //*/
-template< typename T >
+template < typename T >
 class Foobar
 {
   void foo()
@@ -51,7 +52,7 @@ class Foobar
 
       Therefore "typename" is necessary when used as type declaration.
     //*/
-    typename T::x * ptr;
+    typename T::x *ptr;
   }
 };
 
@@ -61,9 +62,10 @@ class Foobar
 
   here "typename" is not replaceable with "class"
 //*/
-template< class T, typename T::member >
+template < class T, typename T::member >
 class Foobar
-{};
+{
+};
 
 
 /********************************************************************************/
@@ -74,9 +76,10 @@ class Foobar
 
   constant non-type template parameters
 //*/
-template< int >
+template < int >
 class Foobar
-{};
+{
+};
 
 Foobar< 77 > fb;
 
@@ -87,7 +90,7 @@ Foobar< 77 > fb;
 /*
   pass of a template to a template
 //*/
-template< template< typename T > class Foo >
+template < template < typename T > class Foo >
 class Bar
 {
   Foo< int > f;
@@ -102,9 +105,10 @@ Bar< std::string > b;
 /*
   default template parameters
 //*/
-template< typename T = char, unsigned int N = 7 >
+template < typename T = char, unsigned int N = 7 >
 class Foobar
-{};
+{
+};
 
 // instance that uses "int" and passes the direct value 123
 Foobar< int, 123 > fb;
@@ -121,9 +125,10 @@ Foobar<> fb;
 
   Compile-time realizatoin of the strategy pattern
 //*/
-template< typename PolicyClass >
+template < typename PolicyClass >
 class Foobar : public PolicyClass
-{};
+{
+};
 
 typedef Foobar< MyPolicy > Foobar_t;
 Foobar_t fb;
@@ -135,26 +140,28 @@ Foobar_t fb;
 /*
   class template specialization
 
-  if another template type e.g. "typename U" would be contained in all specializations,
-  it would be a partial case of template specialization
+  if another template type e.g. "typename U" would be contained in all
+specializations, it would be a partial case of template specialization
 
   the default parameter is at least at g++ necessary
 //*/
-template< typename T = int >
+template < typename T = int >
 class Foobar
 {
 private:
   T item;
+
 public:
   void func();
 };
 
 // specialization
-template<>
+template <>
 class Foobar< int >
 {
 private:
   int item;
+
 public:
   void anotherFunc();
 };
@@ -173,15 +180,15 @@ Foobar< char > myCharFoo;
   http://www.c-plusplus.de/forum/viewtopic-var-t-is-39467.html
 
 
-  The standard contains the keyword "export" which would enable to use templates spread
-  over various files. Nevertheless, so far no compiler supports export for the usage of
-  templates.
+  The standard contains the keyword "export" which would enable to use templates
+spread over various files. Nevertheless, so far no compiler supports export for
+the usage of templates.
 
   The idea would be something like the following:
 //*/
 
 // in file foobar.h
-export template< typename T >
+export template < typename T >
 class Foobar
 {
 public:
@@ -189,15 +196,17 @@ public:
 };
 
 
-
 // in file foobar.cpp
 #include "foobar.h"
-template< typename T >
-void Foobar< T >::Func() {}
+template < typename T >
+void Foobar< T >::Func()
+{
+}
 
 /*
-  While this still isn't possible yet, templates are written into the .h and .hpp file,
-  respectively. In case for these files the extensions .ipp, .inl or .tpp are used.
+  While this still isn't possible yet, templates are written into the .h and
+.hpp file, respectively. In case for these files the extensions .ipp, .inl or
+.tpp are used.
 
   Find more information:
     Herb Sutter: "Export" Restrictions, Part 1

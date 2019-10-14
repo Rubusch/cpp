@@ -28,10 +28,9 @@ using namespace std;
 /*
   the Int2Type trick
 //*/
-template< int v >
-struct Int2Type
-{
-  enum{ value = v };
+template < int v >
+struct Int2Type {
+  enum { value = v };
 };
 
 
@@ -57,34 +56,33 @@ particularly clean one. It can transform ad hoc the Boolean value isPolymorphic
 into two distinct types corresponding to isPolymorphic's true and false values.
 Then you can use Int2Type<isPolymorphic> with simple overloading, and voila!"
 //*/
-template< typename T, bool isPolymorphic >
+template < typename T, bool isPolymorphic >
 class NiftyContainer
 {
 private:
   // polymorphic
-  void doSomething( T* pObj, Int2Type<true> )
+  void doSomething(T *pObj, Int2Type< true >)
   {
     std::cout << " - polymorphic algorithm, we use the clone()\n";
-    T* pNewObj = pObj->clone();
+    T *pNewObj = pObj->clone();
     pNewObj->printContent();
-    delete pNewObj; pNewObj = NULL;
+    delete pNewObj;
+    pNewObj = NULL;
   }
 
   // nonpolymorphic
-  void doSomething( T* pObj, Int2Type<false> )
+  void doSomething(T *pObj, Int2Type< false >)
   {
     std::cout << " - nonpolymorphic algorithm, we use the copy ctor\n";
-    T* pNewObj = new T(*pObj);
+    T *pNewObj = new T(*pObj);
     pNewObj->printContent();
-    delete pNewObj; pNewObj = NULL;
+    delete pNewObj;
+    pNewObj = NULL;
   }
 
 public:
   // public interface
-  void doSomething(T* pObj)
-  {
-    doSomething( pObj, Int2Type<isPolymorphic>() );
-  }
+  void doSomething(T *pObj) { doSomething(pObj, Int2Type< isPolymorphic >()); }
 };
 
 
@@ -96,21 +94,18 @@ private:
   string str;
 
 public:
-  GuineaPig(const string& initStr);
-  GuineaPig(GuineaPig const& fb);
+  GuineaPig(const string &initStr);
+  GuineaPig(GuineaPig const &fb);
   ~GuineaPig();
 
-  GuineaPig* clone();
+  GuineaPig *clone();
   void printContent() const;
 };
 
-GuineaPig::GuineaPig(const string& initStr)
-{
-  str = initStr;
-}
+GuineaPig::GuineaPig(const string &initStr) { str = initStr; }
 
 // copy ctor
-GuineaPig::GuineaPig(GuineaPig const& fb)
+GuineaPig::GuineaPig(GuineaPig const &fb)
 {
   std::cout << "\tGuineaPig::copy constructor\n";
   str = fb.str; // works due to copy ctor!!
@@ -118,13 +113,10 @@ GuineaPig::GuineaPig(GuineaPig const& fb)
 }
 
 // dtor
-GuineaPig::~GuineaPig()
-{
-  std::cout << "\tGuineaPig:: - destructor - \n";
-}
+GuineaPig::~GuineaPig() { std::cout << "\tGuineaPig:: - destructor - \n"; }
 
 // clone()
-GuineaPig* GuineaPig::clone()
+GuineaPig *GuineaPig::clone()
 {
   std::cout << "\tGuineaPig::clone()\n";
   return new GuineaPig(this->str + " (made by clone())");
@@ -134,8 +126,6 @@ void GuineaPig::printContent() const
 {
   cout << "\tGuineaPig::content() - \"" << str << "\"" << endl;
 }
-
-
 
 
 /*
@@ -149,7 +139,8 @@ int main()
 {
   cout << "Integral Type To Any Type\n"
        << "\n"
-       << "Nifty Container distinguishes the function to use internally by type\n"
+       << "Nifty Container distinguishes the function to use internally by "
+          "type\n"
        << "mapping / setting up of the container:\n"
        << endl;
 
@@ -157,17 +148,18 @@ int main()
   GuineaPig *gp = new GuineaPig("Hello World!");
 
   // call polymorphic
-  NiftyContainer<GuineaPig, true>  niftyPolymorphic;
+  NiftyContainer< GuineaPig, true > niftyPolymorphic;
   niftyPolymorphic.doSomething(gp);
   cout << endl;
 
   // call nonpolymorphic
-  NiftyContainer<GuineaPig, false> niftyNonpolymorphic;
+  NiftyContainer< GuineaPig, false > niftyNonpolymorphic;
   niftyNonpolymorphic.doSomething(gp);
 
   cout << "READY.\n";
   // free mem
-  delete gp; gp = NULL;
+  delete gp;
+  gp = NULL;
 
   return 0;
 }

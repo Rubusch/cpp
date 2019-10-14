@@ -30,7 +30,8 @@
   Null Type
 //*/
 class NullType
-{};
+{
+};
 
 
 /*
@@ -41,64 +42,52 @@ class NullType
   T and U are types: Result evaluates to T if flag is true,
   and to U otherwise
 //*/
-template< bool flag, typename T, typename U >
-struct Select
-{
-  typedef T
-    Result;
+template < bool flag, typename T, typename U >
+struct Select {
+  typedef T Result;
 };
 
-template< typename T, typename U >
-struct Select< false, T, U >
-{
-  typedef U
-    Result;
+template < typename T, typename U >
+struct Select< false, T, U > {
+  typedef U Result;
 };
 
 
 /*
   Typelist - Typelist
 //*/
-template< class H, class T >
-struct Typelist_
-{
-  typedef H
-    Head;
+template < class H, class T >
+struct Typelist_ {
+  typedef H Head;
 
-  typedef T
-    Tail;
+  typedef T Tail;
 };
 
 
 /*
   Typelist - linearizaton
 //*/
-template< class T1, class T2 = NullType, class T3 = NullType, class T4 = NullType >
-struct Typelist
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
-    type_t;
+template < class T1, class T2 = NullType, class T3 = NullType,
+           class T4 = NullType >
+struct Typelist {
+  typedef Typelist_<
+      T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
+      type_t;
 };
 
-template< class T1 >
-struct Typelist< T1, NullType, NullType, NullType >
-{
-  typedef Typelist_< T1, NullType >
-    type_t;
+template < class T1 >
+struct Typelist< T1, NullType, NullType, NullType > {
+  typedef Typelist_< T1, NullType > type_t;
 };
 
-template< class T1, class T2 >
-struct Typelist< T1, T2, NullType, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, NullType > >
-    type_t;
+template < class T1, class T2 >
+struct Typelist< T1, T2, NullType, NullType > {
+  typedef Typelist_< T1, Typelist_< T2, NullType > > type_t;
 };
 
-template< class T1, class T2, class T3 >
-struct Typelist< T1, T2, T3, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > >
-    type_t;
+template < class T1, class T2, class T3 >
+struct Typelist< T1, T2, T3, NullType > {
+  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > > type_t;
 };
 
 
@@ -110,30 +99,28 @@ namespace TL
   /*
     Typelist - IndexOf
   //*/
-  template< class TList, class T > struct IndexOf;
+  template < class TList, class T >
+  struct IndexOf;
 
-  template< class T >
-  struct IndexOf< NullType, T >
-  {
+  template < class T >
+  struct IndexOf< NullType, T > {
     enum { value = -1 };
   };
 
-  template< class T, class Tail >
-  struct IndexOf< Typelist_< T, Tail >, T >
-  {
+  template < class T, class Tail >
+  struct IndexOf< Typelist_< T, Tail >, T > {
     enum { value = 0 };
   };
 
-  template< class Head, class Tail, class T >
-  struct IndexOf< Typelist_< Head, Tail>, T >
-  {
+  template < class Head, class Tail, class T >
+  struct IndexOf< Typelist_< Head, Tail >, T > {
   private:
     enum { temp = IndexOf< Tail, T >::value };
 
   public:
     enum { value = (temp == -1 ? -1 : 1 + temp) };
   };
-}
+} // namespace TL
 
 
 /*
@@ -141,78 +128,77 @@ namespace TL
 //*/
 namespace Private
 {
-  typedef Typelist< unsigned char, unsigned short int, unsigned int, unsigned long int >::type_t
-    UnsignedInts_t;
+  typedef Typelist< unsigned char, unsigned short int, unsigned int,
+                    unsigned long int >::type_t UnsignedInts_t;
 
   typedef Typelist< signed char, short int, int, long int >::type_t
-    SignedInts_t;
+      SignedInts_t;
 
-  typedef Typelist< bool, char >::type_t
-    OtherInts_t;
+  typedef Typelist< bool, char >::type_t OtherInts_t;
 
-  typedef Typelist< float, double >::type_t
-    Floats_t;
-}
+  typedef Typelist< float, double >::type_t Floats_t;
+} // namespace Private
 
 
 /*
   Type Traits
 //*/
-template<typename T>
+template < typename T >
 class TypeTraits
 {
 private:
   // Reference Traits
-  template< class U > struct ReferenceTraits
-  {
+  template < class U >
+  struct ReferenceTraits {
     enum { result = false };
-    typedef U
-      ReferredType;
+    typedef U ReferredType;
   };
 
-  template< class U > struct ReferenceTraits< U& >
-  {
+  template < class U >
+  struct ReferenceTraits< U & > {
     enum { result = true };
-    typedef U
-      ReferredType;
+    typedef U ReferredType;
   };
 
   // Pointer Traits
-  template<class U> struct PointerTraits
-  {
+  template < class U >
+  struct PointerTraits {
     enum { result = false };
-    typedef NullType
-      PointeeType;
+    typedef NullType PointeeType;
   };
 
-  template<class U> struct PointerTraits<U*>
-  {
+  template < class U >
+  struct PointerTraits< U * > {
     enum { result = true };
-    typedef U
-      PointeeType;
+    typedef U PointeeType;
   };
 
   // Pointer 2 Member Traits
-  template< class U >
-  struct Ptr2MemTraits
-  {
+  template < class U >
+  struct Ptr2MemTraits {
     enum { result = false };
   };
 
-  template< class U, class V >
-  struct Ptr2MemTraits< U V::* >
-  {
+  template < class U, class V >
+  struct Ptr2MemTraits< U V::* > {
     enum { result = true };
   };
 
 public:
   // basic types
-  enum { isStdUnsignedInt = (0 <= TL::IndexOf< Private::UnsignedInts_t, T >::value) };
-  enum { isStdSignedInt = (0 <= TL::IndexOf< Private::SignedInts_t, T>::value) };
+  enum {
+    isStdUnsignedInt = (0 <= TL::IndexOf< Private::UnsignedInts_t, T >::value)
+  };
+  enum {
+    isStdSignedInt = (0 <= TL::IndexOf< Private::SignedInts_t, T >::value)
+  };
   enum { isStdFloat = (0 <= TL::IndexOf< Private::Floats_t, T >::value) };
 
   // type evaluations
-  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || (0 <= TL::IndexOf< Private::OtherInts_t, T >::value) };
+  enum {
+    isStdIntegral = isStdUnsignedInt || isStdSignedInt ||
+                    (0 <= TL::IndexOf< Private::OtherInts_t, T >::value)
+  };
 
   // evaluation groups
   enum { isStdArith = isStdIntegral || isStdFloat };
@@ -223,13 +209,13 @@ public:
 
   // referred type evaluation
   enum { isReference = ReferenceTraits< T >::result };
-  typedef typename ReferenceTraits< T >::ReferredType
-    ReferredType_t;
+  typedef typename ReferenceTraits< T >::ReferredType ReferredType_t;
 
   // finally parameter type evaluation:
-  // returns the optimal type to be used as a parameter for functions that take T's
-  typedef typename Select< isStdArith || isPointer || isPointer2Member, T, ReferredType_t& >::Result
-    ParameterType;
+  // returns the optimal type to be used as a parameter for functions that take
+  // T's
+  typedef typename Select< isStdArith || isPointer || isPointer2Member, T,
+                           ReferredType_t & >::Result ParameterType;
 };
 
 
@@ -237,7 +223,8 @@ public:
   some stupid dummy class
 //*/
 class DummyClass
-{};
+{
+};
 
 
 /*
@@ -250,31 +237,29 @@ int main()
   cout << "init..\n";
 
   // some type
-  typedef int
-    Parameter1_t;
+  typedef int Parameter1_t;
 
   // check optimized type
-  typedef TypeTraits< Parameter1_t >::ParameterType
-    Result1_t;
+  typedef TypeTraits< Parameter1_t >::ParameterType Result1_t;
 
   // output
-  cout << "Parameter1_t was \"int\", an optimized function should pass:\t\t \"int\""
-       << (TypeTraits< Result1_t >::isPointer  ? " Pointer" : "")
+  cout << "Parameter1_t was \"int\", an optimized function should pass:\t\t "
+          "\"int\""
+       << (TypeTraits< Result1_t >::isPointer ? " Pointer" : "")
        << (TypeTraits< Result1_t >::isReference ? " Reference" : " Object")
        << endl;
 
 
   // next type
-  typedef DummyClass
-    Parameter2_t;
+  typedef DummyClass Parameter2_t;
 
   // check optimized type
-  typedef TypeTraits< Parameter2_t >::ParameterType
-    Result2_t;
+  typedef TypeTraits< Parameter2_t >::ParameterType Result2_t;
 
   // output
-  cout << "Paramenter2_t was \"DummyClass\", an optimized function should pass:\t \"DummyClass\""
-       << (TypeTraits< Result2_t >::isPointer  ? " Pointer" : "")
+  cout << "Paramenter2_t was \"DummyClass\", an optimized function should "
+          "pass:\t \"DummyClass\""
+       << (TypeTraits< Result2_t >::isPointer ? " Pointer" : "")
        << (TypeTraits< Result2_t >::isReference ? " Reference" : " Object")
        << endl;
 

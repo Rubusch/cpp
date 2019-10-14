@@ -84,9 +84,9 @@
  */
 
 #include <iostream>
-#include <vector>
-#include <utility>
 #include <string>
+#include <utility>
+#include <vector>
 
 using namespace std;
 
@@ -97,28 +97,35 @@ public:
   Some() { cout << "Some(), ctor" << endl; }
 };
 
-void func(Some&& param) // rvalue reference, declaration
-{ cout << "func(Some&&), rvalue reference" << endl; }
+void func(Some &&param) // rvalue reference, declaration
+{
+  cout << "func(Some&&), rvalue reference" << endl;
+}
 
 // declarations
-template< typename T > // rvalue reference
-void func(vector< T >&& param) { cout << "func(vector< T >&&), addr vec: " << &param << endl; }
+template < typename T > // rvalue reference
+void func(vector< T > &&param)
+{
+  cout << "func(vector< T >&&), addr vec: " << &param << endl;
+}
 
-template< typename T > // universal reference (forwarding reference)
-void func(T&& param) { cout << "func(T&&)" << endl; }
-
+template < typename T > // universal reference (forwarding reference)
+void func(T &&param)
+{
+  cout << "func(T&&)" << endl;
+}
 
 
 int main(void)
 {
 
   cout << "rvalue reference" << endl;
-  Some&& var1 = Some(); // rvalue reference
+  Some &&var1 = Some(); // rvalue reference
   cout << "addr var1: " << &var1 << endl;
   cout << endl;
 
   cout << "universal reference" << endl; // auto&& or T&& are rather..
-  auto&& var2 = var1; // universal reference (forwarding reference)
+  auto &&var2 = var1; // universal reference (forwarding reference)
   cout << "addr var2: " << &var2 << endl;
   cout << endl;
 

@@ -22,8 +22,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 
 
@@ -35,13 +35,12 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 3, 1, 4, 1, 5, 9 };
-  int *pVal_a = arr+1
-    , *pVal_b = arr+4;
+  int arr[] = {3, 1, 4, 1, 5, 9};
+  int *pVal_a = arr + 1, *pVal_b = arr + 4;
   cout << endl;
 
   cout << "output before:\n";
-  copy(arr, arr+6, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 6, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "iter_swap()\n";
@@ -49,7 +48,7 @@ int main()
   cout << endl;
 
   cout << "output after:\n";
-  copy(arr, arr+6, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 6, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

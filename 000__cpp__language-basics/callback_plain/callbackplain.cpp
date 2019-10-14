@@ -23,17 +23,19 @@ int main()
 
   std::cout << "\t               - searching w/o callback\n";
   int idx;
-  for( idx=0; idx < length; ++idx){
-    std::cout << "\t               - exitCode < array[" << idx << "], " << exitCode << " < " << array[idx] << ", - "<< ((exitCode < array[idx]) ? "true" : "false") << std::endl;
-    if( exitCode < array[idx]){
+  for (idx = 0; idx < length; ++idx) {
+    std::cout << "\t               - exitCode < array[" << idx << "], "
+              << exitCode << " < " << array[idx] << ", - "
+              << ((exitCode < array[idx]) ? "true" : "false") << std::endl;
+    if (exitCode < array[idx]) {
       std::cout << "\t               -> BREAK\n";
       break;
     }
   }
 
-  if( idx < length){
+  if (idx < length) {
     std::cout << "item " << idx << " - " << array[idx] << std::endl;
-  }else{
+  } else {
     std::cout << "not found\n";
   }
 

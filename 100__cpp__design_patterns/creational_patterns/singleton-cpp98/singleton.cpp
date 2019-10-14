@@ -1,6 +1,7 @@
 // singleton.cpp
 /*
-  Ensure a class only has one instance, and provide a global point of access to it.
+  Ensure a class only has one instance, and provide a global point of access to
+it.
 
   +-----------------------+
   | Singleton             |
@@ -62,16 +63,16 @@ class Singleton
 private:
   static Singleton *pInstance_;
 
-  Singleton(){}
-  ~Singleton(){}
-  Singleton(const Singleton&);
-  const Singleton& operator=( Singleton const&);
+  Singleton() {}
+  ~Singleton() {}
+  Singleton(const Singleton &);
+  const Singleton &operator=(Singleton const &);
 
 public:
-  static Singleton* getInstance()
+  static Singleton *getInstance()
   {
-    if(NULL == pInstance_){
-      if(NULL == (pInstance_ = new(std::nothrow) Singleton)){
+    if (NULL == pInstance_) {
+      if (NULL == (pInstance_ = new (std::nothrow) Singleton)) {
         std::cerr << "ERROR: Singleton instantiation failed!\n";
         pInstance_ = NULL;
       }
@@ -87,7 +88,7 @@ public:
 
 
 // static initialization: outside of class definition!
-Singleton* Singleton::pInstance_ = NULL;
+Singleton *Singleton::pInstance_ = NULL;
 
 
 /*
@@ -97,11 +98,11 @@ int main()
 {
   using namespace std;
 
-  Singleton* ptr = NULL;
+  Singleton *ptr = NULL;
 
-  do{
+  do {
     cout << "create Singleton:\n";
-    if(NULL == (ptr = Singleton::getInstance())){
+    if (NULL == (ptr = Singleton::getInstance())) {
       cout << "Singleton allocation failed!\n";
       break;
     }
@@ -112,7 +113,7 @@ int main()
     cout << endl;
 
     cout << "destroy Singleton.. - is not permitted!\n";
-  }while(false);
+  } while (false);
 
   cout << "READY.\n";
   return 0;

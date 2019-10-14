@@ -35,25 +35,18 @@ protected:
   int variable;
 
 public:
-  virtual ~Base(){}
-  void display()
-  {
-    std::cout << "Base::variable = " << variable << "\n";
-  }
+  virtual ~Base() {}
+  void display() { std::cout << "Base::variable = " << variable << "\n"; }
 };
 
 
 /*
   DerivedA
 //*/
-class DerivedA
-  : public Base
+class DerivedA : public Base
 {
 public:
-  DerivedA()
-  {
-    variable = 1;
-  }
+  DerivedA() { variable = 1; }
 
   void display_derivedA()
   {
@@ -65,14 +58,10 @@ public:
 /*
   DerivedB
 //*/
-class DerivedB
-  : public Base
+class DerivedB : public Base
 {
 public:
-  DerivedB()
-  {
-    variable = 2;
-  }
+  DerivedB() { variable = 2; }
 
   void display_derivedB()
   {
@@ -84,9 +73,9 @@ public:
 /*
   Client
 //*/
-class Client
-  : public DerivedA, public DerivedB
-{};
+class Client : public DerivedA, public DerivedB
+{
+};
 
 
 /*

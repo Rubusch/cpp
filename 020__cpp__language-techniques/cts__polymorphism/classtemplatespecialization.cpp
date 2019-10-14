@@ -18,15 +18,14 @@ using namespace std;
 /*
   common declaration of a two typed templated class - THIS IS ESSENTIAL!
 //*/
-template< typename U, typename V >
+template < typename U, typename V >
 class SomeClass;
-
 
 
 /*
   normal templated implementation
 //*/
-template< typename U, typename V >
+template < typename U, typename V >
 class SomeClass
 {
 private:
@@ -39,26 +38,24 @@ public:
   void output();
 };
 
-template< typename U, typename V >
+template < typename U, typename V >
 SomeClass< U, V >::SomeClass(U arg1, V arg2, V arg3)
-  : var1(arg1), var2(arg2), var3(arg3)
-{}
-
-template< typename U, typename V >
-void SomeClass< U, V >::output()
+    : var1(arg1), var2(arg2), var3(arg3)
 {
-  cout << "normal templated class\n\tvar1 = " << var1
-       << "\n\tvar2 = " << var2
-       << "\n\tvar3 = " << var3
-       << "\nThis class behaves differently!\n\n";
 }
 
+template < typename U, typename V >
+void SomeClass< U, V >::output()
+{
+  cout << "normal templated class\n\tvar1 = " << var1 << "\n\tvar2 = " << var2
+       << "\n\tvar3 = " << var3 << "\nThis class behaves differently!\n\n";
+}
 
 
 /*
   partial specialized template class implementation
 //*/
-template< typename U >
+template < typename U >
 class SomeClass< U, int >
 {
 private:
@@ -74,17 +71,17 @@ public:
   void output();
 };
 
-template< typename U >
-SomeClass< U, int>::SomeClass( U arg1)
-  : var1(arg1), num(777)
-{}
-
-template< typename U >
-void SomeClass< U, int >::output()
+template < typename U >
+SomeClass< U, int >::SomeClass(U arg1) : var1(arg1), num(777)
 {
-  cout << "partial specialized\n\tvar1 = " << var1 << "\n\tnum = " << num << "\n\n";
 }
 
+template < typename U >
+void SomeClass< U, int >::output()
+{
+  cout << "partial specialized\n\tvar1 = " << var1 << "\n\tnum = " << num
+       << "\n\n";
+}
 
 
 /*

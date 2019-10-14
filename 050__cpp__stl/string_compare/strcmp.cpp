@@ -16,12 +16,15 @@
 using namespace std;
 
 // needs C++ 15
-constexpr int my_strcmp(const char* str1, const char* str2)
+constexpr int my_strcmp(const char *str1, const char *str2)
 {
   int idx = 0;
-  for (; str1[idx] && str2[idx] && str1[idx] == str2[idx]; ++idx) {}
-  if (str1[idx] == str2[idx]) return 0;
-  if (str1[idx] < str2[idx]) return -1;
+  for (; str1[idx] && str2[idx] && str1[idx] == str2[idx]; ++idx) {
+  }
+  if (str1[idx] == str2[idx])
+    return 0;
+  if (str1[idx] < str2[idx])
+    return -1;
   return 1;
 }
 //*/
@@ -35,52 +38,65 @@ int main()
   char str1[] = "abc";
   char str2[] = "abcbcc";
 
-  cout << "my_strcmp( " << str1 << ", " << str2 << " ) = " << my_strcmp(str1, str2) << endl;
+  cout << "my_strcmp( " << str1 << ", " << str2
+       << " ) = " << my_strcmp(str1, str2) << endl;
 
   cout << endl;
   cout << "sophisticated C++14 features:" << endl;
   cout << endl;
 
-//*
+  //*
   string a = "", b = "";
   int ret = 0;
 
   a = "abc";
   b = "abc";
-  if (0 != (ret = my_strcmp(a.c_str(), b.c_str())) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (0 != (ret = my_strcmp(a.c_str(), b.c_str()))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [0]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [0]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "cba";
   b = "abc";
-  if (1 != (ret = my_strcmp(a.c_str(), b.c_str())) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (1 != (ret = my_strcmp(a.c_str(), b.c_str()))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [1]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [1]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "abc";
   b = "abcabc";
-  if (-1 != (ret = my_strcmp(a.c_str(), b.c_str())) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (-1 != (ret = my_strcmp(a.c_str(), b.c_str()))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [-1]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [-1]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "abcabc";
   b = "abc";
-  if (1 != (ret = my_strcmp(a.c_str(), b.c_str())) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (1 != (ret = my_strcmp(a.c_str(), b.c_str()))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [1]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [1]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
-// */
+  a = "";
+  b = "";
+  // */
 
   cout << endl;
   cout << "STL: some other possiblity string::compare():" << endl;
@@ -88,40 +104,52 @@ int main()
 
   a = "abc";
   b = "abc";
-  if (0 != (ret = a.compare(b)) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (0 != (ret = a.compare(b))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [0]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [0]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "cba";
   b = "abc";
-  if (0 >= (ret = a.compare(b)) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (0 >= (ret = a.compare(b))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [>0]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [>0]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "abc";
   b = "abcabc";
-  if (0 <= (ret = a.compare(b)) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (0 <= (ret = a.compare(b))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [<0]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [<0]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "abcabc";
   b = "abc";
-  if (0 >= (ret = a.compare(b)) ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (0 >= (ret = a.compare(b))) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [>0]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [>0]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
-// */
+  a = "";
+  b = "";
+  // */
 
   cout << endl;
   cout << "boring:" << endl;
@@ -130,40 +158,51 @@ int main()
   a = "abc";
   b = "abc";
   if (a != b) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [a == b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [a == b]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "cba";
   b = "abc";
   if (a == b) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [a != b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [a != b]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "abc";
   b = "abcabc";
   if (a >= b) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [a < b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [a < b]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
+  a = "";
+  b = "";
 
   a = "abcabc";
   b = "abc";
-  if (a <= b ) {
-    cout << "FAIL " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+  if (a <= b) {
+    cout << "FAIL "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   } else {
-    cout << "OK [a > b]: " << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
+    cout << "OK [a > b]: "
+         << "a = " << a << "; b = " << b << "; ret = " << ret << "\n";
   }
-  a=""; b="";
-// */
+  a = "";
+  b = "";
+  // */
 
   return 0;
 }
-

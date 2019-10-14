@@ -8,15 +8,15 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 
 
 /*
   functor as random seed
 //*/
-template< class T >
+template < class T >
 class ChuckALuck
 {
 private:
@@ -24,7 +24,7 @@ private:
 
 public:
   ChuckALuck(T start = 0) : seed_(start) {}
-  T operator()(T times){ return (seed_ = (123123234 * seed_ + 7)) % times; }
+  T operator()(T times) { return (seed_ = (123123234 * seed_ + 7)) % times; }
 };
 
 
@@ -36,22 +36,22 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
+  int arr[] = {1, 2, 3, 4, 5, 6, 7};
   cout << endl;
 
   cout << "random_shuffle()\n";
-  random_shuffle(arr, arr+7);
+  random_shuffle(arr, arr + 7);
   cout << endl;
 
   cout << "shuffeled normally:\n";
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "use Chuck-A-Luck\n";
   ChuckALuck< int > cal(1);
-  random_shuffle(arr, arr+7, cal);
+  random_shuffle(arr, arr + 7, cal);
   cout << "and shuffle again:\n";
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

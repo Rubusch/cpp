@@ -43,7 +43,7 @@ int main()
     and another parameter of the second Functor
   //*/
   cout << "second function\n";
-  auto func2 = Functor< string, TL::Typelist< int > >( BindFirst(func1, 10));
+  auto func2 = Functor< string, TL::Typelist< int > >(BindFirst(func1, 10));
   cout << endl;
 
   // prints: "Fun(10, 15) called"

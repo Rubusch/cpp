@@ -19,53 +19,46 @@ using namespace std;
 class Anotherclass
 {
 public:
-    Anotherclass(string sz)
-    {
-        cout << sz << endl;
-    };
+  Anotherclass(string sz) { cout << sz << endl; };
 };
 
 
 class Anextclass
 {
 public:
-    Anextclass(string sz)
-    {
-        cout << sz << endl;
-    };
+  Anextclass(string sz) { cout << sz << endl; };
 };
 
 
-template< class T >
+template < class T >
 class Someclass
 {
 private:
-    T var1;
-    int var2;
-    Anotherclass A;
-    Anextclass B;
+  T var1;
+  int var2;
+  Anotherclass A;
+  Anextclass B;
 
 public:
-    Someclass(T variable1, int variable2)
-    :A("another class"), B("a next class")
-    {
-        var1 = variable1;
-        var2 = variable2;
-    };
+  Someclass(T variable1, int variable2) : A("another class"), B("a next class")
+  {
+    var1 = variable1;
+    var2 = variable2;
+  };
 
-    void output()
-    {
-        cout << "var1 = " << var1 << endl;
-        cout << "var2 = " << var2 << endl;
-    };
+  void output()
+  {
+    cout << "var1 = " << var1 << endl;
+    cout << "var2 = " << var2 << endl;
+  };
 };
 
 
 int main()
 {
-    int *pointer = new int(15);
-    Someclass<int> s(5, 10);
-    s.output();
+  int *pointer = new int(15);
+  Someclass< int > s(5, 10);
+  s.output();
 
-    return 0;
+  return 0;
 };

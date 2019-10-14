@@ -24,12 +24,15 @@
 
 
 // forward declarations
-template< typename Result_t > class BaseFunctorImpl;
-template< typename Result_t, typename Arg1_t, typename Arg2_t > class ConcFunctorImpl;
-template< typename Result_t, typename Arg1_t, typename Arg2_t > class BaseFunctor;
+template < typename Result_t >
+class BaseFunctorImpl;
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
+class ConcFunctorImpl;
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
+class BaseFunctor;
 class ConcFunctor;
 
-void doSort(int* arr, unsigned int arr_size, ConcFunctor comparator);
+void doSort(int *arr, unsigned int arr_size, ConcFunctor comparator);
 
 
 /*
@@ -41,16 +44,17 @@ void doSort(int* arr, unsigned int arr_size, ConcFunctor comparator);
   can't be implemented fully virtual here without destroying the
   concept
 //*/
-template< typename Result_t >
+template < typename Result_t >
 class BaseFunctorImpl
 {
 public:
   virtual ~BaseFunctorImpl() = 0;
 };
 
-template< typename Result_t >
+template < typename Result_t >
 BaseFunctorImpl< Result_t >::~BaseFunctorImpl()
-{}
+{
+}
 
 
 /*
@@ -75,18 +79,14 @@ BaseFunctorImpl< Result_t >::~BaseFunctorImpl()
   - divisor
   ...
 //*/
-template< typename Result_t, typename Arg1_t, typename Arg2_t >
-class ConcFunctorImpl
-  : public BaseFunctorImpl< Result_t >
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
+class ConcFunctorImpl : public BaseFunctorImpl< Result_t >
 {
 public:
   /*
     returns true if arg1 is smaller than arg2
   //*/
-  Result_t operator()(Arg1_t arg1, Arg2_t arg2)
-  {
-    return arg1 < arg2;
-  }
+  Result_t operator()(Arg1_t arg1, Arg2_t arg2) { return arg1 < arg2; }
 };
 
 
@@ -95,7 +95,7 @@ public:
 
   implements a concept for a functor class
 //*/
-template< typename Result_t, typename Arg1_t, typename Arg2_t >
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
 class BaseFunctor
 {
 public:
@@ -103,9 +103,10 @@ public:
   virtual ~BaseFunctor() = 0;
 };
 
-template< typename Result_t, typename Arg1_t, typename Arg2_t >
+template < typename Result_t, typename Arg1_t, typename Arg2_t >
 BaseFunctor< Result_t, Arg1_t, Arg2_t >::~BaseFunctor()
-{}
+{
+}
 
 
 /*
@@ -120,18 +121,16 @@ BaseFunctor< Result_t, Arg1_t, Arg2_t >::~BaseFunctor()
   ...
   (depending on types, etc)
 //*/
-class ConcFunctor
-  : public BaseFunctor< bool, unsigned int, unsigned int >
+class ConcFunctor : public BaseFunctor< bool, unsigned int, unsigned int >
 {
 public:
-  typedef ConcFunctorImpl< bool, unsigned int, unsigned int >
-    Impl_t;
+  typedef ConcFunctorImpl< bool, unsigned int, unsigned int > Impl_t;
 
 private:
   Impl_t impl_;
 
 public:
-  bool operator()( unsigned int arg1, unsigned int arg2)
+  bool operator()(unsigned int arg1, unsigned int arg2)
   {
     return impl_(arg1, arg2);
   }
@@ -144,31 +143,34 @@ public:
 /*
   some algorithm function
 //*/
-void doSort(int* arr, unsigned int arr_size, ConcFunctor comparator)
+void doSort(int *arr, unsigned int arr_size, ConcFunctor comparator)
 {
-  if(arr_size < 2) return;
+  if (arr_size < 2)
+    return;
 
-  int tmp=0;
-  unsigned idx=arr_size-2;
+  int tmp = 0;
+  unsigned idx = arr_size - 2;
 
   bool swapped = true;
 
-  do{
-    if(idx == arr_size-2){
-      if(!swapped) break;
-      idx=0;
+  do {
+    if (idx == arr_size - 2) {
+      if (!swapped)
+        break;
+      idx = 0;
       swapped = false;
-    }else ++idx;
+    } else
+      ++idx;
 
-    if(!comparator(arr[idx], arr[idx+1])){
+    if (!comparator(arr[idx], arr[idx + 1])) {
       tmp = arr[idx];
-      arr[idx] = arr[idx+1];
-      arr[idx+1] = tmp;
+      arr[idx] = arr[idx + 1];
+      arr[idx + 1] = tmp;
 
       swapped = true;
     }
 
-  }while(true);
+  } while (true);
 }
 
 
@@ -179,10 +181,10 @@ int main()
 {
   using namespace std;
 
-  int arr[] = { 3, 4, 6, 1, 7, 5, 2 };
+  int arr[] = {3, 4, 6, 1, 7, 5, 2};
 
   cout << "before:";
-  for(unsigned int idx=0; idx < sizeof(arr) / sizeof(int); ++idx)
+  for (unsigned int idx = 0; idx < sizeof(arr) / sizeof(int); ++idx)
     cout << " " << arr[idx];
   cout << endl << endl;
 
@@ -190,10 +192,10 @@ int main()
   ConcFunctor functor;
 
   // sort using the functor
-  doSort(arr, sizeof(arr)/sizeof(int), functor);
+  doSort(arr, sizeof(arr) / sizeof(int), functor);
 
   cout << "after:";
-  for(unsigned int idx=0; idx < sizeof(arr) / sizeof(int); ++idx)
+  for (unsigned int idx = 0; idx < sizeof(arr) / sizeof(int); ++idx)
     cout << " " << arr[idx];
   cout << endl << endl;
 

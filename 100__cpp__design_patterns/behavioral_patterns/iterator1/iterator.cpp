@@ -37,13 +37,16 @@
 /*
   forward declaration and additional "helpers"
 //*/
-struct IteratorOutOfBounds : public std::exception{};
+struct IteratorOutOfBounds : public std::exception {
+};
 
-template< class Item > class Iterator;
-template< class Item > class ConcreteIterator;
+template < class Item >
+class Iterator;
+template < class Item >
+class ConcreteIterator;
 
 
-template< class Item >
+template < class Item >
 class Aggregate
 {
 protected:
@@ -54,60 +57,51 @@ protected:
 
 public:
   Aggregate(const signed long size)
-    : pItems_(NULL), pIter_(NULL), size_(size), count_(0)
+      : pItems_(NULL), pIter_(NULL), size_(size), count_(0)
   {
-    try{
-      pItems_ = new Item[size_+1];
-    }catch(std::bad_alloc&){
+    try {
+      pItems_ = new Item[size_ + 1];
+    } catch (std::bad_alloc &) {
       std::cerr << "Allocation failed!\n";
     }
 
-    for(int idx = 0; idx<size_; ++idx){
+    for (int idx = 0; idx < size_; ++idx) {
       pItems_[idx] = "";
     }
   }
 
   virtual ~Aggregate()
   {
-    delete [] pItems_; pItems_ = NULL;
+    delete[] pItems_;
+    pItems_ = NULL;
   }
 
-  virtual Iterator< Item >* createIterator() const = 0;
+  virtual Iterator< Item > *createIterator() const = 0;
   virtual signed long count() const = 0;
-  virtual Item* getItem(signed long idx) const = 0;
+  virtual Item *getItem(signed long idx) const = 0;
 };
 
 
-template< class Item >
-struct ConcreteAggregate
-  : public Aggregate< Item >
-{
-  ConcreteAggregate(const signed long size)
-    : Aggregate< Item >( size)
-  {}
+template < class Item >
+struct ConcreteAggregate : public Aggregate< Item > {
+  ConcreteAggregate(const signed long size) : Aggregate< Item >(size) {}
 
-  Iterator< Item >* createIterator() const
+  Iterator< Item > *createIterator() const
   {
     return new ConcreteIterator< Item >(this);
   }
 
-  signed long count() const
-  {
-    return this->count_;
-  }
+  signed long count() const { return this->count_; }
 
-  Item* getItem(signed long idx) const
-  {
-    return &(this->pItems_)[idx];
-  }
+  Item *getItem(signed long idx) const { return &(this->pItems_)[idx]; }
 
   // just dummy to populate the list
   void push(const Item item)
   {
-    if(this->size_ > this->count_ + 1){
+    if (this->size_ > this->count_ + 1) {
       this->pItems_[this->count_] = item;
       ++(this->count_);
-    }else{
+    } else {
       std::cout << "\tlist is full!\n";
       return;
     }
@@ -115,9 +109,8 @@ struct ConcreteAggregate
 };
 
 
-template< class Item >
-struct Iterator
-{
+template < class Item >
+struct Iterator {
   virtual void first() = 0;
   virtual void next() = 0;
   virtual bool isDone() const = 0;
@@ -125,37 +118,28 @@ struct Iterator
 };
 
 
-template< class Item >
-class ConcreteIterator
-  : public Iterator< Item >
+template < class Item >
+class ConcreteIterator : public Iterator< Item >
 {
 private:
-  const ConcreteAggregate< Item >* concAggregate_;
+  const ConcreteAggregate< Item > *concAggregate_;
   signed long current_;
 
 public:
-  ConcreteIterator( const ConcreteAggregate< Item >* aggregate)
-    : concAggregate_(aggregate), current_(0)
-  {}
-
-  virtual void first()
+  ConcreteIterator(const ConcreteAggregate< Item > *aggregate)
+      : concAggregate_(aggregate), current_(0)
   {
-    current_ = 0;
   }
 
-  virtual void next()
-  {
-    ++current_;
-  }
+  virtual void first() { current_ = 0; }
 
-  virtual bool isDone() const
-  {
-    return (current_ >= concAggregate_->count());
-  }
+  virtual void next() { ++current_; }
+
+  virtual bool isDone() const { return (current_ >= concAggregate_->count()); }
 
   virtual Item currentItem() const
   {
-    if(isDone()){
+    if (isDone()) {
       throw IteratorOutOfBounds();
     }
     return *(concAggregate_->getItem(current_));
@@ -171,7 +155,7 @@ int main()
   using namespace std;
 
   cout << "init aggregate: list\n";
-  ConcreteAggregate< string > *list = new ConcreteAggregate< string >( 32);
+  ConcreteAggregate< string > *list = new ConcreteAggregate< string >(32);
 
   list->push("All");
   list->push("Work");
@@ -187,15 +171,15 @@ int main()
   Iterator< string > *iter = list->createIterator();
   cout << endl;
 
-  for(iter->first(); !iter->isDone(); iter->next()){
+  for (iter->first(); !iter->isDone(); iter->next()) {
     cout << "item: \'" << iter->currentItem() << "\'" << endl;
   }
   cout << endl;
 
   // free
-  delete list; list = NULL;
+  delete list;
+  list = NULL;
 
   cout << "READY.\n";
   return 0;
-
 }

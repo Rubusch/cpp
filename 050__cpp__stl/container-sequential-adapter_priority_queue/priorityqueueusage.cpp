@@ -29,10 +29,10 @@
 //*/
 
 
-#include <queue>
 #include <deque>
 #include <functional>
 #include <iostream>
+#include <queue>
 
 /*
   main...
@@ -62,7 +62,7 @@ int main()
   cout << endl;
 
   cout << "pop out the elements (priority \"greater\")..\n";
-  while(!pque.empty()){
+  while (!pque.empty()) {
     cout << pque.top() << " ";
     pque.pop();
   }

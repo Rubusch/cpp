@@ -40,10 +40,10 @@
 //*/
 
 
-#include <iostream>
+#include <cstdlib>   // exit()
+#include <cstring>   // strlen()
 #include <exception> // exception
-#include <cstdlib> // exit()
-#include <cstring> // strlen()
+#include <iostream>
 
 
 /*
@@ -56,22 +56,21 @@ public:
   class BadAnimalException : public std::exception
   {
   public:
-    BadAnimalException() {};
+    BadAnimalException(){};
     ~BadAnimalException() throw() {}
-    const char* what() const throw()
+    const char *what() const throw()
     {
       return "Some Baaaaaaaaaaad Animal Appeared!";
     }
   };
 
   // usage declaration
-  void someFunc() throw (BadAnimalException);
+  void someFunc() throw(BadAnimalException);
 };
 
 
 // usage defintion
-void SomeClass::someFunc()
-  throw (SomeClass::BadAnimalException)
+void SomeClass::someFunc() throw(SomeClass::BadAnimalException)
 {
   std::cout << "someFunc() will throw an exception..\n";
   // in case of ... throw
@@ -90,17 +89,17 @@ int main()
   SomeClass sc;
   cout << endl;
 
-  try{
+  try {
     sc.someFunc();
-  }catch(SomeClass::BadAnimalException& ex){
+  } catch (SomeClass::BadAnimalException &ex) {
     cerr << "Bad Animal Exception: " << ex.what() << endl;
   }
 
   cout << endl;
   cout << "try again..\n";
-  try{
+  try {
     sc.someFunc();
-  }catch(SomeClass::BadAnimalException&){
+  } catch (SomeClass::BadAnimalException &) {
     cerr << "Bad Animal Exception again..\n";
   }
   cout << endl;

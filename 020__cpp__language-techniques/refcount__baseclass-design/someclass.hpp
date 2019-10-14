@@ -6,9 +6,9 @@
 #ifndef SOME_CLASS
 #define SOME_CLASS
 
-#include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 
 #include "rcbaseobject.hpp"
 #include "rcptr.hpp"
@@ -19,9 +19,10 @@
 //*/
 class SomeClass;
 
-std::ostream& operator<<(std::ostream& out, SomeClass& obj);
+std::ostream &operator<<(std::ostream &out, SomeClass &obj);
 
-template<class T> class RCPtr;
+template < class T >
+class RCPtr;
 
 
 /*
@@ -35,12 +36,11 @@ public:
   ~SomeClass();
 
   // copy on write - operator[]
-  const char& operator[](int index) const;
-  char& operator[](int index);
+  const char &operator[](int index) const;
+  char &operator[](int index);
 
   // ouput accessibility
-  friend
-  std::ostream& operator<<(std::ostream& out, SomeClass& obj);
+  friend std::ostream &operator<<(std::ostream &out, SomeClass &obj);
 
 private:
   /*
@@ -49,15 +49,14 @@ private:
     This class is deduced from RCBaseObject, the here used abstract class
     for reference counting.
   //*/
-  struct SomeClassValue: public RCBaseObject
-  {
+  struct SomeClassValue : public RCBaseObject {
     char *data;
 
     // ref count ctor
     SomeClassValue(const char *initValue);
 
     // ref count copy ctor
-    SomeClassValue(const SomeClassValue& rhs);
+    SomeClassValue(const SomeClassValue &rhs);
 
     // ref count dtor
     ~SomeClassValue();
@@ -68,7 +67,7 @@ private:
   /*
     reference count pointer here as smart pointer
   //*/
-  RCPtr<SomeClassValue> value;
+  RCPtr< SomeClassValue > value;
 };
 
 #endif

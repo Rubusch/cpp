@@ -4,16 +4,17 @@
 
 
   exception specifications
-  It is possible to implement costumized exceptions, so called "exception specifications" but generally they're
-  rather considered as problematic (by 95 / meyers) and templates and exception specifications don't fit
-  together!! ;-)
+  It is possible to implement costumized exceptions, so called "exception
+specifications" but generally they're rather considered as problematic (by 95 /
+meyers) and templates and exception specifications don't fit together!! ;-)
 
 
 
   Ctor
 
-  if a constructor uses exceptions and an exception is to be thrown, the ctor has to clean up the ALREADY
-  generated stuff. Partly constructed objects won't be destroyed by the destructor!
+  if a constructor uses exceptions and an exception is to be thrown, the ctor
+has to clean up the ALREADY generated stuff. Partly constructed objects won't be
+destroyed by the destructor!
 
   e.g. in ctor:
   // ...
@@ -35,17 +36,19 @@
 
   Dtor
 
-  Avoid exceptions in the descturctor (More Effective C++ / 11 / Meyers). The only possibility is to use
-  uncaught_exceptions() in the destructor to catch the left thrown exceptions.
+  Avoid exceptions in the descturctor (More Effective C++ / 11 / Meyers). The
+only possibility is to use uncaught_exceptions() in the destructor to catch the
+left thrown exceptions.
 
 
 
   forwarding of exception
 
-  Exceptions can be thrown and passed by value, reference and pointer. A copy of an exception uses the static
-  copy constructor! A "catch(const void*)" catches every exception which was thrown as a pointer, but exceptions
-  should be thrown as reference (More Effective C++ / 13 / Meyers). References can lead to the slicing problem
-  but avoid memory problems!
+  Exceptions can be thrown and passed by value, reference and pointer. A copy of
+an exception uses the static copy constructor! A "catch(const void*)" catches
+every exception which was thrown as a pointer, but exceptions should be thrown
+as reference (More Effective C++ / 13 / Meyers). References can lead to the
+slicing problem but avoid memory problems!
 
   e.g.:
   catch(Widget &w){
@@ -62,7 +65,8 @@
 
   Miscellaneous
 
-  To pass a temporary object to a NOT constant parameter for functions is NOT allowed, but for exceptions!
+  To pass a temporary object to a NOT constant parameter for functions is NOT
+allowed, but for exceptions!
 
   There is NO implicit type conversion for exceptions!
 
@@ -105,11 +109,11 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib> // exit()
+#include <iostream>
 
 
-template<class T>
+template < class T >
 class SomeClass
 {
 private:
@@ -117,14 +121,13 @@ private:
 
 public:
   // ctor
-  SomeClass(T t)
-    : ptr(NULL)
+  SomeClass(T t) : ptr(NULL)
   {
     std::cout << "\tSomeClass::SomeClass() - ctor, allocate something\n";
 
-    try{
+    try {
       ptr = new T;
-    }catch(...){ // ... catches every exception
+    } catch (...) { // ... catches every exception
       std::cerr << "ERROR: allocation failed" << std::endl;
       delete ptr;
       throw;
@@ -137,8 +140,7 @@ public:
 
 
   // empty ctor
-  SomeClass()
-    : ptr(NULL)
+  SomeClass() : ptr(NULL)
   {
     std::cout << "\tSomeClass::SomeClass() - ctor, NULL\n";
   }
@@ -161,8 +163,8 @@ public:
   T getVal()
   {
     std::cout << "\tSomeClass::getVal()\n";
-    try{
-      if(NULL == ptr){
+    try {
+      if (NULL == ptr) {
 
         // throw exception
         throw "pointer was NULL";
@@ -170,7 +172,7 @@ public:
 
       std::cout << "\t\tTHIS IS ONLY VISIBLE WHEN NO EXCEPTION WAS THROWN!\n";
       return *ptr;
-    }catch(char const* str){ // catches a thrown string exception
+    } catch (char const *str) { // catches a thrown string exception
       std::cerr << "ERROR: " << str << std::endl;
     }
 
@@ -194,8 +196,8 @@ int main()
 
   /*
     remark:
-    THIS IS NOT A INSTANTIATION - THIS IS A FUNCTION CALL, THE FUNCTION DOESN'T EXIST!
-    SomeClass< string > sc_1();
+    THIS IS NOT A INSTANTIATION - THIS IS A FUNCTION CALL, THE FUNCTION DOESN'T
+  EXIST! SomeClass< string > sc_1();
   //*/
 
   cout << "init instance 1\n";

@@ -36,11 +36,8 @@ protected:
   int variable;
 
 public:
-  virtual ~Base(){}
-  void display()
-  {
-    std::cout << "Base::variable = " << variable << "\n";
-  }
+  virtual ~Base() {}
+  void display() { std::cout << "Base::variable = " << variable << "\n"; }
 };
 
 
@@ -50,16 +47,12 @@ public:
   if this inheritance doesn't have "virtual" the class would have a separate
   "base" instance - "variable" would be different!
 //*/
-class DerivedA
-  : public virtual Base
+class DerivedA : public virtual Base
 {
 public:
-  DerivedA()
-  {
-    variable = 1;
-  }
+  DerivedA() { variable = 1; }
 
-  virtual ~DerivedA(){}
+  virtual ~DerivedA() {}
 
   void display_derivedA()
   {
@@ -71,16 +64,12 @@ public:
 /*
   DerivedB
 //*/
-class DerivedB
-  : public virtual Base
+class DerivedB : public virtual Base
 {
 public:
-  DerivedB()
-  {
-    variable = 2;
-  }
+  DerivedB() { variable = 2; }
 
-  virtual ~DerivedB(){}
+  virtual ~DerivedB() {}
 
   void display_derivedB()
   {
@@ -92,9 +81,9 @@ public:
 /*
   Client
 //*/
-class Client
-  : public DerivedA, public DerivedB
-{};
+class Client : public DerivedA, public DerivedB
+{
+};
 
 
 /*

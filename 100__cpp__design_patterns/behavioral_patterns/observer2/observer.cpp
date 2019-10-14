@@ -4,36 +4,35 @@
   when one object changes state, all its dependents are
   notified and updated automatically.
 
-  +---------------------+ observers                                       +---------------------+
-  | Subject             |------------------------------------------------>| Observer            |
-  +=====================+                                                 +=====================+
-  | attach(Observer)    |  +-------------------------+                    | update()            |
-  | detach(Observer)    |  | for all o in observers{ | \                  +---------------------+
-  | notify()  o - - - - - -|   o->update();          +--+                           /_\
-  +---------------------+  | }                          |                            |
-           /_\             +----------------------------+                            |
-            |                                                                        |
-            |                                                             +---------------------+
-            |                                                             | ConcreteObserver    |
-  +---------------------+                                         subject +=====================+
-  | ConcreteSubject     |<------------------------------------------------| update()         o  |
-  +=====================+        +----------------------+                 +------------------ --+
-  | getState() o - - - - - - - - | return subjectState; +-+               | observerState    |  |
-  | setState()          |        |                        |               +------------------ --+
-  +---------------------+        +------------------------+                                  |
-  | subjectState_       |                                                                    |
-  +---------------------+                                                                    |
+  +---------------------+ observers +---------------------+ | Subject
+|------------------------------------------------>| Observer            |
+  +=====================+ +=====================+ | attach(Observer)    |
++-------------------------+                    | update()            | |
+detach(Observer)    |  | for all o in observers{ | \ +---------------------+
+  | notify()  o - - - - - -|   o->update();          +--+ /_\
+  +---------------------+  | }                          | |
+           /_\             +----------------------------+ | | | |
++---------------------+ | | ConcreteObserver    |
+  +---------------------+                                         subject
++=====================+ | ConcreteSubject
+|<------------------------------------------------| update()         o  |
+  +=====================+        +----------------------+ +------------------
+--+ | getState() o - - - - - - - - | return subjectState; +-+               |
+observerState    |  | | setState()          |        |                        |
++------------------ --+
+  +---------------------+        +------------------------+ | | subjectState_ |
+|
+  +---------------------+ |
                                                                       +-------------------------+
-                                                                      | observerState =         | \
-                                                                      |   subject->getState()   +--+
-                                                                      |                            |
+                                                                      |
+observerState =         | \ |   subject->getState()   +--+ | |
                                                                       +----------------------------+
   (GoF, 1995)
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <list>
 
 
@@ -53,25 +52,19 @@ private:
   std::string str_;
 
 public:
-  State()
-    : val_(0), str_("")
-  {}
+  State() : val_(0), str_("") {}
 
-  explicit State(const State &state)
-    : val_(state.val_), str_(state.str_)
-  {}
+  explicit State(const State &state) : val_(state.val_), str_(state.str_) {}
 
-  State(int val, std::string s)
-    : val_(val), str_(s)
-  {}
+  State(int val, std::string s) : val_(val), str_(s) {}
 
-  friend
-  std::ostream& operator<<(std::ostream&, State&);
+  friend std::ostream &operator<<(std::ostream &, State &);
 };
 
-std::ostream& operator<<(std::ostream& os, State &state)
+std::ostream &operator<<(std::ostream &os, State &state)
 {
-  return os << ">> State (Originator): int = " << state.val_ << ", string = " << state.str_;
+  return os << ">> State (Originator): int = " << state.val_
+            << ", string = " << state.str_;
 }
 
 
@@ -84,7 +77,7 @@ std::ostream& operator<<(std::ostream& os, State &state)
 class Observer
 {
 public:
-  virtual ~Observer(){}
+  virtual ~Observer() {}
   virtual void update() = 0;
 };
 
@@ -98,32 +91,31 @@ public:
 class Subject
 {
 private:
-  std::list< Observer* > lst_;
+  std::list< Observer * > lst_;
 
 public:
-  virtual ~Subject()
-  {
-    std::cout << "\tSubject::~Subject() - dtor\n";
-  }
+  virtual ~Subject() { std::cout << "\tSubject::~Subject() - dtor\n"; }
 
-  void attach(Observer* pObserver)
+  void attach(Observer *pObserver)
   {
     std::cout << "\tSubject::attach( Observer)\n";
-    if(!pObserver) return;
+    if (!pObserver)
+      return;
     lst_.push_back(pObserver);
   }
 
-  void detach(Observer* pObserver)
+  void detach(Observer *pObserver)
   {
     std::cout << "\tSubject::detach( Observer)\n";
-    if(!pObserver) return;
+    if (!pObserver)
+      return;
     lst_.remove(pObserver);
   }
 
   void notify()
   {
     std::cout << "\tSubject::notify()\n";
-    std::for_each(lst_.begin(), lst_.end(), std::mem_fun( &Observer::update));
+    std::for_each(lst_.begin(), lst_.end(), std::mem_fun(&Observer::update));
   }
 };
 
@@ -134,20 +126,18 @@ public:
   - stores state of interest to ConcreteObserver objects.
   - sends a notification to its observers when its state changes.
 //*/
-class ConcreteSubject
-  : public Subject
+class ConcreteSubject : public Subject
 {
 private:
-  State* subjectState_;
+  State *subjectState_;
 
 public:
-  ConcreteSubject()
-    : subjectState_(NULL)
+  ConcreteSubject() : subjectState_(NULL)
   {
     std::cout << "\tConcreteSubject::ConcreteSubject() - ctor\n";
-    try{
+    try {
       subjectState_ = new State(666, "murder");
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation of state failed!\n";
       std::exit(-1);
     }
@@ -156,22 +146,25 @@ public:
   ~ConcreteSubject()
   {
     std::cout << "\tConcreteSubject::~ConcreteSubject() - dtor\n";
-    delete subjectState_; subjectState_ = NULL;
+    delete subjectState_;
+    subjectState_ = NULL;
   }
 
-  State* getState() const
+  State *getState() const
   {
     std::cout << "\tConcreteSubject::getState()\n";
     return subjectState_;
   }
 
-  void setState(State* pState)
+  void setState(State *pState)
   {
     std::cout << "\tConcreteSubject::setState()\n";
-    if(!pState) return;
+    if (!pState)
+      return;
 
-    if(subjectState_){
-      delete subjectState_; subjectState_ = NULL;
+    if (subjectState_) {
+      delete subjectState_;
+      subjectState_ = NULL;
     }
     subjectState_ = new State(*pState);
   }
@@ -186,21 +179,20 @@ public:
   - implements the Observer updating interface to keep its state consistent with
   the subject's.
 //*/
-class ConcreteObserver
-  : public Observer
+class ConcreteObserver : public Observer
 {
 private:
   State *observerState_;
   const ConcreteSubject *subject_;
 
 public:
-  ConcreteObserver(const ConcreteSubject& pSubject)
-    : observerState_(NULL), subject_(&pSubject)
+  ConcreteObserver(const ConcreteSubject &pSubject)
+      : observerState_(NULL), subject_(&pSubject)
   {
     std::cout << "\tConcreteObserver::ConcreteObserver() - ctor\n";
-    try{
+    try {
       observerState_ = new State(999, "redrum");
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation of observer state failed!\n";
       std::exit(-2);
     }
@@ -211,14 +203,16 @@ public:
   ~ConcreteObserver()
   {
     std::cout << "\tConcreteObserver::~ConcreteObserver() - dtor\n";
-    delete observerState_; observerState_ = NULL;
+    delete observerState_;
+    observerState_ = NULL;
   }
 
   void update()
   {
     std::cout << "\tConcreteObserver::update()\n";
-    if(observerState_){
-      delete observerState_; observerState_ = NULL;
+    if (observerState_) {
+      delete observerState_;
+      observerState_ = NULL;
     }
     observerState_ = new State(*subject_->getState());
 

@@ -15,15 +15,9 @@
 class Parrot
 {
 public:
-  void eat()
-  {
-    std::cout << "\tTsk, knick, tsk...\n";
-  }
+  void eat() { std::cout << "\tTsk, knick, tsk...\n"; }
 
-  void speak()
-  {
-    std::cout << "\tOh Captain, my Captain!\n";
-  }
+  void speak() { std::cout << "\tOh Captain, my Captain!\n"; }
 };
 
 
@@ -40,7 +34,7 @@ int main()
   // define a type: pointer to a member function of Parrot,
   // taking no arguments and returning void
   cout << "typedef void (Parrot::* TpMemFun)();\n";
-  typedef void (Parrot::* TpMemFun)();
+  typedef void (Parrot::*TpMemFun)();
   cout << endl;
 
 
@@ -59,7 +53,7 @@ int main()
 
   // ..and a pointer to it
   cout << "Parrot* pGeronimo = &geronimo;\n";
-  Parrot* pGeronimo = &geronimo;
+  Parrot *pGeronimo = &geronimo;
   cout << endl;
 
 
@@ -91,4 +85,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

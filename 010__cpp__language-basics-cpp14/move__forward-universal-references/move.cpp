@@ -100,27 +100,27 @@ class Fruit
 {
 protected:
   string name_;
+
 public:
-/*
-  template< typename T >
-  void setName(T&& name)
-  {
-    cout << "CALLED: setName(T&&) - UNIVERSAL REFERENCE, BAD IDEA (catches all)!!!" << endl;
-    name_ = name;
-  }
-// */
+  /*
+    template< typename T >
+    void setName(T&& name)
+    {
+      cout << "CALLED: setName(T&&) - UNIVERSAL REFERENCE, BAD IDEA (catches
+  all)!!!" << endl; name_ = name;
+    }
+  // */
 
   // !!! if these are not '{}', vtable errors will follow !!!
-  virtual void setName(const string& name){}
-  virtual void setName(string&& name){}
+  virtual void setName(const string &name) {}
+  virtual void setName(string &&name) {}
 
   // needed for virtual functions in derived classes
-  virtual ~Fruit() {};
+  virtual ~Fruit(){};
 };
 
 
-class Lemon
-: public Fruit
+class Lemon : public Fruit
 {
 public:
   // to make this visible the function 'initializer()' has to have a
@@ -136,20 +136,22 @@ public:
   // type deduction can be used and objects of class Orange or Lemon behave as
   // full such objects even passed by a base class reference or pointer,
   // respectively
-  template< typename T >
-  void setName(T&& name)
+  template < typename T >
+  void setName(T &&name)
   {
-    cout << "CALLED: setName(T&&) - UNIVERSAL REFERENCE, BAD IDEA (catches all)!!!" << endl;
+    cout << "CALLED: setName(T&&) - UNIVERSAL REFERENCE, BAD IDEA (catches "
+            "all)!!!"
+         << endl;
     name_ = name;
   }
 
-  virtual void setName(const string& name) override
+  virtual void setName(const string &name) override
   {
     cout << "CALLED: setName(const string&) - set from const lvalue" << endl;
     name_ = name;
   }
 
-  virtual void setName(string&& name) override
+  virtual void setName(string &&name) override
   {
     cout << "CALLED: setName(string&&) - set from rvalue" << endl;
     name_ = name;
@@ -157,17 +159,16 @@ public:
 };
 
 
-class Orange
-: public Fruit
+class Orange : public Fruit
 {
 public:
-  virtual void setName(const string& name) override
+  virtual void setName(const string &name) override
   {
     cout << "CALLED: setName(const string&) - set from const lvalue" << endl;
     name_ = name;
   }
 
-  virtual void setName(string&& name) override
+  virtual void setName(string &&name) override
   {
     cout << "CALLED: setName(string&&) - set from rvalue" << endl;
     name_ = name;
@@ -175,7 +176,7 @@ public:
 };
 
 // for comments on template declaration see above comment
-template< typename T >
+template < typename T >
 void initializer(T &fruit, string name)
 {
   cout << name << ": rvalue initialization" << endl;
@@ -187,7 +188,6 @@ void initializer(T &fruit, string name)
   fruit.setName(str);
   cout << endl;
 }
-
 
 
 int main(void)

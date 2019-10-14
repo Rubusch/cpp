@@ -32,27 +32,27 @@ using namespace std;
 // C++98 'virtual' functions
 //
 // * the base class function mus be virtual
-// * the base and derived function names must be identical (except in the case of destructors)
+// * the base and derived function names must be identical (except in the case
+// of destructors)
 // * the parameter types of the base and derived functions must be identical
 // * the constness of the base and derived functions must be identical
-// * the return types and exception specifications of the base and derived functions must be compatible
+// * the return types and exception specifications of the base and derived
+// functions must be compatible
 // * all derived virtual functions are automatically virtual
 // * virtual functions can be overwritten, but need not to be
 class Base
 {
 public:
-  virtual ~Base(){}
-  virtual void doWork()
-  {
-    cout << "CALLED: Base::doWork();" << endl;
-  }
+  virtual ~Base() {}
+  virtual void doWork() { cout << "CALLED: Base::doWork();" << endl; }
 };
 
 
 class Derived : public Base
 {
 public:
-  virtual void doWork() // virtual is optional here, all derived class'es virtual functions are virtual, too
+  virtual void doWork() // virtual is optional here, all derived class'es
+                        // virtual functions are virtual, too
   {
     cout << "CALLED: Derived::doWork();" << endl;
   }
@@ -72,45 +72,30 @@ public:
   {
     cout << "CALLED: Widget::doWork() [rvalue]" << endl;
   }
-
 };
 
-Widget makeWidget()
-{
-  return Widget();
-}
+Widget makeWidget() { return Widget(); }
 
 
 // C++11 feature 'override'
 class BaseNew
 {
 public:
-  virtual ~BaseNew(){}
-  virtual void mf1() const
-  {
-    cout << "CALLED: BaseNew::mf1() const" << endl;
-  }
+  virtual ~BaseNew() {}
+  virtual void mf1() const { cout << "CALLED: BaseNew::mf1() const" << endl; }
 
-  virtual void mf2(int x)
-  {
-    cout << "CALLED: BaseNew::mf2(int)" << endl;
-  }
+  virtual void mf2(int x) { cout << "CALLED: BaseNew::mf2(int)" << endl; }
 
-  virtual void mf3() &
-  {
-    cout << "CALLED: BaseNew::mf3() &" << endl;
-  }
+  virtual void mf3() & { cout << "CALLED: BaseNew::mf3() &" << endl; }
 
-  virtual void mf4() const
-  {
-    cout << "CALLED: BaseNew::mf4()" << endl;
-  }
+  virtual void mf4() const { cout << "CALLED: BaseNew::mf4()" << endl; }
 };
 
 class DerivedNew : public BaseNew
 {
 public:
-  virtual void mf1() const override // 'override' is declared in the derived function
+  virtual void
+  mf1() const override // 'override' is declared in the derived function
   {
     cout << "CALLED: DerivedNew::mf1() const" << endl;
   }
@@ -134,8 +119,9 @@ public:
 
 int main(void)
 {
-  cout << "classic: init 'unique_ptr<Base> upb = make_unique<Derived>();'" << endl;
-  std::unique_ptr<Base> upb = std::make_unique<Derived>();
+  cout << "classic: init 'unique_ptr<Base> upb = make_unique<Derived>();'"
+       << endl;
+  std::unique_ptr< Base > upb = std::make_unique< Derived >();
   upb->doWork();
   cout << endl;
 
@@ -150,7 +136,7 @@ int main(void)
   cout << endl;
 
   cout << "override solves several situations" << endl;
-  unique_ptr<BaseNew> upbn = make_unique<DerivedNew>();
+  unique_ptr< BaseNew > upbn = make_unique< DerivedNew >();
   upbn->mf1();
   upbn->mf2(78);
   upbn->mf3();
@@ -159,4 +145,3 @@ int main(void)
 
   cout << "READY." << endl;
 }
-

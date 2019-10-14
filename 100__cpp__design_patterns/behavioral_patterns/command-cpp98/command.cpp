@@ -20,9 +20,12 @@
   +=====================+                      +=====================+
   | action()            |                      | pReceiver_          |
   +---------------------+      +--------+      |    : Receiver       |
-  |                     |<-----| Client |- - ->+---------------------+      +--------------------+\
-  +---------------------+      +--------+      | execute()      - - - - - - | receiver->action() +-+
-                                               +---------------------+      +----------------------+
+  |                     |<-----| Client |- - ->+---------------------+
++--------------------+\
+  +---------------------+      +--------+      | execute()      - - - - - - |
+receiver->action() +-+
+                                               +---------------------+
++----------------------+
 
 
 
@@ -57,22 +60,15 @@
 //*/
 
 
+#include <cstdlib>
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 
 
-struct Receiver
-{
-  Receiver()
-  {
-    std::cout << "\tdo a backup of the passed data\n";
-  }
+struct Receiver {
+  Receiver() { std::cout << "\tdo a backup of the passed data\n"; }
 
-  void action()
-  {
-    std::cout << "\tdo some operation\n";
-  }
+  void action() { std::cout << "\tdo some operation\n"; }
 
   void undo()
   {
@@ -84,45 +80,36 @@ struct Receiver
 class Command
 {
 private:
-  Command* pCommand_;
+  Command *pCommand_;
 
 public:
-  virtual ~Command(){}
+  virtual ~Command() {}
   virtual void execute() = 0;
   virtual void undo() = 0;
 };
 
 
-class ConcreteCommand
-  : public Command
+class ConcreteCommand : public Command
 {
 private:
   Receiver *pReceiver_;
 
 public:
-  ConcreteCommand(Receiver& receiver)
-    : pReceiver_(&receiver)
-  {}
+  ConcreteCommand(Receiver &receiver) : pReceiver_(&receiver) {}
 
-  void execute()
-  {
-    pReceiver_->action();
-  }
+  void execute() { pReceiver_->action(); }
 
-  void undo()
-  {
-    pReceiver_->undo();
-  }
+  void undo() { pReceiver_->undo(); }
 };
 
 
 class Invoker
 {
 private:
-  std::vector< Command* > commands_;
+  std::vector< Command * > commands_;
 
 public:
-  void operator()(Command& command)
+  void operator()(Command &command)
   {
     commands_.push_back(&command);
     commands_.back()->execute();
@@ -130,7 +117,7 @@ public:
 
   void undo()
   {
-    if(!commands_.empty()){
+    if (!commands_.empty()) {
       commands_.back()->undo();
       commands_.pop_back();
     }
@@ -145,36 +132,35 @@ private:
   ConcreteCommand *pCommand_;
 
 public:
-  Client()
-    : pReceiver_(NULL), pCommand_(NULL)
-  {}
+  Client() : pReceiver_(NULL), pCommand_(NULL) {}
 
   ~Client()
   {
-    if(NULL != pReceiver_){
+    if (NULL != pReceiver_) {
       delete pReceiver_;
       pReceiver_ = NULL;
     }
 
-    if(NULL != pCommand_){
+    if (NULL != pCommand_) {
       delete pCommand_;
       pCommand_ = NULL;
     }
   }
 
-  Command& getCmd()
+  Command &getCmd()
   {
-    try{
+    try {
       pReceiver_ = new Receiver();
-    }catch(...){
+    } catch (...) {
       std::cerr << "\tClient::getCmd() - allocation of Receiver failed\n";
       exit(-1);
     }
 
-    try{
+    try {
       pCommand_ = new ConcreteCommand(*pReceiver_);
-    }catch(...){
-      std::cerr << "\tClient::getCmd() - allocation of ConcreteCommand failed\n";
+    } catch (...) {
+      std::cerr
+          << "\tClient::getCmd() - allocation of ConcreteCommand failed\n";
       exit(-1);
     }
 

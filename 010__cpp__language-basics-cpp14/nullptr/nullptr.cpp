@@ -26,7 +26,7 @@ using namespace std;
 
 void func(int i) { cout << "CALLED: void func(int i);" << endl; }
 void func(bool b) { cout << "CALLED: void func(bool b);" << endl; }
-void func(void* vp) { cout << "CALLED: void func(void* vp);" << endl; }
+void func(void *vp) { cout << "CALLED: void func(void* vp);" << endl; }
 
 int main(void)
 {
@@ -37,7 +37,7 @@ int main(void)
 
   // might not compile (NULL is ambiguous)! typically calls int overload
   cout << "func(NULL) - might not compile" << endl;
-//  func(NULL);
+  //  func(NULL);
   cout << endl;
 
   cout << "func(nullptr)" << endl;
@@ -50,4 +50,3 @@ int main(void)
 
   cout << "READY." << endl;
 }
-

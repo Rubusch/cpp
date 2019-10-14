@@ -22,35 +22,34 @@ annotations:
 #include "rcobject.hpp"
 
 
-template<class T>
+template < class T >
 class RCIPtr
 {
 public:
   // ctor
-  RCIPtr(T* realPtr = 0);
+  RCIPtr(T *realPtr = 0);
 
   // copy ctor
-  RCIPtr(const RCIPtr& rhs);
+  RCIPtr(const RCIPtr &rhs);
 
   // dtor
   ~RCIPtr();
 
   // op=
-  RCIPtr& operator=(const RCIPtr& rhs);
+  RCIPtr &operator=(const RCIPtr &rhs);
 
   // smart pointer stuff
-  T* operator->() const;
-  T& operator*() const;
+  T *operator->() const;
+  T &operator*() const;
 
-  RCObject& getRCObject()
+  RCObject &getRCObject()
   {
     // give clients access to isShared, etc.
     return *counter;
   }
 
 private:
-  struct CountHolder: public RCObject
-  {
+  struct CountHolder : public RCObject {
     ~CountHolder();
     T *pointee;
   };
@@ -66,8 +65,8 @@ private:
 /*
   init called by the ctor
 //*/
-template<class T>
-void RCIPtr<T>::init()
+template < class T >
+void RCIPtr< T >::init()
 {
   if (counter->isShareable() == false) {
     T *oldValue = counter->pointee;
@@ -82,9 +81,8 @@ void RCIPtr<T>::init()
 /*
   ctor
 //*/
-template<class T>
-RCIPtr<T>::RCIPtr(T* realPtr)
-  : counter(new CountHolder)
+template < class T >
+RCIPtr< T >::RCIPtr(T *realPtr) : counter(new CountHolder)
 {
   counter->pointee = realPtr;
   init();
@@ -94,9 +92,8 @@ RCIPtr<T>::RCIPtr(T* realPtr)
 /*
   copy ctor
 //*/
-template<class T>
-RCIPtr<T>::RCIPtr(const RCIPtr& rhs)
-  : counter(rhs.counter)
+template < class T >
+RCIPtr< T >::RCIPtr(const RCIPtr &rhs) : counter(rhs.counter)
 {
   init();
 }
@@ -105,8 +102,8 @@ RCIPtr<T>::RCIPtr(const RCIPtr& rhs)
 /*
   dtor
 //*/
-template<class T>
-RCIPtr<T>::~RCIPtr()
+template < class T >
+RCIPtr< T >::~RCIPtr()
 {
   counter->removeReference();
 }
@@ -115,10 +112,10 @@ RCIPtr<T>::~RCIPtr()
 /*
   operator= - remember rule of big three (cpy ctor, operator= and dtor)!
 //*/
-template<class T>
-RCIPtr<T>& RCIPtr<T>::operator=(const RCIPtr& rhs)
+template < class T >
+RCIPtr< T > &RCIPtr< T >::operator=(const RCIPtr &rhs)
 {
-  if(counter != rhs.counter){
+  if (counter != rhs.counter) {
     counter->removeReference();
     counter = rhs.counter;
     init();
@@ -131,8 +128,8 @@ RCIPtr<T>& RCIPtr<T>::operator=(const RCIPtr& rhs)
 /*
   op-> - smart pointer
 //*/
-template<class T>
-T* RCIPtr<T>::operator->() const
+template < class T >
+T *RCIPtr< T >::operator->() const
 {
   return counter->pointee;
 }
@@ -141,8 +138,8 @@ T* RCIPtr<T>::operator->() const
 /*
   op* - smart pointer
 //*/
-template<class T>
-T& RCIPtr<T>::operator*() const
+template < class T >
+T &RCIPtr< T >::operator*() const
 {
   return *(counter->pointee);
 }
@@ -154,8 +151,8 @@ T& RCIPtr<T>::operator*() const
 /*
   inner class dtor
 //*/
-template<class T>
-RCIPtr<T>::CountHolder::~CountHolder()
+template < class T >
+RCIPtr< T >::CountHolder::~CountHolder()
 {
   delete pointee;
 }

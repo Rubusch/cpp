@@ -2,7 +2,8 @@
 /*
   modifying algorithm
 
-  unique_copy - create a copy of some range of elements that contains no consecutive duplicates
+  unique_copy - create a copy of some range of elements that contains no
+consecutive duplicates
 
           ___     ___         ___     ___
          +---+---+---+---+---+---+---+---+---+---+- -+
@@ -20,9 +21,9 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <iterator>
 
 
@@ -34,17 +35,18 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr_a[] = { 1, 1, 3, 3, 3, 1, 1, 7, 2, 2 };
-  int arr_b[10]; fill(arr_b, arr_b+10, 0);
+  int arr_a[] = {1, 1, 3, 3, 3, 1, 1, 7, 2, 2};
+  int arr_b[10];
+  fill(arr_b, arr_b + 10, 0);
   cout << "arr_a: ";
-  copy(arr_a, arr_a+10, ostream_iterator< int >(cout, " "));
+  copy(arr_a, arr_a + 10, ostream_iterator< int >(cout, " "));
   cout << "\narr_b: ";
-  copy(arr_b, arr_b+10, ostream_iterator< int >(cout, " "));
+  copy(arr_b, arr_b + 10, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "unique_copy() - copy every value in a unique way\n";
-  int *ptr = unique_copy(arr_a, arr_a+10, arr_b);
-  copy(arr_b, arr_b+10, ostream_iterator< int >(cout, " "));
+  int *ptr = unique_copy(arr_a, arr_a + 10, arr_b);
+  copy(arr_b, arr_b + 10, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "unique_copy() - now use it with greater< int >(),\n"

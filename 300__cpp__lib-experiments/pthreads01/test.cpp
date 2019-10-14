@@ -28,7 +28,8 @@ MemberThread::MemberThread()
 //*/
 void MemberThread::thread_init()
 {
-  pthread_create(&thread, NULL, &MemberThread::thread_maker, static_cast< void* >(this));
+  pthread_create(&thread, NULL, &MemberThread::thread_maker,
+                 static_cast< void * >(this));
 }
 
 
@@ -40,10 +41,10 @@ void MemberThread::thread_init()
 
   (-> Boost Threads)
 //*/
-void* MemberThread::thread_maker(void* self)
+void *MemberThread::thread_maker(void *self)
 {
   assert(self);
-  static_cast< MemberThread* >(self)->thread_routine();
+  static_cast< MemberThread * >(self)->thread_routine();
 
   return NULL;
 }
@@ -64,7 +65,7 @@ void MemberThread::thread_routine()
 /*
   main...
 */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
   MemberThread mt;
 

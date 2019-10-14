@@ -5,15 +5,14 @@
 
 class MemberThread
 {
- private:
+private:
   pthread_t thread;
 
- public:
+public:
   MemberThread();
   void thread_init();
   void thread_routine();
 
- private:
-  static void* thread_maker(void* self);
+private:
+  static void *thread_maker(void *self);
 };
-

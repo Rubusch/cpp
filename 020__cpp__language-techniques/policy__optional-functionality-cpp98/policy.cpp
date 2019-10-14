@@ -12,8 +12,8 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 
 /******************************************************************************/
@@ -24,11 +24,11 @@
 
   uses "new" to allocate
 //*/
-template< typename T >
+template < typename T >
 class NewPolicy
 {
 protected:
-  static T* create()
+  static T *create()
   {
     std::cout << "\t\tNewPolicy::create()\n";
 
@@ -36,18 +36,16 @@ protected:
   }
 
 
-  void destroy( T** t)
+  void destroy(T **t)
   {
     std::cout << "\t\tNewPolicy::destroy( T** t)\n";
 
-    delete *t; *t = NULL;
+    delete *t;
+    *t = NULL;
   }
 
 
-  virtual ~NewPolicy()
-  {
-    std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n";
-  }
+  virtual ~NewPolicy() { std::cout << "\t\tNewPolicy::~NewPolicy() - dtor\n"; }
 };
 
 
@@ -56,18 +54,18 @@ protected:
 
   uses malloc()
 //*/
-template< typename T >
+template < typename T >
 class MallocPolicy
 {
 protected:
-  static T* create()
+  static T *create()
   {
     std::cout << "\t\tMallocPolicy::create()\n";
 
-    static T* t = NULL;
+    static T *t = NULL;
 
     // if the allocation of *buf fails, return NULL...
-    if(NULL == (t = static_cast< T* >( std::malloc( sizeof(T*) )))){
+    if (NULL == (t = static_cast< T * >(std::malloc(sizeof(T *))))) {
       std::cerr << "\t\t            ::create() - allocation failed\n";
       t = NULL;
     }
@@ -77,18 +75,16 @@ protected:
   }
 
 
-  void destroy( T** t)
+  void destroy(T **t)
   {
     std::cout << "\t\tMallocPolicy::destroy( T** t)\n";
 
-    free(*t); *t = NULL;
+    free(*t);
+    *t = NULL;
   }
 
 
-  ~MallocPolicy()
-  {
-    std::cout << "\t\tMallocPolicy::~MallocPolicy() - dtor\n";
-  }
+  ~MallocPolicy() { std::cout << "\t\tMallocPolicy::~MallocPolicy() - dtor\n"; }
 };
 
 
@@ -98,9 +94,8 @@ protected:
 /*
   User Class
 //*/
-template< typename U >
-class UserClass
- : public NewPolicy< U >
+template < typename U >
+class UserClass : public NewPolicy< U >
 {
 private:
   using NewPolicy< U >::create;
@@ -113,27 +108,21 @@ public:
 
 
     std::cout << "\t         ::doSomething() - create some variable\n";
-    U* u = create();
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
+    U *u = create();
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
 
 
     std::cout << "\t         ::doSomething() - init the variable\n";
     *u = 123;
-    std::cout << "\t         ::doSomething() - " << *u << ".\n"
-              << std::endl;
+    std::cout << "\t         ::doSomething() - " << *u << ".\n" << std::endl;
 
 
     std::cout << "\t         ::doSomething() - now destroy\n";
-    destroy( &u);
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
+    destroy(&u);
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
   }
 
-  ~UserClass()
-  {
-    std::cout << "\tUserClass::~UserClass() - dtor\n";
-  }
+  ~UserClass() { std::cout << "\tUserClass::~UserClass() - dtor\n"; }
 };
 
 
@@ -150,9 +139,8 @@ public:
   Hence this example demonstrates the usage of a different template type for the
   policy than for the "user" class, too.
 //*/
-template<>
-class UserClass< std::string >
-  : public MallocPolicy< char >
+template <>
+class UserClass< std::string > : public MallocPolicy< char >
 {
 private:
   using MallocPolicy< char >::create;
@@ -165,9 +153,8 @@ public:
 
 
     std::cout << "\t         ::doSomething() - create some variable\n";
-    char* u = create();
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
+    char *u = create();
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
 
 
     std::cout << "\t         ::doSomething() - init the variable\n";
@@ -177,16 +164,12 @@ public:
 
 
     std::cout << "\t         ::doSomething() - now destroy\n";
-    destroy( &u);
-    std::cout << "\t         ::doSomething() - ok.\n"
-              << std::endl;
+    destroy(&u);
+    std::cout << "\t         ::doSomething() - ok.\n" << std::endl;
   }
 
 
-  ~UserClass()
-  {
-    std::cout << "\tUserClass::~UserClass() - dtor\n";
-  }
+  ~UserClass() { std::cout << "\tUserClass::~UserClass() - dtor\n"; }
 };
 
 
@@ -207,8 +190,7 @@ int main()
   //*/
   cout << "UserClass< int >\n";
 
-  typedef UserClass< int >
-    IntNewUser_t;
+  typedef UserClass< int > IntNewUser_t;
 
   IntNewUser_t intNewUser;
 
@@ -223,8 +205,7 @@ int main()
     'std::string' might be!
   //*/
   cout << "UserClass< std::string >\n";
-  typedef UserClass< std::string >
-    StringMallocUser_t;
+  typedef UserClass< std::string > StringMallocUser_t;
 
   StringMallocUser_t stringMallocUser;
 

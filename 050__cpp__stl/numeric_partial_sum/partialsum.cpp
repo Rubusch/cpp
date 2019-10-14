@@ -9,8 +9,8 @@
 
 
 #include <iostream>
-#include <numeric>
 #include <iterator>
+#include <numeric>
 
 
 /*
@@ -21,12 +21,12 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  unsigned int arr[] = { 3, 1, 3, 0, 1, 3 };
-  copy(arr, arr+6, ostream_iterator< int >(cout, " "));
+  unsigned int arr[] = {3, 1, 3, 0, 1, 3};
+  copy(arr, arr + 6, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "partial_sum()\n";
-  partial_sum(arr, arr+6, ostream_iterator< unsigned int >(cout, " "));
+  partial_sum(arr, arr + 6, ostream_iterator< unsigned int >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

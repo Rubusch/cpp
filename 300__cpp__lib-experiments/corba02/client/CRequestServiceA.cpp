@@ -2,21 +2,20 @@
 /*
 //*/
 
-#include "Data.hh"
 #include "CRequestServiceA.h"
+#include "Data.hh"
 
 #include <cassert>
-
 
 
 using namespace Data;
 
 CRequestServiceA::CRequestServiceA()
 {
-  try{
+  try {
     // init ORB - dummy
-    int argc=0;
-    char** argv=NULL;
+    int argc = 0;
+    char **argv = NULL;
     CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
 
     // bind ORB to name service object
@@ -24,39 +23,43 @@ CRequestServiceA::CRequestServiceA()
     assert(!CORBA::is_nil(obj.in()));
 
     // narrow to naming context
-    CosNaming::NamingContext_var nc = CosNaming::NamingContext::_narrow(obj.in());
+    CosNaming::NamingContext_var nc =
+        CosNaming::NamingContext::_narrow(obj.in());
     assert(!CORBA::is_nil(nc.in()));
 
     // further binding
     CosNaming::Name _corbaCosName;
     _corbaCosName.length(1);
-    _corbaCosName[0].id = CORBA::string_dup("DataServiceName1"); // calls malloc!
+    _corbaCosName[0].id =
+        CORBA::string_dup("DataServiceName1"); // calls malloc!
 
     // resolve name text identifier to an object reference
     CORBA::Object_var obj1 = nc->resolve(_corbaCosName);
     assert(!CORBA::is_nil(obj1.in()));
 
     m_Data = ServiceA::_narrow(obj1.in());
-    if(CORBA::is_nil(obj1.in())){
+    if (CORBA::is_nil(obj1.in())) {
       std::cerr << "IOR is not an SA object reference." << std::endl;
     }
 
-  }catch(CORBA::COMM_FAILURE& ex){
-    std::cerr << "client: caught system exception COMM_FAILURE - unable to contact the object." << std::endl;
+  } catch (CORBA::COMM_FAILURE &ex) {
+    std::cerr << "client: caught system exception COMM_FAILURE - unable to "
+                 "contact the object."
+              << std::endl;
     throw DS_ServerConnectionException();
     return;
 
-  }catch(CORBA::SystemException&){
+  } catch (CORBA::SystemException &) {
     std::cerr << "client: caught a CORBA::SystemException." << std::endl;
     throw DS_SystemException();
     return;
 
-  }catch(CORBA::Exception&){
+  } catch (CORBA::Exception &) {
     std::cerr << "client: caught a CORBA::Exception." << std::endl;
     throw DS_Exception();
     return;
 
-  }catch(omniORB::fatalException& ex){
+  } catch (omniORB::fatalException &ex) {
     std::cerr << "client: caught omniORB::fatalException:" << std::endl
               << "\tfile: " << ex.file() << std::endl
               << "\tline: " << ex.line() << std::endl
@@ -64,7 +67,7 @@ CRequestServiceA::CRequestServiceA()
     throw DS_FatalException();
     return;
 
-  }catch(...){
+  } catch (...) {
     std::cerr << "client: caught unkown exception" << std::endl;
     throw DS_Exception();
     return;
@@ -84,23 +87,22 @@ bool CRequestServiceA::RequestServiceARoutineA()
   CORBA::Long num2 = 5;
   CORBA::Long retNum;
 
-  std::cout << "client: values input to service routine A: "
-            << num1 << " " << num2 << " " << retNum << std::endl;
+  std::cout << "client: values input to service routine A: " << num1 << " "
+            << num2 << " " << retNum << std::endl;
 
   // remote CORBA call
-  if( m_Data->CallServiceRoutineA( num1, num2, retNum)){
-    std::cout << "client: vlaues returned by service routine A: "
-              << num1 << " " << num2 << " " << retNum << std::endl;
+  if (m_Data->CallServiceRoutineA(num1, num2, retNum)) {
+    std::cout << "client: vlaues returned by service routine A: " << num1 << " "
+              << num2 << " " << retNum << std::endl;
     return true;
 
-  }else{ // call failed!
+  } else { // call failed!
     return false;
   }
 
 
   return true;
 }
-
 
 
 bool CRequestServiceA::RequestServiceARoutineB()
@@ -108,21 +110,18 @@ bool CRequestServiceA::RequestServiceARoutineB()
   CORBA::Long num1 = 0;
   CORBA::Long num2 = 50;
 
-  std::cout << "client: values input to service routine B: "
-            << num1 << " " << num2 << " " << std::endl;
+  std::cout << "client: values input to service routine B: " << num1 << " "
+            << num2 << " " << std::endl;
 
   // remote call to server
-  if(m_Data->CallServiceRoutineB( num1, num2)){
-    std::cout << "client: values returned by service rotine B: "
-              << num1 << " " << num2 << std::endl;
+  if (m_Data->CallServiceRoutineB(num1, num2)) {
+    std::cout << "client: values returned by service rotine B: " << num1 << " "
+              << num2 << std::endl;
     return true;
 
-  }else{ // call failed
+  } else { // call failed
     return false;
   }
 
   return true;
 }
-
-
-

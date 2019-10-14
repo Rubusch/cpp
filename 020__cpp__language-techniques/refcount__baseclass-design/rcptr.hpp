@@ -14,25 +14,25 @@
 #include "someclass.hpp"
 
 
-template<class T>
+template < class T >
 class RCPtr
 {
 public:
   // ctor
-  RCPtr(T* realPtr = 0);
+  RCPtr(T *realPtr = 0);
 
   // copy ctor
-  RCPtr(const RCPtr& rhs);
+  RCPtr(const RCPtr &rhs);
 
   // dtor
   ~RCPtr();
 
   // op=
-  RCPtr& operator=(const RCPtr& rhs);
+  RCPtr &operator=(const RCPtr &rhs);
 
   // various operators for smart pointer functionality
-  T* operator->() const;
-  T& operator*() const;
+  T *operator->() const;
+  T &operator*() const;
 
 private:
   T *pointee;
@@ -47,12 +47,13 @@ private:
 ************************************************************************************/
 
 
-template<class T>
-void RCPtr<T>::init()
+template < class T >
+void RCPtr< T >::init()
 {
-  if(pointee == 0) return;
+  if (pointee == 0)
+    return;
 
-  if(pointee->isShareable() == false){
+  if (pointee->isShareable() == false) {
     pointee = new T(*pointee);
   }
 
@@ -66,9 +67,8 @@ void RCPtr<T>::init()
 /*
   ctor
 //*/
-template<class T>
-RCPtr<T>::RCPtr(T* realPtr)
-  : pointee(realPtr)
+template < class T >
+RCPtr< T >::RCPtr(T *realPtr) : pointee(realPtr)
 {
   init();
 }
@@ -77,9 +77,8 @@ RCPtr<T>::RCPtr(T* realPtr)
 /*
   copy constructor
 //*/
-template<class T>
-RCPtr<T>::RCPtr(const RCPtr& rhs)
-  : pointee(rhs.pointee)
+template < class T >
+RCPtr< T >::RCPtr(const RCPtr &rhs) : pointee(rhs.pointee)
 {
   init();
 }
@@ -88,12 +87,13 @@ RCPtr<T>::RCPtr(const RCPtr& rhs)
 /*
   dtor
 //*/
-template<class T>
-RCPtr<T>::~RCPtr()
+template < class T >
+RCPtr< T >::~RCPtr()
 {
   std::cout << "RCPtr<T>::DTOR\n";
 
-  if(pointee)pointee->removeReference();
+  if (pointee)
+    pointee->removeReference();
 }
 
 
@@ -103,11 +103,12 @@ RCPtr<T>::~RCPtr()
 /*
   operator=
 //*/
-template<class T>
-RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
+template < class T >
+RCPtr< T > &RCPtr< T >::operator=(const RCPtr &rhs)
 {
-  if(pointee != rhs.pointee){
-    if(pointee) pointee->removeReference();
+  if (pointee != rhs.pointee) {
+    if (pointee)
+      pointee->removeReference();
     pointee = rhs.pointee;
     init();
   }
@@ -118,8 +119,8 @@ RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
 /*
   operator->
 //*/
-template<class T>
-T* RCPtr<T>::operator->() const
+template < class T >
+T *RCPtr< T >::operator->() const
 {
   return pointee;
 }
@@ -128,12 +129,11 @@ T* RCPtr<T>::operator->() const
 /*
   operator*
 //*/
-template<class T>
-T& RCPtr<T>::operator*() const
+template < class T >
+T &RCPtr< T >::operator*() const
 {
   return *pointee;
 }
 
 
 #endif
-

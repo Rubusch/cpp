@@ -1,5 +1,6 @@
 /*
-  C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers / item 19)
+  C++11 - use 'std::shared_ptr' for shared-ownership resource management (Meyers
+  / item 19)
 
   'std::shared_ptr' may transfer ownership to other smartpointers, uses refcnt
 
@@ -40,10 +41,7 @@ class Lemon
 {
 public:
   Lemon() = default;
-  auto juice() const
-  {
-    return "Lemon Juice";
-  }
+  auto juice() const { return "Lemon Juice"; }
 };
 
 
@@ -68,8 +66,8 @@ int main(void)
   }
 
   // ERROR! shared_ptr cannot be converted to unique_ptr
-//  std::unique_ptr< Lemon > pYetAnotherLemon;
-//  pYetAnotherLemon = std::move( pSharedLemon );
+  //  std::unique_ptr< Lemon > pYetAnotherLemon;
+  //  pYetAnotherLemon = std::move( pSharedLemon );
 
   cout << "READY." << endl;
 

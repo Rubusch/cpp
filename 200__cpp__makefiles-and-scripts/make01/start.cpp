@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    cout << "start.cpp" << endl;
+  cout << "start.cpp" << endl;
 
-    return 0;
+  return 0;
 };

@@ -12,14 +12,20 @@
 using namespace std;
 
 // typeof
-#define SWAP(a,b) { __typeof__(a) temp; temp=a; a=b; b=temp; }
+#define SWAP(a, b)                                                             \
+  {                                                                            \
+    __typeof__(a) temp;                                                        \
+    temp = a;                                                                  \
+    a = b;                                                                     \
+    b = temp;                                                                  \
+  }
 
 const int ARRSIZE = 10;
 
 
 void printarray(const char arr[ARRSIZE])
 {
-  for(int idx=0; idx<ARRSIZE; ++idx){
+  for (int idx = 0; idx < ARRSIZE; ++idx) {
     cout << arr[idx];
     cout << " ";
   }
@@ -38,8 +44,8 @@ int main()
 
 
   cout << "mix.." << endl;
-  for(int idx=1; idx<ARRSIZE; ++idx){
-    SWAP(arr[idx-1], arr[idx]);
+  for (int idx = 1; idx < ARRSIZE; ++idx) {
+    SWAP(arr[idx - 1], arr[idx]);
   }
 
 

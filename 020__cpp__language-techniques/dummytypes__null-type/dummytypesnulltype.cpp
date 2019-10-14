@@ -2,8 +2,8 @@
 /*
   The "not interesting" type!
 
-  "You usually don't create objects of type NullType - its only use is to indicate
-  'I am not an interesting type.'"
+  "You usually don't create objects of type NullType - its only use is to
+indicate 'I am not an interesting type.'"
 
   resources: Modern C++ Design, Alexandrescu
 //*/
@@ -13,7 +13,9 @@
 
 
 // the null-type
-class NullType{};
+class NullType
+{
+};
 
 
 int main()
@@ -24,7 +26,9 @@ int main()
   // (warnings are turned off, since 'nt' here is unused)
   NullType nt;
 
-  cout << "The NullType can be used as Null element or termination and can be checked." << endl;
+  cout << "The NullType can be used as Null element or termination and can be "
+          "checked."
+       << endl;
 
   cout << "READY.\n";
   return 0;

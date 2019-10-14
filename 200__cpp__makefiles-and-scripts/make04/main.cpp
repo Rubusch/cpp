@@ -10,15 +10,15 @@ using namespace std;
 // main method
 int main()
 {
-    cout << "main()" << endl;
+  cout << "main()" << endl;
 
-    // generate instance of A
-    A a;
-    a.generateB();
+  // generate instance of A
+  A a;
+  a.generateB();
 
-    // generate instance of B
-    B b;
-    b.doSomething();
+  // generate instance of B
+  B b;
+  b.doSomething();
 
-    return 0;
+  return 0;
 };

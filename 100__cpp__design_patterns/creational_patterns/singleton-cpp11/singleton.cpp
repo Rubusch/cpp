@@ -1,6 +1,7 @@
 // singleton.cpp
 /*
-  Ensure a class only has one instance, and provide a global point of access to it.
+  Ensure a class only has one instance, and provide a global point of access to
+it.
 
   +-----------------------+
   | Singleton             |
@@ -61,36 +62,36 @@
   Singleton
 
   - defines an instance operation that lets clients access its unique instance.
-  Instance  is a class operation (that is, a class method in Smalltalk and a static
-  member function in C++)
+  Instance  is a class operation (that is, a class method in Smalltalk and a
+static member function in C++)
   - may be responsible for creating its own unique instance
 //*/
 class Singleton
 {
 private:
-  static Singleton* pInstance_;
+  static Singleton *pInstance_;
 
   // only one instance -> private ctor
-  Singleton()
-  {
-    std::cout << "Singleton::Singleton() - ctor\n";
-  }
+  Singleton() { std::cout << "Singleton::Singleton() - ctor\n"; }
 
   // no copy constructor -> private
-  Singleton(const Singleton&) = delete;
+  Singleton(const Singleton &) = delete;
 
   // no assignment -> private
-  const Singleton& operator=( Singleton const&) = delete;
+  const Singleton &operator=(Singleton const &) = delete;
 
   // no public dtor -> private, will never be called
-  ~Singleton() = delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
+  ~Singleton() =
+      delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
 
 public:
   // global point of access
-  static Singleton* getInstance()
+  static Singleton *getInstance()
   {
     if (nullptr == pInstance_) {
-      pInstance_ = new Singleton(); // OK, if the Singleton is not supposed to be killed and restarted (see discussion in Alexandrescu)
+      pInstance_ =
+          new Singleton(); // OK, if the Singleton is not supposed to be killed
+                           // and restarted (see discussion in Alexandrescu)
       if (nullptr == pInstance_) {
         std::cerr << "ERROR: Singleton instantiation failed!\n";
       }
@@ -106,7 +107,7 @@ public:
 };
 
 // static initialization: outside of class definition!
-Singleton* Singleton::pInstance_ = nullptr;
+Singleton *Singleton::pInstance_ = nullptr;
 
 
 /*
@@ -119,7 +120,7 @@ int main()
   // pointer to the static singleton instance
   auto ptr = Singleton::getInstance();
 
-  do{
+  do {
     cout << "create Singleton:\n";
     if (nullptr == ptr) {
       cout << "Singleton allocation failed!\n";

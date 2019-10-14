@@ -29,13 +29,11 @@
 
   policy: uses template type as publicly inherited base class
 //*/
-template< typename outputPolicy_t, typename languagePolicy_t >
-class HelloWorld
-  : public outputPolicy_t
-  , public languagePolicy_t
+template < typename outputPolicy_t, typename languagePolicy_t >
+class HelloWorld : public outputPolicy_t, public languagePolicy_t
 {
-  using outputPolicy_t::print;
   using languagePolicy_t::message;
+  using outputPolicy_t::print;
 
 public:
   // the function to be called
@@ -44,7 +42,7 @@ public:
     /*
       the "behaviour" depends on the - as template - passed policies
     //*/
-    print( message() );
+    print(message());
   }
 };
 
@@ -62,14 +60,14 @@ public:
 class OutputPolicy_PrintMe
 {
 protected:
-  template< typename message_type >
-  void print( message_type message)
+  template < typename message_type >
+  void print(message_type message)
   {
     std::cout << message << std::endl;
   }
 
   // A policy shouldn't have a virtual destructor!
-  ~OutputPolicy_PrintMe(){}
+  ~OutputPolicy_PrintMe() {}
 };
 
 
@@ -86,13 +84,10 @@ protected:
 class LanguagePolicy_English
 {
 protected:
-  std::string message()
-  {
-    return "Hello World!";
-  }
+  std::string message() { return "Hello World!"; }
 
   // A policy shouldn't have a virtual destructor!
-  ~LanguagePolicy_English(){}
+  ~LanguagePolicy_English() {}
 };
 
 
@@ -107,13 +102,10 @@ protected:
 class LanguagePolicy_French
 {
 protected:
-  std::string message()
-  {
-    return "Bonjour Le Monde!";
-  }
+  std::string message() { return "Bonjour Le Monde!"; }
 
   // A policy shouldn't have a virtual destructor!
-  ~LanguagePolicy_French(){}
+  ~LanguagePolicy_French() {}
 };
 
 
@@ -131,7 +123,8 @@ int main()
   /*
     define the type to work and instantiate
   //*/
-  using helloWorld_t = HelloWorld< OutputPolicy_PrintMe, LanguagePolicy_English >;
+  using helloWorld_t =
+      HelloWorld< OutputPolicy_PrintMe, LanguagePolicy_English >;
   auto helloWorld_1 = helloWorld_t();
   helloWorld_1.doSomething();
   cout << endl;
@@ -141,7 +134,8 @@ int main()
     now define another type to work using diferent policies
     and instantiate
   //*/
-  using other_helloWorld_t = HelloWorld< OutputPolicy_PrintMe, LanguagePolicy_French >;
+  using other_helloWorld_t =
+      HelloWorld< OutputPolicy_PrintMe, LanguagePolicy_French >;
   auto helloWorld_2 = other_helloWorld_t();
   helloWorld_2.doSomething();
   cout << endl;

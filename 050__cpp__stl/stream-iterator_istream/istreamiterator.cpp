@@ -6,8 +6,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <vector>
 
@@ -19,9 +19,10 @@ int main()
 {
   using namespace std;
 
-  cout << "Enter numbers, separated by a whitespace, followed by an 'x' and hit ENTER:\n";
+  cout << "Enter numbers, separated by a whitespace, followed by an 'x' and "
+          "hit ENTER:\n";
   istream_iterator< int > start_it(cin);
-  istream_iterator< int> end_it;
+  istream_iterator< int > end_it;
   cout << endl;
 
   cout << "set up a vector< int >\n";

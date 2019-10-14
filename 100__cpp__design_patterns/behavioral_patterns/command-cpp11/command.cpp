@@ -20,9 +20,12 @@
   +=====================+                      +=====================+
   | action()            |                      | pReceiver_          |
   +---------------------+      +--------+      |    : Receiver       |
-  |                     |<-----| Client |- - ->+---------------------+      +--------------------+\
-  +---------------------+      +--------+      | execute()      - - - - - - | receiver->action() +-+
-                                               +---------------------+      +----------------------+
+  |                     |<-----| Client |- - ->+---------------------+
++--------------------+\
+  +---------------------+      +--------+      | execute()      - - - - - - |
+receiver->action() +-+
+                                               +---------------------+
++----------------------+
 
 
 
@@ -50,15 +53,15 @@
   ConcreteCommand.
 
   The client builds up one 'set' and passes it to the invoker. The invoker calls
-  the functor command and activates execution. The ConcreteCommand instance shall
-  be queued in the invoker. The re-do of the data happens in the receiver().
+  the functor command and activates execution. The ConcreteCommand instance
+shall be queued in the invoker. The re-do of the data happens in the receiver().
 //*/
 
 
-#include <iostream>
-#include <vector>
 #include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <vector>
 
 
 /*
@@ -74,7 +77,8 @@ private:
   unsigned int *arr_ = nullptr;
   unsigned int *arr_orig_ = nullptr;
   const unsigned int size_; // must be here,
-  // if 'size_' is defined before the array pointers, there will be an 'reorder' error
+  // if 'size_' is defined before the array pointers, there will be an 'reorder'
+  // error
 
   /*
     this is just some operation to be performed on the data..
@@ -83,46 +87,50 @@ private:
   void doSort()
   {
     std::cout << "\tReceiver::doSort()\n";
-    if(size_ < 2) return;
-    auto tmp=0;
-    auto idx=size_-2;
+    if (size_ < 2)
+      return;
+    auto tmp = 0;
+    auto idx = size_ - 2;
     auto swapped = true;
 
-    do{
-      if(idx == size_-2){
-        if(!swapped) break;
-        idx=0;
+    do {
+      if (idx == size_ - 2) {
+        if (!swapped)
+          break;
+        idx = 0;
         swapped = false;
-      }else ++idx;
+      } else
+        ++idx;
 
-      if(arr_[idx] > arr_[idx+1]){
+      if (arr_[idx] > arr_[idx + 1]) {
         tmp = arr_[idx];
-        arr_[idx] = arr_[idx+1];
-        arr_[idx+1] = tmp;
+        arr_[idx] = arr_[idx + 1];
+        arr_[idx + 1] = tmp;
         swapped = true;
       }
     } while (true);
   }
 
 public:
-  Receiver(unsigned int* arr, const unsigned int size)
-    : arr_(arr), size_(size)
+  Receiver(unsigned int *arr, const unsigned int size) : arr_(arr), size_(size)
   {
-    std::cout << "\tReceiver::Receiver(unsigned int*, const unsigned int) - ctor\n";
+    std::cout
+        << "\tReceiver::Receiver(unsigned int*, const unsigned int) - ctor\n";
 
     // checks
-    if( arr_ == nullptr) return;
+    if (arr_ == nullptr)
+      return;
 
     // do copy, stored here to enable the undo operation
-    try{
+    try {
       arr_orig_ = new unsigned int[size];
-    }catch(...){
+    } catch (...) {
       std::cerr << "Receiver::ERROR: allocation failed!";
       exit(-1);
     }
 
     unsigned int idx;
-    for (idx=0; idx < size_; ++idx) {
+    for (idx = 0; idx < size_; ++idx) {
       arr_orig_[idx] = arr_[idx];
     }
   }
@@ -137,12 +145,12 @@ public:
   {
     std::cout << "\tReceiver::undo()\n";
 
-    if(nullptr == arr_){
+    if (nullptr == arr_) {
       std::cerr << "\tReceiver::ERROR - original array was nullptr!\n";
       return;
     }
 
-    for(unsigned int idx=0; idx < size_; ++idx){
+    for (unsigned int idx = 0; idx < size_; ++idx) {
       arr_[idx] = arr_orig_[idx];
     }
   }
@@ -154,9 +162,8 @@ public:
 
   - declares an interface for executing an operation
 //*/
-struct Command
-{
-  virtual ~Command(){}
+struct Command {
+  virtual ~Command() {}
   virtual void execute(){};
   virtual void undo(){};
 };
@@ -168,15 +175,14 @@ struct Command
   - defines a binding between a Receiver object and an action
   - implements execute() by invoking the corresponding operation(s) on Receiver
 //*/
-class ConcreteCommand
-  : public Command
+class ConcreteCommand : public Command
 {
 private:
   const std::shared_ptr< Receiver > pReceiver_;
 
 public:
   ConcreteCommand(const std::shared_ptr< Receiver > &receiver)
-    : pReceiver_(receiver)
+      : pReceiver_(receiver)
   {
     std::cout << "\tConcreteCommand::ConcreteCommand(int) - ctor\n";
   }
@@ -217,7 +223,7 @@ public:
   void undo()
   {
     std::cout << "\tInvoker::undo() - there's no redo ;)\n";
-    if(!commands_.empty()){
+    if (!commands_.empty()) {
       commands_.back()->undo();
       commands_.pop_back();
     }
@@ -233,11 +239,12 @@ public:
 class Client
 {
 public:
-  std::shared_ptr< Command > getCmd(unsigned int* arr, const unsigned int size) const
+  std::shared_ptr< Command > getCmd(unsigned int *arr,
+                                    const unsigned int size) const
   {
     std::cout << "\tClient::getCmd(unsigned int*, const unsigned int)\n";
     auto pReceiver_ = std::make_shared< Receiver >(arr, size);
-    auto pCommand_ = std::make_shared< ConcreteCommand >( pReceiver_ );
+    auto pCommand_ = std::make_shared< ConcreteCommand >(pReceiver_);
     return pCommand_;
   }
 };
@@ -246,10 +253,10 @@ public:
 /*
   show
 //*/
-void show(unsigned int* arr, unsigned int size)
+void show(unsigned int *arr, unsigned int size)
 {
   std::cout << "content:\n";
-  for(unsigned int idx = 0; idx < size; ++idx){
+  for (unsigned int idx = 0; idx < size; ++idx) {
     std::cout << arr[idx] << "\t";
   }
   std::cout << std::endl;
@@ -267,7 +274,7 @@ int main()
 
 
   cout << "init data - the data are stored here!\n";
-  unsigned int arr[] = { 2, 3, 5, 4, 7, 6, 1 }; // well...
+  unsigned int arr[] = {2, 3, 5, 4, 7, 6, 1}; // well...
   auto size = sizeof(arr) / sizeof(unsigned int);
 
 
@@ -278,19 +285,19 @@ int main()
 
   cout << "a client creates a ConcreteCommand object with a receiver\n";
   auto arrayClient = Client();
-  show( arr, size);
+  show(arr, size);
   cout << endl;
 
 
   cout << "do a command\n";
   arrayInvoker(arrayClient.getCmd(arr, size));
-  show( arr, size);
+  show(arr, size);
   cout << endl;
 
 
   cout << "undo the last command\n";
   arrayInvoker.undo();
-  show( arr, size);
+  show(arr, size);
   cout << endl;
 
   cout << "READY.\n";

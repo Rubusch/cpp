@@ -1,7 +1,8 @@
 // inerpreter.cpp
 /*
   Given a language, define a representation for its grammar along with an
-  interpreter that uses the representation to interpret sentences in the language.
+  interpreter that uses the representation to interpret sentences in the
+language.
 
                          +---------------------+
                 +------->| Context             |
@@ -55,9 +56,7 @@ private:
   std::string tmp;
 
 public:
-  void push(std::string word){
-    content.push_back( word);
-  }
+  void push(std::string word) { content.push_back(word); }
 
   std::string pop()
   {
@@ -68,19 +67,16 @@ public:
 };
 
 
-struct AbstractExpression
-{
-  virtual bool interpret( Context* context) = 0;
-  virtual ~AbstractExpression(){}
+struct AbstractExpression {
+  virtual bool interpret(Context *context) = 0;
+  virtual ~AbstractExpression() {}
 };
 
 
-struct TerminalExpression_bool
-  : public AbstractExpression
-{
-  bool interpret( Context* context)
+struct TerminalExpression_bool : public AbstractExpression {
+  bool interpret(Context *context)
   {
-    if(0 == (context->pop()).compare("TRUE")){
+    if (0 == (context->pop()).compare("TRUE")) {
       return true;
     }
     return false;
@@ -88,8 +84,7 @@ struct TerminalExpression_bool
 };
 
 
-class NonterminalExpression_equals
-  : public AbstractExpression
+class NonterminalExpression_equals : public AbstractExpression
 {
 private:
   AbstractExpression *pOperand1_, *pOperand2_;
@@ -103,11 +98,13 @@ public:
 
   ~NonterminalExpression_equals()
   {
-    delete pOperand1_; pOperand1_ = NULL;
-    delete pOperand2_; pOperand2_ = NULL;
+    delete pOperand1_;
+    pOperand1_ = NULL;
+    delete pOperand2_;
+    pOperand2_ = NULL;
   }
 
-  bool interpret( Context* context)
+  bool interpret(Context *context)
   {
     return (pOperand1_->interpret(context) == pOperand2_->interpret(context));
   }
@@ -126,13 +123,14 @@ int main()
   context.push("TRUE");
   context.push("EQUALS");
 
-  if(0 == (context.pop()).compare("EQUALS")){
+  if (0 == (context.pop()).compare("EQUALS")) {
     // in case the sequence in our grammar would end with EQUALS
     NonterminalExpression_equals start;
-    cout << "-> result: \'" << (start.interpret(&context) ? ("true") : ("false")) << "\'\n";
+    cout << "-> result: \'"
+         << (start.interpret(&context) ? ("true") : ("false")) << "\'\n";
     cout << endl;
 
-  }else{
+  } else {
     cout << "not interpretable with our grammar\n";
   }
 

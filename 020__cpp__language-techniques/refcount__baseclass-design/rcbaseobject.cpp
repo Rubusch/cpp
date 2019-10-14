@@ -9,19 +9,15 @@
 /*
   ctor
 //*/
-RCBaseObject::RCBaseObject()
-  : refCount(0)
-  , shareable(true)
-{}
+RCBaseObject::RCBaseObject() : refCount(0), shareable(true) {}
 
 
 /*
   copy constructor
 //*/
-RCBaseObject::RCBaseObject(const RCBaseObject&)
-  : refCount(0)
-  , shareable(true)
-{}
+RCBaseObject::RCBaseObject(const RCBaseObject &) : refCount(0), shareable(true)
+{
+}
 
 
 /*
@@ -31,49 +27,32 @@ RCBaseObject::RCBaseObject(const RCBaseObject&)
   In case there were individual values for each instance, they
   would need to be copied here!
 //*/
-RCBaseObject& RCBaseObject::operator=(const RCBaseObject&)
-{
-  return *this;
-}
+RCBaseObject &RCBaseObject::operator=(const RCBaseObject &) { return *this; }
 
 
 /*
   dtor
 //*/
-RCBaseObject::~RCBaseObject()
-{
-  std::cout << "RCBaseObject::DTOR\n";
-}
+RCBaseObject::~RCBaseObject() { std::cout << "RCBaseObject::DTOR\n"; }
 
 
 /************************************************************************************/
 
 
-void RCBaseObject::addReference()
-{
-  ++refCount;
-}
+void RCBaseObject::addReference() { ++refCount; }
 
 
 void RCBaseObject::removeReference()
 {
-  if (--refCount == 0) delete this;
+  if (--refCount == 0)
+    delete this;
 }
 
 
-void RCBaseObject::markUnshareable()
-{
-  shareable = false;
-}
+void RCBaseObject::markUnshareable() { shareable = false; }
 
 
-bool RCBaseObject::isShareable() const
-{
-  return shareable;
-}
+bool RCBaseObject::isShareable() const { return shareable; }
 
 
-bool RCBaseObject::isShared() const
-{
-  return refCount > 1;
-}
+bool RCBaseObject::isShared() const { return refCount > 1; }

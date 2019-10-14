@@ -14,18 +14,19 @@
                     |                                      |
                                                            |
                     |                                      |
-  +---------------------+                       +---------------------+           +-----------+
-  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   |
-  | structure           | \                     +=====================+           +===========+
-  | {                   +--+                    |                     |           |           |
-  |   builder->buildPart() |                    +---------------------+           +-----------+
+  +---------------------+                       +---------------------+
++-----------+ | For all objects in  |\                      | ConcreteBuilder |-
+- - - - >| Product   | | structure           | \ +=====================+
++===========+ | {                   +--+                    | |           | | |
+builder->buildPart() |                    +---------------------+ +-----------+
   | }                      |                    | buildPart()         |
   +------------------------+                    | getResult()         |
                                                 +---------------------+
 
   Collaboration:
 
-  - The client creates the Director object and configures it with the desired Buidler object
+  - The client creates the Director object and configures it with the desired
+Buidler object
   - Director notifies the builder whenever a part of the product should be built
   - Builder handles requests from the director and adds parts to the product
   - The client retrieves the product from the builder
@@ -43,7 +44,8 @@
   Product
 
   - represents the complex object under construction. ConcreteBuilder builds the
-  product's internal representation and defines the process by which it's assembled
+  product's internal representation and defines the process by which it's
+assembled
   - includes classes that define the constituent parts, including interfaces for
   assembling the parts into the final result
 //*/
@@ -54,23 +56,17 @@ private:
   std::string part_b;
 
 public:
-  Product()
-  {
-    std::cout << "\t\t\tProduct::Product() - ctor\n";
-  }
+  Product() { std::cout << "\t\t\tProduct::Product() - ctor\n"; }
 
-  ~Product()
-  {
-    std::cout << "\t\t\tProduct::~Product() - dtor\n";
-  }
+  ~Product() { std::cout << "\t\t\tProduct::~Product() - dtor\n"; }
 
-  void setPartA(const std::string& a)
+  void setPartA(const std::string &a)
   {
     std::cout << "\t\t\tProduct::setPartA()\n";
     part_a = a;
   }
 
-  void setPartB(const std::string& b)
+  void setPartB(const std::string &b)
   {
     std::cout << "\t\t\tProduct::setPartB()\n";
     part_b = b;
@@ -95,15 +91,9 @@ protected:
   std::shared_ptr< Product > product_;
 
 public:
-  Builder()
-  {
-    std::cout << "\t\tBuilder::Builder() - ctor\n";
-  }
+  Builder() { std::cout << "\t\tBuilder::Builder() - ctor\n"; }
 
-  virtual ~Builder()
-  {
-    std::cout << "\t\tBuilder::~Builder() - dtor\n";
-  }
+  virtual ~Builder() { std::cout << "\t\tBuilder::~Builder() - dtor\n"; }
 
   std::shared_ptr< Product > getProduct()
   {
@@ -125,12 +115,12 @@ public:
 /*
   Concrete Builder A
 
-  - constructs and assembles parts of the product by implementing the Builder interface
+  - constructs and assembles parts of the product by implementing the Builder
+interface
   - defines and keeps track of the representation it creates
   - provides an interface for retrieving the product
 //*/
-class ConcreteBuilderA
-  : public Builder
+class ConcreteBuilderA : public Builder
 {
 public:
   ConcreteBuilderA()
@@ -160,8 +150,7 @@ public:
 /*
   Concrete Builder B - another Concrete Builder type
 //*/
-class ConcreteBuilderB
-  : public Builder
+class ConcreteBuilderB : public Builder
 {
 public:
   ConcreteBuilderB()
@@ -199,15 +188,9 @@ private:
   std::shared_ptr< Builder > builder_;
 
 public:
-  Director()
-  {
-    std::cout << "\tDirector::Director() - ctor\n";
-  }
+  Director() { std::cout << "\tDirector::Director() - ctor\n"; }
 
-  ~Director()
-  {
-    std::cout << "\tDirector::~Director() - dtor\n";
-  }
+  ~Director() { std::cout << "\tDirector::~Director() - dtor\n"; }
 
   void setBuilder(std::shared_ptr< Builder > builder)
   {

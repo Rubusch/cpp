@@ -13,9 +13,8 @@
   and/or resource leaks are the consequence. Probably compilers won't complain
   about.
 
-  Virtual function need to have a default implementation or result in a Linker Error!
-  Alternatively make the function declarations "pure virtual" using:
-  =0
+  Virtual function need to have a default implementation or result in a Linker
+Error! Alternatively make the function declarations "pure virtual" using: =0
   Then the default implementation is optional.
 
   A destructor should never throw any exception, it should absorb them and/or
@@ -39,15 +38,16 @@
 
 #include <iostream>
 
-template< class T > class Base;
-template< class T > class Derived;
-
+template < class T >
+class Base;
+template < class T >
+class Derived;
 
 
 /*
   base class
 //*/
-template< class T >
+template < class T >
 class Base
 {
 protected:
@@ -62,36 +62,42 @@ public:
 
     virtual functions
 
-    - virtual functions need a default implementation or will lead to a linker error!
-    - only pure virtual function (= 0) won't lead to a linker error without implementation.
+    - virtual functions need a default implementation or will lead to a linker
+  error!
+    - only pure virtual function (= 0) won't lead to a linker error without
+  implementation.
   //*/
 
   virtual void setValue(T val);
-  virtual T getValue() = 0; // should be defined "= 0" or should contain code to return something
+  virtual T getValue() = 0; // should be defined "= 0" or should contain code to
+                            // return something
 };
 
-template< class T >
+template < class T >
 Base< T >::Base()
-{}
+{
+}
 
-template< class T >
+template < class T >
 Base< T >::~Base()
-{}
+{
+}
 
-template< class T >
+template < class T >
 void Base< T >::setValue(T val)
-{}
+{
+}
 
-template< class T >
+template < class T >
 T Base< T >::getValue()
-{}
-
+{
+}
 
 
 /*
   some derived class
 //*/
-template< class T >
+template < class T >
 class Derived : public Base< T >
 {
 public:
@@ -102,26 +108,27 @@ public:
   T getValue();
 };
 
-template< class T >
+template < class T >
 Derived< T >::Derived()
-{}
+{
+}
 
-template< class T >
+template < class T >
 Derived< T >::~Derived()
-{}
+{
+}
 
-template< class T >
+template < class T >
 void Derived< T >::setValue(T val)
 {
   Base< T >::value = val;
 }
 
-template< class T >
+template < class T >
 T Derived< T >::getValue()
 {
   return Base< T >::value;
 }
-
 
 
 /*

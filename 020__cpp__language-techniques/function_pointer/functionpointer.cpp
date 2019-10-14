@@ -6,8 +6,8 @@
   (idea taken from Alexandrescu, 2001)
 
 
-  The usages of an index into a vector and dereferencing a function pointer is most times
-  more efficient than processing lots of if-then-else statements.
+  The usages of an index into a vector and dereferencing a function pointer is
+most times more efficient than processing lots of if-then-else statements.
 
   (More Effective C++ / 31 / Meyers)
 //*/
@@ -16,22 +16,17 @@
 #include <iostream>
 
 
-void function_A()
-{
-  std::cout << "\tfunction_A()\n";
-}
+void function_A() { std::cout << "\tfunction_A()\n"; }
 
-void function_B()
-{
-  std::cout << "\tfunction_B()\n";
-}
+void function_B() { std::cout << "\tfunction_B()\n"; }
 
 
 int main()
 {
   using namespace std;
 
-  cout << "define a function pointer and init it with the address of function_A()\n";
+  cout << "define a function pointer and init it with the address of "
+          "function_A()\n";
   void (*pFunc)() = &function_A;
 
   cout << "call functions directly\n";
@@ -59,7 +54,8 @@ int main()
   (*pFunc)();
   cout << endl;
 
-  cout << "call pCopy again, after we changed pFunc, still points to function_A()\n";
+  cout << "call pCopy again, after we changed pFunc, still points to "
+          "function_A()\n";
   (*pCopy)();
   cout << endl;
 

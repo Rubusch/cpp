@@ -46,16 +46,16 @@
   * cppreference.com
  */
 
+#include <chrono> /* chrono::seconds */
 #include <iostream>
 #include <thread> /* thread, this_thread::sleep_for() */
-#include <chrono> /* chrono::seconds */
 
 using namespace std;
 
 
 void itchy()
 {
-  for (int idx=0; idx<5; ++idx) {
+  for (int idx = 0; idx < 5; ++idx) {
     cout << "Bang!" << endl;
     this_thread::sleep_for(chrono::seconds(1));
   }
@@ -63,7 +63,7 @@ void itchy()
 
 void scratchy(int counter)
 {
-  for (int idx=0; idx<counter; ++idx) {
+  for (int idx = 0; idx < counter; ++idx) {
     cout << "Pong!!" << endl;
     this_thread::sleep_for(chrono::seconds(2));
   }

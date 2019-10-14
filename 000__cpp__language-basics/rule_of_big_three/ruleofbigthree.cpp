@@ -16,24 +16,25 @@
   The problem is:
   - the allocated memory will be deleted
   - the pointer will be set to NULL
-  -> the pointer of the "shallow copy object" is NOT set to NULL, a delete sigsegv's
+  -> the pointer of the "shallow copy object" is NOT set to NULL, a delete
+sigsegv's
 
   A strategy is to check a pointer to the original.
 //*/
 
-#include <iostream>
 #include <cstdlib> // exit()
+#include <iostream>
 #include <string>
 
 using namespace std;
 
 
-template<class T>
+template < class T >
 class Foobar
 {
 private:
   // to help the dtor with freeing memory in a shallow copy
-  Foobar<T> *pShallowCpy;
+  Foobar< T > *pShallowCpy;
 
   T *ptr; // NO const here!
   T data;
@@ -44,33 +45,33 @@ public:
   Foobar();
 
   // 1. copy ctor
-  Foobar(Foobar const& shallowcopy);
+  Foobar(Foobar const &shallowcopy);
 
   // 2. dtor
   ~Foobar();
 
   // 3. operator=
-  Foobar& operator=(const Foobar& deepcopy);
+  Foobar &operator=(const Foobar &deepcopy);
 
   // some getters
-  void setPointer(const T& pointer);
-  const T& getPointer() const;
-  void setData(const T& newData);
+  void setPointer(const T &pointer);
+  const T &getPointer() const;
+  void setData(const T &newData);
   T getData() const;
-  void initPointerToShallowCopy(Foobar<T>* copy) const; // needs to be const on object!
+  void initPointerToShallowCopy(
+      Foobar< T > *copy) const; // needs to be const on object!
 };
 
 
-template<class T>
-Foobar<T>::Foobar()
-  : pShallowCpy(NULL)
-    , ptr(NULL)
+template < class T >
+Foobar< T >::Foobar() : pShallowCpy(NULL), ptr(NULL)
 {
-  try{
+  try {
     ptr = new T();
-  }catch(...){
+  } catch (...) {
     cerr << "ERROR: allocation failed!";
-    delete ptr; ptr = NULL;
+    delete ptr;
+    ptr = NULL;
     exit(-1);
   }
 
@@ -81,12 +82,13 @@ Foobar<T>::Foobar()
 /*
   copy ctor - shallow copy (pointer still point to the same pointee)
 //*/
-template<class T>
-Foobar<T>::Foobar(Foobar<T> const& shallowcopy)
-  :ptr(NULL), data(shallowcopy.getData()) // copy of fix data
+template < class T >
+Foobar< T >::Foobar(Foobar< T > const &shallowcopy)
+    : ptr(NULL), data(shallowcopy.getData()) // copy of fix data
 {
-  // not needed to check self in the ctor, 'shallowcopy' cannot be passed to it's own ctor - Exceptional C++, Herb Sutter, 2000
-  //if(this == &shallowcopy) return;
+  // not needed to check self in the ctor, 'shallowcopy' cannot be passed to
+  // it's own ctor - Exceptional C++, Herb Sutter, 2000
+  // if(this == &shallowcopy) return;
 
   // copy of pointer(s) - shallow copy -> no allocation!
   ptr = shallowcopy.ptr;
@@ -99,41 +101,45 @@ Foobar<T>::Foobar(Foobar<T> const& shallowcopy)
 /*
   dtor
 //*/
-template<class T>
-Foobar<T>::~Foobar()
+template < class T >
+Foobar< T >::~Foobar()
 {
-  if(NULL != pShallowCpy){
+  if (NULL != pShallowCpy) {
     /*
-      if there exist a shallow copy don't delete the pointer here, the destructor
-      of the shallowcopy will do that, this serves to avoid a double-delete situation
+      if there exist a shallow copy don't delete the pointer here, the
+    destructor of the shallowcopy will do that, this serves to avoid a
+    double-delete situation
     //*/
     return;
   }
 
- delete ptr; ptr = NULL;
+  delete ptr;
+  ptr = NULL;
 }
 
 
 /*
   operator= - deep copy new space has been allocated
 //*/
-template<class T>
-Foobar<T>& Foobar<T>::operator=(const Foobar<T>& deepcopy)
+template < class T >
+Foobar< T > &Foobar< T >::operator=(const Foobar< T > &deepcopy)
 {
   // check self
-  if(this == &deepcopy) return *this;
+  if (this == &deepcopy)
+    return *this;
 
   // deepcopy.data
   data = deepcopy.data;
 
   // deepcopy.ptr - can be checked for NULL, in case!
-  T* tmp=NULL;
-  if(NULL != deepcopy.ptr){
-    try{
+  T *tmp = NULL;
+  if (NULL != deepcopy.ptr) {
+    try {
       tmp = new T();
-    }catch(...){
+    } catch (...) {
       cerr << "allocation failed\n";
-      delete tmp; tmp = NULL;
+      delete tmp;
+      tmp = NULL;
       exit(-1);
     }
     *tmp = deepcopy.getPointer();
@@ -144,43 +150,42 @@ Foobar<T>& Foobar<T>::operator=(const Foobar<T>& deepcopy)
   return *this;
 }
 
-template<class T>
-void Foobar<T>::setPointer(const T& content)
+template < class T >
+void Foobar< T >::setPointer(const T &content)
 {
   *ptr = content;
 }
 
-template<class T>
-const T& Foobar<T>::getPointer() const
+template < class T >
+const T &Foobar< T >::getPointer() const
 {
   return *ptr;
 }
 
-template<class T>
-void Foobar<T>::setData(const T& newData)
+template < class T >
+void Foobar< T >::setData(const T &newData)
 {
   data = newData;
 }
 
-template<class T>
-T Foobar<T>::getData() const
+template < class T >
+T Foobar< T >::getData() const
 {
   return data;
 }
 
-template<class T>
-void Foobar<T>::initPointerToShallowCopy(Foobar<T>* copy) const
+template < class T >
+void Foobar< T >::initPointerToShallowCopy(Foobar< T > *copy) const
 {
   /*
-    Because this function is called by the copy ctor's parameter and this needs to be
-    passed as "const" object:
+    Because this function is called by the copy ctor's parameter and this needs
+  to be passed as "const" object:
     1. this function needs to be "const"
     2. since we still need to change a contained data, we discard constness for
     this operation by a const_cast<>()
   //*/
-  (const_cast< Foobar< T >* >( this))->pShallowCpy = copy;
+  (const_cast< Foobar< T > * >(this))->pShallowCpy = copy;
 }
-
 
 
 /*
@@ -188,7 +193,7 @@ void Foobar<T>::initPointerToShallowCopy(Foobar<T>* copy) const
 //*/
 int main()
 {
-  Foobar<string> fb_orig;
+  Foobar< string > fb_orig;
 
 
   // init
@@ -210,8 +215,9 @@ int main()
 
   // shallow copy
   cout << "2. shallow copy\n";
-  Foobar<string> fb_shallow_copy(fb_orig);
-  // this also shows why it makes more sense to use operator=() for the deep copy!
+  Foobar< string > fb_shallow_copy(fb_orig);
+  // this also shows why it makes more sense to use operator=() for the deep
+  // copy!
   cout << "fb_orig\n"
        << "\t::data\t\t=\t\"" << fb_orig.getData() << "\"\n"
        << "\t::pointer\t=\t\"" << fb_orig.getPointer() << "\"\n";
@@ -227,7 +233,7 @@ int main()
 
   // deep copy
   cout << "3. deep copy\n";
-  Foobar<string> fb_deep_copy;
+  Foobar< string > fb_deep_copy;
   fb_deep_copy = fb_orig;
 
   cout << "fb_orig\n"

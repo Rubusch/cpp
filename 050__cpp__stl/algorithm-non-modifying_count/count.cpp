@@ -16,9 +16,9 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 
 
 /*
@@ -29,13 +29,14 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  const int arr[] = { 1, 2, 3, 4, 3, 2, 1 };
+  const int arr[] = {1, 2, 3, 4, 3, 2, 1};
   cout << endl;
 
-  cout << "2 is contained " << count(arr, arr+7, 2) << " times\n";
+  cout << "2 is contained " << count(arr, arr + 7, 2) << " times\n";
   cout << endl;
 
-  cout << count_if(arr, arr+7, bind2nd(greater< int >(), 2)) << " values are greater than 2\n";
+  cout << count_if(arr, arr + 7, bind2nd(greater< int >(), 2))
+       << " values are greater than 2\n";
   cout << endl;
 
   cout << "READY.\n";

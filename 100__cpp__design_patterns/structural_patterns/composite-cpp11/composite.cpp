@@ -21,27 +21,29 @@
   +---------------------+        +---------------------+     |
   | Leaf                |        | Composite           |<>---+
   +=====================+        +=====================+
-  |                     |        |                     |      +----------------------+\
-  +---------------------+        +---------------------+      | for all g : children +-+
-  | operation()         |        | operation() - - - - - - - -| g.operation()          |
-  +---------------------+        | add( Component*)    |      +------------------------+
-                                 | remove( Component*) |
-                                 | getChild( int)      |
+  |                     |        |                     |
++----------------------+\
+  +---------------------+        +---------------------+      | for all g :
+children +-+ | operation()         |        | operation() - - - - - - - -|
+g.operation()          |
+  +---------------------+        | add( Component*)    |
++------------------------+ | remove( Component*) | | getChild( int)      |
                                  +---------------------+
                                            /_\
                                             |
                                             ... (next category level)
 
-  Basic idea is to treat categories or compositions of objects equally as individual objects.
+  Basic idea is to treat categories or compositions of objects equally as
+individual objects.
 
   (GoF, 1995)
 //*/
 
 
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <iostream>
 #include <memory>
+#include <vector>
 
 
 /*
@@ -57,11 +59,11 @@
 class Component
 {
 public:
-  virtual ~Component(){}
+  virtual ~Component() {}
   virtual void operation() = 0;
-  virtual void add(std::shared_ptr< Component>){}
-  virtual void remove(std::shared_ptr< Component>){}
-  virtual std::shared_ptr< Component> getChild(int){ return nullptr; }
+  virtual void add(std::shared_ptr< Component >) {}
+  virtual void remove(std::shared_ptr< Component >) {}
+  virtual std::shared_ptr< Component > getChild(int) { return nullptr; }
 };
 
 
@@ -71,8 +73,7 @@ public:
   - represents leaf objects in the composition. A leaf has no children
   - defines behavior for primitive objects in the composition
 //*/
-class Leaf
-  : public Component
+class Leaf : public Component
 {
 public:
   void operation()
@@ -90,20 +91,16 @@ public:
   - stores child components
   - implements child-related operations in the Component interface
 //*/
-class Composite
-  : public Component
+class Composite : public Component
 {
 private:
-  std::vector< std::shared_ptr< Component> > components_;
+  std::vector< std::shared_ptr< Component > > components_;
 
   // forbid copying
-  Composite( Composite const&);
+  Composite(Composite const &);
 
 public:
-  Composite()
-  {
-    std::cout << "\tComposite::Composite()\n";
-  }
+  Composite() { std::cout << "\tComposite::Composite()\n"; }
 
   void operation()
   {
@@ -111,31 +108,37 @@ public:
     std::cout << "-> operation in the Composite class\n";
 
     // remember avoid for loops: check mem_fun()
-    for( auto iter : components_){ [&iter](){ iter->operation(); }; };
+    for (auto iter : components_) {
+      [&iter]() { iter->operation(); };
+    };
   }
 
-  void add( std::shared_ptr< Component > pComponent)
+  void add(std::shared_ptr< Component > pComponent)
   {
     std::cout << "\tComposite::add(std::shared_ptr< Component>)\n";
-    if(nullptr == pComponent) return;
-    components_.push_back( pComponent);
+    if (nullptr == pComponent)
+      return;
+    components_.push_back(pComponent);
   }
 
-  void remove( std::shared_ptr< Component > pComponent)
+  void remove(std::shared_ptr< Component > pComponent)
   {
     std::cout << "\tComposite::remove(std::shared_ptr< Component>)\n";
-    if(nullptr == pComponent) return;
+    if (nullptr == pComponent)
+      return;
 
     // remember: end() points AFTER the last element
     auto iter = std::find(components_.begin(), components_.end(), pComponent);
 
-    // remember: if find failed, it points to the last index, hence end() which is outside the vector
-    if(iter == components_.end()) return;
+    // remember: if find failed, it points to the last index, hence end() which
+    // is outside the vector
+    if (iter == components_.end())
+      return;
 
     components_.erase(iter);
   }
 
-  std::shared_ptr< Component> getChild( int idx)
+  std::shared_ptr< Component > getChild(int idx)
   {
     std::cout << "\tComposite::getChild( int)\n";
     return components_.at(idx);

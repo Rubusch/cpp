@@ -36,28 +36,22 @@ private:
   int number_of_toys;
 
 public:
-  Box( int number) : number_of_toys(number)
+  Box(int number) : number_of_toys(number)
   {
     cout << "CALLED: Box(" << number << ")" << endl;
   }
-  ~Box()
-  {
-    cout << "CALLED: ~Box()" << endl;
-  }
+  ~Box() { cout << "CALLED: ~Box()" << endl; }
 
-  auto box_content() const
-  {
-    return number_of_toys;
-  }
+  auto box_content() const { return number_of_toys; }
 };
-
 
 
 int main(void)
 {
   // creating a pointer and initialization
-  // template type: 'Box'; constructor argumten: '12' passed as argument to 'std::make_shared(arg)'
-  auto pBox = make_shared< Box>(12);  // MAKE determines the type of pBox!!!
+  // template type: 'Box'; constructor argumten: '12' passed as argument to
+  // 'std::make_shared(arg)'
+  auto pBox = make_shared< Box >(12); // MAKE determines the type of pBox!!!
 
 
   // check if a pointer is empty
@@ -65,7 +59,7 @@ int main(void)
   cout << "the pBox contains " << content << " toys" << endl;
 
   // copyable
-  //std::shared_ptr< Box > pCopyBox = pBox;
+  // std::shared_ptr< Box > pCopyBox = pBox;
   auto pCopyBox = pBox;
   cout << "copy of pBox, pCopyBox: " << pCopyBox->box_content() << endl;
 
@@ -77,7 +71,8 @@ int main(void)
   if (nullptr == pBox) {
     cout << "the pBox disappeared...." << endl;
   }
-  cout << "the moved pAnotherBox contains " << pAnotherBox->box_content() << " toys" << endl;
+  cout << "the moved pAnotherBox contains " << pAnotherBox->box_content()
+       << " toys" << endl;
 
   // reset a unique_ptr
   cout << "trash pAnotherBox" << endl;
@@ -86,12 +81,13 @@ int main(void)
   // creating (must point to dynamic memory)..
   auto val = 123;
   cout << "create another pointer pInt with " << val << endl;
-  auto pInt = std::make_shared< int >( val );
+  auto pInt = std::make_shared< int >(val);
 
   // get (shred_ptr) corresponds to release (unique_ptr)
   // pass the pointee to a raw pointer
   auto *pVal = pInt.get();
-  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal << endl;
+  cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal
+       << endl;
 
 
   cout << "READY." << endl;

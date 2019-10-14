@@ -33,17 +33,11 @@ using namespace std;
 class BaseNew
 {
 public:
-  virtual ~BaseNew(){}
+  virtual ~BaseNew() {}
 
-  virtual void mf1() const
-  {
-    cout << "CALLED: BaseNew::mf1() const" << endl;
-  }
+  virtual void mf1() const { cout << "CALLED: BaseNew::mf1() const" << endl; }
 
-  virtual void mf2(int x)
-  {
-    cout << "CALLED: BaseNew::mf2(int)" << endl;
-  }
+  virtual void mf2(int x) { cout << "CALLED: BaseNew::mf2(int)" << endl; }
 
   virtual void mf3() & final
   {
@@ -59,7 +53,8 @@ public:
 class DerivedNew : public BaseNew
 {
 public:
-  virtual void mf1() const override // 'override' is declared in the derived function
+  virtual void
+  mf1() const override // 'override' is declared in the derived function
   {
     cout << "CALLED: DerivedNew::mf1() const" << endl;
   }
@@ -74,7 +69,7 @@ public:
 int main(void)
 {
   cout << "override solves several situations" << endl;
-  unique_ptr<BaseNew> upbn = make_unique<DerivedNew>();
+  unique_ptr< BaseNew > upbn = make_unique< DerivedNew >();
   upbn->mf1();
   upbn->mf2(78);
   upbn->mf3();
@@ -83,4 +78,3 @@ int main(void)
 
   cout << "READY." << endl;
 }
-

@@ -7,10 +7,10 @@
   -> Visitor::visit( Element& ) which will print "Element visited!"
 //*/
 
-#include <vector>
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -18,20 +18,15 @@ using namespace std;
 class Visitor;
 
 
-struct Element
-{
-  void accept(Visitor*);
+struct Element {
+  void accept(Visitor *);
 };
 
 
-struct Visitor
-{
-  void visit(Element& e)
-  {
-    cout << "Element visited!\n";
-  }
+struct Visitor {
+  void visit(Element &e) { cout << "Element visited!\n"; }
 
-  void visitAll(vector< Element* > vec)
+  void visitAll(vector< Element * > vec)
   {
     for_each(vec.begin(), vec.end(), bind2nd(mem_fun(&Element::accept), this));
   }
@@ -39,16 +34,13 @@ struct Visitor
 
 
 // declaration issues...
-void Element::accept(Visitor* v)
-{
-  v->visit(*this);
-}
+void Element::accept(Visitor *v) { v->visit(*this); }
 
 
 int main()
 {
   cout << "init..\n";
-  vector< Element* > vec;
+  vector< Element * > vec;
   Element elem1, elem2, elem3;
   vec.push_back(&elem1);
   vec.push_back(&elem2);

@@ -43,8 +43,8 @@ public:
   Widget();
   ~Widget();
 
-  Widget( const Widget& rhs);
-  Widget& operator=(const Widget& rhs);
+  Widget(const Widget &rhs);
+  Widget &operator=(const Widget &rhs);
 
   void setContent(std::string str);
   std::string getContent() const;
@@ -63,25 +63,20 @@ public:
 // can happen inside without impact to the representation and its user
 struct Widget::Impl {
   std::string content;
-// ...
+  // ...
 
-  void setContent( std::string str ) { content = str; }
+  void setContent(std::string str) { content = str; }
   std::string getContent() { return content; }
 };
 
-Widget::Widget()
-: pImpl( std::make_unique< Impl >())
+Widget::Widget() : pImpl(std::make_unique< Impl >())
 {
   cout << "CALLED: Widget()" << endl;
 }
 
-Widget::~Widget()
-{
-  cout << "CALLED: ~Widget()" << endl;
-}
+Widget::~Widget() { cout << "CALLED: ~Widget()" << endl; }
 
-Widget::Widget( const Widget& rhs)
-: pImpl(nullptr)
+Widget::Widget(const Widget &rhs) : pImpl(nullptr)
 {
   cout << "CALLED: Widget(), copy constructor" << endl;
   if (rhs.pImpl) {
@@ -89,8 +84,7 @@ Widget::Widget( const Widget& rhs)
   }
 }
 
-Widget&
-Widget::operator=(const Widget& rhs)
+Widget &Widget::operator=(const Widget &rhs)
 {
   cout << "CALLED: operator=() called" << endl;
   if (!rhs.pImpl) {
@@ -104,15 +98,9 @@ Widget::operator=(const Widget& rhs)
 }
 
 
-void Widget::setContent(std::string str)
-{
-  pImpl->setContent(str);
-}
+void Widget::setContent(std::string str) { pImpl->setContent(str); }
 
-std::string Widget::getContent() const
-{
-  return pImpl->getContent();
-}
+std::string Widget::getContent() const { return pImpl->getContent(); }
 
 
 /** main **********************************************************************/

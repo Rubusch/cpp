@@ -1,7 +1,8 @@
 // inerpreter.cpp
 /*
   Given a language, define a representation for its grammar along with an
-  interpreter that uses the representation to interpret sentences in the language.
+  interpreter that uses the representation to interpret sentences in the
+language.
 
                          +---------------------+
                 +------->| Context             |
@@ -60,9 +61,10 @@ private:
   std::string tmp;
 
 public:
-  void push(std::string word){
+  void push(std::string word)
+  {
     std::cout << "\tContext::push( std::string)\n";
-    content.push_back( word);
+    content.push_back(word);
   }
 
   std::string pop()
@@ -84,8 +86,8 @@ public:
 class AbstractExpression
 {
 public:
-  virtual ~AbstractExpression(){}
-  virtual bool interpret( Context* context) = 0;
+  virtual ~AbstractExpression() {}
+  virtual bool interpret(Context *context) = 0;
 };
 
 
@@ -96,14 +98,13 @@ public:
   in the grammar
   - an instance is required for every terminal symbol in a sentence
 //*/
-class TerminalExpression_bool
-  : public AbstractExpression
+class TerminalExpression_bool : public AbstractExpression
 {
 public:
-  bool interpret( Context* context)
+  bool interpret(Context *context)
   {
     std::cout << "\tTerminalExpression_bool::interpret( Context*);\n";
-    if(0 == (context->pop()).compare("TRUE")){
+    if (0 == (context->pop()).compare("TRUE")) {
       return true;
     }
     return false;
@@ -121,8 +122,7 @@ public:
   Interpret typically calls itself recursively on the variables representing
   R1 through Rn
 //*/
-class NonterminalExpression_equals
-  : public AbstractExpression
+class NonterminalExpression_equals : public AbstractExpression
 {
 private:
   AbstractExpression *pOperand1_, *pOperand2_;
@@ -130,19 +130,23 @@ private:
 public:
   NonterminalExpression_equals()
   {
-    std::cout << "\tNonterminalExpression_equals::NonterminalExpression_equals(AbstractExpression*) - ctor\n";
+    std::cout << "\tNonterminalExpression_equals::NonterminalExpression_equals("
+                 "AbstractExpression*) - ctor\n";
     pOperand1_ = new TerminalExpression_bool;
     pOperand2_ = new TerminalExpression_bool;
   }
 
   ~NonterminalExpression_equals()
   {
-    std::cout << "\tNonterminalExpression_equals::~NonterminalExpression_equals() - dtor\n";
-    delete pOperand1_; pOperand1_ = NULL;
-    delete pOperand2_; pOperand2_ = NULL;
+    std::cout << "\tNonterminalExpression_equals::~NonterminalExpression_"
+                 "equals() - dtor\n";
+    delete pOperand1_;
+    pOperand1_ = NULL;
+    delete pOperand2_;
+    pOperand2_ = NULL;
   }
 
-  bool interpret( Context* context)
+  bool interpret(Context *context)
   {
     std::cout << "\tNonterminalExpression_equals::interpret( Context*)\n";
     return (pOperand1_->interpret(context) == pOperand2_->interpret(context));
@@ -155,8 +159,8 @@ public:
 
   - builds (or is given) an abstract syntax tree representing a particular
   sentence in the language that the grammar defines. The abstract syntax tree
-  is assembled from instances of the NonterminalExpression and TerminalExpression
-  classes.
+  is assembled from instances of the NonterminalExpression and
+TerminalExpression classes.
   - invokes the Interpret operation
 //*/
 int main()
@@ -170,13 +174,14 @@ int main()
   context.push("EQUALS");
   cout << endl;
 
-  if(0 == (context.pop()).compare("EQUALS")){
+  if (0 == (context.pop()).compare("EQUALS")) {
     // in case the sequence in our grammar would end with EQUALS
     NonterminalExpression_equals start;
-    cout << "-> result: \'" << (start.interpret(&context) ? ("true") : ("false")) << "\'\n";
+    cout << "-> result: \'"
+         << (start.interpret(&context) ? ("true") : ("false")) << "\'\n";
     cout << endl;
 
-  }else{
+  } else {
     cout << "not interpretable with our grammar\n";
   }
 

@@ -11,17 +11,17 @@
   smartpointer that keeps track of that directly!
 //*/
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
-#include <cstdlib>
 
 using namespace std;
 
-template<class T>
+template < class T >
 class HugeMonster;
 
-template<class T>
-ostream& operator<<(ostream& out, HugeMonster< T >& hm);
+template < class T >
+ostream &operator<<(ostream &out, HugeMonster< T > &hm);
 
 /*
   values that are difficult to fetch ;)
@@ -35,7 +35,7 @@ int someMonsterInt = 111;
 /*
   some class def for monster 3 and 4
 //*/
-template<class T>
+template < class T >
 class HugeMonster
 {
 private:
@@ -46,35 +46,36 @@ public:
   HugeMonster(const T initVar);
 
   T getVariable() const;
-  HugeMonster& operator=(const HugeMonster< T >& d_cpy);
+  HugeMonster &operator=(const HugeMonster< T > &d_cpy);
 
   //  friend ostream& operator<< < T >(ostream& out, HugeMonster< T >& hm);
 };
 
 
-template<class T>
+template < class T >
 HugeMonster< T >::HugeMonster(const T initVar)
 {
   var = initVar;
 }
 
-template<class T>
+template < class T >
 T HugeMonster< T >::getVariable() const
 {
   return var;
 }
 
-template<class T>
-HugeMonster< T >& HugeMonster< T >::operator=(const HugeMonster< T >& d_cpy)
+template < class T >
+HugeMonster< T > &HugeMonster< T >::operator=(const HugeMonster< T > &d_cpy)
 {
-  if (this == &d_cpy) return *this;
+  if (this == &d_cpy)
+    return *this;
   this->var = d_cpy.getVariable();
   return *this;
 }
 
 // friend function operator<<()
-template<class T>
-ostream& operator<<(ostream& out, HugeMonster< T >& hm)
+template < class T >
+ostream &operator<<(ostream &out, HugeMonster< T > &hm)
 {
   return out << hm.getVariable();
 }
@@ -86,12 +87,11 @@ HugeMonster< string > stringMonster("the string monster!");
 HugeMonster< int > intMonster(222);
 
 
-
 /*
-  the class - a cage of huuuuuge monsters, hence the elemens will be allocated and
-  initialized only when requested!
+  the class - a cage of huuuuuge monsters, hence the elemens will be allocated
+and initialized only when requested!
 //*/
-template< class U, class V >
+template < class U, class V >
 class MonsterCage
 {
 private:
@@ -110,41 +110,43 @@ public:
     when it's necessary!
   //*/
 
-  const string& field1() const;
+  const string &field1() const;
   int field2() const;
   U field3() const;
-  const V& field4() const;
+  const V &field4() const;
   // ...
 };
 
 /*
   trick: lazy fetching - initialize everything here with NULL
 //*/
-template< class U, class V >
+template < class U, class V >
 MonsterCage< U, V >::MonsterCage()
-  :field1value(NULL)
-  , field2value(NULL)
-  , field3value(NULL)
-  , field4value(NULL)
-{}
-
-template< class U, class V >
-MonsterCage< U, V >::~MonsterCage()
+    : field1value(NULL), field2value(NULL), field3value(NULL), field4value(NULL)
 {
-  delete field1value; field1value = NULL;
-  delete field2value; field2value = NULL;
-  delete field3value; field3value = NULL;
-  delete field4value; field4value = NULL;
 }
 
-template< class U, class V >
-const string& MonsterCage< U, V >::field1() const
+template < class U, class V >
+MonsterCage< U, V >::~MonsterCage()
 {
-  if(0 == field1value){
+  delete field1value;
+  field1value = NULL;
+  delete field2value;
+  field2value = NULL;
+  delete field3value;
+  field3value = NULL;
+  delete field4value;
+  field4value = NULL;
+}
+
+template < class U, class V >
+const string &MonsterCage< U, V >::field1() const
+{
+  if (0 == field1value) {
     // allocate space for the value
-    try{
+    try {
       field1value = new string;
-    }catch(...){
+    } catch (...) {
       cerr << "allocation 1 failed\n";
       exit(-1);
     }
@@ -159,13 +161,13 @@ const string& MonsterCage< U, V >::field1() const
 }
 
 
-template< class U, class V >
+template < class U, class V >
 int MonsterCage< U, V >::field2() const
 {
-  if(0 == field2value){
-    try{
+  if (0 == field2value) {
+    try {
       field2value = new int;
-    }catch(...){
+    } catch (...) {
       cerr << "allocation 2 failed\n";
       exit(-1);
     }
@@ -177,13 +179,13 @@ int MonsterCage< U, V >::field2() const
 }
 
 
-template< class U, class V >
+template < class U, class V >
 U MonsterCage< U, V >::field3() const
 {
-  if(NULL == field3value){
-    try{
+  if (NULL == field3value) {
+    try {
       field3value = new U;
-    }catch(...){
+    } catch (...) {
       cerr << "allocation 3 failed\n";
       exit(-1);
     }
@@ -195,13 +197,13 @@ U MonsterCage< U, V >::field3() const
 }
 
 
-template< class U, class V >
-const V& MonsterCage< U, V >::field4() const
+template < class U, class V >
+const V &MonsterCage< U, V >::field4() const
 {
-  if(NULL == field4value){
-    try{
+  if (NULL == field4value) {
+    try {
       field4value = new V;
-    }catch(...){
+    } catch (...) {
       cerr << "allocation 4 failed\n";
       exit(-1);
     }
@@ -211,7 +213,6 @@ const V& MonsterCage< U, V >::field4() const
 
   return *field4value;
 }
-
 
 
 /*

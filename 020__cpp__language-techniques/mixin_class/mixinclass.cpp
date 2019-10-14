@@ -18,25 +18,19 @@
 class DefaultImpulseEngine
 {
 public:
-  void launch()
-  {
-   std::cout << "\t\tImpulseEngine::launch()\n";
-  }
+  void launch() { std::cout << "\t\tImpulseEngine::launch()\n"; }
 };
 
 
 class WarpEngine
 {
 public:
-  void launch()
-  {
-    std::cout << "\t\tWarpEngine::launch()\n";
-  }
+  void launch() { std::cout << "\t\tWarpEngine::launch()\n"; }
 };
 
 
 /* entinge type as Mixin class (via template) */
-template< typename Engine_t = DefaultImpulseEngine >
+template < typename Engine_t = DefaultImpulseEngine >
 class StarShip
 {
 private:
@@ -59,11 +53,9 @@ int main()
   using namespace std;
 
   cout << "init types..\n";
-  typedef StarShip<>
-    CheapSpaceShip_t;
+  typedef StarShip<> CheapSpaceShip_t;
 
-  typedef StarShip< WarpEngine >
-    DeLuxeSpaceShip_t;
+  typedef StarShip< WarpEngine > DeLuxeSpaceShip_t;
 
   cout << "build ships..\n";
   CheapSpaceShip_t cheapShip;

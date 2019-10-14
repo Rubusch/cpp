@@ -40,7 +40,7 @@ int main()
     and another parameter of the second Functor
   //*/
   cout << "second function\n";
-  Functor< string, TYPELIST_1(int) > func2( BindFirst(func1, 10));
+  Functor< string, TYPELIST_1(int) > func2(BindFirst(func1, 10));
   cout << endl;
 
   // prints: "Fun(10, 15) called"

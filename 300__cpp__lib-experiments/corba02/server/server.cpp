@@ -1,16 +1,17 @@
 // server.cpp
 /*
   IMPORTANT NOTE:
-  you must set a global variable, to be able to use the ORB, e.g. in the /etc/profile
+  you must set a global variable, to be able to use the ORB, e.g. in the
+/etc/profile
 
   export OMNIORB_CONFIG=/etc/omniORB.cfg
 //*/
 
 // c headers
-#include <stdlib.h>
-#include <stdio.h>
 #include <assert.h>
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 //* cpp headers - TODO check
@@ -23,11 +24,11 @@ using namespace std;
 #include "CServiceA.h"
 #include "Data.hh"
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 
 
-  try{
+  try {
     // 1. init ORB
     CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
 
@@ -38,24 +39,28 @@ int main(int argc, char** argv)
     // 3. bind to name service
     // Invoke operations defined in object interface, via object reference
     // Instance of CRequestSocketStream_i servant is initialized
-    CServiceA_i* myRequestServiceA = new CServiceA_i();
-    PortableServer::ObjectId_var myRequestServiceA_oid = _poa->activate_object(myRequestServiceA);
+    CServiceA_i *myRequestServiceA = new CServiceA_i();
+    PortableServer::ObjectId_var myRequestServiceA_oid =
+        _poa->activate_object(myRequestServiceA);
     CORBA::Object_var SA_obj = myRequestServiceA->_this();
     CORBA::String_var sior(orb->object_to_string(SA_obj.in()));
-    fprintf(stderr, "\'%s\'\n", static_cast< char* >(sior)); // TODO check - std::string??
+    fprintf(stderr, "\'%s\'\n",
+            static_cast< char * >(sior)); // TODO check - std::string??
 
     // (re)bind object (orb) to the name (SA_obj) via name service
     CORBA::Object_var obj1 = orb->resolve_initial_references("OmniNameService");
     assert(!CORBA::is_nil(obj1.in()));
 
     // narrow to naming context
-    CosNaming::NamingContext_var nc = CosNaming::NamingContext::_narrow(obj1.in());
+    CosNaming::NamingContext_var nc =
+        CosNaming::NamingContext::_narrow(obj1.in());
     assert(!CORBA::is_nil(nc.in()));
 
     // bind to CORBA name service
     CosNaming::Name name;
     name.length(1);
-    name[0].id = CORBA::string_dup("DataServiceName1"); // string_dup does malloc()
+    name[0].id =
+        CORBA::string_dup("DataServiceName1"); // string_dup does malloc()
     nc->rebind(name, SA_obj.in());
     myRequestServiceA->_remove_ref();
 
@@ -70,23 +75,23 @@ int main(int argc, char** argv)
     orb->destroy();
 
     // TODO check memory management(!!!)
-    free(name[0].id); // string_dup() / malloc() - no nulling possible without explicitly defined operator=() !
+    free(name[0].id); // string_dup() / malloc() - no nulling possible without
+                      // explicitly defined operator=() !
 
-  }catch(CORBA::SystemException&){
-    fprintf(stderr, "server: caught CORBA::SystemException. - every idl function can throw a CORBA::SystemException.\n");
+  } catch (CORBA::SystemException &) {
+    fprintf(stderr, "server: caught CORBA::SystemException. - every idl "
+                    "function can throw a CORBA::SystemException.\n");
 
-  }catch(CORBA::Exception&){
+  } catch (CORBA::Exception &) {
     fprintf(stderr, "server: caught CORBA::Exception.\n");
 
-  }catch(omniORB::fatalException& fe){
+  } catch (omniORB::fatalException &fe) {
     fprintf(stderr, "server: omniORB::fatalException:\n");
     fprintf(stderr, "\tfile: %s\n", fe.file());
     fprintf(stderr, "\tline: %s\n", fe.line());
     fprintf(stderr, "\tmesg: %s\n", fe.errmsg());
 
-  }catch(...){
+  } catch (...) {
     fprintf(stderr, "server: caught unknown exception.\n");
   }
 }
-
-

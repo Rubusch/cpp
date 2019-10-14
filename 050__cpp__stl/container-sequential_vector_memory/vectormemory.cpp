@@ -4,22 +4,22 @@
 //*/
 
 
-#include <vector>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
+#include <vector>
 
-//using namespace std;
+// using namespace std;
 
 /*
   info output function
 //*/
-void info(const std::vector< int >& vec)
+void info(const std::vector< int > &vec)
 {
   std::cout << "size = " << vec.size() << std::setw(2)
-            << ", capacity = " << vec.capacity()
-            << ", content: ";
-  std::copy(vec.begin(), vec.end(), std::ostream_iterator< int >(std::cout, " "));
+            << ", capacity = " << vec.capacity() << ", content: ";
+  std::copy(vec.begin(), vec.end(),
+            std::ostream_iterator< int >(std::cout, " "));
   std::cout << std::endl << std::endl;
 }
 
@@ -32,7 +32,7 @@ int main()
   using namespace std;
 
   cout << "init..\n";
-  const int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
+  const int arr[] = {1, 2, 3, 4, 5, 6, 7};
   vector< int > vec;
   info(vec);
 
@@ -41,7 +41,7 @@ int main()
   info(vec);
 
   cout << "call \"assign( arr, arr + 4)\"\n";
-  vec.assign( arr, arr + 4);
+  vec.assign(arr, arr + 4);
   info(vec);
 
   cout << "call \"resize(2)\"\n";

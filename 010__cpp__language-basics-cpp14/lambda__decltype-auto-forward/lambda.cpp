@@ -1,6 +1,7 @@
 // lambda.cpp
 /*
-  Lambda (>=cpp11) constructs a closure: an unnamed function object capable of capturing variables in scope.
+  Lambda (>=cpp11) constructs a closure: an unnamed function object capable of
+capturing variables in scope.
 
   This example shows to use 'decltype' on 'auto&&' paramters for 'std::forward'.
 
@@ -46,8 +47,8 @@
   constexpr -> int : (optional, can be left out)
     specifier: mutable, constexpr, consteval (opt)
     where:
-      mutable = allows the body to modify copied params and to call their non-const member functions
-      exception = exception specification, or noexcept
+      mutable = allows the body to modify copied params and to call their
+non-const member functions exception = exception specification, or noexcept
       attribute = attribute specificatio for the closure type
 
     return type or use auto for closure, defaults to "void" (opt)
@@ -75,7 +76,7 @@ using namespace std;
 
 // lambda to filter by '%3'
 //*
-auto closure = [](auto par){ return (par % 3); };
+auto closure = [](auto par) { return (par % 3); };
 /*/ // generates something like this
 class CompilerGeneratedClosureClassName
 {
@@ -87,21 +88,25 @@ public:
 auto closure = CompilerGeneratedClosureClassName();
 // */
 
-// if lambda treats lvalues differently from rvalues, the above lambda is not sufficient (perfect forwarding)
-auto forwardingClosure = [](auto&& par){ return std::forward< decltype(par) >(par) %3; };
+// if lambda treats lvalues differently from rvalues, the above lambda is not
+// sufficient (perfect forwarding)
+auto forwardingClosure = [](auto &&par) {
+  return std::forward< decltype(par) >(par) % 3;
+};
 
 // variadic extension of the lambda and move operator
-auto variadicClosure = [](auto&& ...par) { return std::forward< decltype(par)... >(par...) %3; };
+auto variadicClosure = [](auto &&... par) {
+  return std::forward< decltype(par)... >(par...) % 3;
+};
 
 
 int main(void)
 {
-  for (auto idx=0; idx<10; ++idx) {
+  for (auto idx = 0; idx < 10; ++idx) {
 
     cout << "item(" << idx << ") : " << closure(idx)
          << ", forwarding closure: " << forwardingClosure(idx)
-         << ", variadic: " << variadicClosure(idx)
-         << endl;
+         << ", variadic: " << variadicClosure(idx) << endl;
   }
   cout << "READY." << endl;
 }

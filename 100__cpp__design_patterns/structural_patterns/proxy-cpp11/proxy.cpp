@@ -15,11 +15,13 @@
              +-----------------+-----------------+
              |                                   |
   +---------------------+             +---------------------+
-  | RealSubject         |<----------<>| Proxy               |      +-------------------------+\
-  +=====================+             +=====================+      | ...                     +-+
-  |                     |             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
-  +---------------------+             +---------------------+      | ...                       |
-  | request()           |             | request()           |      +---------------------------+
+  | RealSubject         |<----------<>| Proxy               |
++-------------------------+\
+  +=====================+             +=====================+      | ... +-+ |
+|             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
+  +---------------------+             +---------------------+      | ... | |
+request()           |             | request()           |
++---------------------------+
   +---------------------+             | getSubject()        |
                                       +---------------------+
 
@@ -40,7 +42,7 @@
 class Subject
 {
 public:
-  virtual ~Subject(){}
+  virtual ~Subject() {}
   virtual void request() = 0;
 };
 
@@ -50,8 +52,7 @@ public:
 
   - defines the real object that the proxy represents
 //*/
-class RealSubject
-  : public Subject
+class RealSubject : public Subject
 {
 public:
   void request()
@@ -86,8 +87,7 @@ public:
   -> protection proxies check that the caller has the access
   permissions required to perform a request
 //*/
-class Proxy
-  : public Subject
+class Proxy : public Subject
 {
 private:
   std::shared_ptr< RealSubject > pRealSubject_;
@@ -96,8 +96,10 @@ protected:
   void getSubject()
   {
     std::cout << "\tProxy::getSubject()\n";
-    if (nullptr != pRealSubject_) return;
-    pRealSubject_ = std::make_shared< RealSubject >(); // shift exception handling to client
+    if (nullptr != pRealSubject_)
+      return;
+    pRealSubject_ =
+        std::make_shared< RealSubject >(); // shift exception handling to client
   }
 
 public:
@@ -133,4 +135,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

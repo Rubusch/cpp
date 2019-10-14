@@ -15,7 +15,7 @@
 /*
   function to test the bind
 //*/
-const char* my_function(int i, int j)
+const char *my_function(int i, int j)
 {
   std::cout << "CALLED: my_function(" << i << ", " << j << ")\n";
   return 0;
@@ -31,7 +31,7 @@ int main()
 
   // set up a functor
   cout << "first function\n";
-  Functor< const char*, TYPELIST_2(char, int) > func1(my_function);
+  Functor< const char *, TYPELIST_2(char, int) > func1(my_function);
   cout << endl;
 
   /*
@@ -40,7 +40,7 @@ int main()
     and another parameter of the second Functor
   //*/
   cout << "second function\n";
-  Functor< string, TYPELIST_1(double) > func2( BindFirst(func1, 10));
+  Functor< string, TYPELIST_1(double) > func2(BindFirst(func1, 10));
   cout << endl;
 
   // prints: "Fun(10, 15) called"

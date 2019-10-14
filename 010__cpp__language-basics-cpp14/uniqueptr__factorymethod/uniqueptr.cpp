@@ -30,47 +30,36 @@
 using namespace std;
 
 
-static auto is_orange_juice=true;
+static auto is_orange_juice = true;
 
 class Fruit
 {
 public:
-  Fruit()
-  {
-    cout << "CALLED: Fruit()" << endl;
-  }
-  virtual ~Fruit() = default; // essential: derrived class object shall be destructed via base class pointer
+  Fruit() { cout << "CALLED: Fruit()" << endl; }
+  virtual ~Fruit() = default; // essential: derrived class object shall be
+                              // destructed via base class pointer
 };
 
 
-class Lemon
-  : public Fruit
+class Lemon : public Fruit
 {
 public:
-  Lemon()
-  {
-    cout << "CALLED: Lemon()" << endl;
-  }
+  Lemon() { cout << "CALLED: Lemon()" << endl; }
 };
 
 
-class Orange
-  : public Fruit
+class Orange : public Fruit
 {
 public:
-  Orange()
-  {
-    cout << "CALLED: Orange()" << endl;
-  }
+  Orange() { cout << "CALLED: Orange()" << endl; }
 };
 
 
 // customize delete, e.g. logs out
-auto delete_fruit = [](Fruit* pFruit)
-  {
-    cout << "CALLED: delete_fruit" << endl;
-    delete pFruit;
-  };
+auto delete_fruit = [](Fruit *pFruit) {
+  cout << "CALLED: delete_fruit" << endl;
+  delete pFruit;
+};
 
 // revised return type, version with customized delete
 
@@ -87,7 +76,6 @@ auto makeJuice()
   }
   return pFruit;
 }
-
 
 
 int main(void)

@@ -13,11 +13,11 @@
       |                                            |           |
                                            +-------+           +-------+
       |                                    |                           |
-  +-----------------------+\   +---------------------+     +---------------------+
-  | state.handleRequest() +-+  | StateA              |     | StateB              |
-  |                         |  +=====================+     +=====================+
-  +-------------------------+  | handleRequest()     |     | handleRequest()     |
-                               +---------------------+     +---------------------+
+  +-----------------------+\   +---------------------+ +---------------------+
+  | state.handleRequest() +-+  | StateA              |     | StateB | | |
++=====================+     +=====================+
+  +-------------------------+  | handleRequest()     |     | handleRequest() |
+                               +---------------------+ +---------------------+
 
  (GoF, 1995)
 
@@ -26,8 +26,8 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 
 class State;
@@ -37,10 +37,10 @@ class Context
 {
 private:
   friend class State;
-  void changeState( State* state);
+  void changeState(State *state);
 
 private:
-  State* state_;
+  State *state_;
 
 public:
   Context();
@@ -54,35 +54,34 @@ public:
 class State
 {
 public:
-  virtual ~State(){}
-  virtual void handleRequest( Context*) = 0;
+  virtual ~State() {}
+  virtual void handleRequest(Context *) = 0;
 
 protected:
-  void changeState( Context* pContext, State* pState)
+  void changeState(Context *pContext, State *pState)
   {
     pContext->changeState(pState);
   }
 };
 
 
-class StateA
-  : public State
+class StateA : public State
 {
 private:
-  StateA(){}
+  StateA() {}
 
 public:
-  static StateA* instance()
+  static StateA *instance()
   {
-    try{
+    try {
       return new StateA();
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "\tAllocation of StateA failed!\n";
       exit(-1);
     }
   }
 
-  void handleRequest( Context* pContext)
+  void handleRequest(Context *pContext)
   {
     std::cout << ">> open device and get ready\n";
     // and anything else to be done here...
@@ -90,52 +89,50 @@ public:
 };
 
 
-class StateB
-  : public State
+class StateB : public State
 {
 private:
-  StateB(){}
+  StateB() {}
 
 public:
-  static StateB* instance()
+  static StateB *instance()
   {
-    try{
+    try {
       return new StateB();
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "\tAllocation of StateB failed!\n";
       exit(-2);
     }
   }
 
-  void handleRequest( Context* pContext)
+  void handleRequest(Context *pContext)
   {
     std::cout << "<< close device and go standby\n";
 
     // state transition from StateB to StateA
-    changeState( pContext, StateA::instance());
+    changeState(pContext, StateA::instance());
   }
 };
 
 
 Context::Context()
 {
-  state_ = StateB::instance();  // init with StateB
+  state_ = StateB::instance(); // init with StateB
 }
 
 Context::~Context()
 {
-  delete state_; state_ = NULL;
+  delete state_;
+  state_ = NULL;
 }
 
-void Context::request()
-{
-  state_->handleRequest(this);
-}
+void Context::request() { state_->handleRequest(this); }
 
-void Context::changeState( State* state)
+void Context::changeState(State *state)
 {
-  if(state_ != NULL){
-    delete state_; state_ = NULL;
+  if (state_ != NULL) {
+    delete state_;
+    state_ = NULL;
   }
   state_ = state;
 }

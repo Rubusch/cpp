@@ -38,7 +38,7 @@
  */
 
 #include <iostream>
-#include <type_traits>  /* is_const:: */
+#include <type_traits> /* is_const:: */
 
 #include <vector> /* vector */
 
@@ -50,15 +50,14 @@ using namespace std;
 
 class Box
 {
-  public:
+public:
   Box() { cout << "CALLED: ctor of Box" << endl; }
 };
 
 //*
 // final cpp14 version
-template< typename Con, typename Idx >
-decltype(auto)
-authAndAccess(Con&& con, Idx idx)
+template < typename Con, typename Idx >
+decltype(auto) authAndAccess(Con &&con, Idx idx)
 {
   cout << "authAndAccess()" << endl;
   return std::forward< Con >(con)[idx];
@@ -80,7 +79,7 @@ authAndAccess(Con&& con, Idx idx)
 // small changes and effects in cpp11
 decltype(auto) f1()
 {
-  int x=0;
+  int x = 0;
   cout << "f1 - addr(x) :'" << &x << "'" << endl;
   // ...
   return x; // decltype(x) is int
@@ -88,17 +87,18 @@ decltype(auto) f1()
 
 decltype(auto) f2()
 {
-  int x=0;
+  int x = 0;
   cout << "f2 - addr(x) :'" << &x << "'" << endl;
   // ...
-  return (x); // decltype(x) is int& - a very bad idea hera to return a function item by reference
+  return (x); // decltype(x) is int& - a very bad idea hera to return a function
+              // item by reference
 }
 
 
 int main(void)
 {
   Box box;
-  int index=0;
+  int index = 0;
 
   // this has to be a container type, e.g. vector
   vector< Box > vec;
@@ -124,13 +124,16 @@ int main(void)
   cout << endl;
 
   // real: ends with SEGFAULT
-//  auto y = f2();
-//  cout << "auto y: '" << &y << "'" << endl;
+  //  auto y = f2();
+  //  cout << "auto y: '" << &y << "'" << endl;
 
   // fake:
   f2();
-  cout << "auto y: '" << "SEGMENTATION FAULT" << "', this address is not valid anymore and would thus cause a segmentation fault." << endl;
+  cout << "auto y: '"
+       << "SEGMENTATION FAULT"
+       << "', this address is not valid anymore and would thus cause a "
+          "segmentation fault."
+       << endl;
 
   cout << "READY." << endl;
 }
-

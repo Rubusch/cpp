@@ -25,10 +25,10 @@
 
  */
 
+#include <atomic> /* atomic */
+#include <chrono> /* chrono::seconds */
 #include <iostream>
 #include <thread> /* thread, this_thread::sleep_for() */
-#include <chrono> /* chrono::seconds */
-#include <atomic> /* atomic */
 
 using namespace std;
 
@@ -36,19 +36,20 @@ using namespace std;
 class Box
 {
 private:
-  mutable std::atomic< bool > is_hit{ false }; // single small resource - ATOMIC!
+  mutable std::atomic< bool > is_hit{false}; // single small resource - ATOMIC!
 
 public:
-  void animal(const int sleep, const string name) const // const member function - CAUTION: race condition!!!
+  void animal(const int sleep, const string name)
+      const // const member function - CAUTION: race condition!!!
   {
-    for (int idx=0; idx<3; ++idx) {
+    for (int idx = 0; idx < 3; ++idx) {
       this_thread::sleep_for(chrono::seconds(sleep));
-      cout << "Bang! " << name << " is " << (is_hit?"":"not") << " hit" << endl;
-      is_hit = (is_hit?false:true);
+      cout << "Bang! " << name << " is " << (is_hit ? "" : "not") << " hit"
+           << endl;
+      is_hit = (is_hit ? false : true);
     }
   }
 };
-
 
 
 int main(void)
@@ -67,7 +68,8 @@ int main(void)
 
   cout << "both completed!" << endl;
 
-  delete pb; pb = nullptr;
+  delete pb;
+  pb = nullptr;
 
   cout << "READY." << endl;
   return 0;

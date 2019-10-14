@@ -42,7 +42,7 @@ int main()
 
   //   ..array
   cout << "array: ";
-  for(int idx = 0; 12 > idx; ++idx){
+  for (int idx = 0; 12 > idx; ++idx) {
     cout << pStrArr[idx] << " ";
   }
   cout << endl;
@@ -51,11 +51,12 @@ int main()
   delete pStr;
   pStr = NULL;
 
-  delete [] pStrArr;
+  delete[] pStrArr;
   pStrArr = NULL;
 
-  // Remember a "double delete" is Killaah! The only possibility to avoid issues with "double
-  // deletes" is to set the pointer to NULL. A "delete NULL" is ALWAYS possible!
+  // Remember a "double delete" is Killaah! The only possibility to avoid issues
+  // with "double deletes" is to set the pointer to NULL. A "delete NULL" is
+  // ALWAYS possible!
   delete pStr;
   delete pStrArr;
 

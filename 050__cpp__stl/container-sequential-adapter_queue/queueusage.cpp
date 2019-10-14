@@ -17,9 +17,9 @@
 //*/
 
 
-#include <queue>
-#include <list>
 #include <iostream>
+#include <list>
+#include <queue>
 
 
 int main()
@@ -37,13 +37,13 @@ int main()
   fifo.push(5);
   cout << 7 << endl;
   fifo.push(7);
-  if(fifo.back() != 7){
+  if (fifo.back() != 7) {
     cerr << "something\'s wrong!\n";
   }
   cout << endl;
 
   cout << "show and remove the elements one by one..\n";
-  while(!fifo.empty()){
+  while (!fifo.empty()) {
     cout << fifo.front() << " ";
     fifo.pop();
   }

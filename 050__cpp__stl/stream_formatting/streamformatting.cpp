@@ -2,7 +2,8 @@
 /*
   stram formatting
 
-  - remmember use sentry to clean up a stream on exception calls before a regular clean up
+  - remmember use sentry to clean up a stream on exception calls before a
+regular clean up
   - don't throw exceptions in destructors (stack unwinding crashes the proggy!)
 
   resources: Kuhlins and Schader (2003)
@@ -21,7 +22,8 @@ int main()
 
   cout << "init\n";
   const ios_base::fmtflags standard_flags = cout.flags();
-  cout << "bool: " << boolalpha << true << " and " << boolalpha << false << endl;
+  cout << "bool: " << boolalpha << true << " and " << boolalpha << false
+       << endl;
   cout << endl << endl;
 
 
@@ -87,9 +89,7 @@ int main()
 
 
   cout << "reset again\n";
-  cout.flags(ios_base::uppercase
-             | ios_base::hex
-             | ios_base::scientific);
+  cout.flags(ios_base::uppercase | ios_base::hex | ios_base::scientific);
 
   cout << "uppercase, hex and scientific: " << lng << ", " << dbl << endl;
   cout << endl << endl;

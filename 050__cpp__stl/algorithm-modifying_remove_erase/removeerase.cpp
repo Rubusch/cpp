@@ -9,9 +9,9 @@
 //*/
 
 
+#include <algorithm>
 #include <iostream>
 #include <iterator>
-#include <algorithm>
 #include <vector>
 
 
@@ -23,8 +23,8 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 1, 0, 2, 3, 0, 0, 4, 5 };
-  vector< int > vec(arr, arr+8);
+  int arr[] = {1, 0, 2, 3, 0, 0, 4, 5};
+  vector< int > vec(arr, arr + 8);
   vector< int >::iterator iter_rest = remove(vec.begin(), vec.end(), 0);
   cout << endl;
 

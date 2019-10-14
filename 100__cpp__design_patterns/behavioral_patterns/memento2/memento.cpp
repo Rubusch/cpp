@@ -1,12 +1,13 @@
 // memento.cpp
 /*
-  Without violating encapsulation, capture and externalize an objects internal state so that
-  the object can be restored to this state later.
+  Without violating encapsulation, capture and externalize an objects internal
+state so that the object can be restored to this state later.
 
-  +---------------------+           +---------------------+  memento  +---------------------+
-  | Originator          |---------->| Memento             |<--------<>| Caretaker           |
-  +=====================+           +=====================+           +---------------------+
-  | setMemento(Memento) o---+       | getState() : State  |
+  +---------------------+           +---------------------+  memento
++---------------------+ | Originator          |---------->| Memento
+|<--------<>| Caretaker           |
+  +=====================+           +=====================+
++---------------------+ | setMemento(Memento) o---+       | getState() : State |
   | createMemento()   o |   |       | setState( State)    |
   +-------------------|-+   |       +---------------------+
   | state : State     | |   |
@@ -24,9 +25,9 @@
   (GoF, 1995)
 //*/
 
-#include <iostream>
-#include <exception>
 #include <cstdlib>
+#include <exception>
+#include <iostream>
 
 
 class Originator;
@@ -42,25 +43,19 @@ private:
   std::string str_;
 
 public:
-  State()
-    : i_(0), str_("")
-  {}
+  State() : i_(0), str_("") {}
 
-  explicit State(const State &state)
-    : i_(state.i_), str_(state.str_)
-  {}
+  explicit State(const State &state) : i_(state.i_), str_(state.str_) {}
 
-  State(int i, std::string s)
-    : i_(i), str_(s)
-  {}
+  State(int i, std::string s) : i_(i), str_(s) {}
 
-  friend
-  std::ostream& operator<<(std::ostream&, State&);
+  friend std::ostream &operator<<(std::ostream &, State &);
 };
 
-std::ostream& operator<<(std::ostream& os, State &state)
+std::ostream &operator<<(std::ostream &os, State &state)
 {
-  return os << ">> State (Originator): int = " << state.i_ << ", string = " << state.str_;
+  return os << ">> State (Originator): int = " << state.i_
+            << ", string = " << state.str_;
 }
 
 
@@ -89,29 +84,27 @@ public:
   virtual ~Memento()
   {
     std::cout << "\tMemento::~Memento() - dtor\n";
-    delete state_; state_ = NULL;
+    delete state_;
+    state_ = NULL;
   }
 
 private:
   // private members accessible only to Originator
   friend class Originator;
-  Memento()
-  {
-    std::cout << "\tMemento::Memento() - ctor\n";
-  }
+  Memento() { std::cout << "\tMemento::Memento() - ctor\n"; }
 
-  void setState(State* state)
+  void setState(State *state)
   {
     std::cout << "\tMemento::setState( State*);\n";
-    try{
+    try {
       state_ = new State(*state);
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation in Memento failed!\n";
       std::exit(-1);
     }
   }
 
-  State* getState() const
+  State *getState() const
   {
     std::cout << "\tMemento::getState()\n";
     return state_;
@@ -134,9 +127,9 @@ public:
   Originator()
   {
     std::cout << "\tOriginator::Originator() - ctor\n";
-    try{
+    try {
       state_ = new State(123, "foobar");
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation of State failed!\n";
       std::exit(-2);
     }
@@ -145,15 +138,17 @@ public:
   ~Originator()
   {
     std::cout << "\tOriginator::~Originator() - dtor\n";
-    delete state_; state_ = NULL;
+    delete state_;
+    state_ = NULL;
   }
 
-  Memento* createMemento()
+  Memento *createMemento()
   {
     std::cout << "\tOriginator::createMemento()\n";
 
     // check
-    if(!state_) return NULL;
+    if (!state_)
+      return NULL;
     std::cout << *state_ << std::endl;
 
     /*
@@ -163,9 +158,9 @@ public:
       control this)
     //*/
     Memento *pMemento = NULL;
-    try{
+    try {
       pMemento = new Memento();
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation of Memento failed!\n";
       std::exit(-3);
     }
@@ -177,25 +172,28 @@ public:
   }
 
   // not a setter - activates memento's settings!
-  void setMemento( const Memento* memento)
+  void setMemento(const Memento *memento)
   {
     std::cout << "\tOriginator::setMemento(const Memento*);\n";
-    if(!memento->getState()) return;
+    if (!memento->getState())
+      return;
 
-    if(state_){
-      delete state_; state_ = NULL;
+    if (state_) {
+      delete state_;
+      state_ = NULL;
     }
 
     // set the state, as deep copy
-    try{
+    try {
       state_ = new State(*memento->getState());
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation failed setting the Memento!\n";
       std::exit(-4);
     }
 
     // clean up!
-    delete memento; memento = NULL;
+    delete memento;
+    memento = NULL;
 
     std::cout << *state_ << std::endl;
   }
@@ -206,12 +204,13 @@ public:
     std::cout << *state_ << std::endl;
 
     std::cout << "\t\tdeleting...\n";
-    delete state_; state_ = NULL;
+    delete state_;
+    state_ = NULL;
 
     std::cout << "\t\treallocating...\n";
-    try{
+    try {
       state_ = new State(777, "something odd...");
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "Allocation failed somewhere!\n";
       std::exit(-5);
     }
@@ -233,7 +232,7 @@ int main()
 
   // init
   cout << "init\n";
-  Memento* pMemento = NULL;
+  Memento *pMemento = NULL;
   Originator anOriginator;
   cout << endl;
 

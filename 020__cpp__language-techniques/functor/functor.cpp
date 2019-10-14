@@ -13,46 +13,45 @@
 
   'struct' or 'class' is equal, but 'struct' is 'public' by default
 //*/
-struct CompareFunctor
-{
+struct CompareFunctor {
   /*
     returns true if arg1 is smaller than arg2
   //*/
-  bool operator()(unsigned int arg1, unsigned int arg2)
-  {
-    return arg1 < arg2;
-  }
+  bool operator()(unsigned int arg1, unsigned int arg2) { return arg1 < arg2; }
 };
 
 
 /*
   some sorting function
 //*/
-void doSort(int* arr, unsigned int arr_size, CompareFunctor comparator)
+void doSort(int *arr, unsigned int arr_size, CompareFunctor comparator)
 {
-  if(arr_size < 2) return;
+  if (arr_size < 2)
+    return;
 
-  int tmp=0;
-  unsigned idx=arr_size-2;
+  int tmp = 0;
+  unsigned idx = arr_size - 2;
 
   bool swapped = true;
 
-  do{
-    if(idx == arr_size-2){
-      if(!swapped) break;
-      idx=0;
+  do {
+    if (idx == arr_size - 2) {
+      if (!swapped)
+        break;
+      idx = 0;
       swapped = false;
-    }else ++idx;
+    } else
+      ++idx;
 
-    if(!comparator(arr[idx], arr[idx+1])){
+    if (!comparator(arr[idx], arr[idx + 1])) {
       tmp = arr[idx];
-      arr[idx] = arr[idx+1];
-      arr[idx+1] = tmp;
+      arr[idx] = arr[idx + 1];
+      arr[idx + 1] = tmp;
 
       swapped = true;
     }
 
-  }while(true);
+  } while (true);
 }
 
 
@@ -63,10 +62,10 @@ int main()
 {
   using namespace std;
 
-  int arr[] = { 3, 4, 6, 1, 7, 5, 2 };
+  int arr[] = {3, 4, 6, 1, 7, 5, 2};
 
   cout << "before:";
-  for(unsigned int idx=0; idx < sizeof(arr) / sizeof(int); ++idx)
+  for (unsigned int idx = 0; idx < sizeof(arr) / sizeof(int); ++idx)
     cout << " " << arr[idx];
   cout << endl << endl;
 
@@ -74,10 +73,10 @@ int main()
   CompareFunctor functor;
 
   // sort using the functor
-  doSort(arr, sizeof(arr)/sizeof(int), functor);
+  doSort(arr, sizeof(arr) / sizeof(int), functor);
 
   cout << "after:";
-  for(unsigned int idx=0; idx < sizeof(arr) / sizeof(int); ++idx)
+  for (unsigned int idx = 0; idx < sizeof(arr) / sizeof(int); ++idx)
     cout << " " << arr[idx];
   cout << endl << endl;
 

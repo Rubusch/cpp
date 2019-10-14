@@ -34,18 +34,17 @@ private:
   /*
     layer 3 - private type definition of SmallObjectAllocator
   //*/
-  struct MySmallObjectAllocator : public SmallObjectAllocator
-  {
+  struct MySmallObjectAllocator : public SmallObjectAllocator {
     MySmallObjectAllocator()
-      : SmallObjectAllocator( DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE)
+        : SmallObjectAllocator(DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE)
     {
-      std::cout << "\tSmallObject::MySmallObjectAllocator::MySmallObjectAllocator() - ctor\n";
+      std::cout << "\tSmallObject::MySmallObjectAllocator::"
+                   "MySmallObjectAllocator() - ctor\n";
     }
   };
 
   // typedef
-  typedef struct MySmallObjectAllocator
-    SmallObjectAllocator_t;
+  typedef struct MySmallObjectAllocator SmallObjectAllocator_t;
 
   // static instance
   static SmallObjectAllocator_t smallObjectAllocator;
@@ -54,13 +53,13 @@ public:
   /*
     operator new()
   //*/
-  static void* operator new( std::size_t size)
+  static void *operator new(std::size_t size)
   {
     std::cout << "\tSmallObject::operator new( std::size_t size)\n";
-#if( MAX_SMALL_OBJECT_SIZE != 0) && (DEFAULT_CHUNK_SIZE != 0)
-    return smallObjectAllocator.allocate( size);
+#if (MAX_SMALL_OBJECT_SIZE != 0) && (DEFAULT_CHUNK_SIZE != 0)
+    return smallObjectAllocator.allocate(size);
 #else
-    return ::operator new( size);
+    return ::operator new(size);
 #endif
   }
 
@@ -68,13 +67,14 @@ public:
   /*
     operator delete()
   //*/
-  static void operator delete( void* ptr, std::size_t size)
+  static void operator delete(void *ptr, std::size_t size)
   {
-    std::cout << "\tSmallObject::operator delete( void* ptr, std::size_t size)\n";
-#if( MAX_SMALL_OBJECT_SIZE != 0) && (DEFAULT_CHUNK_SIZE != 0)
-    smallObjectAllocator.deallocate( ptr, size);
+    std::cout
+        << "\tSmallObject::operator delete( void* ptr, std::size_t size)\n";
+#if (MAX_SMALL_OBJECT_SIZE != 0) && (DEFAULT_CHUNK_SIZE != 0)
+    smallObjectAllocator.deallocate(ptr, size);
 #else
-    ::operator delete( ptr, size);
+    ::operator delete(ptr, size);
 #endif
   }
 
@@ -82,11 +82,7 @@ public:
   /*
     dtor - virtual, empty
   //*/
-  virtual ~SmallObject()
-  {
-    std::cout << "\t~SmallObject() - dtor\n";
-  }
+  virtual ~SmallObject() { std::cout << "\t~SmallObject() - dtor\n"; }
 };
 
 #endif
-

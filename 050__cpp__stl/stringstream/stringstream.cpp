@@ -6,8 +6,8 @@
 //*/
 
 
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -18,7 +18,8 @@
 std::string double2string(double db)
 {
   std::ostringstream os;
-  os << std::setprecision(2) << std::fixed << std::showpoint << db << " (as string)";
+  os << std::setprecision(2) << std::fixed << std::showpoint << db
+     << " (as string)";
   return os.str();
 }
 
@@ -26,7 +27,7 @@ std::string double2string(double db)
 /*
   convert string to double
 //*/
-double string2double(const std::string& str)
+double string2double(const std::string &str)
 {
   double db;
   std::istringstream(str) >> db;

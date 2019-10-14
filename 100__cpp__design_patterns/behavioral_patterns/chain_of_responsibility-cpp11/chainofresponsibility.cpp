@@ -1,8 +1,8 @@
 // chainofresponsibility.cpp
 /*
-  Avoid coupling the sender of a request to its receiver by giving more than one object a
-  chance to handle the request. Chain the receiving objects and pass the request along
-  the chain until an object handles it.
+  Avoid coupling the sender of a request to its receiver by giving more than one
+object a chance to handle the request. Chain the receiving objects and pass the
+request along the chain until an object handles it.
 
   +--------+                       +---------------------+
   | Client |---------------------->| Handler             |<--+
@@ -27,8 +27,8 @@
 
 
   There are two possibile ways to implement the successor chain:
-  a) define new links (usually in the handler, but ConcreteHandler could define them instead)
-  b) use existing links
+  a) define new links (usually in the handler, but ConcreteHandler could define
+them instead) b) use existing links
 
   Also known as "EventHandler", "BureauCat" or "Responder"
 
@@ -48,20 +48,17 @@ private:
   int kindOfRequest_;
 
 public:
-  Request(int kindOfRequest)
-    : kindOfRequest_(kindOfRequest)
+  Request(int kindOfRequest) : kindOfRequest_(kindOfRequest)
   {
     std::cout << "\tRequest(int) - ctor" << std::endl;
   }
 
-  int getKindOfRequest()
-  {
-    return kindOfRequest_;
-  }
+  int getKindOfRequest() { return kindOfRequest_; }
 
   void drop()
   {
-    std::cout << "-> Request \'" << getKindOfRequest()  << "\' dropped!!" << std::endl;
+    std::cout << "-> Request \'" << getKindOfRequest() << "\' dropped!!"
+              << std::endl;
   }
 };
 
@@ -75,18 +72,17 @@ public:
 class Handler
 {
 protected:
-  Handler* pSuccessor_;
+  Handler *pSuccessor_;
 
 public:
-  Handler(Handler* successor)
-    : pSuccessor_(successor)
+  Handler(Handler *successor) : pSuccessor_(successor)
   {
     std::cout << "\tHandler::Handler( Handler*) - ctor" << std::endl;
   }
 
-  virtual ~Handler(){}
+  virtual ~Handler() {}
 
-  virtual void handleRequest(Request* request) const = 0;
+  virtual void handleRequest(Request *request) const = 0;
 };
 
 
@@ -98,26 +94,27 @@ public:
   - if the ConcreteHandler can handle the request, it does so; otherwise it
   forwards the request to its successor
 //*/
-class ConcreteHandler1
-  : public Handler
+class ConcreteHandler1 : public Handler
 {
 public:
-  ConcreteHandler1( Handler* successor)
-    : Handler(successor)
+  ConcreteHandler1(Handler *successor) : Handler(successor)
   {
-    std::cout << "\tConcreteHandler1::ConcreteHandler1( Handler*) - ctor" << std::endl;
+    std::cout << "\tConcreteHandler1::ConcreteHandler1( Handler*) - ctor"
+              << std::endl;
   }
 
-  void handleRequest( Request* request) const
+  void handleRequest(Request *request) const
   {
     std::cout << "\tConcreteHandler1::handleRequest( Request*)" << std::endl;
-    if(!request) return;
+    if (!request)
+      return;
 
-    if(1 == request->getKindOfRequest()){
-      std::cout << "-> Handler 1 will handle the request: \'" << request->getKindOfRequest() << "\'" << std::endl;
-    }else if(pSuccessor_){
+    if (1 == request->getKindOfRequest()) {
+      std::cout << "-> Handler 1 will handle the request: \'"
+                << request->getKindOfRequest() << "\'" << std::endl;
+    } else if (pSuccessor_) {
       pSuccessor_->handleRequest(request);
-    }else{
+    } else {
       request->drop();
     }
   }
@@ -127,26 +124,27 @@ public:
 /*
   ConcreteHandler (2)
 //*/
-class ConcreteHandler2
-  : public Handler
+class ConcreteHandler2 : public Handler
 {
 public:
-  ConcreteHandler2( Handler* successor)
-    : Handler( successor)
+  ConcreteHandler2(Handler *successor) : Handler(successor)
   {
-    std::cout << "\tConcreteHandler2::ConcreteHandler2( Handler*) - ctor" << std::endl;
+    std::cout << "\tConcreteHandler2::ConcreteHandler2( Handler*) - ctor"
+              << std::endl;
   }
 
-  void handleRequest( Request* request) const
+  void handleRequest(Request *request) const
   {
     std::cout << "\tConcreteHandler2::handleRequest( Request*)" << std::endl;
-    if(!request) return;
+    if (!request)
+      return;
 
-    if(2 == request->getKindOfRequest()){
-      std::cout << "-> Handler 2 handles request: \'" << request->getKindOfRequest() << "\'" << std::endl;
-    }else if(pSuccessor_){
+    if (2 == request->getKindOfRequest()) {
+      std::cout << "-> Handler 2 handles request: \'"
+                << request->getKindOfRequest() << "\'" << std::endl;
+    } else if (pSuccessor_) {
       pSuccessor_->handleRequest(request);
-    }else{
+    } else {
       request->drop();
     }
   }
@@ -172,7 +170,7 @@ int main()
   // remember: these are hardcoded "types of handlers"
   // there could also be several concHandlers2 instances, that build the chain
 
-  Handler* pHead = &concHandler1; // NOTE: slicing problem!
+  Handler *pHead = &concHandler1; // NOTE: slicing problem!
 
   // a "head" pointer for the list
   cout << endl;

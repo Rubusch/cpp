@@ -26,23 +26,23 @@ class SmallObjectAllocator
 {
 private:
   // forbit copying, etc - only declaration as private!
-  SmallObjectAllocator( const SmallObjectAllocator&);
-  SmallObjectAllocator& operator=( SmallObjectAllocator const&);
+  SmallObjectAllocator(const SmallObjectAllocator &);
+  SmallObjectAllocator &operator=(SmallObjectAllocator const &);
 
   // pool = std::vector< FixedAllocator >
   typedef std::vector< FixedAllocator > Pool;
   Pool pool_;
 
-  FixedAllocator* pLastAlloc_;
-  FixedAllocator* pLastDealloc_;
+  FixedAllocator *pLastAlloc_;
+  FixedAllocator *pLastDealloc_;
   std::size_t chunkSize_;
   std::size_t maxObjectSize_;
 
 public:
-  SmallObjectAllocator( std::size_t chunkSize, std::size_t maxObjectSize);
+  SmallObjectAllocator(std::size_t chunkSize, std::size_t maxObjectSize);
 
-  void* allocate( std::size_t numBytes);
-  void deallocate( void* ptr, std::size_t numBytes);
+  void *allocate(std::size_t numBytes);
+  void deallocate(void *ptr, std::size_t numBytes);
 };
 
 #endif

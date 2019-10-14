@@ -20,9 +20,9 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <iterator>
 
 
@@ -34,15 +34,15 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 1, 1, 3, 3, 3, 7, 1, 1, 2, 2 };
+  int arr[] = {1, 1, 3, 3, 3, 7, 1, 1, 2, 2};
   cout << "arr = \t ";
-  copy(arr, arr+10, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 10, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "unique() - no duplicates!\n";
-  int *ptr = unique(arr, arr+10);
+  int *ptr = unique(arr, arr + 10);
   cout << "[arr, arr+10[ =\t ";
-  copy(arr, arr+10, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 10, ostream_iterator< int >(cout, " "));
   cout << "\n[arr, ptr[ =\t ";
   copy(arr, ptr, ostream_iterator< int >(cout, " "));
   cout << endl << endl;

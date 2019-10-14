@@ -55,7 +55,7 @@ int main()
   //  tc.test();
 
   // constants - will give warnings (char* is deprecated in favor of string!)
-  char *variable = const_cast< char* >( "type variable, data variable" );
+  char *variable = const_cast< char * >("type variable, data variable");
   const char *const_char = "type constant, data variable";
 
   /* WON'T BE USED IF THE CODE BELOW IS DEACTIVATED
@@ -68,14 +68,14 @@ int main()
     type variable, data variable
   //*/
   // setting a new content:
-  variable = const_cast< char* >( "foobar" ); // POSSIBLE - complete variable
+  variable = const_cast< char * >("foobar"); // POSSIBLE - complete variable
 
 
   /*
     type constant, data variable
     Only can be inited with a string!
   //*/
-  const_char = "foobar";    // POSSIBLE - constant type, not content!
+  const_char = "foobar"; // POSSIBLE - constant type, not content!
   // const_char = 12345;    // NOT POSSIBLE: constant type!
 
 

@@ -57,17 +57,14 @@
   * Exceptional C++, Herb Sutter, 2000
 // */
 
+#include <exception>
 #include <iostream>
 #include <memory> /* smart pointers */
-#include <exception>
 
 class MemoryDisaster : public std::exception
 {
 public:
-  const char* what() const throw()
-  {
-    return "FIXME: Memory Pool Issues!";
-  }
+  const char *what() const throw() { return "FIXME: Memory Pool Issues!"; }
 };
 
 
@@ -75,37 +72,39 @@ public:
   Small allocator as Singleton.
 
   NOTE: this allocator is a hip shot and not tested at all, the purpose
-  of the implementation is to show where and how to fix in a customized allocator
-  and not how to implement a correct allocator
+  of the implementation is to show where and how to fix in a customized
+allocator and not how to implement a correct allocator
 // */
 class FixedAllocator
 {
-  static  FixedAllocator* pInstance_;
+  static FixedAllocator *pInstance_;
 
   static constexpr auto memory_size_ = 10000;
   static int memory_consumed_;
   static uint8_t memory_[memory_size_];
 
 public:
-  static FixedAllocator& getInstance();
+  static FixedAllocator &getInstance();
 
-  void* Allocate( const size_t size )
+  void *Allocate(const size_t size)
   {
     std::cout << "CALLED: Allocate()" << std::endl;
 
-// alternative: dynamic allocation with malloc()
-//    return malloc(sizeof(void*) * size);
+    // alternative: dynamic allocation with malloc()
+    //    return malloc(sizeof(void*) * size);
 
-// alternative: static allocation with mem pool (simple)
+    // alternative: static allocation with mem pool (simple)
     size_t header_size = 1; // first item keeps the offset
     size_t alloc_size = header_size + size;
 
 
     // check that size is not bigger than capable to keep as offset
-    if (sizeof(uint8_t) > alloc_size) throw MemoryDisaster();
+    if (sizeof(uint8_t) > alloc_size)
+      throw MemoryDisaster();
 
     // check if there's still memory
-    if (memory_size_ < memory_consumed_ + alloc_size) throw MemoryDisaster();
+    if (memory_size_ < memory_consumed_ + alloc_size)
+      throw MemoryDisaster();
 
     uint8_t *ptr = memory_ + memory_consumed_;
 
@@ -118,47 +117,49 @@ public:
     // book keeping
     memory_consumed_ += alloc_size;
 
-    return (void*) ptr;
+    return ( void * )ptr;
   }
 
-  void Deallocate( void* ptr )
+  void Deallocate(void *ptr)
   {
     std::cout << "CALLED: Deallocate()" << std::endl;
 
-// alternative: dynamic
-//    free(ptr);
+    // alternative: dynamic
+    //    free(ptr);
 
-// alternative: static pool
-    if (nullptr == ptr) throw MemoryDisaster();
+    // alternative: static pool
+    if (nullptr == ptr)
+      throw MemoryDisaster();
 
-    uint8_t* memory_ptr = (uint8_t*) ptr; // FIXME
+    uint8_t *memory_ptr = ( uint8_t * )ptr; // FIXME
     size_t header_size = 1;
 
-    // get address before pointer i.e. the header and read out stored offset value
+    // get address before pointer i.e. the header and read out stored offset
+    // value
     size_t offset = *(memory_ptr - header_size);
 
     // compute alloc_size
     size_t alloc_size = header_size + offset;
 
-    if (0 > memory_consumed_ - alloc_size) throw MemoryDisaster();
+    if (0 > memory_consumed_ - alloc_size)
+      throw MemoryDisaster();
     memory_consumed_ -= alloc_size;
   }
 
 private:
   FixedAllocator() = default;
   ~FixedAllocator() = default;
-  FixedAllocator(const FixedAllocator&) = delete;
-  const FixedAllocator& operator=( FixedAllocator const& ) = delete;
+  FixedAllocator(const FixedAllocator &) = delete;
+  const FixedAllocator &operator=(FixedAllocator const &) = delete;
 };
 
 // separate declaration due to 'static'
 int FixedAllocator::memory_consumed_ = 0;
 uint8_t FixedAllocator::memory_[FixedAllocator::memory_size_];
-FixedAllocator* FixedAllocator::pInstance_;
+FixedAllocator *FixedAllocator::pInstance_;
 
 // separate declaration due to 'static'
-FixedAllocator&
-FixedAllocator::getInstance()
+FixedAllocator &FixedAllocator::getInstance()
 {
   if (nullptr == pInstance_) {
     pInstance_ = new FixedAllocator(); // OK, if not supposed to be killed
@@ -169,28 +170,26 @@ FixedAllocator::getInstance()
   return *pInstance_;
 }
 
-struct FastArenaObject
-{
+struct FastArenaObject {
   virtual ~FastArenaObject() = default;
 
-  // ALWAYS when implementing 'operator new()', also implement 'operator delete()'
-  // and vice versa!!!
-  static void* operator new( size_t s)
+  // ALWAYS when implementing 'operator new()', also implement 'operator
+  // delete()' and vice versa!!!
+  static void *operator new(size_t s)
   {
     return FixedAllocator::getInstance().Allocate(s);
   }
 
-  static void operator delete( void* p)
+  static void operator delete(void *p)
   {
     FixedAllocator::getInstance().Deallocate(p);
   }
 };
 
-struct WorkerImpl : public FastArenaObject
-{
+struct WorkerImpl : public FastArenaObject {
   virtual ~WorkerImpl() = default;
 
-  virtual void operation1(int& arg) const
+  virtual void operation1(int &arg) const
   {
     std::cout << "\tConcreteClass1::operation1( int&)\n";
     auto val = 10;
@@ -198,7 +197,7 @@ struct WorkerImpl : public FastArenaObject
     arg += val;
   }
 
-  virtual void operation2(int& arg) const
+  virtual void operation2(int &arg) const
   {
     std::cout << "\tConcreteClass1::operation2( int&)\n";
     auto val = 20;
@@ -206,7 +205,7 @@ struct WorkerImpl : public FastArenaObject
     arg += val;
   }
 
-  virtual void operation3(int& arg) const
+  virtual void operation3(int &arg) const
   {
     std::cout << "\tConcreteClass1::operation3( int&)\n";
     auto val = 30;
@@ -216,12 +215,10 @@ struct WorkerImpl : public FastArenaObject
 };
 
 
-struct ConcWorkerImpl
-: public WorkerImpl
-{
+struct ConcWorkerImpl : public WorkerImpl {
   virtual ~ConcWorkerImpl() = default;
 
-  void operation1(int& arg) const
+  void operation1(int &arg) const
   {
     std::cout << "\tConcreteClass2::operation1( int&)\n";
     auto val = 10;
@@ -229,7 +226,7 @@ struct ConcWorkerImpl
     arg += val;
   }
 
-  void operation3(int& arg) const
+  void operation3(int &arg) const
   {
     std::cout << "\tConcreteClass2::operation3( int&)\n";
     auto val = 50;
@@ -252,13 +249,12 @@ struct ConcWorkerImpl
 class Worker
 {
 public:
-  Worker(const WorkerImpl& pImpl)
+  Worker(const WorkerImpl &pImpl)
   {
-    pImpl_ = std::make_unique< WorkerImpl >( pImpl );
+    pImpl_ = std::make_unique< WorkerImpl >(pImpl);
   }
 
-  virtual ~Worker()
-  {}
+  virtual ~Worker() {}
 
   int templateMethod(int arg) const
   {
@@ -292,13 +288,15 @@ int main()
   cout << "algoritm 1 - full" << endl;
   auto full_algorithm = WorkerImpl();
   auto pAlgo = std::make_unique< Worker >(full_algorithm);
-  cout << "original value = " << value << ", after: " << pAlgo->templateMethod(value) << endl;
+  cout << "original value = " << value
+       << ", after: " << pAlgo->templateMethod(value) << endl;
   cout << endl;
 
   cout << "algorithm 2 - only step 1 and step 3 (changed)" << endl;
   auto partly_algorithm = ConcWorkerImpl();
-  auto pSpecialAlgo = std::make_unique< Worker >( partly_algorithm);
-  cout << "original value = " << value << ", after: " << pSpecialAlgo->templateMethod(value) << endl;
+  auto pSpecialAlgo = std::make_unique< Worker >(partly_algorithm);
+  cout << "original value = " << value
+       << ", after: " << pSpecialAlgo->templateMethod(value) << endl;
   cout << endl;
 
   cout << "READY." << endl;

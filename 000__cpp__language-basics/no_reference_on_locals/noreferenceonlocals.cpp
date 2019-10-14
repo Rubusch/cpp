@@ -9,7 +9,7 @@
 using namespace std;
 
 
-template<class T>
+template < class T >
 class Foobar
 {
 private:
@@ -19,41 +19,42 @@ public:
   Foobar(T data);
 
   T getLocalData();
-  T& getRefOnLocalData();
-  const T& getConstRefOnLocalData() const;
+  T &getRefOnLocalData();
+  const T &getConstRefOnLocalData() const;
 };
 
-template<class T>
-Foobar<T>::Foobar(T data)
-  : localdata(data)
-{}
+template < class T >
+Foobar< T >::Foobar(T data) : localdata(data)
+{
+}
 
-template<class T>
-T Foobar<T>::getLocalData()
+template < class T >
+T Foobar< T >::getLocalData()
 {
   return localdata;
 }
 
-template<class T>
-T& Foobar<T>::getRefOnLocalData()
+template < class T >
+T &Foobar< T >::getRefOnLocalData()
 {
   return localdata;
 }
 
-template<class T>
-const T& Foobar<T>::getConstRefOnLocalData() const
+template < class T >
+const T &Foobar< T >::getConstRefOnLocalData() const
 {
   return localdata;
 }
 
 
-void state(const Foobar<string>& fb, const string& local, const string& tempLocal, const string& refOnLocal)
+void state(const Foobar< string > &fb, const string &local,
+           const string &tempLocal, const string &refOnLocal)
 {
   /*
     4/4
 
-    therefore when it is necessary to pass a reference to a local memeber of an object,
-    this shall happen only as "const reference"!!
+    therefore when it is necessary to pass a reference to a local memeber of an
+  object, this shall happen only as "const reference"!!
   //*/
   cout << "fb"
        << "\t::localdata\t= \"" << fb.getConstRefOnLocalData() << "\"\n\n"
@@ -66,7 +67,7 @@ int main()
 {
   // init
   cout << "init\n";
-  Foobar<string> fb("Hello World!");
+  Foobar< string > fb("Hello World!");
 
   /*
     1/4
@@ -84,7 +85,9 @@ int main()
     want (an internal temporary variable)
   //*/
   string *pTempLocal;
-  pTempLocal = &(fb.getLocalData()); // THIS SHOULD GIVE A WARNING!!! with more recent compilers, this will even break compilation!
+  pTempLocal =
+      &(fb.getLocalData()); // THIS SHOULD GIVE A WARNING!!! with more recent
+                            // compilers, this will even break compilation!
 
   /*
     3/4
@@ -100,13 +103,14 @@ int main()
   state(fb, *pLocal, *pTempLocal, *pRefOnLocal);
   cout << endl;
 
-  /* ------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------
+   */
 
   /*
     reinit "local"
 
-    this is the way to do it in most cases - only the local pointer will change the
-    content of its own allocated memory
+    this is the way to do it in most cases - only the local pointer will change
+  the content of its own allocated memory
   //*/
   cout << "reinit of locally received data from object\n";
   *pLocal = "reset my local";

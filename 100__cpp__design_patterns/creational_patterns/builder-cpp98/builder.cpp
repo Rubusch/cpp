@@ -14,11 +14,11 @@
                     |                                      |
                                                            |
                     |                                      |
-  +---------------------+                       +---------------------+           +-----------+
-  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   |
-  | structure           | \                     +=====================+           +===========+
-  | {                   +--+                    |                     |           |           |
-  |   builder->buildPart() |                    +---------------------+           +-----------+
+  +---------------------+                       +---------------------+
++-----------+ | For all objects in  |\                      | ConcreteBuilder |-
+- - - - >| Product   | | structure           | \ +=====================+
++===========+ | {                   +--+                    | |           | | |
+builder->buildPart() |                    +---------------------+ +-----------+
   | }                      |                    | buildPart()         |
   +------------------------+                    | getResult()         |
                                                 +---------------------+
@@ -31,17 +31,10 @@
 #include <string>
 
 
-struct Product
-{
-  void setPartA(const std::string& a)
-  {
-    part_a = a;
-  }
+struct Product {
+  void setPartA(const std::string &a) { part_a = a; }
 
-  void setPartB(const std::string& b)
-  {
-    part_b = b;
-  }
+  void setPartB(const std::string &b) { part_b = b; }
 
   void showProduct()
   {
@@ -55,17 +48,10 @@ private:
 };
 
 
-struct Builder
-{
-  std::auto_ptr< Product > getProduct()
-  {
-    return product_;
-  }
+struct Builder {
+  std::auto_ptr< Product > getProduct() { return product_; }
 
-  void createNewProduct()
-  {
-    product_.reset(new Product);
-  }
+  void createNewProduct() { product_.reset(new Product); }
 
   virtual void buildPartA() = 0;
   virtual void buildPartB() = 0;
@@ -75,56 +61,28 @@ protected:
 };
 
 
-struct ConcreteBuilderA
-  : public Builder
-{
-  void buildPartA()
-  {
-    product_->setPartA("TCP");
-  }
+struct ConcreteBuilderA : public Builder {
+  void buildPartA() { product_->setPartA("TCP"); }
 
-  void buildPartB()
-  {
-    product_->setPartB("IP");
-  }
+  void buildPartB() { product_->setPartB("IP"); }
 };
 
 
-struct ConcreteBuilderB
-  : public Builder
-{
-  void buildPartA()
-  {
-    product_->setPartA("UDP");
-  }
+struct ConcreteBuilderB : public Builder {
+  void buildPartA() { product_->setPartA("UDP"); }
 
-  void buildPartB()
-  {
-    product_->setPartB("IP");
-  }
+  void buildPartB() { product_->setPartB("IP"); }
 };
 
 
-struct Director
-{
-  Director()
-    : builder_(NULL)
-  {}
+struct Director {
+  Director() : builder_(NULL) {}
 
-  ~Director()
-  {
-    builder_ = NULL;
-  }
+  ~Director() { builder_ = NULL; }
 
-  void setBuilder(Builder* builder)
-  {
-    builder_ = builder;
-  }
+  void setBuilder(Builder *builder) { builder_ = builder; }
 
-  std::auto_ptr< Product > getProduct()
-  {
-    return builder_->getProduct();
-  }
+  std::auto_ptr< Product > getProduct() { return builder_->getProduct(); }
 
   void construct()
   {
@@ -134,7 +92,7 @@ struct Director
   }
 
 private:
-  Builder* builder_;
+  Builder *builder_;
 };
 
 
@@ -152,7 +110,7 @@ int main()
 
   // builder A
   ConcreteBuilderA concBuilderA;
-  director.setBuilder( &concBuilderA);
+  director.setBuilder(&concBuilderA);
   director.construct();
   product = director.getProduct();
   product->showProduct();
@@ -160,7 +118,7 @@ int main()
 
   // builder B
   ConcreteBuilderB concBuilderB;
-  director.setBuilder( &concBuilderB);
+  director.setBuilder(&concBuilderB);
   director.construct();
   product = director.getProduct();
   product->showProduct();

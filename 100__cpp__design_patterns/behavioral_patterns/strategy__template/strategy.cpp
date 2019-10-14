@@ -1,7 +1,8 @@
 // strategy.cpp
 /*
-  Define a family of algorithms, encapsulate each one, and make them interchangeble.
-  Strategy lets the algorithm vary independently from clients that use it.
+  Define a family of algorithms, encapsulate each one, and make them
+interchangeble. Strategy lets the algorithm vary independently from clients that
+use it.
 
   +---------------------+                     +-----------------------+
   | Context             |<>------------------>| Strategy              |
@@ -12,7 +13,8 @@
   +-|-------------------+                     +-----------------------+
     |                                                    /_\
   +-----------------------+\                              |
-  | Strategy->algorithm() +-+    +------------------------+---------------------- ...
+  | Strategy->algorithm() +-+ +------------------------+----------------------
+...
   +-------------------------+    |                        |
                                  |                        |
                       +---------------------+  +----------------------+
@@ -24,15 +26,16 @@
   Strategy Pattern, template version.
 
   Similarity to State Pattern - if you want to vary the algorithm or a behavior,
-  take the Strategy Pattern, if you want to vary the value, take the State Pattern.
+  take the Strategy Pattern, if you want to vary the value, take the State
+Pattern.
 
   (GoF 1995)
 //*/
 
 
-#include <iostream>
 #include <cmath>
 #include <cstdlib>
+#include <iostream>
 
 
 /*
@@ -45,7 +48,7 @@
 class Strategy
 {
 public:
-  virtual ~Strategy(){}
+  virtual ~Strategy() {}
   virtual double algorithm(double arg) = 0;
 };
 
@@ -55,8 +58,7 @@ public:
 
   - implements the algorithm using the Strategy interface
 //*/
-class StrategyA
-  : public Strategy
+class StrategyA : public Strategy
 {
 public:
   double algorithm(double arg)
@@ -72,8 +74,7 @@ public:
 
   - implements the algorithm using the Strategy interface
 //*/
-class StrategyB
-  : public Strategy
+class StrategyB : public Strategy
 {
 public:
   double algorithm(double arg)
@@ -92,7 +93,7 @@ public:
   - may define an interface that lets Strategy access its data
   - template version
 //*/
-template< class AStrategy_t >
+template < class AStrategy_t >
 class Context
 {
 private:
@@ -121,15 +122,16 @@ int main()
 
   cout << "first operation in sinus context\n";
   Context< StrategyA > sinusContext;
-  cout << "sinus(" << angle << ") = " << sinusContext.contextInterface(angle) << " (= 0)\n";
+  cout << "sinus(" << angle << ") = " << sinusContext.contextInterface(angle)
+       << " (= 0)\n";
   cout << endl;
 
   cout << "second operation in cosinus context\n";
   Context< StrategyB > cosinusContext;
-  cout << "cosinus(" << angle << ") = " << cosinusContext.contextInterface(angle) << " (= -1)\n";
+  cout << "cosinus(" << angle
+       << ") = " << cosinusContext.contextInterface(angle) << " (= -1)\n";
   cout << endl;
 
   cout << "READY.\n";
   return 0;
 }
-

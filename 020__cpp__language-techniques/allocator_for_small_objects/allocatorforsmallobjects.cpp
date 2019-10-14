@@ -65,7 +65,8 @@
 
   Usage:
       allocation of memory
-      SmallObject<DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE>::operator new( size_of_pointer);
+      SmallObject<DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE>::operator new(
+size_of_pointer);
 
       calls:
       SmallObject<>::operator new()
@@ -77,7 +78,8 @@
 
 
       free of memory
-      SmallObject<DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE>::operator delete( ptr, sizeof(*ptr));
+      SmallObject<DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE>::operator delete(
+ptr, sizeof(*ptr));
 
       calls:
       SmallObject<>::operator delete()
@@ -104,8 +106,7 @@
 /*
   forward declaration of static Member - supposed to be called once: here!
 //*/
-SmallObject::SmallObjectAllocator_t
-  SmallObject::smallObjectAllocator;
+SmallObject::SmallObjectAllocator_t SmallObject::smallObjectAllocator;
 
 
 int main()
@@ -118,23 +119,21 @@ int main()
 
   // allocate
   cout << "\nallocat test: single allocation...\n";
-  std::size_t ptrSiz = sizeof( *ptr);
-  ptr = static_cast< unsigned long int* >( SmallObject::operator new( ptrSiz));
-  cout << "\nok.\n"
-       << endl;
+  std::size_t ptrSiz = sizeof(*ptr);
+  ptr = static_cast< unsigned long int * >(SmallObject::operator new(ptrSiz));
+  cout << "\nok.\n" << endl;
 
   // write something into
   cout << "\ninitialize allocated memory...\n";
   *ptr = 1234567890;
   cout << "*ptr = " << *ptr << endl;
-  cout << "\nok.\n"
-       << endl;
+  cout << "\nok.\n" << endl;
 
   // delete
   cout << "\nfree allocated memory...\n";
-  SmallObject::operator delete( ptr, sizeof(*ptr)); ptr = NULL;
-  cout << "\nok.\n"
-       << endl;
+  SmallObject::operator delete(ptr, sizeof(*ptr));
+  ptr = NULL;
+  cout << "\nok.\n" << endl;
 
 
 #ifdef SERIAL_ALLOCATION
@@ -142,26 +141,25 @@ int main()
   // serial allocation
   cout << "\nallocate / delete test: several allocations...";
 
-  int idx=0;
-  for(idx = 1; idx < 10; ++idx){
+  int idx = 0;
+  for (idx = 1; idx < 10; ++idx) {
 
     // allocate
     cout << "\nallocat test: single allocation...\n";
-    ptr = static_cast< unsigned long int* >( SmallObject::operator new( sizeof(*ptr)));
-    cout << "\nok.\n"
-         << endl;
+    ptr = static_cast< unsigned long int * >(
+        SmallObject::operator new(sizeof(*ptr)));
+    cout << "\nok.\n" << endl;
 
     // write something into
     cout << "\ninitialize allocated memory...\n";
     *ptr = 1234567890;
-    cout << "\nok.\n"
-         << endl;
+    cout << "\nok.\n" << endl;
 
     // delete
     cout << "\nfree allocated memory...\n";
-    SmallObject::operator delete( ptr, sizeof(*ptr)); ptr = NULL;
-    cout << "\nok.\n"
-         << endl;
+    SmallObject::operator delete(ptr, sizeof(*ptr));
+    ptr = NULL;
+    cout << "\nok.\n" << endl;
   }
 #endif
 
@@ -169,4 +167,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

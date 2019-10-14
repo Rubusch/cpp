@@ -7,16 +7,17 @@
 
 #include "functor.hpp"
 
-#include <iostream>
 #include <exception>
 #include <functional> /* std::bind() */
+#include <iostream>
 
 
 /*
   function to test the bind
-  NOTE: if the function is called 'function()' names will collide with the '#include <functional>'
+  NOTE: if the function is called 'function()' names will collide with the
+'#include <functional>'
 //*/
-const char* my_function(int i, int j)
+const char *my_function(int i, int j)
 {
   std::cout << "CALLED: my_function(" << i << ", " << j << ")" << std::endl;
   return 0;
@@ -32,7 +33,8 @@ int main()
 
   // set up a functor
   cout << "1. function" << endl;
-  Functor< const char*, TL::Typelist< char, int > > func1(my_function); // TODO function?
+  Functor< const char *, TL::Typelist< char, int > > func1(
+      my_function); // TODO function?
   cout << endl;
 
   /*
@@ -42,7 +44,7 @@ int main()
   // */
   try {
     cout << "2. function" << endl;
-    Functor< string, TL::Typelist< double > > func2( BindFirst(func1, 10));
+    Functor< string, TL::Typelist< double > > func2(BindFirst(func1, 10));
     // prints: "Fun(10, 15) called"
     cout << "function call" << endl;
     func2(15); // problematic for binder
@@ -53,14 +55,19 @@ int main()
   }
   cout << endl;
 
-  cout << "3. function (using std::bind() functor) - one solution in modern C++" << endl;
+  cout << "3. function (using std::bind() functor) - one solution in modern C++"
+       << endl;
   using namespace std::placeholders; // don't forget the using declaration!!!
-  auto func3 = std::bind(func1, 10, _1); // leave the 2. arg open (which is the first _1 variable in bind)
+  auto func3 = std::bind(
+      func1, 10,
+      _1); // leave the 2. arg open (which is the first _1 variable in bind)
   func3(15);
   cout << endl;
 
-  cout << "4. function (using std::bind() functor) - another solution in modern C++" << endl;
-  auto func4 = [&](int arg2){ func1(10, arg2); };
+  cout << "4. function (using std::bind() functor) - another solution in "
+          "modern C++"
+       << endl;
+  auto func4 = [&](int arg2) { func1(10, arg2); };
   func4(15);
   cout << endl;
 

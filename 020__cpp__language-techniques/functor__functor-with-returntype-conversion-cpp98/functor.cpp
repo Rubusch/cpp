@@ -16,7 +16,7 @@ using namespace std;
 /*
    ignore arguments-not of interest in this example
 //*/
-const char* testFunction(double, double)
+const char *testFunction(double, double)
 {
   static const char buffer[] = "Hello World!";
 
@@ -44,5 +44,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-
-

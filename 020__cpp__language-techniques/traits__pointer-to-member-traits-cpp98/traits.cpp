@@ -48,20 +48,19 @@
   Usage:
   bool isMemPtr = TypeTraits< TypeToCheck >::isMemberPointer;
 //*/
-template< typename T >
+template < typename T >
 class TypeTraits
 {
 private:
-  // Pointer to Member: returns at compile time true if T is a pointer to member type
-  template< class U >
-  struct Ptr2MemTraits
-  {
+  // Pointer to Member: returns at compile time true if T is a pointer to member
+  // type
+  template < class U >
+  struct Ptr2MemTraits {
     enum { result = false };
   };
 
-  template< class U, class V >
-  struct Ptr2MemTraits< U V::* >
-  {
+  template < class U, class V >
+  struct Ptr2MemTraits< U V::* > {
     enum { result = true };
   };
 
@@ -77,25 +76,29 @@ class SomeClass
 {
 private:
   // inner class / struct
-  typedef struct { int value; } Member_t;
+  typedef struct {
+    int value;
+  } Member_t;
   Member_t memberField;
 
 public:
-  // 1. possibility of a "pointer-to-member-type" declaration: &SomeClass::memberData
+  // 1. possibility of a "pointer-to-member-type" declaration:
+  // &SomeClass::memberData
   int memberData;
 
-  // 2. possibility of a "poitner-to-member-type" declaration: &SomeClass::pMemberField
+  // 2. possibility of a "poitner-to-member-type" declaration:
+  // &SomeClass::pMemberField
   Member_t *pMemberField;
 
-  SomeClass(){}
+  SomeClass() {}
 };
 
 
 /*
   conversion function
 //*/
-template< typename TestType >
-bool memberPointerTest( TestType memPtr)
+template < typename TestType >
+bool memberPointerTest(TestType memPtr)
 {
   return TypeTraits< TestType >::isPointer2Member;
 }
@@ -104,13 +107,12 @@ bool memberPointerTest( TestType memPtr)
 /*
   output automization
 //*/
-template< typename T >
-void output( T t, std::string expected)
+template < typename T >
+void output(T t, std::string expected)
 {
   std::cout << " points to a member?\n"
-            << (memberPointerTest( t) ? "\"true\"" : "\"false\"")
-            << "\t(expected: " << expected << ")"
-            << std::endl;
+            << (memberPointerTest(t) ? "\"true\"" : "\"false\"")
+            << "\t(expected: " << expected << ")" << std::endl;
 }
 
 
@@ -130,23 +132,23 @@ int main()
 
 
   cout << "&SomeClass::memberData";
-  output( &SomeClass::memberData, "true");
+  output(&SomeClass::memberData, "true");
   cout << endl;
 
 
   cout << "&SomeClass::pMemberField";
-  output( &SomeClass::pMemberField, "true");
+  output(&SomeClass::pMemberField, "true");
   cout << endl;
 
 
   int noMember;
   cout << "&noMember";
-  output( &noMember, "false");
+  output(&noMember, "false");
   cout << endl;
 
 
   cout << "also no member: '12'";
-  output( 12, "false");
+  output(12, "false");
   cout << endl;
 
 

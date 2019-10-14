@@ -40,15 +40,12 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib> // exit()
 #include <cstring> // strlen()
+#include <iostream>
 #include <new> // bad_alloc
 
-signed int strsize(const std::string str)
-{
-  return str.size() + 1;
-}
+signed int strsize(const std::string str) { return str.size() + 1; }
 
 /*
   some main
@@ -59,14 +56,14 @@ int main()
 
   // init
   cout << "init..\n";
-  char* str = NULL;
+  char *str = NULL;
   cout << endl;
 
   // alloc
   cout << "allocate " << strsize("Hello World!") << " tokens..\n";
-  try{
+  try {
     str = new char[strsize("Hello World!")];
-  }catch(bad_alloc&){
+  } catch (bad_alloc &) {
     cerr << "ERROR: allocation failed" << std::endl;
     exit(-1);
   }

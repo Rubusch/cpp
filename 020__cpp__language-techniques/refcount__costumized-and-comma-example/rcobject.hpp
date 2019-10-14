@@ -31,10 +31,10 @@ protected:
   RCObject();
 
   // copy ctor
-  RCObject(const RCObject& rhs);
+  RCObject(const RCObject &rhs);
 
   // ob=
-  RCObject& operator=(const RCObject& rhs);
+  RCObject &operator=(const RCObject &rhs);
 
   // dtor
   virtual ~RCObject() = 0;

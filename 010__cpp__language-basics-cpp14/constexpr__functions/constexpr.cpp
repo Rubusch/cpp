@@ -9,8 +9,8 @@
   rvalue    - has no accessible address, e.g. a plain number value (stored only
               temporarlily)
 
-  literal   - a fixed value, thus compile time constant i.e. known at compile time
-              (a literal type is a type defined at compile time)
+  literal   - a fixed value, thus compile time constant i.e. known at compile
+  time (a literal type is a type defined at compile time)
 
 
   conclusion:
@@ -29,8 +29,8 @@
   resources: Effective Modern C++, Scott Meyers, 2015
  */
 
-#include <iostream>
 #include <array>
+#include <iostream>
 
 using namespace std;
 
@@ -53,7 +53,8 @@ int pow(int base, int exp) noexcept
 constexpr int pow(int base, int exp) noexcept
 {
   auto result = 1;
-  for (int idx=0; idx < exp; ++idx) result *= base;
+  for (int idx = 0; idx < exp; ++idx)
+    result *= base;
   return result;
 }
 // */
@@ -74,7 +75,7 @@ int main(void)
   // could be used for array configuration at compile time
   // (resource acquisition speed up at runtime)
   cout << "use constexpr function for array initialization: " << endl;
-  std::array<int, pow(3, numConds)> results;
+  std::array< int, pow(3, numConds) > results;
   cout << "array.size(): " << results.size() << endl;
   cout << endl;
 
@@ -90,4 +91,3 @@ int main(void)
 
   cout << "READY." << endl;
 }
-

@@ -20,8 +20,8 @@
   Consequently, if you want to use STL's ordered containers with type_info, you
   must write a little functor and deal with pointers.
 
-  All this is clumsy enough to mandate a wrapper class around type_info that stores
-  a pointer to a type_info object and provides:
+  All this is clumsy enough to mandate a wrapper class around type_info that
+stores a pointer to a type_info object and provides:
 
   - all the member functions of type_info
   - value semantics (public copy constructor and assignment operator)
@@ -29,8 +29,8 @@
 
   resources: Modern C++ Design, Alexandrescu
 
-  Typeid works only when using virtual functions in such a case. This and some other issues
-  are reasons to avoid using typeid rather in C++.
+  Typeid works only when using virtual functions in such a case. This and some
+other issues are reasons to avoid using typeid rather in C++.
 //*/
 
 
@@ -47,26 +47,19 @@ public:
   virtual void func();
 };
 
-void Base::func()
-{
-  std::cout << "Base\n";
-}
+void Base::func() { std::cout << "Base\n"; }
 
 
 /*
   derived class
 //*/
-class Derived
-:public Base
+class Derived : public Base
 {
 public:
   void func();
 };
 
-void Derived::func()
-{
-  std::cout << "Derived\n";
-}
+void Derived::func() { std::cout << "Derived\n"; }
 
 
 /*
@@ -75,28 +68,27 @@ void Derived::func()
 class Typeinfo
 {
 private:
-  const std::type_info* pInfo_;
+  const std::type_info *pInfo_;
 
 public:
   // ctor/dtor
   Typeinfo();
   //*
-  Typeinfo(const std::type_info&);
-  Typeinfo(const Typeinfo&);
-  Typeinfo& operator=(const Typeinfo&);
-  bool operator==(const Typeinfo&) const;
+  Typeinfo(const std::type_info &);
+  Typeinfo(const Typeinfo &);
+  Typeinfo &operator=(const Typeinfo &);
+  bool operator==(const Typeinfo &) const;
 };
 
 /*
   ctor
 //*/
-Typeinfo::Typeinfo()
-{}
+Typeinfo::Typeinfo() {}
 
 /*
   ctor
 //*/
-Typeinfo::Typeinfo(const std::type_info& t_i)
+Typeinfo::Typeinfo(const std::type_info &t_i)
 {
   // set the pointer to the address of t_i
   pInfo_ = &t_i;
@@ -105,16 +97,15 @@ Typeinfo::Typeinfo(const std::type_info& t_i)
 /*
   cpy ctor
 //*/
-Typeinfo::Typeinfo(const Typeinfo& ti)
-{
-  pInfo_ = ti.pInfo_;
-}
+Typeinfo::Typeinfo(const Typeinfo &ti) { pInfo_ = ti.pInfo_; }
 
 /*
   assign
 //*/
-Typeinfo& Typeinfo::operator=(const Typeinfo& ti){
-  if(&ti == this) return *this;
+Typeinfo &Typeinfo::operator=(const Typeinfo &ti)
+{
+  if (&ti == this)
+    return *this;
 
   this->pInfo_ = ti.pInfo_;
   return *this;
@@ -123,18 +114,16 @@ Typeinfo& Typeinfo::operator=(const Typeinfo& ti){
 /*
   equal
 //*/
-bool Typeinfo::operator==(const Typeinfo& rhs) const
+bool Typeinfo::operator==(const Typeinfo &rhs) const
 {
   return pInfo_ == rhs.pInfo_;
 }
-
 
 
 /*
   For this demonstration here a global instance of a Base object.
 //*/
 Base base;
-
 
 
 /*
@@ -144,17 +133,17 @@ Base base;
   Then the pointer object will be checked if it is of type base, if not it
   HAS to be a derived type.
 //*/
-void isDerived(Base* pObj)
+void isDerived(Base *pObj)
 {
   Typeinfo info = typeid(base);
-  if(info == typeid(*pObj)){
+  if (info == typeid(*pObj)) {
     std::cout << "The passed pointer object is a Base object: DON'T DOWNCAST!";
-  }else{
-    std::cout << "The passed pointer object is a Derived object: now you can downcast.";
+  } else {
+    std::cout << "The passed pointer object is a Derived object: now you can "
+                 "downcast.";
   }
   std::cout << std::endl;
 }
-
 
 
 /*

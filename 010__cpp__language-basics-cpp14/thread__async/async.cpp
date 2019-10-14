@@ -63,19 +63,19 @@
   * cppreference.com, 2019
 
  */
+#include <cassert> /* assert() */
+#include <chrono>  /* system_clock::now(), chrono::duration< double > */
+#include <future>  /* std::async() */
 #include <iostream>
 #include <vector>
-#include <future> /* std::async() */
-#include <chrono> /* system_clock::now(), chrono::duration< double > */
-#include <cassert> /* assert() */
 
 using namespace std;
 
 
 vector< unsigned long > checkPrimes(unsigned long num)
 {
-  vector< unsigned long > primes = { 2 };
-  for (unsigned long idx=3; idx<num; ++idx) {
+  vector< unsigned long > primes = {2};
+  for (unsigned long idx = 3; idx < num; ++idx) {
     bool isPrime = true;
     for (auto item : primes) {
       if (0 == idx % item) {
@@ -117,20 +117,20 @@ int main()
     vec = checkPrimes(limit);
     auto stop = chrono::system_clock::now();
     // check via assert, that the result matches
-    for (unsigned long idx=0; idx < vec.size(); ++idx) assert(vec[idx] == asyncVec[idx]);
+    for (unsigned long idx = 0; idx < vec.size(); ++idx)
+      assert(vec[idx] == asyncVec[idx]);
     chrono::duration< double > diff = stop - start;
-    cout << "diff (iterative): " << diff.count() << " secs"  << endl;
+    cout << "diff (iterative): " << diff.count() << " secs" << endl;
     cout << endl;
   }
 
-/*
-  // printer of the resulting primes
-  cout << "result of the algorithm: " << endl;
-  for (auto item : vec) cout << item << ' ';
-  cout << endl << endl;
-// */
+  /*
+    // printer of the resulting primes
+    cout << "result of the algorithm: " << endl;
+    for (auto item : vec) cout << item << ' ';
+    cout << endl << endl;
+  // */
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
 }
-

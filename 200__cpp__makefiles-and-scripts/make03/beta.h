@@ -12,8 +12,8 @@ using namespace std;
 class B
 {
 public:
-    B();
-    void doSomething();
+  B();
+  void doSomething();
 };
 
 #endif

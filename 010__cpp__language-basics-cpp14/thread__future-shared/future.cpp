@@ -76,9 +76,9 @@
   * cppreference.com, 2019
  */
 
-#include <iostream>
-#include <future>
 #include <chrono>
+#include <future>
+#include <iostream>
 
 using namespace std;
 
@@ -99,23 +99,23 @@ int main()
   std::promise< void > t3_ready_promise;
 
   // initializing a function pointer by a lambda
-  auto func1 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
-  {
-   t1_ready_promise.set_value(); // set result to specific value
-   ready_future.wait(); // thread waits for the signal from main()
-   return std::chrono::high_resolution_clock::now() - start;
+  auto func1 = [&,
+                ready_future]() -> std::chrono::duration< double, std::milli > {
+    t1_ready_promise.set_value(); // set result to specific value
+    ready_future.wait();          // thread waits for the signal from main()
+    return std::chrono::high_resolution_clock::now() - start;
   };
-  auto func2 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
-  {
-   t2_ready_promise.set_value();
-   ready_future.wait();
-   return std::chrono::high_resolution_clock::now() - start;
+  auto func2 = [&,
+                ready_future]() -> std::chrono::duration< double, std::milli > {
+    t2_ready_promise.set_value();
+    ready_future.wait();
+    return std::chrono::high_resolution_clock::now() - start;
   };
-  auto func3 = [&, ready_future]() -> std::chrono::duration< double, std::milli >
-  {
-   t3_ready_promise.set_value();
-   ready_future.wait();
-   return std::chrono::high_resolution_clock::now() - start;
+  auto func3 = [&,
+                ready_future]() -> std::chrono::duration< double, std::milli > {
+    t3_ready_promise.set_value();
+    ready_future.wait();
+    return std::chrono::high_resolution_clock::now() - start;
   };
 
   // pack functions in 'std::async' tasks, lauch is 'std::launch::async'
@@ -151,4 +151,3 @@ int main()
   cout << "READY." << endl;
   return EXIT_SUCCESS;
 }
-

@@ -50,7 +50,7 @@
 class Product
 {
 public:
-  virtual ~Product(){}
+  virtual ~Product() {}
 };
 
 
@@ -59,18 +59,19 @@ public:
 
   - implements the Product interface
 //*/
-class ConcreteProduct
-  : public Product
+class ConcreteProduct : public Product
 {
 public:
   ConcreteProduct(std::string str)
   {
-    std::cout << "\t\tProduct::Product(std::string) - instantiated with \'" << str << "\'\n";
+    std::cout << "\t\tProduct::Product(std::string) - instantiated with \'"
+              << str << "\'\n";
   }
 
   ConcreteProduct(int cnt)
   {
-    std::cout << "\t\tProduct::Product(int) - instantiated with \'" << cnt << "\'\n";
+    std::cout << "\t\tProduct::Product(int) - instantiated with \'" << cnt
+              << "\'\n";
   }
 };
 
@@ -86,8 +87,8 @@ public:
 class Creator
 {
 public:
-  virtual ~Creator(){}
-  virtual Product* factoryMethod() = 0;
+  virtual ~Creator() {}
+  virtual Product *factoryMethod() = 0;
 };
 
 
@@ -96,11 +97,10 @@ public:
 
   - overrides the factory method to return an instance of a ConcreteProduct
 //*/
-class ConcreteCreator1
-  : public Creator
+class ConcreteCreator1 : public Creator
 {
 public:
-  Product* factoryMethod()
+  Product *factoryMethod()
   {
     std::cout << "ConcreteCreator1::factoryMethod1()\n";
     return new ConcreteProduct("abc");
@@ -111,11 +111,10 @@ public:
 /*
   ConcreteCreator (2) - another Concrete Creator
 //*/
-class ConcreteCreator2
-  : public Creator
+class ConcreteCreator2 : public Creator
 {
 public:
-  Product* factoryMethod()
+  Product *factoryMethod()
   {
     std::cout << "ConcreteCreator2::factoryMethod()\n";
     return new ConcreteProduct(123);
@@ -132,8 +131,8 @@ int main()
 
   // init
   cout << "init...\n";
-  Product *ptr1=NULL;
-  Product *ptr2=NULL;
+  Product *ptr1 = NULL;
+  Product *ptr2 = NULL;
   ConcreteCreator1 *pConcCreator1 = new ConcreteCreator1();
   ConcreteCreator2 *pConcCreator2 = new ConcreteCreator2();
   cout << endl;
@@ -152,10 +151,14 @@ int main()
 
   // free
   cout << "free...\n";
-  delete ptr1; ptr1 = NULL;
-  delete ptr2; ptr2 = NULL;
-  delete pConcCreator1; pConcCreator1 = NULL;
-  delete pConcCreator2; pConcCreator2 = NULL;
+  delete ptr1;
+  ptr1 = NULL;
+  delete ptr2;
+  ptr2 = NULL;
+  delete pConcCreator1;
+  pConcCreator1 = NULL;
+  delete pConcCreator2;
+  pConcCreator2 = NULL;
   cout << endl;
 
 

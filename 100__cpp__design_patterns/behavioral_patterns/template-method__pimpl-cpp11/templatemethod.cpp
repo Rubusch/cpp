@@ -56,11 +56,10 @@
 #include <memory> /* smart pointers */
 
 
-struct WorkerImpl
-{
-  virtual ~WorkerImpl(){}
+struct WorkerImpl {
+  virtual ~WorkerImpl() {}
 
-  virtual void operation1(int& arg) const
+  virtual void operation1(int &arg) const
   {
     std::cout << "\tConcreteClass1::operation1( int&)\n";
     auto val = 10;
@@ -68,7 +67,7 @@ struct WorkerImpl
     arg += val;
   }
 
-  virtual void operation2(int& arg) const
+  virtual void operation2(int &arg) const
   {
     std::cout << "\tConcreteClass1::operation2( int&)\n";
     auto val = 20;
@@ -76,7 +75,7 @@ struct WorkerImpl
     arg += val;
   }
 
-  virtual void operation3(int& arg) const
+  virtual void operation3(int &arg) const
   {
     std::cout << "\tConcreteClass1::operation3( int&)\n";
     auto val = 30;
@@ -86,10 +85,8 @@ struct WorkerImpl
 };
 
 
-struct ConcWorkerImpl
-: public WorkerImpl
-{
-  void operation1(int& arg) const
+struct ConcWorkerImpl : public WorkerImpl {
+  void operation1(int &arg) const
   {
     std::cout << "\tConcreteClass2::operation1( int&)\n";
     auto val = 10;
@@ -97,7 +94,7 @@ struct ConcWorkerImpl
     arg += val;
   }
 
-  void operation3(int& arg) const
+  void operation3(int &arg) const
   {
     std::cout << "\tConcreteClass2::operation3( int&)\n";
     auto val = 50;
@@ -120,13 +117,12 @@ struct ConcWorkerImpl
 class Worker
 {
 public:
-  Worker(const WorkerImpl& pImpl)
+  Worker(const WorkerImpl &pImpl)
   {
-    pImpl_ = std::make_unique< WorkerImpl >( pImpl );
+    pImpl_ = std::make_unique< WorkerImpl >(pImpl);
   }
 
-  virtual ~Worker()
-  {}
+  virtual ~Worker() {}
 
   int templateMethod(int arg) const
   {
@@ -160,13 +156,15 @@ int main()
   cout << "algoritm 1 - full" << endl;
   auto full_algorithm = WorkerImpl();
   auto pAlgo = std::make_unique< Worker >(full_algorithm);
-  cout << "original value = " << value << ", after: " << pAlgo->templateMethod(value) << endl;
+  cout << "original value = " << value
+       << ", after: " << pAlgo->templateMethod(value) << endl;
   cout << endl;
 
   cout << "algorithm 2 - only step 1 and step 3 (changed)" << endl;
   auto partly_algorithm = ConcWorkerImpl();
-  auto pSpecialAlgo = std::make_unique< Worker >( partly_algorithm);
-  cout << "original value = " << value << ", after: " << pSpecialAlgo->templateMethod(value) << endl;
+  auto pSpecialAlgo = std::make_unique< Worker >(partly_algorithm);
+  cout << "original value = " << value
+       << ", after: " << pSpecialAlgo->templateMethod(value) << endl;
   cout << endl;
 
   cout << "READY." << endl;

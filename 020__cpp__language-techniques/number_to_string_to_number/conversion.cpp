@@ -23,7 +23,8 @@ int main()
   cout << "C++98: string (" << szNumber << ") -> number (" << iNumber << ")\n";
   std::istringstream iss(szNumber);
   iss >> iNumber;
-  if (iss.fail()) cerr << "Failed!" << endl;
+  if (iss.fail())
+    cerr << "Failed!" << endl;
   cout << "result: number " << iNumber << endl;
   cout << endl;
 

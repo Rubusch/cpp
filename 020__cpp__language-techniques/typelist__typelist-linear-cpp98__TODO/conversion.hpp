@@ -13,28 +13,27 @@
   NullType definition
 //*/
 class NullType
-{};
+{
+};
 
 
 /*
   EmptyType definition
 //*/
-struct EmptyType
-{};
+struct EmptyType {
+};
 
 
 /*
   select
 //*/
-template< bool flag, typename T, typename U >
-struct Select
-{
+template < bool flag, typename T, typename U >
+struct Select {
   typedef T Result;
 };
 
-template< typename T, typename U >
-struct Select< false, T, U >
-{
+template < typename T, typename U >
+struct Select< false, T, U > {
   typedef U Result;
 };
 
@@ -51,21 +50,21 @@ struct Select< false, T, U >
 //*/
 namespace Private
 {
-  template< class T, class U >
-  struct ConversionHelper
-  {
+  template < class T, class U >
+  struct ConversionHelper {
     typedef char Small;
-    struct Big { char dummy[2]; };
+    struct Big {
+      char dummy[2];
+    };
     static Big Test(...);
     static Small Test(U);
     static T MakeT();
   };
-}
+} // namespace Private
 
 // common definition
-template< class T, class U >
-struct Conversion
-{
+template < class T, class U >
+struct Conversion {
   typedef Private::ConversionHelper< T, U > H;
 
   // macro for Metrowerks CodeWarrior tool on windows
@@ -79,35 +78,31 @@ struct Conversion
 };
 
 // partial template specification
-template< class T >
-struct Conversion< T, T >
-{
+template < class T >
+struct Conversion< T, T > {
   enum { exists = 1, exists2Way = 1, sameType = 1 };
 };
 
-template< class T >
-struct Conversion< void, T >
-{
+template < class T >
+struct Conversion< void, T > {
   enum { exists = 1, exists2Way = 0, sameType = 0 };
 };
 
-template< class T >
-struct Conversion< T, void >
-{
+template < class T >
+struct Conversion< T, void > {
   enum { exists = 1, exists2Way = 0, sameType = 0 };
 };
 
 // XXX check "class"
-template<>
+template <>
 class Conversion< void, void >
 {
   enum { exists = 1, exists2Way = 1, sameType = 1 };
 };
 
 // macro definition - avoid macros!
-#define SUPERSUBCLASS(T,U) \
-( Conversion< const U*, const T* >::exists && \
-!Conversion< const T*, const void* >::sameType )
+#define SUPERSUBCLASS(T, U)                                                    \
+  (Conversion< const U *, const T * >::exists &&                               \
+   !Conversion< const T *, const void * >::sameType)
 
 #endif
-

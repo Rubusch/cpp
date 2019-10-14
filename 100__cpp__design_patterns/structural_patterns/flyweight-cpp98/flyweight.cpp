@@ -14,17 +14,15 @@
        |                                               |
        |                                +--------------+--------------+
        |                                |                             |
-       |                     +---------------------+       +---------------------+
-       |                     | ConcreteFlyweight   |       | Unshared            |
-       |                  +->|                     |    +->|   ConcreteFlyweight |
-       |                  |  +=====================+    |  +=====================+
-       |                  |  |                     |    |  |                     |
-       |                  |  +---------------------+    |  +---------------------+
-       |                  |  | operation(          |    |  | operation(          |
-       |                  |  |   intrinsic state)  |    |  |   intrinsic state)  |
-       |                  |  +---------------------+    |  +---------------------+
-       |                  |                             |
-       |                  |                             |
+       |                     +---------------------+ +---------------------+ |
+| ConcreteFlyweight   |       | Unshared            | |                  +->| |
++->|   ConcreteFlyweight | |                  |  +=====================+    |
++=====================+ |                  |  |                     |    |  | |
+       |                  |  +---------------------+    |
++---------------------+ |                  |  | operation(          |    |  |
+operation(          | |                  |  |   intrinsic state)  |    |  |
+intrinsic state)  | |                  |  +---------------------+    |
++---------------------+ |                  |                             | | | |
   +--------+              |                             |
   | client |--------------+-----------------------------+
   +--------+
@@ -36,40 +34,32 @@
 #include <iostream>
 
 
-struct Flyweight
-{
-  virtual ~Flyweight(){}
+struct Flyweight {
+  virtual ~Flyweight() {}
   virtual void operation() = 0;
 };
 
 
-struct SharedConcreteFlyweight
-  : public Flyweight
-{
-  SharedConcreteFlyweight(std::string &str)
-    : pStr_(&str)
-  {}
+struct SharedConcreteFlyweight : public Flyweight {
+  SharedConcreteFlyweight(std::string &str) : pStr_(&str) {}
 
-  void operation()
-  {
-    std::cout << "operation - *pStr_ = " << *pStr_ << "\n";
-  }
+  void operation() { std::cout << "operation - *pStr_ = " << *pStr_ << "\n"; }
 
 private:
   std::string *pStr_;
 };
 
 
-struct UnsharedConcreteFlyweight
-  : public Flyweight
-{
-  UnsharedConcreteFlyweight(std::string& str, unsigned int& num)
-    : str_(str), num_(num)
-  {}
+struct UnsharedConcreteFlyweight : public Flyweight {
+  UnsharedConcreteFlyweight(std::string &str, unsigned int &num)
+      : str_(str), num_(num)
+  {
+  }
 
   void operation()
   {
-    std::cout << "operation - str_ = " << str_ << ", " << "num_ = " << num_ << "\n";
+    std::cout << "operation - str_ = " << str_ << ", "
+              << "num_ = " << num_ << "\n";
   }
 
 private:
@@ -78,21 +68,20 @@ private:
 };
 
 
-struct FlyweightFactory
-{
+struct FlyweightFactory {
   FlyweightFactory()
   {
     str_ = "Hello World!";
     num_ = 777;
   }
 
-  Flyweight& getSharedFlyweight()
+  Flyweight &getSharedFlyweight()
   {
     pFlyweight = new SharedConcreteFlyweight(str_);
     return *pFlyweight;
   }
 
-  Flyweight& getUnsharedFlyweight()
+  Flyweight &getUnsharedFlyweight()
   {
     pFlyweight = new UnsharedConcreteFlyweight(str_, num_);
     return *pFlyweight;
@@ -102,7 +91,7 @@ private:
   std::string str_;
   unsigned int num_;
 
-  Flyweight* pFlyweight;
+  Flyweight *pFlyweight;
 };
 
 

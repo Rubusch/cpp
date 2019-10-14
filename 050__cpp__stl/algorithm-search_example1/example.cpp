@@ -8,9 +8,9 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <iterator>
 
 
@@ -32,11 +32,10 @@ private:
 /*
   functor for compare operation
 //*/
-class id_compare
-  : public std::binary_function< Foobar, int, bool >
+class id_compare : public std::binary_function< Foobar, int, bool >
 {
 public:
-  bool operator()(const Foobar& foo, int idx) const
+  bool operator()(const Foobar &foo, int idx) const
   {
     return foo.getId() < idx;
   }
@@ -51,12 +50,12 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  Foobar arr[] = { Foobar(10), Foobar(20), Foobar(30), Foobar(40) };
+  Foobar arr[] = {Foobar(10), Foobar(20), Foobar(30), Foobar(40)};
   cout << endl;
 
   cout << "lower_bound() - 25 or next to\n";
-  Foobar* ptr = lower_bound(arr, arr+4, 25, id_compare());
-  if(ptr != arr+4){
+  Foobar *ptr = lower_bound(arr, arr + 4, 25, id_compare());
+  if (ptr != arr + 4) {
     cout << ptr->getId() << endl;
   }
   cout << endl;

@@ -1,6 +1,7 @@
 // bridge.cpp
 /*
-  Decouple an abstraction from its implementation so that the two can vary independently.
+  Decouple an abstraction from its implementation so that the two can vary
+independently.
 
   +---------------------+                       +---------------------+
   | Concept             |<>-------------------->| Implementor         |
@@ -33,10 +34,11 @@
 /*
   Implementor
 
-  - defines the interface for implementation classes. This interface doesn't have to
-  correspond exactly to Abstraction's interface; in fact the two interfaces can be
-  quite different. Typically the Implementor interface provides only primitive
-  operations, and Abstraction defines higher-level operations based on these primitives.
+  - defines the interface for implementation classes. This interface doesn't
+have to correspond exactly to Abstraction's interface; in fact the two
+interfaces can be quite different. Typically the Implementor interface provides
+only primitive operations, and Abstraction defines higher-level operations based
+on these primitives.
 //*/
 class Implementor
 {
@@ -44,11 +46,9 @@ protected:
   std::string data;
 
 public:
-  Implementor()
-    : data("empty")
-  {}
+  Implementor() : data("empty") {}
 
-  virtual ~Implementor(){}
+  virtual ~Implementor() {}
 
   // abstract implementation body
   virtual void functionImpl() = 0;
@@ -59,10 +59,10 @@ public:
 /*
   Concrete Implementor
 
-  - implements the Implementor interface and defines its concrete impelementation
+  - implements the Implementor interface and defines its concrete
+impelementation
 //*/
-class ConcreteImplementor
-  : public Implementor
+class ConcreteImplementor : public Implementor
 {
 public:
   // implementation
@@ -86,12 +86,13 @@ protected:
   Implementor *pImplementor_;
 
 public:
-  Concept( Implementor& implementor)
-    :pImplementor_(&implementor)
-  {}
-  virtual ~Concept(){}
+  Concept(Implementor &implementor) : pImplementor_(&implementor) {}
+  virtual ~Concept() {}
   virtual void function() = 0;
-  virtual void show(){ std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n"; }
+  virtual void show()
+  {
+    std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n";
+  }
 };
 
 
@@ -100,21 +101,18 @@ public:
 
   - Extends the interface defined by Abstraction
 //*/
-class ConcreteConcept
-  : public Concept
+class ConcreteConcept : public Concept
 {
 public:
-  ConcreteConcept( Implementor& implementor)
-    : Concept(implementor)
-  {}
+  ConcreteConcept(Implementor &implementor) : Concept(implementor) {}
 
   void function()
   {
     std::cout << "\tConcreteConcept::function()\n";
 
-    ConcreteImplementor* pConcImpl = nullptr;
+    ConcreteImplementor *pConcImpl = nullptr;
 
-    pConcImpl = static_cast< ConcreteImplementor* >(pImplementor_);
+    pConcImpl = static_cast< ConcreteImplementor * >(pImplementor_);
 
     pConcImpl->functionImpl();
 

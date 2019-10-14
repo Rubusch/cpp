@@ -62,42 +62,41 @@ public:
   }
 
 protected: // can also be private
-  virtual void operation1(int& arg)
+  virtual void operation1(int &arg)
   {
     std::cout << "\t\t...do nothing or default\n";
   }
 
-  virtual void operation2(int& arg)
+  virtual void operation2(int &arg)
   {
     std::cout << "\t\t...do nothing or default\n";
   }
 
-  virtual void operation3(int& arg)
+  virtual void operation3(int &arg)
   {
     std::cout << "\t\t...do nothing or default\n";
   }
 };
 
 
-class ConcreteClass1
-  : public AbstractClass
+class ConcreteClass1 : public AbstractClass
 {
 protected:
-  void operation1(int& arg)
+  void operation1(int &arg)
   {
     int val = 10;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
 
-  void operation2(int& arg)
+  void operation2(int &arg)
   {
     int val = 20;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
 
-  void operation3(int& arg)
+  void operation3(int &arg)
   {
     int val = 30;
     std::cout << "\t\t...add " << val << "\n";
@@ -106,18 +105,17 @@ protected:
 };
 
 
-class ConcreteClass2
-  : public AbstractClass
+class ConcreteClass2 : public AbstractClass
 {
 protected:
-  void operation1(int& arg)
+  void operation1(int &arg)
   {
     int val = 10;
     std::cout << "\t\t...add " << val << "\n";
     arg += val;
   }
 
-  void operation3(int& arg)
+  void operation3(int &arg)
   {
     int val = 50;
     std::cout << "\t\t...add " << val << "\n";
@@ -136,12 +134,14 @@ int main()
 
   cout << "algoritm 1 - full\n";
   ConcreteClass1 full_algorithm;
-  cout << "original value = " << value << ", after: " << full_algorithm.templateMethod(value) << "\n";
+  cout << "original value = " << value
+       << ", after: " << full_algorithm.templateMethod(value) << "\n";
   cout << endl;
 
   cout << "algorithm 2 - only step 1 and step 3 (changed)\n";
   ConcreteClass2 partly_algorithm;
-  cout << "original value = " << value << ", after: " << partly_algorithm.templateMethod(value) << "\n";
+  cout << "original value = " << value
+       << ", after: " << partly_algorithm.templateMethod(value) << "\n";
   cout << endl;
 
   cout << "READY.\n";

@@ -9,8 +9,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <vector>
 
@@ -22,7 +22,7 @@ int main()
 {
   using namespace std;
 
-  const int arr[] = { 2, 4, 1, 4, 5 };
+  const int arr[] = {2, 4, 1, 4, 5};
 
   cout << "init\n";
   vector< int > vec(3U, 0);

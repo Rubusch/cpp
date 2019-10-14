@@ -1,28 +1,25 @@
 //#include <iostream>
 
-//using namespace std;
+// using namespace std;
 
 class Hello
 {
 private:
-	int var;
+  int var;
 
 public:
-	Hello()
-	{
-		var = 7;
-	}
+  Hello() { var = 7; }
 
-	void print_var()
-	{
-		var += 99;
-	//	cout << var << "\n";
-	}
+  void print_var()
+  {
+    var += 99;
+    //	cout << var << "\n";
+  }
 };
 
-int main( int argc, char**argv){
-	Hello hello;
-	hello.print_var();
-	return 0;
+int main(int argc, char **argv)
+{
+  Hello hello;
+  hello.print_var();
+  return 0;
 }
-

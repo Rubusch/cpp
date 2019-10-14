@@ -31,7 +31,7 @@ SomeClass::SomeClassValue::SomeClassValue(const char *initValue)
 /*
   data value - copy ctor
 //*/
-SomeClass::SomeClassValue::SomeClassValue(const SomeClassValue& rhs)
+SomeClass::SomeClassValue::SomeClassValue(const SomeClassValue &rhs)
 {
   init(rhs.data);
 }
@@ -40,35 +40,30 @@ SomeClass::SomeClassValue::SomeClassValue(const SomeClassValue& rhs)
 /*
   data value - dtor
 //*/
-SomeClass::SomeClassValue::~SomeClassValue()
-{
-  delete [] data;
-}
+SomeClass::SomeClassValue::~SomeClassValue() { delete[] data; }
 
 
 /*
   ctor
 //*/
 SomeClass::SomeClass(const char *initValue)
-  : value(new SomeClassValue(initValue))
-{}
+    : value(new SomeClassValue(initValue))
+{
+}
 
 
 /*
   COW - copy on write for objects
 //*/
-char SomeClass::operator[](int index) const
-{
-  return value->data[index];
-}
+char SomeClass::operator[](int index) const { return value->data[index]; }
 
 
 /*
   COW - copy on write for const objects
 //*/
-char& SomeClass::operator[](int index)
+char &SomeClass::operator[](int index)
 {
-  if(value->isShared()){
+  if (value->isShared()) {
     value = new SomeClassValue(value->data);
   }
 
@@ -84,8 +79,7 @@ char& SomeClass::operator[](int index)
 /*
   friend function - output function to get some accessibility
 //*/
-std::ostream& operator<<(std::ostream& out, const SomeClass & sc)
+std::ostream &operator<<(std::ostream &out, const SomeClass &sc)
 {
   return out << sc.value->data;
 }
-

@@ -16,15 +16,15 @@
     |      +---------------------+                      |             |
     |      |                     |                  +---+             +---+
     |      +---------------------+                  |                     |
-    |         /_\           /_\         +-------------------+   +-------------------+
-    |          |             |          | concrete Factory1 |   | concrete Factory2 |
-    |          |             |          +===================+   +===================+
-    |          |             |          |                   |   |                   |
-    |          |             |          +-------------------+   +-------------------+
-    |          |        +-----------+   | createProductA()  |   | createProductA()  |
-    |          |        | concrete  |   | createProductB()  |   | createProductB()  |
-    |          |        | ProductA2 |   +-------------------+   +-------------------+
-    |   +-----------+   +===========+        |         |           |         |
+    |         /_\           /_\         +-------------------+
++-------------------+ |          |             |          | concrete Factory1 |
+| concrete Factory2 | |          |             |          +===================+
++===================+ |          |             |          |                   |
+|                   | |          |             |          +-------------------+
++-------------------+ |          |        +-----------+   | createProductA()  |
+| createProductA()  | |          |        | concrete  |   | createProductB()  |
+| createProductB()  | |          |        | ProductA2 |   +-------------------+
++-------------------+ |   +-----------+   +===========+        |         | | |
     |   | concrete  |   |           |<-------|---------|-----------+         |
     |   | ProductA1 |   +-----------+        |         |                     |
     |   +===========+                        |         |                     |
@@ -72,18 +72,12 @@
 class ProductA
 {
 public:
-  ProductA()
-  {
-    std::cout << "\t\t\tProductA::ProductA() - ctor\n";
-  }
+  ProductA() { std::cout << "\t\t\tProductA::ProductA() - ctor\n"; }
 
   virtual ~ProductA() = 0;
 };
 
-ProductA::~ProductA()
-{
-  std::cout << "\t\t\tProductA::~Product() - dtor\n";
-}
+ProductA::~ProductA() { std::cout << "\t\t\tProductA::~Product() - dtor\n"; }
 
 
 /*
@@ -92,8 +86,7 @@ ProductA::~ProductA()
   - defines a product object to be created by the corresponding concrete factory
   - implements the AbstractProduct interface
 //*/
-class ConcreteProductA1
-  : public ProductA
+class ConcreteProductA1 : public ProductA
 {
 public:
   ConcreteProductA1()
@@ -111,8 +104,7 @@ public:
 /*
   Concrete Product A2 - another type of a concrete product
 //*/
-class ConcreteProductA2
-  : public ProductA
+class ConcreteProductA2 : public ProductA
 {
 public:
   ConcreteProductA2()
@@ -133,25 +125,18 @@ public:
 class ProductB
 {
 public:
-  ProductB()
-  {
-    std::cout << "\t\t\tProductB::ProductB() - ctor\n";
-  }
+  ProductB() { std::cout << "\t\t\tProductB::ProductB() - ctor\n"; }
 
   virtual ~ProductB() = 0;
 };
 
-ProductB::~ProductB()
-{
-  std::cout << "\t\t\tProductB::~ProductB() - dtor\n";
-}
+ProductB::~ProductB() { std::cout << "\t\t\tProductB::~ProductB() - dtor\n"; }
 
 
 /*
   Concrete Product B1 - another type of a concrete product
 //*/
-class ConcreteProductB1
-  : public ProductB
+class ConcreteProductB1 : public ProductB
 {
 public:
   ConcreteProductB1()
@@ -169,8 +154,7 @@ public:
 /*
   Concrete Product B2 - another type of a concrete product
 //*/
-class ConcreteProductB2
-  : public ProductB
+class ConcreteProductB2 : public ProductB
 {
 public:
   ConcreteProductB2()
@@ -193,9 +177,9 @@ public:
 class AbstractFactory
 {
 public:
-  virtual ~AbstractFactory(){}
-  virtual ProductA* createProductA() = 0;
-  virtual ProductB* createProductB() = 0;
+  virtual ~AbstractFactory() {}
+  virtual ProductA *createProductA() = 0;
+  virtual ProductB *createProductB() = 0;
 };
 
 
@@ -205,17 +189,16 @@ public:
   - instantiate 'concrete product', but pass as 'abstract product'
   - implements the operations to create concrete product objects
 //*/
-class ConcreteFactory1
-  : public AbstractFactory
+class ConcreteFactory1 : public AbstractFactory
 {
 public:
-  ProductA* createProductA()
+  ProductA *createProductA()
   {
     std::cout << "\tConcreteFactory1::createProductA()\n";
     return new ConcreteProductA1();
   }
 
-  ProductB* createProductB()
+  ProductB *createProductB()
   {
     std::cout << "\tConcreteFactory1::createProductB1()\n";
     return new ConcreteProductB1();
@@ -226,17 +209,16 @@ public:
 /*
   Concrete Factory 2 - another concrete factory
 //*/
-class ConcreteFactory2
-  : public AbstractFactory
+class ConcreteFactory2 : public AbstractFactory
 {
 public:
-  ProductA* createProductA()
+  ProductA *createProductA()
   {
     std::cout << "\tConcreteFactory2::createProductA()\n";
     return new ConcreteProductA2();
   }
 
-  ProductB* createProductB()
+  ProductB *createProductB()
   {
     std::cout << "\tConcreteFactory2::createProductB()\n";
     return new ConcreteProductB2();
@@ -267,30 +249,40 @@ int main()
   cout << "...use factory 1\n";
 
   cout << "\'product A\':\n";
-  ConcreteProductA1 *pConcProductA1 = dynamic_cast< ConcreteProductA1* >(pConcFactory1->createProductA());
+  ConcreteProductA1 *pConcProductA1 =
+      dynamic_cast< ConcreteProductA1 * >(pConcFactory1->createProductA());
 
   cout << "\'product B\':\n";
-  ConcreteProductB1 *pConcProductB1 = dynamic_cast< ConcreteProductB1* >(pConcFactory1->createProductB());
+  ConcreteProductB1 *pConcProductB1 =
+      dynamic_cast< ConcreteProductB1 * >(pConcFactory1->createProductB());
   cout << endl;
 
   // usage of the factory 2
   cout << "...use factory 2\n";
 
   cout << "\'product A\':\n";
-  ConcreteProductA2 *pConcProductA2 = dynamic_cast< ConcreteProductA2* >(pConcFactory2->createProductA());
+  ConcreteProductA2 *pConcProductA2 =
+      dynamic_cast< ConcreteProductA2 * >(pConcFactory2->createProductA());
 
   cout << "\'product B\':\n";
-  ConcreteProductB2 *pConcProductB2 = dynamic_cast< ConcreteProductB2* >(pConcFactory2->createProductB());
+  ConcreteProductB2 *pConcProductB2 =
+      dynamic_cast< ConcreteProductB2 * >(pConcFactory2->createProductB());
   cout << endl;
 
   // delete
   cout << "free..\n";
-  delete pConcFactory1; pConcFactory1 = NULL;
-  delete pConcFactory2; pConcFactory2 = NULL;
-  delete pConcProductA1; pConcProductA1 = NULL;
-  delete pConcProductB1; pConcProductB1 = NULL;
-  delete pConcProductA2; pConcProductA2 = NULL;
-  delete pConcProductB2; pConcProductB2 = NULL;
+  delete pConcFactory1;
+  pConcFactory1 = NULL;
+  delete pConcFactory2;
+  pConcFactory2 = NULL;
+  delete pConcProductA1;
+  pConcProductA1 = NULL;
+  delete pConcProductB1;
+  pConcProductB1 = NULL;
+  delete pConcProductA2;
+  pConcProductA2 = NULL;
+  delete pConcProductB2;
+  pConcProductB2 = NULL;
   cout << endl;
 
   cout << "READY.\n";

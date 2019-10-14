@@ -1,32 +1,33 @@
 // newhandler.cpp
 /*
-  demonstrates how to implement a simple new hanlder, a new handler helps to keep on track of
-  out-of-memory situations easily
+  demonstrates how to implement a simple new hanlder, a new handler helps to
+keep on track of out-of-memory situations easily
 
   Be prepared for out-of-memory conditions. (7/Meyers)
 
 TODO: review compilation warning
 $ make
 g++ -c -g -Wall newhandler.cpp
-newhandler.cpp: In instantiation of ‘static void* NewHandlerSupport<T>::operator new(size_t) [with T = Foobar; size_t = long unsigned int]’:
+newhandler.cpp: In instantiation of ‘static void* NewHandlerSupport<T>::operator
+new(size_t) [with T = Foobar; size_t = long unsigned int]’:
 newhandler.cpp:122:26:   required from here
-newhandler.cpp:69:4: warning: catching polymorphic type ‘class std::bad_alloc’ by value [-Wcatch-value=]
-   }catch(bad_alloc){
+newhandler.cpp:69:4: warning: catching polymorphic type ‘class std::bad_alloc’
+by value [-Wcatch-value=] }catch(bad_alloc){
 //*/
 
 
+#include <cstdlib> // abort
 #include <iostream>
 #include <string>
-#include <cstdlib> // abort
 
 
 // 0. includes: new definitions in local namespace
-#include <new>  // if <new> doesn't compile, try <new.h>
+#include <new> // if <new> doesn't compile, try <new.h>
 
 using namespace std; // new_handler needs to be declared
 
 
-template<class T>
+template < class T >
 class NewHandlerSupport;
 class Foobar;
 
@@ -43,39 +44,40 @@ void noMoreMemory()
 /*
   2. new-handler support class: a class that provides the new-handler support
 //*/
-template<class T>
+template < class T >
 class NewHandlerSupport
 {
 public:
-  virtual ~NewHandlerSupport(){}
+  virtual ~NewHandlerSupport() {}
   static new_handler set_new_handler(new_handler p);
-  static void* operator new(size_t size);
+  static void *operator new(size_t size);
   // MISSING: "operator delete()" -
-  // always implement a "operator delete()" when you're implementing an "operator new()"
+  // always implement a "operator delete()" when you're implementing an
+  // "operator new()"
 
 private:
   static new_handler currentHandler;
 };
 
-template<class T>
-new_handler NewHandlerSupport<T>::set_new_handler(new_handler p)
+template < class T >
+new_handler NewHandlerSupport< T >::set_new_handler(new_handler p)
 {
   new_handler oldHandler = currentHandler;
   currentHandler = p;
   return oldHandler;
 }
 
-template<class T>
-void* NewHandlerSupport<T>::operator new(size_t size)
+template < class T >
+void *NewHandlerSupport< T >::operator new(size_t size)
 {
   // MISSING: check if size is correct!
 
   new_handler globalHandler = set_new_handler(currentHandler);
-  void* memory;
+  void *memory;
 
-  try{
+  try {
     memory = ::operator new(size);
-  }catch(bad_alloc &e){
+  } catch (bad_alloc &e) {
     // better don't deal with exception catching & handling here,
     // leave this to the specific user/consumer and w/o exception
     // management here, leave this source 'exception neutral'
@@ -93,21 +95,14 @@ void* NewHandlerSupport<T>::operator new(size_t size)
 /*
   3. a derived class: uses the new-handler support class
 //*/
-class Foobar
-  : public NewHandlerSupport<Foobar>
+class Foobar : public NewHandlerSupport< Foobar >
 {
   string str;
 
 public:
   // ...some code to execute...
-  void setString(string s)
-  {
-    str = s;
-  }
-  string getString()
-  {
-    return str;
-  }
+  void setString(string s) { str = s; }
+  string getString() { return str; }
 
 private:
   static new_handler currentHandler;
@@ -115,7 +110,8 @@ private:
 
 
 // 4. global reset: this inits each currentHandler with NULL
-template<class T> new_handler NewHandlerSupport<T>::currentHandler;
+template < class T >
+new_handler NewHandlerSupport< T >::currentHandler;
 
 
 /*
@@ -177,9 +173,12 @@ int main()
   //*/
 
 
-  delete pFoobar1; pFoobar1 = NULL;
-  delete pString; pString = NULL;
-  delete pFoobar2; pFoobar2 = NULL;
+  delete pFoobar1;
+  pFoobar1 = NULL;
+  delete pString;
+  pString = NULL;
+  delete pFoobar2;
+  pFoobar2 = NULL;
   cout << "READY.\n";
   return 0;
 }

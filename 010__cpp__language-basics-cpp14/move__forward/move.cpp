@@ -92,49 +92,57 @@
 
 using namespace std;
 
-struct Overload
-{
-  Overload(int&& elem) { cout << "rvalue overload, elem = " << elem << " [" << &elem << "]" << endl; }
-  Overload(int& elem) { cout << "lvalue overload, elem = " << elem << " [" << &elem << "]" << endl; }
+struct Overload {
+  Overload(int &&elem)
+  {
+    cout << "rvalue overload, elem = " << elem << " [" << &elem << "]" << endl;
+  }
+  Overload(int &elem)
+  {
+    cout << "lvalue overload, elem = " << elem << " [" << &elem << "]" << endl;
+  }
 };
 
 class Forwarder
 {
 private:
   Overload o1_, o2_, o3_;
+
 public:
-  template< class T1, class T2, class T3 >
-  Forwarder( T1&& t1, T2&& t2, T3&& t3 )
-  : o1_{std::forward< T1 >(t1)}, o2_{std::forward< T2 >(t2)}, o3_{std::forward< T3 >(t3)}
-  {}
+  template < class T1, class T2, class T3 >
+  Forwarder(T1 &&t1, T2 &&t2, T3 &&t3)
+      : o1_{std::forward< T1 >(t1)}, o2_{std::forward< T2 >(t2)},
+        o3_{std::forward< T3 >(t3)}
+  {
+  }
 };
 
-template< class T, class U >
-std::unique_ptr< T > make_unique1(U&& u)
+template < class T, class U >
+std::unique_ptr< T > make_unique1(U &&u)
 {
-  return std::unique_ptr< T >(new T(std::forward< U >( u )));
+  return std::unique_ptr< T >(new T(std::forward< U >(u)));
 }
 
-template< class T, class... U >
-std::unique_ptr< T > make_unique2(U&&... u)
+template < class T, class... U >
+std::unique_ptr< T > make_unique2(U &&... u)
 {
-  return std::unique_ptr< T >(new T(std::forward< U >( u )...));
+  return std::unique_ptr< T >(new T(std::forward< U >(u)...));
 }
 
 
 int main(void)
 {
   cout << "rvalue initialization:" << endl;
-  auto p1 = make_unique1< Overload >( 2 ); // rvalue
+  auto p1 = make_unique1< Overload >(2); // rvalue
   cout << endl;
 
   cout << "lvalue initialization:" << endl;
   int i = 1;
-  auto p2 = make_unique1< Overload >( i ); // lvalue
+  auto p2 = make_unique1< Overload >(i); // lvalue
   cout << endl;
 
   cout << "forwarder: " << endl;
-  auto t = make_unique2< Forwarder >( 2, i, 3);
+  auto t = make_unique2< Forwarder >(2, i, 3);
   cout << endl;
 
 

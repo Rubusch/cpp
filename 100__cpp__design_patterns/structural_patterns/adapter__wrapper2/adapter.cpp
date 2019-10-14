@@ -47,7 +47,7 @@
 class Target
 {
 public:
-  virtual ~Target(){}
+  virtual ~Target() {}
   virtual void request(std::string) = 0;
 };
 
@@ -58,8 +58,7 @@ public:
   - adapts the interface of Adaptee to the Target interface
   - uses delegation to connect the Adaptee
 //*/
-class Adapter
-  : public Target
+class Adapter : public Target
 {
 private:
   /*
@@ -73,7 +72,8 @@ private:
     void specificRequest(std::string str1, std::string str2)
     {
       std::cout << "\tAdaptee::specificRequest(std::string, std::string)\n";
-      std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'" << str2 << "\'\n";
+      std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'"
+                << str2 << "\'\n";
     }
   };
   Adaptee adaptee;

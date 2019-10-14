@@ -13,11 +13,11 @@
       |                                            |           |
                                            +-------+           +-------+
       |                                    |                           |
-  +-----------------------+\   +---------------------+     +---------------------+
-  | state.handleRequest() +-+  | StateA              |     | StateB              |
-  |                         |  +=====================+     +=====================+
-  +-------------------------+  | handleRequest()     |     | handleRequest()     |
-                               +---------------------+     +---------------------+
+  +-----------------------+\   +---------------------+ +---------------------+
+  | state.handleRequest() +-+  | StateA              |     | StateB | | |
++=====================+     +=====================+
+  +-------------------------+  | handleRequest()     |     | handleRequest() |
+                               +---------------------+ +---------------------+
 
  (GoF, 1995)
 
@@ -26,8 +26,8 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 
 // trick to get it compiled
@@ -44,11 +44,12 @@ class State;
 class Context
 {
 private:
-  friend class State; // generally try to avoid 'friend' declarations (closest connection)
-  void changeState( State* state);
+  friend class State; // generally try to avoid 'friend' declarations (closest
+                      // connection)
+  void changeState(State *state);
 
 private:
-  State* state_;
+  State *state_;
 
 public:
   Context();
@@ -71,15 +72,12 @@ class State
 {
 public:
   // can implement several request handlers
-  virtual void handleRequest( Context*) = 0;
-  virtual ~State()
-  {
-    std::cout << "\tState::~State() - dtor\n";
-  }
+  virtual void handleRequest(Context *) = 0;
+  virtual ~State() { std::cout << "\tState::~State() - dtor\n"; }
 
 protected:
   // this is possible because of the "friend" declaration
-  void changeState( Context* pContext, State* pState)
+  void changeState(Context *pContext, State *pState)
   {
     std::cout << "\tState::changeState( Context*, State*)\n";
     pContext->changeState(pState);
@@ -92,29 +90,25 @@ protected:
 
   - each subclass implements a behavior associated with a state of the Context.
 //*/
-class StateA
-  : public State
+class StateA : public State
 {
 private:
   // should be private
-  StateA()
-  {
-    std::cout << "\tStateA::StateA() - ctor\n";
-  }
+  StateA() { std::cout << "\tStateA::StateA() - ctor\n"; }
 
 public:
-  static StateA* instance()
+  static StateA *instance()
   {
     std::cout << "\tStateA::instance()\n";
-    try{
+    try {
       return new StateA();
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "\tAllocation of StateA failed!\n";
       exit(-1);
     }
   }
 
-  void handleRequest( Context* pContext)
+  void handleRequest(Context *pContext)
   {
     std::cout << "\tStateA::handleRequest()\n";
     std::cout << ">> open device and get ready\n";
@@ -128,35 +122,31 @@ public:
 
   - each subclass implements a behavior associated with a state of the Context.
 //*/
-class StateB
-  : public State
+class StateB : public State
 {
 private:
   // should be private
-  StateB()
-  {
-    std::cout << "\tStateB::StateB() - ctor\n";
-  }
+  StateB() { std::cout << "\tStateB::StateB() - ctor\n"; }
 
 public:
-  static StateB* instance()
+  static StateB *instance()
   {
     std::cout << "\tStateB::instance()\n";
-    try{
+    try {
       return new StateB();
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "\tAllocation of StateB failed!\n";
       exit(-2);
     }
   }
 
-  void handleRequest( Context* pContext)
+  void handleRequest(Context *pContext)
   {
     std::cout << "\tStateB::handleRequest()\n";
     std::cout << "<< close device and go standby\n";
 
     // state transition from StateB to StateA
-    changeState( pContext, StateA::instance());
+    changeState(pContext, StateA::instance());
   }
 };
 
@@ -168,13 +158,14 @@ public:
 Context::Context()
 {
   std::cout << "\tContext::Context() - ctor\n";
-  state_ = StateB::instance();  // init with StateB
+  state_ = StateB::instance(); // init with StateB
 }
 
 Context::~Context()
 {
   std::cout << "\tContext::~Context() - dtor\n";
-  delete state_; state_ = NULL;
+  delete state_;
+  state_ = NULL;
 }
 
 void Context::request()
@@ -183,11 +174,12 @@ void Context::request()
   state_->handleRequest(this);
 }
 
-void Context::changeState( State* state)
+void Context::changeState(State *state)
 {
   std::cout << "\tContext::changeState( State*)\n";
-  if(state_ != NULL){
-    delete state_; state_ = NULL;
+  if (state_ != NULL) {
+    delete state_;
+    state_ = NULL;
   }
   state_ = state;
 }

@@ -66,31 +66,32 @@
   * cppreference.com, 2019
 
  */
-#include <iostream>
-#include <future>
-#include <mutex>
 #include <chrono> /* chrono::seconds */
+#include <future>
+#include <iostream>
+#include <mutex>
 
 using namespace std;
 
 
 std::mutex mtx; // needed to lock while thread execution
 
-class FruitBox {
+class FruitBox
+{
 public:
-  void lemon(const std::string& str, int num)
+  void lemon(const std::string &str, int num)
   {
     std::lock_guard< std::mutex > lock(mtx);
-    for (auto idx=0; idx<num; ++idx) {
+    for (auto idx = 0; idx < num; ++idx) {
       cout << "LEMON (" << str << ")" << endl;
       this_thread::sleep_for(chrono::seconds(1));
     }
   }
 
-  void orange(const std::string& str, int num)
+  void orange(const std::string &str, int num)
   {
     std::lock_guard< std::mutex > lock(mtx);
-    for (auto idx=0; idx<num; ++idx) {
+    for (auto idx = 0; idx < num; ++idx) {
       cout << "ORANGE (" << str << ")" << endl;
       this_thread::sleep_for(chrono::seconds(1));
     }
@@ -99,7 +100,7 @@ public:
   int operator()(int num)
   {
     std::lock_guard< std::mutex > lock(mtx);
-    for (auto idx=0; idx<num; ++idx) {
+    for (auto idx = 0; idx < num; ++idx) {
       cout << "FRUITBOX (async)" << endl;
       this_thread::sleep_for(chrono::seconds(1));
     }
@@ -112,7 +113,7 @@ int main()
 {
   FruitBox fresh_fruit;
 
-  auto idx=0;
+  auto idx = 0;
   do {
     // calls '(&fresh_fruit)->lemon("unspecified", idx);'
     // with default policy, may print concurrently or defer execution
@@ -120,17 +121,18 @@ int main()
 
     // calls 'fresh_fruit.orange("deferred", idx);'
     // with deferred policy (later)
-    auto a2 = std::async(std::launch::deferred, &FruitBox::orange, fresh_fruit, "deferred", idx);
+    auto a2 = std::async(std::launch::deferred, &FruitBox::orange, fresh_fruit,
+                         "deferred", idx);
 
     // calls 'FruitBox()(idx);'
     // with async policy
     auto a3 = std::async(std::launch::async, FruitBox(), idx);
 
-    a2.wait(); // now starts a2 threads
-    idx=a3.get(); // a3 yields incremented idx
+    a2.wait();      // now starts a2 threads
+    idx = a3.get(); // a3 yields incremented idx
 
     // if a1 is not done at this point, destructor of a1 prints "LEMON" here
-  } while (idx<5);
+  } while (idx < 5);
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;

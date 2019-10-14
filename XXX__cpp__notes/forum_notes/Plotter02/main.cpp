@@ -1,12 +1,12 @@
 // main.cpp
 
-#include <QApplication>
 #include "PlotterFrame.h"
+#include <QApplication>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    QApplication app(argc, argv);
-    PlotterFrame frame;
-    frame.show();
-    return app.exec();
+  QApplication app(argc, argv);
+  PlotterFrame frame;
+  frame.show();
+  return app.exec();
 }

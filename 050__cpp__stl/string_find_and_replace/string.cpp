@@ -6,10 +6,10 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
-#include <iterator>
 #include <cctype>
+#include <iostream>
+#include <iterator>
 #include <string>
 
 
@@ -17,7 +17,7 @@
 //*/
 std::string upper(std::string str)
 {
-  for(std::string::size_type idx = 0; idx < str.length(); ++idx){
+  for (std::string::size_type idx = 0; idx < str.length(); ++idx) {
     str[idx] = static_cast< char >(toupper(str[idx]));
   }
 
@@ -42,7 +42,7 @@ int main()
 
   cout << "replace()\n";
   string::size_type idx = str.find(' ');
-  while(idx != string::npos){
+  while (idx != string::npos) {
     str.replace(idx, 1, 1, '_');
     idx = str.find(' ', idx + 1);
   }

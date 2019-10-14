@@ -17,25 +17,25 @@ annotations:
 #define RC_PTR
 
 
-template<class T>
+template < class T >
 class RCPtr
 {
 public:
   // ctor
-  RCPtr(T* realPtr = 0);
+  RCPtr(T *realPtr = 0);
 
   // copy ctor
-  RCPtr(const RCPtr& rhs);
+  RCPtr(const RCPtr &rhs);
 
   // dtor
   ~RCPtr();
 
   // op=
-  RCPtr& operator=(const RCPtr& rhs);
+  RCPtr &operator=(const RCPtr &rhs);
 
   // smart pointer stuff
-  T* operator->() const;
-  T& operator*() const;
+  T *operator->() const;
+  T &operator*() const;
 
 private:
   T *pointee;
@@ -49,10 +49,11 @@ private:
 /*
   init funciton called by the ctor
 //*/
-template<class T>
-void RCPtr<T>::init()
+template < class T >
+void RCPtr< T >::init()
 {
-  if (pointee == 0) return;
+  if (pointee == 0)
+    return;
 
   if (pointee->isShareable() == false) {
     pointee = new T(*pointee);
@@ -65,9 +66,8 @@ void RCPtr<T>::init()
 /*
   ctor
 //*/
-template<class T>
-RCPtr<T>::RCPtr(T* realPtr)
-  : pointee(realPtr)
+template < class T >
+RCPtr< T >::RCPtr(T *realPtr) : pointee(realPtr)
 {
   init();
 }
@@ -76,9 +76,8 @@ RCPtr<T>::RCPtr(T* realPtr)
 /*
   copy ctor
 //*/
-template<class T>
-RCPtr<T>::RCPtr(const RCPtr& rhs)
-  : pointee(rhs.pointee)
+template < class T >
+RCPtr< T >::RCPtr(const RCPtr &rhs) : pointee(rhs.pointee)
 {
   init();
 }
@@ -87,10 +86,10 @@ RCPtr<T>::RCPtr(const RCPtr& rhs)
 /*
   dtor
 //*/
-template<class T>
-RCPtr<T>::~RCPtr()
+template < class T >
+RCPtr< T >::~RCPtr()
 {
-  if(pointee){
+  if (pointee) {
     pointee->removeReference();
   }
 }
@@ -99,17 +98,17 @@ RCPtr<T>::~RCPtr()
 /*
   op= - this code was modified for the book's 10th
 //*/
-template<class T>
-RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
+template < class T >
+RCPtr< T > &RCPtr< T >::operator=(const RCPtr &rhs)
 {
-  if(pointee != rhs.pointee){
+  if (pointee != rhs.pointee) {
     T *oldPointee = pointee;
 
     // printing
     pointee = rhs.pointee;
     init();
 
-    if(oldPointee){
+    if (oldPointee) {
       oldPointee->removeReference();
     }
   }
@@ -121,8 +120,8 @@ RCPtr<T>& RCPtr<T>::operator=(const RCPtr& rhs)
 /*
   smart pointer
 //*/
-template<class T>
-T* RCPtr<T>::operator->() const
+template < class T >
+T *RCPtr< T >::operator->() const
 {
   return pointee;
 }
@@ -131,11 +130,10 @@ T* RCPtr<T>::operator->() const
 /*
   smart pointer
 //*/
-template<class T>
-T& RCPtr<T>::operator*() const
+template < class T >
+T &RCPtr< T >::operator*() const
 {
   return *pointee;
 }
 
 #endif
-

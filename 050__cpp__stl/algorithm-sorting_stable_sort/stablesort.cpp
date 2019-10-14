@@ -2,7 +2,8 @@
 /*
   sorting algorithm
 
-  stable_sort - sort a range of elements while preserving their relative order (heap sort)
+  stable_sort - sort a range of elements while preserving their relative order
+(heap sort)
 
                         ___ ___ ___ ___
        +---+---+---+---+---+---+---+---+- -+
@@ -20,9 +21,9 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <iterator>
 #include <utility>
 
@@ -36,20 +37,19 @@ using namespace std::rel_ops;
 class Element
 {
 public:
-  Element(int value) : value_(value), idx_(++number_)
-  {}
+  Element(int value) : value_(value), idx_(++number_) {}
 
-  friend ostream& operator<<(ostream& os, const Element& element)
+  friend ostream &operator<<(ostream &os, const Element &element)
   {
     return os << element.value_ << '-' << element.idx_;
   }
 
-  bool operator<(const Element& element) const
+  bool operator<(const Element &element) const
   {
     return (value_ < element.value_);
   }
 
-  bool operator>(const Element& element) const
+  bool operator>(const Element &element) const
   {
     return (value_ > element.value_);
   }
@@ -71,18 +71,18 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  Element arr[] = { 3, 1, 0, 6, 3, 1, 0, 6 };
-  copy(arr, arr+8, ostream_iterator< Element >(cout, " "));
+  Element arr[] = {3, 1, 0, 6, 3, 1, 0, 6};
+  copy(arr, arr + 8, ostream_iterator< Element >(cout, " "));
   cout << endl << endl;
 
   cout << "stable_sort() - ascending order\n";
-  stable_sort(arr, arr+8);
-  copy(arr, arr+8, ostream_iterator< Element >(cout, " "));
+  stable_sort(arr, arr + 8);
+  copy(arr, arr + 8, ostream_iterator< Element >(cout, " "));
   cout << endl << endl;
 
   cout << "stable_sort() - descending order\n";
-  stable_sort(arr, arr+8, greater< Element >()); // XXX
-  copy(arr, arr+8, ostream_iterator< Element >(cout, " "));
+  stable_sort(arr, arr + 8, greater< Element >()); // XXX
+  copy(arr, arr + 8, ostream_iterator< Element >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

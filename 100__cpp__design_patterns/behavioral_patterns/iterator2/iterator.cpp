@@ -37,12 +37,17 @@
 /*
   forward declaration and additional "helpers"
 //*/
-struct IteratorOutOfBounds : public std::exception{};
+struct IteratorOutOfBounds : public std::exception {
+};
 
-template< class Item > class Aggregate;
-template< class Item > class ConcreteAggregate;
-template< class Item > class Iterator;
-template< class Item > class ConcreteIterator;
+template < class Item >
+class Aggregate;
+template < class Item >
+class ConcreteAggregate;
+template < class Item >
+class Iterator;
+template < class Item >
+class ConcreteIterator;
 
 
 /*
@@ -50,7 +55,7 @@ template< class Item > class ConcreteIterator;
 
   - defines an interface for creating an Iterator object
 //*/
-template< class Item >
+template < class Item >
 class Aggregate
 {
 protected:
@@ -61,19 +66,19 @@ protected:
 
 public:
   Aggregate(const signed long size)
-    : pItems_(NULL), pIter_(NULL), size_(size), count_(0)
+      : pItems_(NULL), pIter_(NULL), size_(size), count_(0)
   {
     std::cout << "\tAggregate::Aggregate(signed long)\n";
 
     // allocation
-    try{
-      pItems_ = new Item[size_+1];
-    }catch(std::bad_alloc&){
+    try {
+      pItems_ = new Item[size_ + 1];
+    } catch (std::bad_alloc &) {
       std::cerr << "Allocation failed!\n";
     }
 
     // init
-    for(int idx = 0; idx<size_; ++idx){
+    for (int idx = 0; idx < size_; ++idx) {
       pItems_[idx] = "";
     }
   }
@@ -81,12 +86,13 @@ public:
   virtual ~Aggregate()
   {
     std::cout << "Aggregate< Item >::~Aggreagte() - dtor\n";
-    delete [] pItems_; pItems_ = NULL;
+    delete[] pItems_;
+    pItems_ = NULL;
   }
 
-  virtual Iterator< Item >* createIterator() const = 0;
+  virtual Iterator< Item > *createIterator() const = 0;
   virtual signed long count() const = 0;
-  virtual Item* getItem(signed long idx) const = 0;
+  virtual Item *getItem(signed long idx) const = 0;
 };
 
 
@@ -96,18 +102,17 @@ public:
   - implements the Iterator creation interface to return an instance of the
   proper ConcreteIterator
 //*/
-template< class Item >
-class ConcreteAggregate
-  : public Aggregate< Item >
+template < class Item >
+class ConcreteAggregate : public Aggregate< Item >
 {
 public:
-  ConcreteAggregate(const signed long size)
-    : Aggregate< Item >( size)
+  ConcreteAggregate(const signed long size) : Aggregate< Item >(size)
   {
-    std::cout << "\tConcreteAggregate< Item >::ConcreteAggregate( signed long) - ctor\n";
+    std::cout << "\tConcreteAggregate< Item >::ConcreteAggregate( signed long) "
+                 "- ctor\n";
   }
 
-  Iterator< Item >* createIterator() const
+  Iterator< Item > *createIterator() const
   {
     std::cout << "\tConcreteAggregate< Item >::createIterator()\n";
     return new ConcreteIterator< Item >(this);
@@ -119,7 +124,7 @@ public:
     return this->count_;
   }
 
-  Item* getItem(signed long idx) const
+  Item *getItem(signed long idx) const
   {
     std::cout << "\tConcreteAggregate< Item >::getItem( signed long)\n";
     return &(this->pItems_)[idx];
@@ -129,10 +134,10 @@ public:
   void push(const Item item)
   {
     std::cout << "\tConcreteAggregate< Item >::push( Item)\n";
-    if(this->size_ > this->count_ + 1){
+    if (this->size_ > this->count_ + 1) {
       this->pItems_[this->count_] = item;
       ++(this->count_);
-    }else{
+    } else {
       std::cout << "\tlist is full!\n";
       return;
     }
@@ -145,7 +150,7 @@ public:
 
   - defines an interface for accessing and traversing elements
 //*/
-template< class Item >
+template < class Item >
 class Iterator
 {
 public:
@@ -162,19 +167,19 @@ public:
   - implements the Iterator Interface
   - keeps track of the current position in the traversal of the aggregate
 //*/
-template< class Item >
-class ConcreteIterator
-  : public Iterator< Item >
+template < class Item >
+class ConcreteIterator : public Iterator< Item >
 {
 private:
-  const ConcreteAggregate< Item >* concAggregate_;
+  const ConcreteAggregate< Item > *concAggregate_;
   signed long current_;
 
 public:
-  ConcreteIterator( const ConcreteAggregate< Item >* aggregate)
-    : concAggregate_(aggregate), current_(0)
+  ConcreteIterator(const ConcreteAggregate< Item > *aggregate)
+      : concAggregate_(aggregate), current_(0)
   {
-    std::cout << "\tConcreteIterator< Item >::ConcreteIterator( const Aggregate< Item >* ) - ctor\n";
+    std::cout << "\tConcreteIterator< Item >::ConcreteIterator( const "
+                 "Aggregate< Item >* ) - ctor\n";
   }
 
   virtual void first()
@@ -198,7 +203,7 @@ public:
   virtual Item currentItem() const
   {
     std::cout << "\tConcreteIterator< Item >::currentItem()\n";
-    if(isDone()){
+    if (isDone()) {
       throw IteratorOutOfBounds();
     }
     return *(concAggregate_->getItem(current_));
@@ -214,7 +219,7 @@ int main()
   using namespace std;
 
   cout << "init aggregate: list\n";
-  ConcreteAggregate< string > *list = new ConcreteAggregate< string >( 32);
+  ConcreteAggregate< string > *list = new ConcreteAggregate< string >(32);
   cout << endl;
 
   cout << "populate list\n";
@@ -240,13 +245,14 @@ int main()
   cout << endl;
 
   cout << "parse with iterator through elements\n";
-  for(iter->first(); !iter->isDone(); iter->next()){
+  for (iter->first(); !iter->isDone(); iter->next()) {
     cout << "item: \'" << iter->currentItem() << "\'" << endl;
   }
   cout << endl;
 
   // free
-  delete list; list = NULL;
+  delete list;
+  list = NULL;
 
   cout << "READY.\n";
   return 0;

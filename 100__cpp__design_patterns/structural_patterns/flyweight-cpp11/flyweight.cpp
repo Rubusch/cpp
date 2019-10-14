@@ -14,17 +14,15 @@
        |                                               |
        |                                +--------------+--------------+
        |                                |                             |
-       |                     +---------------------+       +---------------------+
-       |                     | ConcreteFlyweight   |       | Unshared            |
-       |                  +->|                     |    +->|   ConcreteFlyweight |
-       |                  |  +=====================+    |  +=====================+
-       |                  |  |                     |    |  |                     |
-       |                  |  +---------------------+    |  +---------------------+
-       |                  |  | operation(          |    |  | operation(          |
-       |                  |  |   intrinsic state)  |    |  |   intrinsic state)  |
-       |                  |  +---------------------+    |  +---------------------+
-       |                  |                             |
-       |                  |                             |
+       |                     +---------------------+ +---------------------+ |
+| ConcreteFlyweight   |       | Unshared            | |                  +->| |
++->|   ConcreteFlyweight | |                  |  +=====================+    |
++=====================+ |                  |  |                     |    |  | |
+       |                  |  +---------------------+    |
++---------------------+ |                  |  | operation(          |    |  |
+operation(          | |                  |  |   intrinsic state)  |    |  |
+intrinsic state)  | |                  |  +---------------------+    |
++---------------------+ |                  |                             | | | |
   +--------+              |                             |
   | client |--------------+-----------------------------+
   +--------+
@@ -46,7 +44,7 @@
 class Flyweight
 {
 public:
-  virtual ~Flyweight(){}
+  virtual ~Flyweight() {}
   virtual void operation() = 0;
 };
 
@@ -59,17 +57,16 @@ public:
   must be intrinsic; that is, it must be independent of the ConcreteFlyweight
   object's context.
 //*/
-class SharedConcreteFlyweight
-  : public Flyweight
+class SharedConcreteFlyweight : public Flyweight
 {
 private:
   const std::string *pStr_;
 
 public:
-  SharedConcreteFlyweight(const std::string &str)
-    : pStr_(&str)
+  SharedConcreteFlyweight(const std::string &str) : pStr_(&str)
   {
-    std::cout << "\tSharedConcreteFlyweight::SharedConcreteFlyweight(std::string &str) - ctor\n";
+    std::cout << "\tSharedConcreteFlyweight::SharedConcreteFlyweight(std::"
+                 "string &str) - ctor\n";
   }
 
   void operation()
@@ -83,29 +80,31 @@ public:
 /*
   Unshared Concrete Flyweight
 
-  - not all Flyweight subclass need to be shared. The Flyweight interface enables
-  sharing; it doesn't enforce it. It's common for UnsharedConcreteFlyweight objects
-  to have CocnreteFlyweight objects as children at some level in the flyweight
-  object structure (as the Row and Column classes have).
+  - not all Flyweight subclass need to be shared. The Flyweight interface
+enables sharing; it doesn't enforce it. It's common for
+UnsharedConcreteFlyweight objects to have CocnreteFlyweight objects as children
+at some level in the flyweight object structure (as the Row and Column classes
+have).
 //*/
-class UnsharedConcreteFlyweight
-  : public Flyweight
+class UnsharedConcreteFlyweight : public Flyweight
 {
 private:
   const std::string str_;
   unsigned int num_;
 
 public:
-  UnsharedConcreteFlyweight(const std::string& str, const unsigned int& num)
-    : str_(str), num_(num)
+  UnsharedConcreteFlyweight(const std::string &str, const unsigned int &num)
+      : str_(str), num_(num)
   {
-    std::cout << "\tUnsharedConcreteFlyweight::UnsharedConcreteFlyweight(std::string& str, unsigned int& number) - ctor\n";
+    std::cout << "\tUnsharedConcreteFlyweight::UnsharedConcreteFlyweight(std::"
+                 "string& str, unsigned int& number) - ctor\n";
   }
 
   void operation()
   {
     std::cout << "\tUnsharedConcreteFlyweight::operation()\n";
-    std::cout << "operation - str_ = " << str_ << ", " << "num_ = " << num_ << "\n";
+    std::cout << "operation - str_ = " << str_ << ", "
+              << "num_ = " << num_ << "\n";
   }
 };
 
@@ -114,9 +113,9 @@ public:
   Flyweight Factory
 
   - creates and manages flyweight objects
-  - ensures that flyweights are shared properly. When a client requests a flyweight,
-  the FlyweightFactory object supplies an existing instance or creates one, if none
-  exists.
+  - ensures that flyweights are shared properly. When a client requests a
+flyweight, the FlyweightFactory object supplies an existing instance or creates
+one, if none exists.
 //*/
 class FlyweightFactory
 {

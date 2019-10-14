@@ -5,8 +5,8 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 
 class State;
@@ -19,7 +19,7 @@ class Context
 {
 private:
   friend class State;
-  void changeState( State* state);
+  void changeState(State *state);
 
 private:
   State *state_;
@@ -39,27 +39,24 @@ class State
 {
 private:
   bool state_;
-  State(bool state)
-  {
-    state_ = state;
-  }
+  State(bool state) { state_ = state; }
 
 public:
-  virtual ~State(){}
+  virtual ~State() {}
 
-  static State* instance()
+  static State *instance()
   {
-    try{
+    try {
       return new State(false);
-    }catch(std::bad_alloc &e){
+    } catch (std::bad_alloc &e) {
       std::cerr << "\tAllocation of StateA failed!\n";
       exit(-1);
     }
   }
 
-  virtual void handleRequest( Context* pContext)
+  virtual void handleRequest(Context *pContext)
   {
-    switch(state_){
+    switch (state_) {
     case true:
       std::cout << ">> open device and get ready\n";
       break;
@@ -68,13 +65,13 @@ public:
       std::cout << "<< close device and go standby\n";
 
       // state transition
-      changeState( pContext, new State(true));
+      changeState(pContext, new State(true));
       break;
     }
   }
 
 protected:
-  void changeState( Context* pContext, State *state)
+  void changeState(Context *pContext, State *state)
   {
     pContext->changeState(state);
   }
@@ -87,23 +84,22 @@ protected:
 
 Context::Context()
 {
-  state_ = State::instance();  // init with StateB
+  state_ = State::instance(); // init with StateB
 }
 
 Context::~Context()
 {
-  delete state_; state_ = NULL;
+  delete state_;
+  state_ = NULL;
 }
 
-void Context::request()
-{
-  state_->handleRequest(this);
-}
+void Context::request() { state_->handleRequest(this); }
 
-void Context::changeState( State *state)
+void Context::changeState(State *state)
 {
-  if(state_ != NULL){
-    delete state_; state_ = NULL;
+  if (state_ != NULL) {
+    delete state_;
+    state_ = NULL;
   }
   state_ = state;
 }

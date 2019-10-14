@@ -6,19 +6,19 @@
 //*/
 
 
-#include <iostream>
-#include <valarray>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
+#include <valarray>
 
 
 /*
   operator <<
 //*/
-template< class T >
-std::ostream& operator<<(std::ostream& os, const std::valarray< T >& va)
+template < class T >
+std::ostream &operator<<(std::ostream &os, const std::valarray< T > &va)
 {
-  for(size_t idx = 0; idx < va.size(); ++idx){
+  for (size_t idx = 0; idx < va.size(); ++idx) {
     os << va[idx] << " ";
   }
   return os;
@@ -33,13 +33,13 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  const int arr[] = { 1, 3, 5, 7, 9 };
+  const int arr[] = {1, 3, 5, 7, 9};
   valarray< int > va_x(arr, 5), va_y(arr, 5);
   cout << "x = \t\t" << va_x << "\ny = \t\t" << va_y << endl;
   cout << endl;
 
   cout << "polulate va_y with other values, here, the index\n";
-  for(size_t idx = 0; idx < va_y.size(); ++idx){
+  for (size_t idx = 0; idx < va_y.size(); ++idx) {
     va_y[idx] = idx;
   }
   cout << "x = \t\t" << va_x << "\ny = \t\t" << va_y << endl;
@@ -57,7 +57,8 @@ int main()
   cout << endl;
 
   cout << "sum()\n";
-  for( int idx = 0; idx < 5; ++idx) cout << ((idx == 0) ? "" : " + ") << va_z[idx];
+  for (int idx = 0; idx < 5; ++idx)
+    cout << ((idx == 0) ? "" : " + ") << va_z[idx];
   cout << " = " << va_z.sum() << endl;
   cout << endl;
 

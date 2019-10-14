@@ -9,8 +9,8 @@
   rvalue    - has no accessible address, e.g. a plain number value (stored only
               temporarlily)
 
-  literal   - a fixed value, thus compile time constant i.e. known at compile time
-              (a literal type is a type defined at compile time)
+  literal   - a fixed value, thus compile time constant i.e. known at compile
+  time (a literal type is a type defined at compile time)
 
 
   conclusion:
@@ -29,8 +29,8 @@
   resources: Effective Modern C++, Scott Meyers, 2015
  */
 
-#include <iostream>
 #include <array>
+#include <iostream>
 
 using namespace std;
 
@@ -41,21 +41,22 @@ int main(void)
 
 
   // 1. the problem:
-  int size1 = 10; // size1's value not known at compile time, neither can't be derrived
-//  constexpr auto arraySize1 = size1; // ERROR! size1 is not useable in a constant expression
-//  std::array<int, size1> data1; // ERROR! same problem
+  int size1 =
+      10; // size1's value not known at compile time, neither can't be derrived
+  //  constexpr auto arraySize1 = size1; // ERROR! size1 is not useable in a
+  //  constant expression std::array<int, size1> data1; // ERROR! same problem
 
 
   // 2. constexpr:
   constexpr auto size2 = 10;
   constexpr auto arraySize2 = size2; // OK
-  std::array<int, size2> data2; // OK
+  std::array< int, size2 > data2;    // OK
 
 
   // 3. 'const' doesn't offer the same guarantee as 'constexpr'
-  int size3 = 10; // must be initialized
+  int size3 = 10;                // must be initialized
   const auto arraySize3 = size3; // OK (never read, will cause warnings!)
-//  std::array<int, arraySize3> data3; // ERROR!
+  //  std::array<int, arraySize3> data3; // ERROR!
 
   // a 'const' can't be used in this literal expression, since a 'const' needs
   // not to be initialized!
@@ -67,4 +68,3 @@ int main(void)
 
   cout << "READY." << endl;
 }
-

@@ -22,10 +22,10 @@ protected:
   RCBaseObject();
 
   // copy ctor
-  RCBaseObject(const RCBaseObject& rhs);
+  RCBaseObject(const RCBaseObject &rhs);
 
   // op=
-  RCBaseObject& operator=(const RCBaseObject& rhs);
+  RCBaseObject &operator=(const RCBaseObject &rhs);
 
   // dtor
   virtual ~RCBaseObject() = 0;
@@ -36,4 +36,3 @@ private:
 };
 
 #endif
-

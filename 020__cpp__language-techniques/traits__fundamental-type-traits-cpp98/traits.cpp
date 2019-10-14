@@ -21,52 +21,45 @@
   Null Type
 //*/
 class NullType
-{};
+{
+};
 
 
 /*
   Typelist - the Typelist
 //*/
-template< class T, class U >
-struct Typelist_
-{
-  typedef T
-    Head;
+template < class T, class U >
+struct Typelist_ {
+  typedef T Head;
 
-  typedef U
-    Tail;
+  typedef U Tail;
 };
 
 
 /*
   Typelist - linearization
 //*/
-template< class T1, class T2 = NullType, class T3 = NullType, class T4 = NullType >
-struct Typelist
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
-    type_t;
+template < class T1, class T2 = NullType, class T3 = NullType,
+           class T4 = NullType >
+struct Typelist {
+  typedef Typelist_<
+      T1, Typelist_< T2, Typelist_< T3, Typelist_< T4, NullType > > > >
+      type_t;
 };
 
-template< class T1 >
-struct Typelist< T1, NullType, NullType, NullType >
-{
-  typedef Typelist_< T1, NullType >
-    type_t;
+template < class T1 >
+struct Typelist< T1, NullType, NullType, NullType > {
+  typedef Typelist_< T1, NullType > type_t;
 };
 
-template< class T1, class T2 >
-struct Typelist< T1, T2, NullType, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, NullType > >
-    type_t;
+template < class T1, class T2 >
+struct Typelist< T1, T2, NullType, NullType > {
+  typedef Typelist_< T1, Typelist_< T2, NullType > > type_t;
 };
 
-template< class T1, class T2, class T3 >
-struct Typelist< T1, T2, T3, NullType >
-{
-  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > >
-    type_t;
+template < class T1, class T2, class T3 >
+struct Typelist< T1, T2, T3, NullType > {
+  typedef Typelist_< T1, Typelist_< T2, Typelist_< T3, NullType > > > type_t;
 };
 
 
@@ -78,30 +71,28 @@ namespace TL
   /*
     Typelist - IndexOf
   //*/
-  template< class TList, class T > struct IndexOf;
+  template < class TList, class T >
+  struct IndexOf;
 
-  template< class T >
-  struct IndexOf< NullType, T >
-  {
+  template < class T >
+  struct IndexOf< NullType, T > {
     enum { value = -1 };
   };
 
-  template< class T, class Tail >
-  struct IndexOf< Typelist_< T, Tail >, T >
-  {
+  template < class T, class Tail >
+  struct IndexOf< Typelist_< T, Tail >, T > {
     enum { value = 0 };
   };
 
-  template< class Head, class Tail, class T >
-  struct IndexOf< Typelist_< Head, Tail >, T >
-  {
+  template < class Head, class Tail, class T >
+  struct IndexOf< Typelist_< Head, Tail >, T > {
   private:
     enum { temp = IndexOf< Tail, T >::value };
 
   public:
     enum { value = (temp == -1 ? -1 : 1 + temp) };
   };
-}
+} // namespace TL
 
 
 /*
@@ -111,16 +102,17 @@ namespace TL
 //*/
 namespace Private
 {
-  template< class T, class U >
-  struct ConversionHelper
-  {
+  template < class T, class U >
+  struct ConversionHelper {
     typedef char Small;
-    struct Big { char dummy[2]; };
+    struct Big {
+      char dummy[2];
+    };
     static Big Test(...);
     static Small Test(U);
     static T MakeT();
   };
-}
+} // namespace Private
 
 
 /*
@@ -144,12 +136,14 @@ namespace Private
   Caveat: might not work if T and U are in a private inheritance
   hierarchy
 //*/
-template< class T, class U >
-struct Conversion
-{
+template < class T, class U >
+struct Conversion {
   typedef Private::ConversionHelper< T, U > Helper;
 #ifndef __MWERKS__
-  enum { exists = sizeof( typename Helper::Small ) == sizeof( Helper::Test(Helper::MakeT())) };
+  enum {
+    exists =
+        sizeof(typename Helper::Small) == sizeof(Helper::Test(Helper::MakeT()))
+  };
 #else
   enum { exists = false };
 #endif
@@ -157,25 +151,22 @@ struct Conversion
   enum { sameType = false };
 };
 
-template< class T >
-struct Conversion< T, T >
-{
+template < class T >
+struct Conversion< T, T > {
   enum { exists = 1, exists2Way = 1, sameType = 1 };
 };
 
-template< class T >
-struct Conversion< void, T >
-{
+template < class T >
+struct Conversion< void, T > {
   enum { exists = 1, exists2Way = 0, sameType = 0 };
 };
 
-template< class T >
-struct Conversion< T, void >
-{
+template < class T >
+struct Conversion< T, void > {
   enum { exists = 1, exists2Way = 0, sameType = 0 };
 };
 
-template<>
+template <>
 class Conversion< void, void >
 {
 public:
@@ -186,45 +177,44 @@ public:
 /*
   Type Traits - the Type Traits
 //*/
-template<typename T>
+template < typename T >
 class TypeTraits
 {
 private:
   /*
     private block - same as pointer traits to a member
   //*/
-  template< class U > struct PointerTraits
-  {
+  template < class U >
+  struct PointerTraits {
     enum { result = false };
-    typedef NullType
-      PointeeType;
+    typedef NullType PointeeType;
   };
 
-  template< class U > struct PointerTraits< U* >
-  {
+  template < class U >
+  struct PointerTraits< U * > {
     enum { result = true };
-    typedef U
-      PointeeType;
+    typedef U PointeeType;
   };
 
 public:
   // typelists
-  typedef Typelist< unsigned char, unsigned short int, unsigned int, unsigned long int >::type_t
-    UnsignedInts_t;
+  typedef Typelist< unsigned char, unsigned short int, unsigned int,
+                    unsigned long int >::type_t UnsignedInts_t;
 
   typedef Typelist< signed char, short int, int, long int >::type_t
-    SignedInts_t;
+      SignedInts_t;
 
-  typedef Typelist< bool, char >::type_t
-    OtherInts_t;
+  typedef Typelist< bool, char >::type_t OtherInts_t;
 
-  typedef Typelist< float, double >::type_t
-    Floats_t;
+  typedef Typelist< float, double >::type_t Floats_t;
 
   // type evaluations
   enum { isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T >::value >= 0 };
   enum { isStdSignedInt = TL::IndexOf< SignedInts_t, T >::value >= 0 };
-  enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >= 0 };
+  enum {
+    isStdIntegral = isStdUnsignedInt || isStdSignedInt ||
+                    TL::IndexOf< OtherInts_t, T >::value >= 0
+  };
   enum { isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0 };
 
   // evaluation groups
@@ -236,7 +226,9 @@ public:
 /*
   Dummy class - for testing
 //*/
-class DummyClass {};
+class DummyClass
+{
+};
 
 
 /*
@@ -246,38 +238,30 @@ int main()
 {
   using namespace std;
 
-  typedef DummyClass
-    type1_t;
+  typedef DummyClass type1_t;
 
   cout << "type1_t (DummyClass) is an integral type?\t ";
   bool isIntegralType = TypeTraits< type1_t >::isStdIntegral;
-  cout << (isIntegralType ? "\"true\"" : "\"false\"")
-       << " (false)" << endl;
+  cout << (isIntegralType ? "\"true\"" : "\"false\"") << " (false)" << endl;
   cout << endl;
 
   cout << "type1_t (DummyClass) is a fundamental type?\t ";
   bool isFundamentalType = TypeTraits< type1_t >::isStdFundamental;
-  cout << (isFundamentalType ? "\"true\"" : "\"false\"")
-       << " (false)" << endl;
+  cout << (isFundamentalType ? "\"true\"" : "\"false\"") << " (false)" << endl;
   cout << endl;
 
-  typedef int
-    type2_t;
+  typedef int type2_t;
 
   cout << "type2_t (int) is an integral type?\t ";
   isIntegralType = TypeTraits< type2_t >::isStdIntegral;
-  cout << (isIntegralType ? "\"true\"" : "\"false\"")
-       << " (true)" << endl;
+  cout << (isIntegralType ? "\"true\"" : "\"false\"") << " (true)" << endl;
   cout << endl;
 
   cout << "type2_t (int) is a fundamental type?\t ";
   isFundamentalType = TypeTraits< type2_t >::isStdFundamental;
-  cout << (isFundamentalType ? "\"true\"" : "\"false\"")
-       << " (true)" << endl;
+  cout << (isFundamentalType ? "\"true\"" : "\"false\"") << " (true)" << endl;
   cout << endl;
 
   cout << "READY.\n";
   return 0;
 }
-
-

@@ -1,6 +1,7 @@
 // bridge.cpp
 /*
-  Decouple an abstraction from its implementation so that the two can vary independently.
+  Decouple an abstraction from its implementation so that the two can vary
+independently.
 
   +---------------------+                       +---------------------+
   | Concept             |<>-------------------->| Implementor         |
@@ -36,23 +37,17 @@ protected:
   std::string data;
 
 public:
-  Implementor()
-    : data("empty")
-  {}
+  Implementor() : data("empty") {}
 
-  virtual ~Implementor(){}
+  virtual ~Implementor() {}
 
   virtual void functionImpl() = 0;
 
-  std::string getData() const
-  {
-    return data;
-  }
+  std::string getData() const { return data; }
 };
 
 
-class ConcreteImplementor
-  : public Implementor
+class ConcreteImplementor : public Implementor
 {
 public:
   void functionImpl()
@@ -68,28 +63,26 @@ protected:
   Implementor *pImplementor_;
 
 public:
-  Concept( Implementor& implementor)
-    :pImplementor_(&implementor)
-  {}
+  Concept(Implementor &implementor) : pImplementor_(&implementor) {}
 
-  virtual ~Concept(){}
+  virtual ~Concept() {}
   virtual void function() = 0;
-  virtual void show(){ std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n"; }
+  virtual void show()
+  {
+    std::cout << "\n-> data: \'" << pImplementor_->getData() << "\'\n";
+  }
 };
 
 
-class ConcreteConcept
-  : public Concept
+class ConcreteConcept : public Concept
 {
 public:
-  ConcreteConcept( Implementor& implementor)
-    : Concept(implementor)
-  {}
+  ConcreteConcept(Implementor &implementor) : Concept(implementor) {}
 
   void function()
   {
-    ConcreteImplementor* pConcImpl = NULL;
-    pConcImpl = static_cast< ConcreteImplementor* >(pImplementor_);
+    ConcreteImplementor *pConcImpl = NULL;
+    pConcImpl = static_cast< ConcreteImplementor * >(pImplementor_);
     pConcImpl->functionImpl();
 
     show();

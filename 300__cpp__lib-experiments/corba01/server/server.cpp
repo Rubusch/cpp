@@ -2,18 +2,18 @@
 /*
 //*/
 
-#include <time>
 #include <iostream>
+#include <time>
 
 #include "timeS.hh"
 
 /*
   necessary since get_gmt() is pure virtual in the idl file
 //*/
-class Time_impl : public virtual POA_Time{
+class Time_impl : public virtual POA_Time
+{
 public:
-  virtual TimeOfDay get_gmt()
-    throw(CORBA::SystemException);
+  virtual TimeOfDay get_gmt() throw(CORBA::SystemException);
 };
 
 
@@ -21,11 +21,10 @@ public:
   the derived time implemenetation (bridge pattern) uses the
   following implementation
 //*/
-TimeOfDay Time_impl::get_gmt()
-  throw(CORBA::SystemException)
+TimeOfDay Time_impl::get_gmt() throw(CORBA::SystemException)
 {
   time_t time_now = time(0);
-  struct tm* time_p = gmtime(&time_now);
+  struct tm *time_p = gmtime(&time_now);
 
   TimeOfDay tod;
   tod.hour = time_p->tm_hour;
@@ -39,9 +38,9 @@ TimeOfDay Time_impl::get_gmt()
 /*
   the server main function
 //*/
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-  try{
+  try {
     // init orb
     CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
 
@@ -64,11 +63,11 @@ int main(int argc, char** argv)
     // accept requests
     orb->run();
 
-  }catch( const CORBA::Exception&){
+  } catch (const CORBA::Exception &) {
     std::cerr << "server: uncaught CORBA exception" << std::endl;
     return 1;
 
-  }catch(...){
+  } catch (...) {
     std::cerr << "server: uncaught exception" << std::endl;
     return 1;
   }

@@ -12,8 +12,8 @@ using namespace std;
 class A
 {
 public:
-    A();
-    void generateB();
+  A();
+  void generateB();
 };
 
 #endif

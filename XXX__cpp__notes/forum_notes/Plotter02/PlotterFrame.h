@@ -11,21 +11,21 @@ class PlotSettings;
 
 class PlotterFrame : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 private slots:
-    void slotAccept();
+  void slotAccept();
 
 private:
-    Plotter *pnPlotter;
-    QLineEdit *leX;
-    QLineEdit *leY;
-    QPushButton *btAccept;
+  Plotter *pnPlotter;
+  QLineEdit *leX;
+  QLineEdit *leY;
+  QPushButton *btAccept;
 
-    void initGUI();
+  void initGUI();
 
 public:
-    PlotterFrame();
-    ~PlotterFrame(){};
+  PlotterFrame();
+  ~PlotterFrame(){};
 };
 #endif

@@ -24,10 +24,10 @@
   * Effective Modern C++, Scott Meyers, 2015
  */
 
-#include <iostream>
-#include <thread> /* thread, this_thread::sleep_for() */
 #include <chrono> /* chrono::seconds */
+#include <iostream>
 #include <mutex>
+#include <thread> /* thread, this_thread::sleep_for() */
 
 using namespace std;
 
@@ -35,22 +35,23 @@ using namespace std;
 class Box
 {
 private:
-  mutable std::mutex mx;        // mutex
-  mutable bool is_hit{ false }; // several resources
-  mutable int hit_count{ 0 };
+  mutable std::mutex mx;      // mutex
+  mutable bool is_hit{false}; // several resources
+  mutable int hit_count{0};
 
 public:
-  void animal(const int sleep, const string name) const // const member function - CAUTION: race condition!!!
+  void animal(const int sleep, const string name)
+      const // const member function - CAUTION: race condition!!!
   {
     std::lock_guard< std::mutex > guard(mx); // lock mutex
 
-    cout << hit_count << ". Bang! " << name << " is " << (is_hit?"":"not") << " hit" << endl;
+    cout << hit_count << ". Bang! " << name << " is " << (is_hit ? "" : "not")
+         << " hit" << endl;
     this_thread::sleep_for(chrono::seconds(sleep));
     ++hit_count;
-    is_hit = (is_hit?false:true);            // unlock mutex (end of life of guard)
+    is_hit = (is_hit ? false : true); // unlock mutex (end of life of guard)
   }
 };
-
 
 
 int main(void)
@@ -69,9 +70,9 @@ int main(void)
 
   cout << "both completed!" << endl;
 
-  delete pb; pb = nullptr;
+  delete pb;
+  pb = nullptr;
 
   cout << "READY." << endl;
   return 0;
 }
-

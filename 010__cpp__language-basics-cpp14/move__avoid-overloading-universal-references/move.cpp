@@ -102,9 +102,9 @@
  */
 
 
+#include <chrono>
 #include <iostream>
 #include <set>
-#include <chrono>
 
 using namespace std;
 
@@ -112,29 +112,31 @@ using namespace std;
 multiset< string > names;
 
 // the naive approach
-void logAndAdd1(const string& name)
+void logAndAdd1(const string &name)
 {
   auto start = chrono::system_clock::now();
   names.insert(name);
   auto stop = chrono::system_clock::now();
 
   chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
+  cout << "diff: " << diff.count() << endl;
+  ;
 }
 
 
 // should be tuned version towards
 // perfect forwarding of universal reference
 // problem: overloading of this does not work anymore - catches all!
-template< typename T >
-void logAndAdd2(T&& name)
+template < typename T >
+void logAndAdd2(T &&name)
 {
   auto start = chrono::system_clock::now();
-  names.emplace( forward< T >(name) ); // using forward inside emplace()
+  names.emplace(forward< T >(name)); // using forward inside emplace()
   auto stop = chrono::system_clock::now();
 
   chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
+  cout << "diff: " << diff.count() << endl;
+  ;
 }
 
 
@@ -144,28 +146,31 @@ void logAndAdd2(T&& name)
 // although one implementation uses universal references (T&&), there
 // might be an overloaded version of the function using e.g. an 'int'
 // argument, the trick is as follows...
-template< typename T >
-void logAndAddImpl(T&& name, std::false_type)
+template < typename T >
+void logAndAddImpl(T &&name, std::false_type)
 {
   auto start = chrono::system_clock::now();
-  names.emplace( forward< T >(name) ); // using forward inside emplace()
+  names.emplace(forward< T >(name)); // using forward inside emplace()
   auto stop = chrono::system_clock::now();
 
   chrono::duration< double > diff = stop - start;
-  cout << "diff: " << diff.count() << endl;;
+  cout << "diff: " << diff.count() << endl;
+  ;
 }
 
 // this now allows for an overloading of the function, e.g. with an
 // 'int' argument
 void logAndAddImpl(int idx, std::true_type)
 {
-  cout << "look up idx " << idx << ", and obtain the information from somewhere else..." << endl;
+  cout << "look up idx " << idx
+       << ", and obtain the information from somewhere else..." << endl;
 }
 
-template< typename T >
-void logAndAdd3(T&& name)
+template < typename T >
+void logAndAdd3(T &&name)
 {
-  logAndAddImpl(forward< T >(name), is_integral< typename remove_reference< T >::type >());// TODO
+  logAndAddImpl(forward< T >(name),
+                is_integral< typename remove_reference< T >::type >()); // TODO
   // alternatively 'std::enable_if' is a possiblity for TAG DISPATCH design
 }
 

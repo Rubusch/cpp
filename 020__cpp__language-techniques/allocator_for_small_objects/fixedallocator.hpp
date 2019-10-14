@@ -29,19 +29,18 @@
 class FixedAllocator
 {
 private:
-  typedef struct Chunk
-  {
+  typedef struct Chunk {
     /*
       Layer 0 - Chunk
 
       Nothing is private - Chunk is a Plain Old Data (POD) structure
       defined inside FixedAllocator and manipulated only by it
     //*/
-    void init( std::size_t blockSize, unsigned char blocks);
-    void* allocate( std::size_t blockSize);
-    void deallocate( void* ptr, std::size_t blockSize);
+    void init(std::size_t blockSize, unsigned char blocks);
+    void *allocate(std::size_t blockSize);
+    void deallocate(void *ptr, std::size_t blockSize);
     void release();
-    unsigned char* pData_;
+    unsigned char *pData_;
 
     // index of the first block available in this chunk
     unsigned char firstAvailableBlock_;
@@ -51,8 +50,8 @@ private:
   } Chunk_t;
 
   // internal functions
-  void doDeallocate(void* ptr);
-  Chunk_t* vicinityFind(void* ptr);
+  void doDeallocate(void *ptr);
+  Chunk_t *vicinityFind(void *ptr);
 
   // data
   std::size_t blockSize_;
@@ -62,34 +61,34 @@ private:
   typedef std::vector< Chunk > Chunks;
   Chunks chunks_;
 
-  Chunk* allocChunk_;
-  Chunk* deallocChunk_;
+  Chunk *allocChunk_;
+  Chunk *deallocChunk_;
 
   // for ensuring proper copy semantics
-  mutable const FixedAllocator* prev_;
-  mutable const FixedAllocator* next_;
+  mutable const FixedAllocator *prev_;
+  mutable const FixedAllocator *next_;
 
 public:
   // ctors
-  explicit FixedAllocator( std::size_t blockSize = 0);
-  FixedAllocator( FixedAllocator const& copy);
-  FixedAllocator& operator=( const FixedAllocator&);
+  explicit FixedAllocator(std::size_t blockSize = 0);
+  FixedAllocator(FixedAllocator const &copy);
+  FixedAllocator &operator=(const FixedAllocator &);
   ~FixedAllocator();
 
-  void swap( FixedAllocator& rhs);
+  void swap(FixedAllocator &rhs);
 
   // allocate a memory block
-  void* allocate();
+  void *allocate();
 
   // deallocate a memory block previsously allocated with allocate()
   // (if that's not the case, the behaviour is undefined)
-  void deallocate(void* ptr);
+  void deallocate(void *ptr);
 
   // returns the block size with which the FixedAllocator was initialized
   std::size_t blockSize() const;
 
   // comparison operator for sorting
-  bool operator<( std::size_t rhs) const;
+  bool operator<(std::size_t rhs) const;
 };
 
 #endif

@@ -15,16 +15,16 @@ using namespace std;
 
 int main()
 {
-    int var = 7;
-    int &rVar = var;
+  int var = 7;
+  int &rVar = var;
 
-    cout << "var: " << var << ", rVar: " << rVar << endl;
-    cout << "&var: " << &var << ", &rVar: " << &rVar << endl;
+  cout << "var: " << var << ", rVar: " << rVar << endl;
+  cout << "&var: " << &var << ", &rVar: " << &rVar << endl;
 
-    cout << "rVar = 666;" << endl;
-    rVar = 666;
+  cout << "rVar = 666;" << endl;
+  rVar = 666;
 
-    cout << "var: " << var << endl;
+  cout << "var: " << var << endl;
 
-    return 0;
+  return 0;
 };

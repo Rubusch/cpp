@@ -18,9 +18,10 @@
    | ConcreteComponent   |   | Decorator           |     |
    +=====================+   +=====================+     |
    |                     |   | pComp : Component*  |<>---+
-   +---------------------+   +---------------------+                +--------------------+\
-   | operation()         |   | operation() - - - - - - - - - - - - -| pComp->Operation() +-+
-   +---------------------+   +---------------------+                +----------------------+
+   +---------------------+   +---------------------+ +--------------------+\ |
+operation()         |   | operation() - - - - - - - - - - - - -|
+pComp->Operation() +-+
+   +---------------------+   +---------------------+ +----------------------+
                                        /_\
                                         |
                            +------------+------------+
@@ -29,10 +30,13 @@
                 | ConcreteDecoratorA  |   | ConcreteDecoratorB  |
                 +=====================+   +=====================+
                 | addedState          |   |                     |
-                +---------------------+   +---------------------+   +-------------------------+\
-                | operation()         |   | operation()         |   | Decorator::operation(); +-+
-                +---------------------+   | addedBehavior() - - - - | addedBehavior();          |
-                                          +---------------------+   +---------------------------+
+                +---------------------+   +---------------------+
++-------------------------+\ | operation()         |   | operation()         |
+| Decorator::operation(); +-+
+                +---------------------+   | addedBehavior() - - - - |
+addedBehavior();          |
+                                          +---------------------+
++---------------------------+
 
    (GoF, 1995)
 //*/
@@ -50,9 +54,12 @@
 class Component
 {
 public:
-  virtual ~Component(){}
+  virtual ~Component() {}
   virtual void operation() = 0; // will NEVER be called -> abstract class!
-  void commonOperation(){ std::cout << "> test of an inherited base functionalty!\n"; }
+  void commonOperation()
+  {
+    std::cout << "> test of an inherited base functionalty!\n";
+  }
 };
 
 
@@ -61,8 +68,7 @@ public:
 
   - defines an object to which additional responsibilities can be attached
 //*/
-class ConcreteComponent
-  : public Component
+class ConcreteComponent : public Component
 {
 public:
   void operation()
@@ -79,15 +85,13 @@ public:
   - maintains a reference to a Component object and defines an interface that
   conforms to Component's interface
 //*/
-class Decorator
-  : public Component
+class Decorator : public Component
 {
 private:
-  Component* pComponent_;
+  Component *pComponent_;
 
 public:
-  Decorator(Component& component)
-    : pComponent_(&component)
+  Decorator(Component &component) : pComponent_(&component)
   {
     std::cout << "\tDecorator::Decorator() - ctor\n";
   }
@@ -105,16 +109,16 @@ public:
 
   - adds responsibilities to the component
 //*/
-class ConcreteDecoratorA
-  : public Decorator
+class ConcreteDecoratorA : public Decorator
 {
 private:
   int addedState;
+
 public:
-  ConcreteDecoratorA(Component& component)
-    : Decorator(component), addedState(7)
+  ConcreteDecoratorA(Component &component) : Decorator(component), addedState(7)
   {
-    std::cout << "\tConcreteDecoratorA::ConcreteDecoratorA(Component const&) - ctor\n";
+    std::cout << "\tConcreteDecoratorA::ConcreteDecoratorA(Component const&) - "
+                 "ctor\n";
     std::cout << "> addedState = " << addedState << "\n";
   }
 
@@ -129,14 +133,13 @@ public:
 /*
   ConcreteDecoratorB - another Concrete Decorator
 //*/
-class ConcreteDecoratorB
-  : public Decorator
+class ConcreteDecoratorB : public Decorator
 {
 public:
-  ConcreteDecoratorB(Component& component)
-    : Decorator(component)
+  ConcreteDecoratorB(Component &component) : Decorator(component)
   {
-    std::cout << "\tConcreteDecoratorB::concreteDecorator(Component const&) - ctor\n";
+    std::cout
+        << "\tConcreteDecoratorB::concreteDecorator(Component const&) - ctor\n";
   }
 
   void operation()
@@ -166,7 +169,8 @@ int main()
 
   cout << "\n*** decorator A ***\n\n\n";
 
-  cout << "add new state variable to the ConcreteComponent's instance dynamically:\n";
+  cout << "add new state variable to the ConcreteComponent's instance "
+          "dynamically:\n";
   ConcreteDecoratorA concDecoratorA(concComp);
   cout << endl;
 
@@ -176,7 +180,8 @@ int main()
 
   cout << "\n*** decorator B ***\n\n\n";
 
-  cout << "add new behaviour to the ConcreteComponent's instance dynamically:\n";
+  cout
+      << "add new behaviour to the ConcreteComponent's instance dynamically:\n";
   ConcreteDecoratorB concDecoratorB(concComp);
   cout << endl;
 

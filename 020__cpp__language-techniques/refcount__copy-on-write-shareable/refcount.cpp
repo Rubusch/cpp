@@ -1,14 +1,16 @@
 // rc_cow_shareable.cpp
 /*
-  Copy-on-write mechanism using a shareable flag, following the example of Scott Meyers.
+  Copy-on-write mechanism using a shareable flag, following the example of Scott
+Meyers.
 
-  To show the effect compile with shared flag turned on (comment the define out) or turned off.
+  To show the effect compile with shared flag turned on (comment the define out)
+or turned off.
 
   (More Effective C++ / 29 / Meyers)
 //*/
 
-#include <iostream>
 #include <cstring> // strlen(), strncpy()
+#include <iostream>
 #include <string>
 
 /*
@@ -23,7 +25,7 @@
 // forward declarations
 class SomeClass;
 
-std::ostream& operator<<(std::ostream& out, SomeClass& obj);
+std::ostream &operator<<(std::ostream &out, SomeClass &obj);
 
 
 /****************************************************************************/
@@ -33,38 +35,38 @@ class SomeClass
 {
 public:
   // ctor/dtor
-  SomeClass(const char* initValue = "", const std::string initPrivatedata = "*** pending private data ***");
-  SomeClass(const SomeClass& shallowcopy);
+  SomeClass(const char *initValue = "",
+            const std::string initPrivatedata = "*** pending private data ***");
+  SomeClass(const SomeClass &shallowcopy);
   ~SomeClass();
-  SomeClass& operator=(const SomeClass& deepcopy);
+  SomeClass &operator=(const SomeClass &deepcopy);
 
   // copy-on-write stuff
-  const char& operator[](int index) const;
-  char& operator[](int index);
+  const char &operator[](int index) const;
+  char &operator[](int index);
 
   // accessibility for output
-  void copyonwrite(const char* newcontent, const unsigned int newcontent_siz);
+  void copyonwrite(const char *newcontent, const unsigned int newcontent_siz);
   void setshareable(bool isShareable);
 
-  friend
-  std::ostream& operator<<(std::ostream& out, SomeClass& obj);
+  friend std::ostream &operator<<(std::ostream &out, SomeClass &obj);
 
 private:
   std::string privatedata;
 
-  struct SomeValue{
+  struct SomeValue {
     int refCount;
-    char* data;
+    char *data;
 
     bool shareable; // new shareable flag
 
     // ctor, dtor - refcount
-    SomeValue(const char* initValue);
+    SomeValue(const char *initValue);
     ~SomeValue();
   };
 
   // ptr to the value struct
-  SomeValue* value;
+  SomeValue *value;
 };
 
 
@@ -74,23 +76,24 @@ private:
 /*
   ctor
 //*/
-SomeClass::SomeClass(const char* initValue, const std::string initPrivatedata)
-  : privatedata(initPrivatedata)
-    , value(new SomeValue(initValue))
-{}
+SomeClass::SomeClass(const char *initValue, const std::string initPrivatedata)
+    : privatedata(initPrivatedata), value(new SomeValue(initValue))
+{
+}
 
 
 /*
   cpy ctor
 //*/
-SomeClass::SomeClass(const SomeClass& shallowcopy)
+SomeClass::SomeClass(const SomeClass &shallowcopy)
 {
-  if(shallowcopy.value->shareable){
+  if (shallowcopy.value->shareable) {
     value = shallowcopy.value;
-    privatedata = "copy constructor object - name pending"; // just for debugging
+    privatedata =
+        "copy constructor object - name pending"; // just for debugging
     ++value->refCount;
 
-  }else{
+  } else {
     value = new SomeValue(shallowcopy.value->data);
   }
 }
@@ -103,20 +106,21 @@ SomeClass::~SomeClass()
 {
   std::cout << "DTOR\t~SomeClass()\n";
 
-  if(--value->refCount == 0) delete value;
+  if (--value->refCount == 0)
+    delete value;
 }
 
 
 /*
   operator=
 //*/
-SomeClass& SomeClass::operator=(const SomeClass& deepcopy)
+SomeClass &SomeClass::operator=(const SomeClass &deepcopy)
 {
-  if(value == deepcopy.value){
+  if (value == deepcopy.value) {
     return *this;
   }
 
-  if(--value->refCount == 0){
+  if (--value->refCount == 0) {
     delete value;
   }
 
@@ -135,7 +139,7 @@ SomeClass& SomeClass::operator=(const SomeClass& deepcopy)
 /*
   operator[] - copy-on-write, for const objects
 //*/
-const char& SomeClass::operator[](int index) const
+const char &SomeClass::operator[](int index) const
 {
   return value->data[index];
 }
@@ -144,11 +148,11 @@ const char& SomeClass::operator[](int index) const
 /*
   operator[] - copy-on-write for non-const objects
 //*/
-char& SomeClass::operator[](int index)
+char &SomeClass::operator[](int index)
 {
   // if we're sharing a value with other SomeClass objects,
   // break off a separate copy of the value for ourselves
-  if(value->refCount > 1){
+  if (value->refCount > 1) {
     --value->refCount;
     // decrement current value's refCount, because we won't be
     // using that value any more
@@ -171,16 +175,19 @@ char& SomeClass::operator[](int index)
 /*
   acessibility
 //*/
-void SomeClass::copyonwrite(const char* newcontent, const unsigned int newcontent_siz)
+void SomeClass::copyonwrite(const char *newcontent,
+                            const unsigned int newcontent_siz)
 {
   // in case free old one
-  if(!value->data) delete [] value->data;
+  if (!value->data)
+    delete[] value->data;
 
   // allocate new one
   value->data = new char[newcontent_siz];
 
-  // copy on write (in case might be better to show this working with the op[] from outside
-  for(unsigned int idx=0; idx < newcontent_siz; ++idx){
+  // copy on write (in case might be better to show this working with the op[]
+  // from outside
+  for (unsigned int idx = 0; idx < newcontent_siz; ++idx) {
     value->data[idx] = newcontent[idx];
   }
 }
@@ -198,9 +205,11 @@ void SomeClass::setshareable(bool isShareable)
 /*
   output of class contents..
 //*/
-std::ostream& operator<<(std::ostream& out, SomeClass& obj)
+std::ostream &operator<<(std::ostream &out, SomeClass &obj)
 {
-  return out << "\tname: \"" << obj.privatedata << "\"" << "\n\tdata: " << (obj.value)->data << "\n\trefCount: " << (obj.value)->refCount << std::endl;
+  return out << "\tname: \"" << obj.privatedata << "\""
+             << "\n\tdata: " << (obj.value)->data
+             << "\n\trefCount: " << (obj.value)->refCount << std::endl;
 }
 
 
@@ -213,9 +222,8 @@ std::ostream& operator<<(std::ostream& out, SomeClass& obj)
   ...or do alternatively:
   data = new T(initValue);
 //*/
-SomeClass::SomeValue::SomeValue(const char* initValue)
-  : refCount(1)
-    , shareable(true) // init of the new shareable flag
+SomeClass::SomeValue::SomeValue(const char *initValue)
+    : refCount(1), shareable(true) // init of the new shareable flag
 {
   int initValueSize = strlen(initValue) + 1;
   data = new char[initValueSize]; // strlen returns length, without '\0'
@@ -230,7 +238,7 @@ SomeClass::SomeValue::~SomeValue()
 {
   std::cout << "DTOR\tSomeClass::~SomeValue()\n";
 
-  delete [] data;
+  delete[] data;
 }
 
 
@@ -258,7 +266,8 @@ int main()
 
   // operator= test
   std::cout << "deep copy to obj_2\n";
-  SomeClass obj_2; // DON'T call obj_2() - that might be a declaration of a (new) function, not the ctor!
+  SomeClass obj_2; // DON'T call obj_2() - that might be a declaration of a
+                   // (new) function, not the ctor!
   obj_2 = obj_1;
 
   // output
@@ -293,7 +302,7 @@ int main()
 
   // output by index
   std::cout << "output on indexes (copy on write - out):\n";
-  for(unsigned int idx=0; idx <= initstring.length(); ++idx){
+  for (unsigned int idx = 0; idx <= initstring.length(); ++idx) {
     std::cout << "obj_1[" << idx << "] \t= " << obj_1[idx] << "\n";
   }
   std::cout << std::endl;

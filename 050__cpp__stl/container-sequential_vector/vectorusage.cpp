@@ -13,17 +13,17 @@
 //*/
 
 
-#include <stdexcept> // std::out_of_range
-#include <iterator>
-#include <vector>
 #include <iostream>
+#include <iterator>
+#include <stdexcept> // std::out_of_range
+#include <vector>
 
 
 /*
   function that tries to access the 5th element passing the probably thrown
   out_of_range exception upward
 //*/
-inline int fifthelement(const std::vector< int >& vec) throw(std::out_of_range)
+inline int fifthelement(const std::vector< int > &vec) throw(std::out_of_range)
 {
   return vec.at(5);
 }
@@ -41,7 +41,7 @@ int main()
   cout << endl;
 
   cout << "init each element\n";
-  for(unsigned int idx=0; idx < vec.size(); ++idx){
+  for (unsigned int idx = 0; idx < vec.size(); ++idx) {
     vec[idx] = idx + 1;
   }
   cout << endl;
@@ -51,7 +51,7 @@ int main()
   cout << endl;
 
   cout << "check if the last element is \'9\' using \"back()\"\n";
-  if(vec.back() != 9){
+  if (vec.back() != 9) {
     cout << "Something\'s wrong!\n";
   }
   cout << "ok.\n";
@@ -65,14 +65,15 @@ int main()
   vec.front() = 0;
   cout << endl;
 
-  cout << "print out the content of the vector so far using \"copy()\" and \"ostream_iterator<>()\"\n";
+  cout << "print out the content of the vector so far using \"copy()\" and "
+          "\"ostream_iterator<>()\"\n";
   copy(vec.begin(), vec.end(), ostream_iterator< int >(cout, " "));
   cout << endl;
 
   cout << "try to access an element out of range\n";
-  try{
+  try {
     cout << fifthelement(vec);
-  }catch(out_of_range& ex){
+  } catch (out_of_range &ex) {
     cout << "\nout_of_range exception: " << ex.what();
   }
   cout << endl;

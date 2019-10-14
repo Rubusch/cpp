@@ -5,9 +5,9 @@
   else ask again
 //*/
 
+#include <cctype>
 #include <iostream>
 #include <sstream>
-#include <cctype>
 
 using namespace std;
 
@@ -16,8 +16,9 @@ using namespace std;
 //*/
 bool isInt(string str)
 {
-  for(unsigned int idx=0; idx < str.size(); ++idx){
-    if(!isdigit(str.at(idx))) return false;
+  for (unsigned int idx = 0; idx < str.size(); ++idx) {
+    if (!isdigit(str.at(idx)))
+      return false;
   }
   return true;
 }
@@ -34,12 +35,13 @@ int main()
   stringstream tmpStream;
 
   // ask
-  do{
+  do {
     cout << "enter a test value: ";
     cin >> tmpStr;
     cout << endl;
-    if(isInt(tmpStr)) break;
-  }while(1);
+    if (isInt(tmpStr))
+      break;
+  } while (1);
 
   // convert: string to number
   tmpStream << tmpStr;
@@ -51,4 +53,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

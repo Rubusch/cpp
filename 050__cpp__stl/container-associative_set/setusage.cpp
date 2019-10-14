@@ -33,20 +33,20 @@ int main()
   is.insert(4);
   is.insert(1);
   is.insert(3);
-  if( is.insert(5).second){
+  if (is.insert(5).second) {
     cout << "5 has been inserted\n";
   }
   cout << endl;
 
   cout << "set up pair\n";
   pair< int_set::const_iterator, bool > pa = is.insert(2);
-  if(!pa.second){
+  if (!pa.second) {
     cout << *pa.first << " is already in the set\n";
   }
   cout << endl;
 
   cout << "set contains:\n";
-  for(int_set::const_iterator iter = is.begin(); iter != is.end(); ++iter){
+  for (int_set::const_iterator iter = is.begin(); iter != is.end(); ++iter) {
     cout << *iter << " ";
   }
   cout << endl;

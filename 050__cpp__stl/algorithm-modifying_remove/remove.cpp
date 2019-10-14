@@ -25,8 +25,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm> // remove
+#include <iostream>
 #include <iterator> // ostream_iterator
 
 
@@ -38,15 +38,16 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 1, 0, 2, 3, 0, 0, 4, 5 };
+  int arr[] = {1, 0, 2, 3, 0, 0, 4, 5};
   cout << "arr: ";
-  copy(arr, arr+8, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 8, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
-  cout << "remove() - remove 0 and shrink to the front,\nptr points to the last element.\nThe remainder will be untouched.\n";
-  int* ptr = remove(arr, arr+8, 0);
+  cout << "remove() - remove 0 and shrink to the front,\nptr points to the "
+          "last element.\nThe remainder will be untouched.\n";
+  int *ptr = remove(arr, arr + 8, 0);
   cout << "[arr; arr+8[ = \t";
-  copy(arr, arr+8, ostream_iterator< int >(cout, " "));
+  copy(arr, arr + 8, ostream_iterator< int >(cout, " "));
   cout << endl;
   cout << "[arr; ptr[ = \t";
   copy(arr, ptr, ostream_iterator< int >(cout, " "));

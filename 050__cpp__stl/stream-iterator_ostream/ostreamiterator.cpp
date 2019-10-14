@@ -6,8 +6,8 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <vector>
 
@@ -28,13 +28,13 @@ int main()
   cout << endl;
 
   cout << "populate the vector with 4 elements\n";
-  for(int idx = 1; idx <= 4; ++idx){
+  for (int idx = 1; idx <= 4; ++idx) {
     vec.push_back(idx);
   }
   cout << endl;
 
   cout << "vec = ";
-  copy(vec.begin(), vec.end(), ostream_iterator<int>(cout, " "));
+  copy(vec.begin(), vec.end(), ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

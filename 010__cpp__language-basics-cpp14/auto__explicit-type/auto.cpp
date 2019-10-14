@@ -12,9 +12,11 @@
 
   conclusion:
 
-  - invisible proxy types can cause auto to deduce the wrong type for an initializing expression
+  - invisible proxy types can cause auto to deduce the wrong type for an
+  initializing expression
 
-  - the explicitly typed initializer idiom forces auto to deduce the type you want it to have
+  - the explicitly typed initializer idiom forces auto to deduce the type you
+  want it to have
 
   resources: Effective Modern C++, Scott Meyers, 2015
  */
@@ -26,15 +28,12 @@ using namespace std;
 
 
 // type investigation via polymorphic
-void isConst(const int& arg) { cout << " -> const int" << endl; }
-void isConst(int& arg) { cout << " -> int" << endl; }
-void isConst(bool& arg) { cout << " -> bool" << endl; }
+void isConst(const int &arg) { cout << " -> const int" << endl; }
+void isConst(int &arg) { cout << " -> int" << endl; }
+void isConst(bool &arg) { cout << " -> bool" << endl; }
 
 
-vector<bool> features()
-{
-  return vector<bool>(20, true);
-}
+vector< bool > features() { return vector< bool >(20, true); }
 
 int main(void)
 {
@@ -45,7 +44,7 @@ int main(void)
   // not allow 'auto' to identify its template type in C++11, it falls back to
   // 'const int' - operator[]() for vector hides vectors template type, it is
   // similar to a proxy pattern
-  vector<bool> vec(10, true);
+  vector< bool > vec(10, true);
   auto prio = vec[7];
   cout << "vector<bool> vec(10, true);" << endl;
   isConst(prio);
@@ -61,7 +60,7 @@ int main(void)
   // solution:
   // use the explicitely typed initializer pattern (Meyers)
   // i.e. static_cast<>() together with auto
-  auto correct_prio = static_cast<bool>( features()[7] );
+  auto correct_prio = static_cast< bool >(features()[7]);
   cout << "auto correct_prio = static_cast<bool>( features()[7] );" << endl;
   isConst(correct_prio);
   cout << endl;
@@ -69,4 +68,3 @@ int main(void)
 
   cout << "READY." << endl;
 }
-

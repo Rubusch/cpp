@@ -2,16 +2,16 @@
 /*
 //*/
 
-#include <iostream>
 #include <cstdlib> // exit()
+#include <iostream>
 
 
-template<class T>
+template < class T >
 class FoobarContainer
 {
 private:
   const unsigned int SIZE;
-  T* arr;
+  T *arr;
 
 public:
   // ctor
@@ -24,61 +24,58 @@ public:
   void init();
 
   // operators
-  T& operator[](unsigned int idx);
+  T &operator[](unsigned int idx);
 };
 
-template<class T>
-FoobarContainer<T>::FoobarContainer(unsigned int size)
-:SIZE(size), arr(NULL)
+template < class T >
+FoobarContainer< T >::FoobarContainer(unsigned int size) : SIZE(size), arr(NULL)
 {
   std::cout << "ctor" << std::endl;
   /*
-    if init() won't be called here - the code will compile, but the first usage of operator[]
-    will fail with signal 11
+    if init() won't be called here - the code will compile, but the first usage
+  of operator[] will fail with signal 11
   //*/
   init();
 }
 
-template<class T>
-FoobarContainer<T>::~FoobarContainer()
+template < class T >
+FoobarContainer< T >::~FoobarContainer()
 {
   std::cout << "dtor" << std::endl;
-  delete [] arr;
+  delete[] arr;
 }
 
-template<class T>
-void FoobarContainer<T>::init()
+template < class T >
+void FoobarContainer< T >::init()
 {
-  try{
-    if(NULL == (arr = new T[SIZE])) throw "memory allocation failed!";
-  }catch(char* str){
+  try {
+    if (NULL == (arr = new T[SIZE]))
+      throw "memory allocation failed!";
+  } catch (char *str) {
     std::cerr << "ERROR: " << str << std::endl;
     delete arr;
     exit(-1);
   }
 
-  for(unsigned int idx=0; idx<SIZE; ++idx){
+  for (unsigned int idx = 0; idx < SIZE; ++idx) {
     arr[idx] = idx;
   }
 }
 
 
-
-
-template<class T>
-T& FoobarContainer<T>::operator[](unsigned int idx)
+template < class T >
+T &FoobarContainer< T >::operator[](unsigned int idx)
 {
-  try{
-    if(idx >= SIZE) throw "index out of bounds!";
-  }catch(char* str){
+  try {
+    if (idx >= SIZE)
+      throw "index out of bounds!";
+  } catch (char *str) {
     std::cerr << "ERROR: " << str << std::endl;
     exit(-2);
   }
 
   return arr[idx];
 }
-
-
 
 
 /*
@@ -88,7 +85,7 @@ int main()
 {
   // alloc
   unsigned int containersize = 10;
-  FoobarContainer<int> foo(containersize);
+  FoobarContainer< int > foo(containersize);
 
   // init - FIXME: doesn't work - Sig 11!
   foo[7] = 77;

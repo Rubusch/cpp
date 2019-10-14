@@ -19,9 +19,9 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <iterator>
 
 
@@ -33,18 +33,18 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 3, 1, 0, 6, 2, 5, 4 };
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  int arr[] = {3, 1, 0, 6, 2, 5, 4};
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "sort() - ascending order\n";
-  sort(arr, arr+7);
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  sort(arr, arr + 7);
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "sort() - descending order\n";
-  sort(arr, arr+7, greater< int >());
-  copy(arr, arr+7, ostream_iterator< int >(cout, " "));
+  sort(arr, arr + 7, greater< int >());
+  copy(arr, arr + 7, ostream_iterator< int >(cout, " "));
   cout << endl << endl;
 
   cout << "READY.\n";

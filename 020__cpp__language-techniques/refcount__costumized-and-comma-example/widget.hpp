@@ -23,13 +23,13 @@ public:
   Widget(int size);
 
   // copy ctor
-  Widget(const Widget& rhs);
+  Widget(const Widget &rhs);
 
   // dtor
   ~Widget();
 
   // op=
-  Widget& operator=(const Widget& rhs);
+  Widget &operator=(const Widget &rhs);
 
   // some actions
   void doThis();
@@ -41,4 +41,3 @@ private:
 };
 
 #endif
-

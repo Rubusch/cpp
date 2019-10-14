@@ -4,15 +4,15 @@
 //*/
 
 // cpp headers
-#include <vector>
-#include <string>
-#include <cstring>
-#include <sys/types.h>
-#include <unistd.h>
 #include <cstdio>
 #include <cstdlib>
-#include <iostream>
+#include <cstring>
 #include <fstream>
+#include <iostream>
+#include <string>
+#include <sys/types.h>
+#include <unistd.h>
+#include <vector>
 
 #include "CServiceA.h"
 
@@ -21,9 +21,9 @@ using namespace std;
 
 #include <sys/wait.h>
 
-CORBA::Boolean CServiceA_i::CallServiceRoutineA( CORBA::Long num1
-                                                 , CORBA::Long& num2
-                                                 , CORBA::Long& retNum)
+CORBA::Boolean CServiceA_i::CallServiceRoutineA(CORBA::Long num1,
+                                                CORBA::Long &num2,
+                                                CORBA::Long &retNum)
 {
   std::cout << "\tCallServiceRoutineA()\n";
 
@@ -33,8 +33,8 @@ CORBA::Boolean CServiceA_i::CallServiceRoutineA( CORBA::Long num1
   return true;
 }
 
-CORBA::Boolean CServiceA_i::CallServiceRoutineB( CORBA::Long& num1
-                                                 , CORBA::Long& num2)
+CORBA::Boolean CServiceA_i::CallServiceRoutineB(CORBA::Long &num1,
+                                                CORBA::Long &num2)
 {
   std::cout << "\tCallServiceRoutineB()\n";
 

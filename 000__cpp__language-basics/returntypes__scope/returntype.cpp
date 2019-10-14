@@ -22,27 +22,27 @@ class Foobar
 public:
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreturn-local-addr"
-  SomeClass& getRef()
+  SomeClass &getRef()
   {
     SomeClass local;
     cout << "\tlocal\t - addr\t = " << &local << "\n";
-    // WARNING! Reference to local, finally only an "auto" variable will be initialized here
-    // NEVER DO THIS!
+    // WARNING! Reference to local, finally only an "auto" variable will be
+    // initialized here NEVER DO THIS!
     return local;
   }
 
-  SomeClass* getPtr()
+  SomeClass *getPtr()
   {
     SomeClass local;
     cout << "\tlocal\t - addr\t = " << &local << "\n";
-    // WARNING! Bug to crash - the variable doesn't exist anymore outside this function!
-    // NEVER DO THIS!
+    // WARNING! Bug to crash - the variable doesn't exist anymore outside this
+    // function! NEVER DO THIS!
     return &local;
   }
 #pragma GCC diagnostic pop
-  SomeClass* getNew()
+  SomeClass *getNew()
   {
-    SomeClass* pLocal = new SomeClass;
+    SomeClass *pLocal = new SomeClass;
     cout << "\tpLocal\t - addr\t = " << pLocal << "\n";
     return pLocal;
   }
@@ -60,7 +60,8 @@ public:
     cout << "\tgetNew()\n";
     pointer = getNew();
     cout << "\tpointer\t - addr\t = " << pointer << "\n\n";
-    delete pointer; pointer = NULL;
+    delete pointer;
+    pointer = NULL;
   }
 };
 
@@ -85,7 +86,8 @@ int main()
   cout << "fb.func()\n";
   fb.func();
 
-  delete pointer; pointer = NULL;
+  delete pointer;
+  pointer = NULL;
 
   cout << "READY.\n";
   return 0;

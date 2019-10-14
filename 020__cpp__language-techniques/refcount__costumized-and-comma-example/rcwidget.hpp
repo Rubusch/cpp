@@ -33,7 +33,7 @@ public:
   int showThat() const;
 
 private:
-  RCIPtr<Widget> value;
+  RCIPtr< Widget > value;
 };
 
 #endif

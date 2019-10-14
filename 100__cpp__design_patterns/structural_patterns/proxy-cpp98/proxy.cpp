@@ -15,11 +15,13 @@
              +-----------------+-----------------+
              |                                   |
   +---------------------+             +---------------------+
-  | RealSubject         |<----------<>| Proxy               |      +-------------------------+\
-  +=====================+             +=====================+      | ...                     +-+
-  |                     |             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
-  +---------------------+             +---------------------+      | ...                       |
-  | request()           |             | request()           |      +---------------------------+
+  | RealSubject         |<----------<>| Proxy               |
++-------------------------+\
+  +=====================+             +=====================+      | ... +-+ |
+|             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
+  +---------------------+             +---------------------+      | ... | |
+request()           |             | request()           |
++---------------------------+
   +---------------------+             | getSubject()        |
                                       +---------------------+
 
@@ -30,54 +32,42 @@
 #include <iostream>
 
 
-struct Subject
-{
-  virtual ~Subject(){}
+struct Subject {
+  virtual ~Subject() {}
   virtual void request() = 0;
 };
 
 
-struct RealSubject : public Subject
-{
-  void request()
-  {
-    std::cout << "-> request in real subject\n";
-  }
+struct RealSubject : public Subject {
+  void request() { std::cout << "-> request in real subject\n"; }
 };
 
 
-struct Proxy
-  : public Subject
-{
-  Proxy()
-    : pRealSubject_(NULL)
-  {
-    getSubject();
-  }
+struct Proxy : public Subject {
+  Proxy() : pRealSubject_(NULL) { getSubject(); }
 
   ~Proxy()
   {
-    if(NULL == pRealSubject_) return;
+    if (NULL == pRealSubject_)
+      return;
     delete pRealSubject_;
     pRealSubject_ = NULL;
   }
 
-  void request()
-  {
-    pRealSubject_->request();
-  }
+  void request() { pRealSubject_->request(); }
 
 private:
-  RealSubject* pRealSubject_;
+  RealSubject *pRealSubject_;
 
 protected:
   void getSubject()
   {
-    if(NULL != pRealSubject_) return;
+    if (NULL != pRealSubject_)
+      return;
 
-    try{
+    try {
       pRealSubject_ = new RealSubject;
-    }catch(...){
+    } catch (...) {
       std::cerr << "allocation failed\n";
     }
   }
@@ -101,4 +91,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

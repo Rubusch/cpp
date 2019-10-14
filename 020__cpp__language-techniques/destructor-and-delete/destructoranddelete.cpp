@@ -13,23 +13,18 @@
 using namespace std;
 
 
-template<class T>
+template < class T >
 class Foobar
 {
 private:
-  T* pMember = nullptr;
+  T *pMember = nullptr;
 
 public:
   // ctor
-  Foobar()
-    :pMember(nullptr)
-  {} // nothing
+  Foobar() : pMember(nullptr) {} // nothing
 
   // cpy ctor
-  Foobar(const Foobar& fb)
-  {
-    setMember(fb.getMember());
-  }
+  Foobar(const Foobar &fb) { setMember(fb.getMember()); }
 
   // dtor
   ~Foobar()
@@ -48,10 +43,7 @@ public:
   //*/
 
 
-  T getMember() const
-  {
-    return *pMember;
-  }
+  T getMember() const { return *pMember; }
 
   void setMember(T tmp)
   {
@@ -63,11 +55,10 @@ public:
 
 int main()
 {
-  Foobar<string> fb;
+  Foobar< string > fb;
   fb.setMember("Jack and Jill went up the hill to fetch a pail of water.");
   cout << fb.getMember() << endl;
 
   cout << "READY\n";
   return 0;
 }
-

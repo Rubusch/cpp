@@ -4,16 +4,16 @@
   example based on the example of the blog post of davis vigneault on the topic
 
   resources:
-  https://sudomakeinstall.io/posts/2017/11/30/callbacks-in-cpp11/  davis.vigneault@gmail.com, blog post, 2017
-  Effective Modern C++, Scott Meyers, 2015
-  cppreference.com, 2019
+  https://sudomakeinstall.io/posts/2017/11/30/callbacks-in-cpp11/
+  davis.vigneault@gmail.com, blog post, 2017 Effective Modern C++, Scott Meyers,
+  2015 cppreference.com, 2019
  */
 
-#include <iostream>
 #include <cstdlib>
+#include <functional> /* function pointer */
+#include <iostream>
 #include <math.h>
 #include <vector> /* vector of function pointers */
-#include <functional> /* function pointer */
 
 using namespace std;
 
@@ -22,25 +22,23 @@ class SquareRoot
 {
 public:
   // function pointer: 'returntype (parameters)'
-  using TCallback = std::function< void (const size_t, const double)>;
+  using TCallback = std::function< void(const size_t, const double) >;
 
   // vector of function pointers to make them interchangeable
   using TCallbackVector = vector< TCallback >;
 
-  void add_callback(TCallback cb)
-  {
-    m_callbacks.push_back(cb);
-  }
+  void add_callback(TCallback cb) { m_callbacks.push_back(cb); }
 
   // main logic of class.
   double run(const double input)
   {
-    if (input < 0.0) throw 0; // error checking
-    this->iteration = 0;      // reset iteration number
-    double guess = input;     // set initial guess to input
+    if (input < 0.0)
+      throw 0;            // error checking
+    this->iteration = 0;  // reset iteration number
+    double guess = input; // set initial guess to input
 
     // heron algorithm
-    while (std::fabs(guess - input/guess) > this->epsilon) {
+    while (std::fabs(guess - input / guess) > this->epsilon) {
       for (const auto &cb : m_callbacks) {
         // ideally: different "printers" could be in the callbacks list, the
         // for-loop would call all of them at each while-iteration
@@ -61,15 +59,15 @@ private:
 };
 
 
-int main() {
+int main()
+{
   SquareRoot sr;
 
-  auto cb = [](const size_t iteration, const double guess)
-            {
-              cout << iteration << " : " << guess << " (lambda)" << endl;
-            };
+  auto cb = [](const size_t iteration, const double guess) {
+    cout << iteration << " : " << guess << " (lambda)" << endl;
+  };
   sr.add_callback(cb);
-  std::cout << "Result: " << sr.run(1234.5*1234.5) << std::endl;
+  std::cout << "Result: " << sr.run(1234.5 * 1234.5) << std::endl;
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;

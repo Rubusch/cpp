@@ -60,8 +60,8 @@
  */
 
 /*
-#include <iostream>
 #include <future>
+#include <iostream>
 #include <thread>
 
 int main()
@@ -89,11 +89,11 @@ int main()
 }
 // */
 
-#include <iostream>
-#include <thread> /* thread, this_thread::sleep_for() */
-#include <future>
 #include <chrono> /* chrono::seconds for sleep */
+#include <future>
+#include <iostream>
 #include <mutex>
+#include <thread> /* thread, this_thread::sleep_for() */
 
 using namespace std;
 
@@ -102,8 +102,8 @@ std::mutex mtx;
 int doAsyncWork(string str)
 {
   std::lock_guard< std::mutex > lock(mtx);
-  int cnt=0;
-  for (cnt=0; cnt<3; ++cnt) {
+  int cnt = 0;
+  for (cnt = 0; cnt < 3; ++cnt) {
     cout << str << " " << cnt << endl;
     this_thread::sleep_for(chrono::seconds(1));
   }
@@ -114,24 +114,26 @@ int doAsyncWork(string str)
 int main(void)
 {
   cout << "future from a packaged task" << endl;
-  // set up a packaged_task with a lambda, then obtain the future out of the task
-  std::packaged_task< int() > task( [](){ return doAsyncWork("task"); } );
+  // set up a packaged_task with a lambda, then obtain the future out of the
+  // task
+  std::packaged_task< int() > task([]() { return doAsyncWork("task"); });
   std::future< int > future_from_task = task.get_future();
   // move the task into a separate thread, to set it "join()" later
-  std::thread thr( std::move(task) );
+  std::thread thr(std::move(task));
 
   cout << "future from an async()" << endl;
-  std::future< int > future_from_async = std::async( std::launch::async, [](){ return doAsyncWork("async"); } );
+  std::future< int > future_from_async =
+      std::async(std::launch::async, []() { return doAsyncWork("async"); });
 
   // promise for one-shot async tasks
   cout << "future from a promise" << endl;
   std::promise< int > promi;
   std::future< int > future_from_promise = promi.get_future();
-  std::thread( [&promi]()
-               {
-                 doAsyncWork("promise");
-                 promi.set_value_at_thread_exit(9);
-               } ).detach();
+  std::thread([&promi]() {
+    doAsyncWork("promise");
+    promi.set_value_at_thread_exit(9);
+  })
+      .detach();
 
 
   cout << "waiting..." << endl << std::flush;
@@ -149,9 +151,9 @@ int main(void)
   cout << "result from promise: " << res_from_promise << endl;
 
   // join the first task's thread, this will actually start the thread
-  thr.join(); // if this is missing: 'ERROR terminate called without an active exception'
+  thr.join(); // if this is missing: 'ERROR terminate called without an active
+              // exception'
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
 }
-

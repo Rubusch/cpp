@@ -40,11 +40,11 @@
 //*/
 
 
-#include <iostream>
 #include <cstdlib> // exit()
+#include <iostream>
 
 
-template<class T>
+template < class T >
 class SomeClass
 {
 private:
@@ -60,16 +60,15 @@ public:
   T getVal();
 };
 
-template<class T>
-SomeClass<T>::SomeClass(T t)
-  : ptr(NULL)
+template < class T >
+SomeClass< T >::SomeClass(T t) : ptr(NULL)
 {
   std::cout << "\tSomeClass::SomeClass() - ctor\n";
 
   // allocate
-  try{
+  try {
     ptr = new T;
-  }catch(...){ // ... catches every exception
+  } catch (...) { // ... catches every exception
     std::cerr << "ERROR: allocation failed" << std::endl;
     delete ptr;
     throw;
@@ -81,8 +80,8 @@ SomeClass<T>::SomeClass(T t)
   *ptr = t;
 }
 
-template<class T>
-SomeClass<T>::~SomeClass()
+template < class T >
+SomeClass< T >::~SomeClass()
 {
   std::cout << "\tSomeClass::~SomeClass() - dtor\n";
 
@@ -91,17 +90,17 @@ SomeClass<T>::~SomeClass()
   ptr = NULL;
 }
 
-template<class T>
-T SomeClass<T>::getVal()
+template < class T >
+T SomeClass< T >::getVal()
 {
   std::cout << "\tSomeClass::getVal()\n";
 
-  try{
-    if(NULL == ptr){
+  try {
+    if (NULL == ptr) {
       throw "no delete necessary!";
     }
     return *ptr;
-  }catch(char const* str){ // catches a thrown string exception
+  } catch (char const *str) { // catches a thrown string exception
     std::cerr << "ERROR: " << str << std::endl;
   }
   return "empty";

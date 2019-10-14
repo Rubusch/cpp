@@ -86,107 +86,90 @@ class Eagle;
 class Bird
 {
 public:
-    void name()
-    {
-        cout << "Bird";
-    };
-    virtual void sound()
-    {
-        cout << "nothing";
-    };
-    // pure virtual function - makes the class abstract
-    virtual void fly()=0;
+  void name() { cout << "Bird"; };
+  virtual void sound() { cout << "nothing"; };
+  // pure virtual function - makes the class abstract
+  virtual void fly() = 0;
 };
 
 
-class Pinguin:public Bird
+class Pinguin : public Bird
 {
 public:
-    void name()
-    {
-        cout << "Pinguin";
-    };
-    void sound() // virtual in base
-    {
-        cout << "blob";
-    };
-    void fly() // pure virtual in base
-    {
-        cout << "swims";
-    };
+  void name() { cout << "Pinguin"; };
+  void sound() // virtual in base
+  {
+    cout << "blob";
+  };
+  void fly() // pure virtual in base
+  {
+    cout << "swims";
+  };
 };
 
 
-class Vulture
-    :public Bird
+class Vulture : public Bird
 {
 public:
-    void name()
-    {
-        cout << "Vulture";
-    };
-    void sound() // virtual in base
-    {
-        Bird::sound();
-    };
-    void fly() // pure virtual in base
-    {
-        cout << "flies";
-    };
+  void name() { cout << "Vulture"; };
+  void sound() // virtual in base
+  {
+    Bird::sound();
+  };
+  void fly() // pure virtual in base
+  {
+    cout << "flies";
+  };
 };
 
 
-class Eagle
-    :public Bird
+class Eagle : public Bird
 {
 public:
-    void name()
-    {
-        cout << "Eagle";
-    };
-    void sound() // virtual in base
-    {
-        cout << "aaaaa";
-    };
-    void fly() // pure virtual in base
-    {
-        cout << "flies";
-    };
+  void name() { cout << "Eagle"; };
+  void sound() // virtual in base
+  {
+    cout << "aaaaa";
+  };
+  void fly() // pure virtual in base
+  {
+    cout << "flies";
+  };
 };
 
 
 int main()
 {
-    Pinguin *p = new Pinguin();
-    cout << "The ";
-    p->name();
-    cout << ' ';
-    p->fly();
-    cout << " and says: ";
-    p->sound();
-    cout << '.' << endl;
+  Pinguin *p = new Pinguin();
+  cout << "The ";
+  p->name();
+  cout << ' ';
+  p->fly();
+  cout << " and says: ";
+  p->sound();
+  cout << '.' << endl;
 
-    Vulture *v = new Vulture();
-    cout << "The ";
-    v->name();
-    cout << ' ';
-    v->fly();
-    cout << " and says: ";
-    v->sound();
-    cout << '.' << endl;
+  Vulture *v = new Vulture();
+  cout << "The ";
+  v->name();
+  cout << ' ';
+  v->fly();
+  cout << " and says: ";
+  v->sound();
+  cout << '.' << endl;
 
-    Eagle *e = new Eagle();
-    cout << "The ";
-    e->name();
-    cout << ' ';
-    e->fly();
-    cout << " and says: ";
-    e->sound();
-    cout << '.' << endl;
+  Eagle *e = new Eagle();
+  cout << "The ";
+  e->name();
+  cout << ' ';
+  e->fly();
+  cout << " and says: ";
+  e->sound();
+  cout << '.' << endl;
 
-    delete p;
-    delete v;
-    delete e;
+  delete p;
+  delete v;
+  delete e;
 
-    return 0;
+  return 0;
 };

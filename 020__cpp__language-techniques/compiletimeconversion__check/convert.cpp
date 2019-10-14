@@ -14,11 +14,11 @@ overloaded functions. We provide two overloads of a function: One accepts the
 type to convert to (U), and the other accepts just about anything else. We call
 the overloaded function with a temporary of type T, the type whose
 convertibility to U we want to determine. If the function that accepts a U gets
-called, we know that T is convertible to U; if the fallback function gets called,
-then T is not convertible to U. To detect which function gets called, we arrange
-the two overloads to return types of different sizes, and then we discriminate
-with sizeof. The types themselves do not matter, as long as they have different
-sizes."
+called, we know that T is convertible to U; if the fallback function gets
+called, then T is not convertible to U. To detect which function gets called, we
+arrange the two overloads to return types of different sizes, and then we
+discriminate with sizeof. The types themselves do not matter, as long as they
+have different sizes."
 
   resources: Modern C++ Design, Alexandrescu
 //*/
@@ -31,7 +31,7 @@ sizes."
 /*
   conversion from T to U
 //*/
-template< class T, class U >
+template < class T, class U >
 class Conversion
 {
 private:
@@ -39,8 +39,11 @@ private:
     the following stuff only needs to be declared
   //*/
   typedef char Small;
-  class Big { char dummy[2]; };
-  static Small Test( const U& );
+  class Big
+  {
+    char dummy[2];
+  };
+  static Small Test(const U &);
   static Big Test(...);
   static T MakeT();
 
@@ -48,9 +51,8 @@ public:
   /*
     the important step is this here - checking if conversion is possible or not
   //*/
-  enum{ exists = sizeof( Test( MakeT() ) ) == sizeof( Small ) };
+  enum { exists = sizeof(Test(MakeT())) == sizeof(Small) };
 };
-
 
 
 /*
@@ -60,9 +62,13 @@ int main()
 {
   using namespace std;
 
-  cout << "Conversion from \'double\' to \'int\':\t\t" << ( ( Conversion< double, int >::exists ) ? "exists." : "failed!" ) << '\n'
-       << "Conversion from \'char\' to \'char*\':\t\t" << ( ( Conversion< char, char* >::exists ) ? "exists." : "failed!" ) << '\n'
-       << "Conversion from \'size_t\' to \'vector<int>\':\t" << ( ( Conversion< size_t, vector< int > >::exists ) ? "exists" : "failed!" ) << '\n';
+  cout << "Conversion from \'double\' to \'int\':\t\t"
+       << ((Conversion< double, int >::exists) ? "exists." : "failed!") << '\n'
+       << "Conversion from \'char\' to \'char*\':\t\t"
+       << ((Conversion< char, char * >::exists) ? "exists." : "failed!") << '\n'
+       << "Conversion from \'size_t\' to \'vector<int>\':\t"
+       << ((Conversion< size_t, vector< int > >::exists) ? "exists" : "failed!")
+       << '\n';
   cout << endl;
 
   cout << "READY.\n";

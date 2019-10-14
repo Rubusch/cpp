@@ -8,8 +8,8 @@
   - list
 //*/
 
-#include <iostream>
 #include <deque>
+#include <iostream>
 
 /*
   main...
@@ -22,13 +22,13 @@ int main()
   deque< int > deq;
 
   cout << "usage\n";
-  for(int idx=0; idx<=18; ++idx){
-    if(idx % 3){
+  for (int idx = 0; idx <= 18; ++idx) {
+    if (idx % 3) {
       deq.push_back(idx);
-    }else if(!deq.empty()){
+    } else if (!deq.empty()) {
       cout << deq.front() << " served, still pending: ";
       deq.pop_front();
-      for(unsigned int jdx=0; jdx < deq.size(); ++jdx){
+      for (unsigned int jdx = 0; jdx < deq.size(); ++jdx) {
         cout << deq[jdx] << " ";
       }
       cout << endl;
@@ -38,4 +38,3 @@ int main()
   cout << "READY.\n";
   return 0;
 }
-

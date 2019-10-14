@@ -8,24 +8,24 @@
 using namespace std;
 
 
-template< class T >
+template < class T >
 void swap(T *a, T *b)
 {
-    T tmp = *a;
-    *a = *b;
-    *b = tmp;
+  T tmp = *a;
+  *a = *b;
+  *b = tmp;
 };
 
 
 int main()
 {
-    int a=5, b=10;
-    cout << "a = " << a << ", b = " << b << endl;
+  int a = 5, b = 10;
+  cout << "a = " << a << ", b = " << b << endl;
 
-    swap< int >(&a, &b);
-    cout << "swap" << endl;
+  swap< int >(&a, &b);
+  cout << "swap" << endl;
 
-    cout << "a = " << a << ", b = " << b << endl;
+  cout << "a = " << a << ", b = " << b << endl;
 
-    return 0;
+  return 0;
 };

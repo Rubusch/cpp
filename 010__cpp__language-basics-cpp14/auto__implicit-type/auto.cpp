@@ -30,16 +30,18 @@ using namespace std;
 
 
 // type investigation via polymorphic
-void isConst(const int& arg) { cout << " -> const int" << endl; }
-void isConst(int& arg) { cout << " -> int" << endl; }
-void isConst(unsigned& arg) { cout << " -> unsigned" << endl; }
-void isConst(vector<int>::size_type& arg) { cout << " -> vector<int>::size_type" << endl; }
-
+void isConst(const int &arg) { cout << " -> const int" << endl; }
+void isConst(int &arg) { cout << " -> int" << endl; }
+void isConst(unsigned &arg) { cout << " -> unsigned" << endl; }
+void isConst(vector< int >::size_type &arg)
+{
+  cout << " -> vector<int>::size_type" << endl;
+}
 
 
 int main(void)
 {
-// adornments need still to be set
+  // adornments need still to be set
   auto x = 27;
   cout << "auto x = 27;" << endl;
   isConst(x);
@@ -50,17 +52,18 @@ int main(void)
   isConst(cx);
   cout << endl;
 
-  const auto& rx = x;
+  const auto &rx = x;
   cout << "const auto& rx = x;" << endl;
   isConst(rx);
   cout << endl;
 
   // problem: exact type unknown, auto identifies
-  vector<int> vec;
+  vector< int > vec;
   auto size = vec.size();
-  cout << "vec.size() returned 'vector<int>::size_type' and not 'int' or 'unsigned': " << endl;
+  cout << "vec.size() returned 'vector<int>::size_type' and not 'int' or "
+          "'unsigned': "
+       << endl;
   isConst(size);
 
   cout << "READY." << endl;
 }
-

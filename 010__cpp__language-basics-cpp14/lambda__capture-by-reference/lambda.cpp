@@ -1,6 +1,7 @@
 // lambda.cpp
 /*
-  Lambda (>=cpp11) constructs a closure: an unnamed function object capable of capturing variables in scope.
+  Lambda (>=cpp11) constructs a closure: an unnamed function object capable of
+capturing variables in scope.
 
   This example shows dangers at capture by-reference.
 
@@ -46,8 +47,8 @@
   constexpr -> int : (optional, can be left out)
     specifier: mutable, constexpr, consteval (opt)
     where:
-      mutable = allows the body to modify copied params and to call their non-const member functions
-      exception = exception specification, or noexcept
+      mutable = allows the body to modify copied params and to call their
+non-const member functions exception = exception specification, or noexcept
       attribute = attribute specificatio for the closure type
 
     return type or use auto for closure, defaults to "void" (opt)
@@ -67,8 +68,8 @@
 
   - Default by-reference capture can lead to dangling references.
 
-  - Default by-value capture is susceptible to dangling pointers (especially this),
-    and it misleadingly suggests that lambdas are self-contained.
+  - Default by-value capture is susceptible to dangling pointers (especially
+this), and it misleadingly suggests that lambdas are self-contained.
 
   - User C++14's init capture to move objects into closures.
 
@@ -79,9 +80,9 @@
   cppreference.com, 2019
 //*/
 
+#include <functional>
 #include <iostream>
 #include <vector>
-#include <functional>
 
 using namespace std;
 
@@ -100,11 +101,9 @@ void addFilter_byReferenceDangling()
   // to function local 'divisor' when executed via the container somewhere else
   // [&] - if 'divisor' would be defined here, the by-reference capture would
   //       dangle since 'divisor's scope is function local to this add function!
-  filters.emplace_back(
-      [&](int value){ return value % divisor == 0; }
-      // DANGER: reference to 'divisor' will dangle!!!
-                       );
-
+  filters.emplace_back([&](int value) { return value % divisor == 0; }
+                       // DANGER: reference to 'divisor' will dangle!!!
+  );
 }
 
 
@@ -114,31 +113,26 @@ void addFilter_byReferenceAlsoDangling()
 
   // C++14 allows auto parameters, still same problem: dangling reference to
   // 'divisor' as above
-  filters.emplace_back(
-      [&](const auto& value){ return value % divisor == 0; }
-      // DANGER: reference to 'divisor' will dangle!!!
-                       );
-
+  filters.emplace_back([&](const auto &value) { return value % divisor == 0; }
+                       // DANGER: reference to 'divisor' will dangle!!!
+  );
 }
 
 void addFilter_byValue()
 {
   auto divisor = 2;
   // [=] - the solution: by-value capture
-  filters.emplace_back(
-      [=](int value){ return value % divisor == 0; }
-                       );
+  filters.emplace_back([=](int value) { return value % divisor == 0; });
 }
 
 void addFilter_byValueStatic()
 {
-  static auto divisor = 2; // should be static, since the closure are not self-contained
+  static auto divisor =
+      2; // should be static, since the closure are not self-contained
   // to make them more "self contained" passed values should be static
   // [] - fails, no local variable
   // [divisor] - fails, also since no local variable can be passed
-  filters.emplace_back(
-      [=](int value){ return value % divisor == 0; }
-                       );
+  filters.emplace_back([=](int value) { return value % divisor == 0; });
 }
 
 /*
@@ -148,13 +142,17 @@ void addFilter_byReferenceInitCaptureCpp11()
 
   // init capture - moved local variable into the closure
 
-  // 1. moving the object to be captured into a function object produced by std::bind and
+  // 1. moving the object to be captured into a function object produced by
+std::bind and
   // 2. giving the lambda a reference to the captured object
   //
-  // this technique does not allow easily mixing init captured params with regular params (set later)
+  // this technique does not allow easily mixing init captured params with
+regular params (set later)
   //
   filters.emplace_back(
-      std::bind( [](int value, const int& divisor) mutable { return value % divisor == 0; }, TODO: expression for 'value' may be caputred later, std::move(divisor) )
+      std::bind( [](int value, const int& divisor) mutable { return value %
+divisor == 0; }, TODO: expression for 'value' may be caputred later,
+std::move(divisor) )
                        );
 }
 // */
@@ -164,26 +162,30 @@ void addFilter_byReferenceInitCaptureCpp14()
   auto divisor = 2;
 
   // init capture - moved local variable into the closure
-  filters.emplace_back(
-      [divisor = std::move(divisor)](int value){ return value % divisor == 0; }
-                       );
+  filters.emplace_back([divisor = std::move(divisor)](int value) {
+    return value % divisor == 0;
+  });
 }
 
 
 int main(void)
 {
-  addFilter_byReferenceDangling(); // not working due to dangling reference, always returning '0', though no warning / error
-  addFilter_byReferenceAlsoDangling(); // not working due to dangling reference, always returning '0', though no warning / error
+  addFilter_byReferenceDangling(); // not working due to dangling reference,
+                                   // always returning '0', though no warning /
+                                   // error
+  addFilter_byReferenceAlsoDangling(); // not working due to dangling reference,
+                                       // always returning '0', though no
+                                       // warning / error
   addFilter_byValue();
   addFilter_byValueStatic();
-//  addFilter_byReferenceInitCaptureCpp11();
+  //  addFilter_byReferenceInitCaptureCpp11();
   addFilter_byReferenceInitCaptureCpp14();
 
-  for (int idx=0; idx < 3; ++idx) {
+  for (int idx = 0; idx < 3; ++idx) {
     for (const auto &filtered : filters) {
       // print the lambda computed value and verify
-      cout << "item(" << idx << ") : "
-           << (filtered(idx) == (idx%2==0)?"ok":"failed")
+      cout << "item(" << idx
+           << ") : " << (filtered(idx) == (idx % 2 == 0) ? "ok" : "failed")
            << endl;
     }
     cout << endl;

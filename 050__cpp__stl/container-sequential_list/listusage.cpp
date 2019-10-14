@@ -15,19 +15,18 @@
 #include <list>
 
 
-//using namespace std;
+// using namespace std;
 
 
-template< class T >
-std::ostream& operator<<(std::ostream& os, const std::list< T >& lst)
+template < class T >
+std::ostream &operator<<(std::ostream &os, const std::list< T > &lst)
 {
-  if(lst.empty()){
+  if (lst.empty()) {
     return os << "empty";
   }
 
-  for(typename std::list< T >::const_iterator iter = lst.begin()
-        ; iter != lst.end()
-        ; ++iter){
+  for (typename std::list< T >::const_iterator iter = lst.begin();
+       iter != lst.end(); ++iter) {
     os << *iter << " ";
   }
   return os;
@@ -43,10 +42,10 @@ int main()
 
   cout << "init a list..\n";
   list< int > lst_a, lst_b;
-  for(int idx=1; idx<9; ++idx){
-    if(idx % 2 == 1){
+  for (int idx = 1; idx < 9; ++idx) {
+    if (idx % 2 == 1) {
       lst_a.push_front(idx);
-    }else{
+    } else {
       lst_b.push_back(idx);
     }
   }
@@ -70,7 +69,8 @@ int main()
   cout << "lst_b = " << lst_b << endl;
   cout << endl;
 
-  cout << "call \"splice(lst_a.begin(), lst_b, iter_b4, lst_b.end())\" to combine the lists\n";
+  cout << "call \"splice(lst_a.begin(), lst_b, iter_b4, lst_b.end())\" to "
+          "combine the lists\n";
   list< int >::iterator iter_b4 = find(lst_b.begin(), lst_b.end(), 4);
   lst_a.splice(lst_a.begin(), lst_b, iter_b4, lst_b.end());
   cout << "lst_a = " << lst_a << " and lst_b = " << lst_b << endl;

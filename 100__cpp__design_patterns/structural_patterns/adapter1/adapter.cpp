@@ -42,26 +42,23 @@
 #include <iostream>
 
 
-struct Adaptee
-{
-  virtual ~Adaptee(){}
+struct Adaptee {
+  virtual ~Adaptee() {}
   void specificRequest(std::string str1, std::string str2)
   {
-    std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'" << str2 << "\'\n";
+    std::cout << "> first parameter: \'" << str1 << "\', second parameter: \'"
+              << str2 << "\'\n";
   }
 };
 
 
-struct Target
-{
-  virtual ~Target(){}
-  virtual void request(std::string){}
+struct Target {
+  virtual ~Target() {}
+  virtual void request(std::string) {}
 };
 
 
-struct Adapter
-  : public Adaptee, public Target
-{
+struct Adapter : public Adaptee, public Target {
   void request(std::string str1)
   {
     std::string str2 = "bar";

@@ -47,10 +47,10 @@ constexpr typename std::underlying_type<T>::type toUType(T enumerator) noexcept
 
 //*
 // C++14, the '_t' aliases are available, generic access C++14 (1/2)
-template<typename T>
-constexpr std::underlying_type_t<T> toUType(T enumerator) noexcept
+template < typename T >
+constexpr std::underlying_type_t< T > toUType(T enumerator) noexcept
 {
-  return static_cast<std::underlying_type_t<T> >(enumerator);
+  return static_cast< std::underlying_type_t< T > >(enumerator);
 }
 // */
 
@@ -65,46 +65,48 @@ toUType(T enumerator) noexcept
 // */
 
 
-
 int main(void)
 {
-/*
-  cout << "C++98-style enum" << endl;
-  enum Color { black, white, green };
-  auto white = false; // does not compile
-/*/
+  /*
+    cout << "C++98-style enum" << endl;
+    enum Color { black, white, green };
+    auto white = false; // does not compile
+  /*/
   cout << "C++11-style enum" << endl;
   enum class Color { black, white, green };
   auto white = false; // works
-// */
+                      // */
 
   cout << "some enum operations" << endl;
   Color clr1 = Color::white; // works
-  auto clr2 = Color::white; // works
+  auto clr2 = Color::white;  // works
   cout << endl;
 
   cout << "enum class with specific type" << endl;
-  enum class Status: std::uint32_t { good = 0
-                                     , failed = 1
-                                     , incomplete = 100
-                                     , corrupt = 200
-                                     , audited = 500
-                                     , indeterminate = 0xffffffff
+  enum class Status : std::uint32_t {
+    good = 0,
+    failed = 1,
+    incomplete = 100,
+    corrupt = 200,
+    audited = 500,
+    indeterminate = 0xffffffff
   };
 
 
   // userinfo and typed example
 
   // alias for complex enum type
-  using UserInfo = std::tuple<std::string, std::string, std::size_t>;
+  using UserInfo = std::tuple< std::string, std::string, std::size_t >;
 
 
   // implementation: enums
   cout << "enum (C++98): " << endl;
   enum UserInfoFieldsClassic { uiName, uiEmail, uiReputation };
   UserInfo uInfoClassic;
-  auto valEnum = std::get<uiEmail>(uInfoClassic); // uses implicit conversion, may work
-  cout << "valEnum: '" << valEnum << "' [classic enum, fetchable, no value set]" << endl;
+  auto valEnum =
+      std::get< uiEmail >(uInfoClassic); // uses implicit conversion, may work
+  cout << "valEnum: '" << valEnum << "' [classic enum, fetchable, no value set]"
+       << endl;
   cout << endl;
 
 
@@ -112,16 +114,21 @@ int main(void)
   cout << "enum class (C++11): " << endl;
   enum class UserInfoFields { uiName, uiEmail, uiReputation };
   UserInfo uInfo;
-  auto valEnumClass = std::get<static_cast<std::size_t>(UserInfoFields::uiEmail)>(uInfo); // not nice, using static_cast here
-  cout << "valEnumClass: '" << valEnumClass << "' [complex type, but can be fetched]" << endl;
+  auto valEnumClass =
+      std::get< static_cast< std::size_t >(UserInfoFields::uiEmail) >(
+          uInfo); // not nice, using static_cast here
+  cout << "valEnumClass: '" << valEnumClass
+       << "' [complex type, but can be fetched]" << endl;
   cout << endl;
 
 
   // generic access C++11 (2/2)
   // implementation: enum class and several access possibilities, see above
   cout << "enum class, generic access" << endl;
-  auto valEnumClassGeneric = std::get< toUType(UserInfoFields::uiEmail) >(uInfo);
-  cout << "valEnumClassGeneric: '" << valEnumClassGeneric << "' [complex type, but can be fetched]" << endl;
+  auto valEnumClassGeneric =
+      std::get< toUType(UserInfoFields::uiEmail) >(uInfo);
+  cout << "valEnumClassGeneric: '" << valEnumClassGeneric
+       << "' [complex type, but can be fetched]" << endl;
   cout << endl;
 
 

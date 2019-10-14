@@ -23,16 +23,16 @@
 //*/
 
 
-#include <iostream>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <iterator>
 
 
-void display(int* arr, int size)
+void display(int *arr, int size)
 {
   std::cout << "arr: ";
-  copy(arr, arr+size, std::ostream_iterator< int >(std::cout, " "));
+  copy(arr, arr + size, std::ostream_iterator< int >(std::cout, " "));
   std::cout << std::endl << std::endl;
 }
 
@@ -45,15 +45,15 @@ int main()
   using namespace std;
 
   cout << "init\n";
-  int arr[] = { 0, 1, 2, 3, 2, 1, 0 };
+  int arr[] = {0, 1, 2, 3, 2, 1, 0};
   display(arr, 7);
 
   cout << "replace() - replace all 2 with 5\n";
-  replace(arr, arr+7, 2, 5);
+  replace(arr, arr + 7, 2, 5);
   display(arr, 7);
 
   cout << "replace_if() - replace all values smaller than 1 with 9\n";
-  replace_if(arr, arr+7, bind2nd( less< int >(), 1), 9);
+  replace_if(arr, arr + 7, bind2nd(less< int >(), 1), 9);
   display(arr, 7);
 
   cout << "READY.\n";
