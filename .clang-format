@@ -1,0 +1,15 @@
+﻿---
+AlwaysBreakTemplateDeclarations: 'Yes'
+BreakBeforeBraces: Linux
+IndentWidth: '2'
+Language: Cpp
+MaxEmptyLinesToKeep: '2'
+NamespaceIndentation: All
+SortIncludes: 'true'
+SortUsingDeclarations: 'true'
+SpacesInAngles: 'true'
+SpacesInCStyleCastParentheses: 'true'
+SpacesInParentheses: 'false'
+UseTab: Never
+
+...
