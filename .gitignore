@@ -1,3 +1,4 @@
+## intermediate
 *.o
 *.exe
 *~
@@ -5,6 +6,7 @@
 *.swp
 .\#*
 \#*\#
+*.plist
 
 ## qt creater projects
 *.app
