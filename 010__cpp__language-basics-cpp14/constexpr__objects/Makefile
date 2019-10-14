@@ -1,10 +1,11 @@
 # Makefile for C++ Class
-TARGET = constexpr.exe
+
 SOURCE	= constexpr.cpp
+TARGET = $(SOURCE:.cpp=.exe)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES	= .cpp .o
 CC		= g++
-CPPFLAGS	= -g -Wall -Werror -Wno-unused-variable
+CPPFLAGS	= -g -Wall -pedantic -Werror -Wno-unused-variable
 RM		= rm -f
 
 .c.o:
