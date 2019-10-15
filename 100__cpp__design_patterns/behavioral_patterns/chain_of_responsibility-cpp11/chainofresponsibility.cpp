@@ -80,7 +80,7 @@ public:
     std::cout << "\tHandler::Handler( Handler*) - ctor" << std::endl;
   }
 
-  virtual ~Handler() {}
+  virtual ~Handler() = default;
 
   virtual void handleRequest(Request *request) const = 0;
 };
