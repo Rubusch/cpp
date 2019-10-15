@@ -360,7 +360,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp11-pimpl && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy__template && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator1 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state1 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state2 && make && ./*.exe
