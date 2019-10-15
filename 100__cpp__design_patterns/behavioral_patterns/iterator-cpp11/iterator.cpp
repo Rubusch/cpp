@@ -66,7 +66,7 @@ protected:
 
 public:
   Aggregate(const signed long size)
-      : pItems_(NULL), pIter_(NULL), size_(size), count_(0)
+      : pItems_(nullptr), pIter_(nullptr), size_(size), count_(0)
   {
     std::cout << "\tAggregate::Aggregate(signed long)\n";
 
@@ -87,7 +87,7 @@ public:
   {
     std::cout << "Aggregate< Item >::~Aggreagte() - dtor\n";
     delete[] pItems_;
-    pItems_ = NULL;
+    pItems_ = nullptr;
   }
 
   virtual Iterator< Item > *createIterator() const = 0;
@@ -219,7 +219,7 @@ int main()
   using namespace std;
 
   cout << "init aggregate: list\n";
-  ConcreteAggregate< string > *list = new ConcreteAggregate< string >(32);
+  auto *list = new ConcreteAggregate< string >(32);
   cout << endl;
 
   cout << "populate list\n";
@@ -252,7 +252,7 @@ int main()
 
   // free
   delete list;
-  list = NULL;
+  list = nullptr;
 
   cout << "READY.\n";
   return 0;
