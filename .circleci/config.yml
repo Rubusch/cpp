@@ -383,5 +383,5 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state__switch-version && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/memento-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/memento-cpp11 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/memento-cpp11 && ./build.sh
 
