@@ -3,7 +3,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gcc:latest
+#      - image: gcc:latest
+      - image: ubuntu:18.04
 
     steps:
       - checkout
