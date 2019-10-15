@@ -61,6 +61,7 @@ shall be queued in the invoker. The re-do of the data happens in the receiver().
 #include <cstdlib>
 #include <iostream>
 #include <memory>
+#include <utility>
 #include <vector>
 
 
@@ -163,7 +164,7 @@ public:
   - declares an interface for executing an operation
 //*/
 struct Command {
-  virtual ~Command() {}
+  virtual ~Command() = default;
   virtual void execute(){};
   virtual void undo(){};
 };
@@ -181,8 +182,8 @@ private:
   const std::shared_ptr< Receiver > pReceiver_;
 
 public:
-  ConcreteCommand(const std::shared_ptr< Receiver > &receiver)
-      : pReceiver_(receiver)
+  ConcreteCommand(std::shared_ptr< Receiver > receiver)
+      : pReceiver_(std::move(receiver))
   {
     std::cout << "\tConcreteCommand::ConcreteCommand(int) - ctor\n";
   }
