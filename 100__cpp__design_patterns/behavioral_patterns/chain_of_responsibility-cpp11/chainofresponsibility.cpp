@@ -103,7 +103,7 @@ public:
               << std::endl;
   }
 
-  void handleRequest(Request *request) const
+  void handleRequest(Request *request) const override
   {
     std::cout << "\tConcreteHandler1::handleRequest( Request*)" << std::endl;
     if (!request)
@@ -133,7 +133,7 @@ public:
               << std::endl;
   }
 
-  void handleRequest(Request *request) const
+  void handleRequest(Request *request) const override
   {
     std::cout << "\tConcreteHandler2::handleRequest( Request*)" << std::endl;
     if (!request)
