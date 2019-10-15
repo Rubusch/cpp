@@ -61,7 +61,7 @@ protected:
   Mediator *pMediator_;
 
 public:
-  virtual ~Collegue() {}
+  virtual ~Collegue() = default;
 
   // request
   virtual void requestSomething() = 0;
@@ -90,7 +90,7 @@ private:
   Collegue *pCollegue2_;
 
 public:
-  ConcreteMediator() : pCollegue1_(NULL), pCollegue2_(NULL)
+  ConcreteMediator() : pCollegue1_(nullptr), pCollegue2_(nullptr)
   {
     std::cout << "\tConcreteMediator::ConcreteMediator() - ctor\n";
   }
@@ -98,7 +98,7 @@ public:
   std::string askCollegue1()
   {
     std::cout << "\tConcreteMediator::askCollegue1()\n";
-    if (NULL == pCollegue1_) {
+    if (nullptr == pCollegue1_) {
       return "failed!";
     }
     return pCollegue1_->handleSomething();
@@ -107,7 +107,7 @@ public:
   std::string askCollegue2()
   {
     std::cout << "\tConcreteMediator::askCollegue2()\n";
-    if (NULL == pCollegue2_) {
+    if (nullptr == pCollegue2_) {
       return "failed!";
     }
     return pCollegue2_->handleSomething();
@@ -138,7 +138,7 @@ public:
   void requestSomething()
   {
     std::cout << "\tConcreteCollegue1::requestSomething()\n";
-    if (NULL == pMediator_)
+    if (nullptr == pMediator_)
       return;
     std::cout
         << "collegue 1 asks collegue 2 - answer: \""
@@ -149,7 +149,7 @@ public:
   std::string handleSomething()
   {
     std::cout << "\tConcreteCollegue1::handleSomething()\n";
-    return (NULL == pMediator_) ? "FAILED - no mediator set!"
+    return (nullptr == pMediator_) ? "FAILED - no mediator set!"
                                 : "hello from collegue 1!";
   }
 };
@@ -166,7 +166,7 @@ public:
   void requestSomething()
   {
     std::cout << "\tConcreteCollegue2::requestSomething()\n";
-    if (NULL == pMediator_)
+    if (nullptr == pMediator_)
       return;
     std::cout
         << "collegue 2 asks collegue 1 - answer: \""
@@ -177,7 +177,7 @@ public:
   std::string handleSomething()
   {
     std::cout << "\tConcreteCollegue2::handleSomething()\n";
-    return (NULL == pMediator_) ? "FAILED - no mediator set!"
+    return (nullptr == pMediator_) ? "FAILED - no mediator set!"
                                 : "collegue 2 says hello!";
   }
 };
