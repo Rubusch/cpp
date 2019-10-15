@@ -1,5 +1,5 @@
 ## cmake
-*/build/*
+build/
 
 ## cmake artifacts
 ## TODO: after migration to cmake, uncomment
