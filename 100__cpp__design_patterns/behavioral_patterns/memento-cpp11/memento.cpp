@@ -28,6 +28,7 @@ state so that the object can be restored to this state later.
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <utility>
 
 
 class Originator;
@@ -45,9 +46,9 @@ private:
 public:
   State() : i_(0), str_("") {}
 
-  explicit State(const State &state) : i_(state.i_), str_(state.str_) {}
+  explicit State(const State &state)  = default;
 
-  State(int i, std::string s) : i_(i), str_(s) {}
+  State(int i, std::string s) : i_(i), str_(std::move(s)) {}
 
   friend std::ostream &operator<<(std::ostream &, State &);
 };
@@ -85,7 +86,7 @@ public:
   {
     std::cout << "\tMemento::~Memento() - dtor\n";
     delete state_;
-    state_ = NULL;
+    state_ = nullptr;
   }
 
 private:
@@ -139,7 +140,7 @@ public:
   {
     std::cout << "\tOriginator::~Originator() - dtor\n";
     delete state_;
-    state_ = NULL;
+    state_ = nullptr;
   }
 
   Memento *createMemento()
@@ -148,7 +149,7 @@ public:
 
     // check
     if (!state_)
-      return NULL;
+      return nullptr;
     std::cout << *state_ << std::endl;
 
     /*
@@ -157,7 +158,7 @@ public:
       Never return local variables (only new/delete enables to explicitly
       control this)
     //*/
-    Memento *pMemento = NULL;
+    Memento *pMemento = nullptr;
     try {
       pMemento = new Memento();
     } catch (std::bad_alloc &e) {
@@ -180,7 +181,7 @@ public:
 
     if (state_) {
       delete state_;
-      state_ = NULL;
+      state_ = nullptr;
     }
 
     // set the state, as deep copy
@@ -193,7 +194,7 @@ public:
 
     // clean up!
     delete memento;
-    memento = NULL;
+    memento = nullptr;
 
     std::cout << *state_ << std::endl;
   }
@@ -205,7 +206,7 @@ public:
 
     std::cout << "\t\tdeleting...\n";
     delete state_;
-    state_ = NULL;
+    state_ = nullptr;
 
     std::cout << "\t\treallocating...\n";
     try {
@@ -232,7 +233,7 @@ int main()
 
   // init
   cout << "init\n";
-  Memento *pMemento = NULL;
+  Memento *pMemento = nullptr;
   Originator anOriginator;
   cout << endl;
 
@@ -247,7 +248,7 @@ int main()
   // caretaker: set the menento (Caretaker deletes Memento!)
   // to e.g. reset the Originator to the state before
   anOriginator.setMemento(pMemento);
-  pMemento = NULL;
+  pMemento = nullptr;
   cout << endl;
 
   cout << "READY.\n";
