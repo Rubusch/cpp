@@ -34,6 +34,7 @@ observerState =         | \ |   subject->getState()   +--+ | |
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include <utility>
 
 
 class Subject;
@@ -54,9 +55,9 @@ private:
 public:
   State() : val_(0), str_("") {}
 
-  explicit State(const State &state) : val_(state.val_), str_(state.str_) {}
+  explicit State(const State &state)  = default;
 
-  State(int val, std::string s) : val_(val), str_(s) {}
+  State(int val, std::string s) : val_(val), str_(std::move(s)) {}
 
   friend std::ostream &operator<<(std::ostream &, State &);
 };
@@ -77,7 +78,7 @@ std::ostream &operator<<(std::ostream &os, State &state)
 class Observer
 {
 public:
-  virtual ~Observer() {}
+  virtual ~Observer() = default;
   virtual void update() = 0;
 };
 
@@ -132,7 +133,7 @@ private:
   State *subjectState_;
 
 public:
-  ConcreteSubject() : subjectState_(NULL)
+  ConcreteSubject() : subjectState_(nullptr)
   {
     std::cout << "\tConcreteSubject::ConcreteSubject() - ctor\n";
     try {
@@ -147,7 +148,7 @@ public:
   {
     std::cout << "\tConcreteSubject::~ConcreteSubject() - dtor\n";
     delete subjectState_;
-    subjectState_ = NULL;
+    subjectState_ = nullptr;
   }
 
   State *getState() const
@@ -164,7 +165,7 @@ public:
 
     if (subjectState_) {
       delete subjectState_;
-      subjectState_ = NULL;
+      subjectState_ = nullptr;
     }
     subjectState_ = new State(*pState);
   }
@@ -187,7 +188,7 @@ private:
 
 public:
   ConcreteObserver(const ConcreteSubject &pSubject)
-      : observerState_(NULL), subject_(&pSubject)
+      : observerState_(nullptr), subject_(&pSubject)
   {
     std::cout << "\tConcreteObserver::ConcreteObserver() - ctor\n";
     try {
@@ -204,7 +205,7 @@ public:
   {
     std::cout << "\tConcreteObserver::~ConcreteObserver() - dtor\n";
     delete observerState_;
-    observerState_ = NULL;
+    observerState_ = nullptr;
   }
 
   void update()
@@ -212,7 +213,7 @@ public:
     std::cout << "\tConcreteObserver::update()\n";
     if (observerState_) {
       delete observerState_;
-      observerState_ = NULL;
+      observerState_ = nullptr;
     }
     observerState_ = new State(*subject_->getState());
 
