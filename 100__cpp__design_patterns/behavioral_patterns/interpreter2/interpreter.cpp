@@ -86,7 +86,7 @@ public:
 class AbstractExpression
 {
 public:
-  virtual ~AbstractExpression() {}
+  virtual ~AbstractExpression() = default;
   virtual bool interpret(Context *context) = 0;
 };
 
@@ -101,7 +101,7 @@ public:
 class TerminalExpression_bool : public AbstractExpression
 {
 public:
-  bool interpret(Context *context)
+  bool interpret(Context *context) override
   {
     std::cout << "\tTerminalExpression_bool::interpret( Context*);\n";
     if (0 == (context->pop()).compare("TRUE")) {
@@ -136,17 +136,17 @@ public:
     pOperand2_ = new TerminalExpression_bool;
   }
 
-  ~NonterminalExpression_equals()
+  ~NonterminalExpression_equals() override
   {
     std::cout << "\tNonterminalExpression_equals::~NonterminalExpression_"
                  "equals() - dtor\n";
     delete pOperand1_;
-    pOperand1_ = NULL;
+    pOperand1_ = nullptr;
     delete pOperand2_;
-    pOperand2_ = NULL;
+    pOperand2_ = nullptr;
   }
 
-  bool interpret(Context *context)
+  bool interpret(Context *context) override
   {
     std::cout << "\tNonterminalExpression_equals::interpret( Context*)\n";
     return (pOperand1_->interpret(context) == pOperand2_->interpret(context));
