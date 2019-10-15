@@ -6,7 +6,7 @@ rm -rf ${WHERE}/build
 mkdir -p ${WHERE}/build
 cd ${WHERE}/build
 
-cmake -GNinja ..
-ninja
+cmake ..
+make
 ./*.exe
 
