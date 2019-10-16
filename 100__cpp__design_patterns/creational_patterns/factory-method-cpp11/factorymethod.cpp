@@ -50,7 +50,7 @@
 class Product
 {
 public:
-  virtual ~Product() {}
+  virtual ~Product() = default;
 };
 
 
@@ -87,7 +87,7 @@ public:
 class Creator
 {
 public:
-  virtual ~Creator() {}
+  virtual ~Creator() = default;
   virtual Product *factoryMethod() = 0;
 };
 
@@ -131,10 +131,10 @@ int main()
 
   // init
   cout << "init...\n";
-  Product *ptr1 = NULL;
-  Product *ptr2 = NULL;
-  ConcreteCreator1 *pConcCreator1 = new ConcreteCreator1();
-  ConcreteCreator2 *pConcCreator2 = new ConcreteCreator2();
+  Product *ptr1 = nullptr;
+  Product *ptr2 = nullptr;
+  auto *pConcCreator1 = new ConcreteCreator1();
+  auto *pConcCreator2 = new ConcreteCreator2();
   cout << endl;
 
 
@@ -152,13 +152,13 @@ int main()
   // free
   cout << "free...\n";
   delete ptr1;
-  ptr1 = NULL;
+  ptr1 = nullptr;
   delete ptr2;
-  ptr2 = NULL;
+  ptr2 = nullptr;
   delete pConcCreator1;
-  pConcCreator1 = NULL;
+  pConcCreator1 = nullptr;
   delete pConcCreator2;
-  pConcCreator2 = NULL;
+  pConcCreator2 = nullptr;
   cout << endl;
 
 
