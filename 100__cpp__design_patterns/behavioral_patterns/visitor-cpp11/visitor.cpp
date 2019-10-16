@@ -73,7 +73,7 @@ class Visitor;
 class Element
 {
 public:
-  virtual ~Element() {}
+  virtual ~Element() = default;
   virtual void accept(Visitor *visitor) = 0;
 };
 
@@ -152,7 +152,7 @@ directly through its particular interface.
 class Visitor
 {
 public:
-  virtual ~Visitor() {}
+  virtual ~Visitor() = default;
   virtual void visit(Element1 &) const = 0;
   virtual void visit(Element2 &) const = 0;
   virtual void visitAll(ObjectStructure *) const = 0;
@@ -186,7 +186,7 @@ public:
   void visitAll(ObjectStructure *os) const
   {
     std::cout << "\tConcreteVisitor::visitAll(ObjectStructure*)\n";
-    if (NULL == os)
+    if (nullptr == os)
       return;
     std::for_each(os->elements().begin(), os->elements().end(),
                   std::bind2nd(std::mem_fun(&Element::accept), this));
