@@ -165,7 +165,7 @@ Context::~Context()
 {
   std::cout << "\tContext::~Context() - dtor\n";
   delete state_;
-  state_ = NULL;
+  state_ = nullptr;
 }
 
 void Context::request()
@@ -177,9 +177,9 @@ void Context::request()
 void Context::changeState(State *state)
 {
   std::cout << "\tContext::changeState( State*)\n";
-  if (state_ != NULL) {
+  if (state_ != nullptr) {
     delete state_;
-    state_ = NULL;
+    state_ = nullptr;
   }
   state_ = state;
 }
