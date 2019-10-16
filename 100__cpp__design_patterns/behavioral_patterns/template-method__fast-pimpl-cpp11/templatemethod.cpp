@@ -64,7 +64,7 @@
 class MemoryDisaster : public std::exception
 {
 public:
-  const char *what() const throw() { return "FIXME: Memory Pool Issues!"; }
+  const char *what() const noexcept { return "FIXME: Memory Pool Issues!"; }
 };
 
 
@@ -131,7 +131,7 @@ public:
     if (nullptr == ptr)
       throw MemoryDisaster();
 
-    uint8_t *memory_ptr = ( uint8_t * )ptr; // FIXME
+    auto *memory_ptr = ( uint8_t * )ptr; // FIXME
     size_t header_size = 1;
 
     // get address before pointer i.e. the header and read out stored offset
@@ -254,7 +254,7 @@ public:
     pImpl_ = std::make_unique< WorkerImpl >(pImpl);
   }
 
-  virtual ~Worker() {}
+  virtual ~Worker() = default;
 
   int templateMethod(int arg) const
   {
