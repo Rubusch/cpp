@@ -347,7 +347,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy__inner-proxy-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory-cpp11 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/creational_patterns/builder-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/builder-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/factory-method1 && make && ./*.exe
