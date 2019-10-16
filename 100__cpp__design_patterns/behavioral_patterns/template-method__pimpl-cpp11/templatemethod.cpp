@@ -57,7 +57,7 @@
 
 
 struct WorkerImpl {
-  virtual ~WorkerImpl() {}
+  virtual ~WorkerImpl() = default;
 
   virtual void operation1(int &arg) const
   {
@@ -122,7 +122,7 @@ public:
     pImpl_ = std::make_unique< WorkerImpl >(pImpl);
   }
 
-  virtual ~Worker() {}
+  virtual ~Worker() = default;
 
   int templateMethod(int arg) const
   {
