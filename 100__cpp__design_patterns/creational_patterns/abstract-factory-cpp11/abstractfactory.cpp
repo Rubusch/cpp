@@ -177,7 +177,7 @@ public:
 class AbstractFactory
 {
 public:
-  virtual ~AbstractFactory() {}
+  virtual ~AbstractFactory() = default;
   virtual ProductA *createProductA() = 0;
   virtual ProductB *createProductB() = 0;
 };
@@ -235,8 +235,8 @@ int main()
 
   // init
   cout << "init..\n";
-  ConcreteFactory1 *pConcFactory1 = NULL;
-  ConcreteFactory2 *pConcFactory2 = NULL;
+  ConcreteFactory1 *pConcFactory1 = nullptr;
+  ConcreteFactory2 *pConcFactory2 = nullptr;
   cout << endl;
 
   // alloc
@@ -249,11 +249,11 @@ int main()
   cout << "...use factory 1\n";
 
   cout << "\'product A\':\n";
-  ConcreteProductA1 *pConcProductA1 =
+  auto *pConcProductA1 =
       dynamic_cast< ConcreteProductA1 * >(pConcFactory1->createProductA());
 
   cout << "\'product B\':\n";
-  ConcreteProductB1 *pConcProductB1 =
+  auto *pConcProductB1 =
       dynamic_cast< ConcreteProductB1 * >(pConcFactory1->createProductB());
   cout << endl;
 
@@ -261,28 +261,28 @@ int main()
   cout << "...use factory 2\n";
 
   cout << "\'product A\':\n";
-  ConcreteProductA2 *pConcProductA2 =
+  auto *pConcProductA2 =
       dynamic_cast< ConcreteProductA2 * >(pConcFactory2->createProductA());
 
   cout << "\'product B\':\n";
-  ConcreteProductB2 *pConcProductB2 =
+  auto *pConcProductB2 =
       dynamic_cast< ConcreteProductB2 * >(pConcFactory2->createProductB());
   cout << endl;
 
   // delete
   cout << "free..\n";
   delete pConcFactory1;
-  pConcFactory1 = NULL;
+  pConcFactory1 = nullptr;
   delete pConcFactory2;
-  pConcFactory2 = NULL;
+  pConcFactory2 = nullptr;
   delete pConcProductA1;
-  pConcProductA1 = NULL;
+  pConcProductA1 = nullptr;
   delete pConcProductB1;
-  pConcProductB1 = NULL;
+  pConcProductB1 = nullptr;
   delete pConcProductA2;
-  pConcProductA2 = NULL;
+  pConcProductA2 = nullptr;
   delete pConcProductB2;
-  pConcProductB2 = NULL;
+  pConcProductB2 = nullptr;
   cout << endl;
 
   cout << "READY.\n";
