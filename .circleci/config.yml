@@ -362,7 +362,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor2 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor__simple && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/observer-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/observer-cpp11 && ./build.sh
