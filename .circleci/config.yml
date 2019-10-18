@@ -354,7 +354,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/creational_patterns/factory-method-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/creational_patterns/factory-method__protocol-class && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp11 && ./build.shx
+      - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp11 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp98 && make && ./*.exe
