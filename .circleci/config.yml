@@ -356,7 +356,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp11 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator-cpp98 && make && ./*.exe
