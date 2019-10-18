@@ -50,7 +50,7 @@ public:
     data_ = pt.data_;
   }
 
-  virtual ~Prototype() {}
+  virtual ~Prototype() = default;
 
   virtual Prototype *clone() const = 0;
   virtual void show() = 0;
@@ -173,7 +173,7 @@ public:
     case 2:
       return pPrototype2->clone();
     default:
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -181,9 +181,9 @@ public:
   {
     std::cout << "\tClient::~Client()\n";
     delete pPrototype1;
-    pPrototype1 = NULL;
+    pPrototype1 = nullptr;
     delete pPrototype2;
-    pPrototype2 = NULL;
+    pPrototype2 = nullptr;
   }
 };
 
@@ -200,8 +200,8 @@ int main()
   const int FIRST_FORM = 1;
   const int SECOND_FORM = 2;
   Client cl;
-  ConcretePrototype1 *pUsage1 = NULL;
-  ConcretePrototype2 *pUsage2 = NULL;
+  ConcretePrototype1 *pUsage1 = nullptr;
+  ConcretePrototype2 *pUsage2 = nullptr;
   cout << endl;
 
 
@@ -221,9 +221,9 @@ int main()
   // free
   cout << "free...\n";
   delete pUsage1;
-  pUsage1 = NULL;
+  pUsage1 = nullptr;
   delete pUsage2;
-  pUsage2 = NULL;
+  pUsage2 = nullptr;
   cout << endl;
 
   cout << "READY.\n";
