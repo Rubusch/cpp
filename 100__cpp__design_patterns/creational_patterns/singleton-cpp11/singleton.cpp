@@ -74,6 +74,7 @@ private:
   // only one instance -> private ctor
   Singleton() { std::cout << "Singleton::Singleton() - ctor\n"; }
 
+public:
   // no copy constructor -> private
   Singleton(const Singleton &) = delete;
 
@@ -81,10 +82,8 @@ private:
   const Singleton &operator=(Singleton const &) = delete;
 
   // no public dtor -> private, will never be called
-  ~Singleton() =
-      delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
+  ~Singleton() = delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
 
-public:
   // global point of access
   static Singleton *getInstance()
   {
