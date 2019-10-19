@@ -336,7 +336,7 @@ jobs:
       - run: cd 100__cpp__design_patterns/structural_patterns/bridge-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/bridge-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp11 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/structural_patterns/decorator-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/decorator2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/flyweight-cpp98 && make && ./*.exe
