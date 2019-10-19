@@ -101,10 +101,10 @@ public:
 class Facade
 {
 public:
-  Facade() {}
-  Facade(Facade const &ng) {}
+  Facade() = default;
+  Facade(Facade const &ng) = default;
 
-  Facade &operator=(const Facade &ng) { return *this; }
+  Facade &operator=(const Facade &ng) = default;
 
   void startOrder()
   {
@@ -134,7 +134,7 @@ private:
   Facade *facade;
 
 public:
-  Client() : facade(NULL)
+  Client() : facade(nullptr)
   {
     facade = new Facade();
     facade->startOrder();
