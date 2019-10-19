@@ -54,7 +54,7 @@ addedBehavior();          |
 class Component
 {
 public:
-  virtual ~Component() {}
+  virtual ~Component() = default;
   virtual void operation() = 0; // will NEVER be called -> abstract class!
   void commonOperation()
   {
