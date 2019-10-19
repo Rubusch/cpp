@@ -330,7 +330,7 @@ jobs:
 ## 30: design patterns
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter-inheritance-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/adapter__wrapper-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/adapter-wrapper-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter-wrapper-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter__wrapper2 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/structural_patterns/bridge-cpp98 && make && ./*.exe
