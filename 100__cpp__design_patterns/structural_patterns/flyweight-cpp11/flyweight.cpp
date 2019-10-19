@@ -33,6 +33,7 @@ intrinsic state)  | |                  |  +---------------------+    |
 
 #include <iostream>
 #include <memory>
+#include <utility>
 
 
 /*
@@ -44,7 +45,7 @@ intrinsic state)  | |                  |  +---------------------+    |
 class Flyweight
 {
 public:
-  virtual ~Flyweight() {}
+  virtual ~Flyweight() = default;
   virtual void operation() = 0;
 };
 
@@ -93,8 +94,8 @@ private:
   unsigned int num_;
 
 public:
-  UnsharedConcreteFlyweight(const std::string &str, const unsigned int &num)
-      : str_(str), num_(num)
+  UnsharedConcreteFlyweight(std::string str, const unsigned int &num)
+      : str_(std::move(str)), num_(num)
   {
     std::cout << "\tUnsharedConcreteFlyweight::UnsharedConcreteFlyweight(std::"
                  "string& str, unsigned int& number) - ctor\n";
