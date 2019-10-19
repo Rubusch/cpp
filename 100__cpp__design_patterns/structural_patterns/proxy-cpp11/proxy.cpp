@@ -42,7 +42,7 @@ request()           |             | request()           |
 class Subject
 {
 public:
-  virtual ~Subject() {}
+  virtual ~Subject() = default;
   virtual void request() = 0;
 };
 
