@@ -47,7 +47,7 @@
 class Target
 {
 public:
-  virtual ~Target() {}
+  virtual ~Target() = default;
   virtual void request(std::string) = 0;
 };
 
