@@ -48,7 +48,7 @@ protected:
 public:
   Implementor() : data("empty") {}
 
-  virtual ~Implementor() {}
+  virtual ~Implementor() = default;
 
   // abstract implementation body
   virtual void functionImpl() = 0;
@@ -87,7 +87,7 @@ protected:
 
 public:
   Concept(Implementor &implementor) : pImplementor_(&implementor) {}
-  virtual ~Concept() {}
+  virtual ~Concept() = default;
   virtual void function() = 0;
   virtual void show()
   {
