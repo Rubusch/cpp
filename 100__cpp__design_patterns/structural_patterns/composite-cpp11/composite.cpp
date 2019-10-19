@@ -59,7 +59,7 @@ individual objects.
 class Component
 {
 public:
-  virtual ~Component() {}
+  virtual ~Component() = default;
   virtual void operation() = 0;
   virtual void add(std::shared_ptr< Component >) {}
   virtual void remove(std::shared_ptr< Component >) {}
@@ -96,10 +96,10 @@ class Composite : public Component
 private:
   std::vector< std::shared_ptr< Component > > components_;
 
-  // forbid copying
-  Composite(Composite const &);
-
 public:
+  // forbid copying
+  Composite(Composite const &) = delete;
+
   Composite() { std::cout << "\tComposite::Composite()\n"; }
 
   void operation()
