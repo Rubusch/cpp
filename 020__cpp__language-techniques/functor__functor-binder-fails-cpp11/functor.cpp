@@ -20,7 +20,7 @@
 const char *my_function(int i, int j)
 {
   std::cout << "CALLED: my_function(" << i << ", " << j << ")" << std::endl;
-  return 0;
+  return nullptr;
 }
 
 
