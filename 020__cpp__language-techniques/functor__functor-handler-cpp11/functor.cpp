@@ -64,7 +64,7 @@ int main()
   // 3. overloaded function functor
   // typedef used for convenience
   cout << "3. Overloaded Function Functor\n";
-  typedef void (*pFun_t)(int, double);
+  using pFun_t = void (*)(int, double);
 
   // method 1: use an initialization
   cout << "3.a Method: initialized function pointer\n";
