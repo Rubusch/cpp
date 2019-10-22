@@ -180,7 +180,7 @@ jobs:
       - run: cd 020__cpp__language-techniques/functor__functor-bridge && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__functor-bridge-facade && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__functor-handler-cpp98 && make && ./*.exe
-      - run: cd 020__cpp__language-techniques/functor__functor-handler-cpp11 && make && ./*.exe
+      - run: cd 020__cpp__language-techniques/functor__functor-handler-cpp11 && ./build.sh
       - run: cd 020__cpp__language-techniques/functor__functor-loki-style-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__functor-tests-cpp98 && make && ./*.exe
       - run: cd 020__cpp__language-techniques/functor__functor-tests-cpp11 && ./build.sh
