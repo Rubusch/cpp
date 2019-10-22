@@ -43,6 +43,7 @@ SIGABRT / 6. This version demonstrates the called constructors..
 #include <memory>
 #include <type_traits>
 #include <typeinfo>
+#include <utility>
 
 
 /*****************************************************************************/
@@ -361,7 +362,7 @@ namespace Private
   //  struct FunctorImplBase : public SmallObject<ThreadingModel>
   template < typename R >
   struct FunctorImplBase {
-    virtual ~FunctorImplBase() {}
+    virtual ~FunctorImplBase() = default;
 
     using ResultType = R;
     using Parm1 = EmptyType;
@@ -540,7 +541,7 @@ public:
     std::cout << "Functor(const Functor& rhs)\n";
   }
 
-  Functor(std::shared_ptr< Impl > spImpl) : spImpl_(spImpl)
+  Functor(std::shared_ptr< Impl > spImpl) : spImpl_(std::move(spImpl))
   {
     std::cout << "Functor(std::shared_ptr<Impl> spImpl)\n";
   }
