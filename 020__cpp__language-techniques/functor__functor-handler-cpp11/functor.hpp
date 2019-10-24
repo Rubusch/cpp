@@ -1,22 +1,53 @@
 // functor.hpp
 /*
-  Loki's implementation doesn't work with the "modern access" of typelist
-avoiding macros (described in an article of Alexandrescu). I didn't work on it
-either, thus the macros ;)
+  functor implementation copied from Loki, reduced to 2 parameters ;)
 
-  (in parts taken from Alexandrescu's loki, 2001)
-//*/
+  Extended with the missing stuff (select, traits, typelists, etc),
+  namespace Loki is removed!
 
+  Everything else is original.
 
-#ifndef FUNCTOR_H
-#define FUNCTOR_H
-
-
-#include <memory>      /* unique_ptr */
-#include <type_traits> /* integral_constant */
+  Binding fails with a "logical exception" on gcc 4.3.2 on execution, follows a
+SIGABRT / 6. This version demonstrates the called constructors..
 
 
-/*************************** Dummy types *************************************/
+
+  RESOURCES
+
+////////////////////////////////////////////////////////////////////////////////
+// The Loki Library
+// Copyright (c) 2001 by Andrei Alexandrescu
+// This code accompanies the book:
+// Alexandrescu, Andrei. "Modern C++ Design: Generic Programming and Design
+//     Patterns Applied". Copyright (c) 2001. Addison-Wesley.
+// Permission to use, copy, modify, distribute and sell this software for any
+//     purpose is hereby granted without fee, provided that the above copyright
+//     notice appear in all copies and that both that copyright notice and this
+//     permission notice appear in supporting documentation.
+// The author or Addison-Welsey Longman make no representations about the
+//     suitability of this software for any purpose. It is provided "as is"
+//     without express or implied warranty.
+////////////////////////////////////////////////////////////////////////////////
+
+   June 20, 2001: last loki update by Nick Thurn
+
+   August, 2019: adjusted and modified by Lothar Rubusch as a prove of concept
+// */
+
+
+#ifndef FUNCTOR_INC_
+#define FUNCTOR_INC_
+
+#include <cassert>
+#include <iostream>
+#include <memory>
+#include <type_traits>
+#include <typeinfo>
+#include <utility>
+
+
+/*****************************************************************************/
+
 
 /*
   Null Type
@@ -33,7 +64,7 @@ struct EmptyType {
 };
 
 
-/*************************** Select ******************************************/
+/*****************************************************************************/
 
 
 /*
@@ -41,56 +72,64 @@ struct EmptyType {
 //*/
 template < bool flag, typename T, typename U >
 struct Select {
-  typedef T Result;
+  using Result = T;
 };
 
 template < typename T, typename U >
 struct Select< false, T, U > {
-  typedef U Result;
+  using Result = U;
 };
 
 
-/*************************** Typelists ***************************************/
-
-/*
-  cpp11: Typelist
-
-  usage:
-  Typelist< Type1, Type2, Type3 >
-//*/
-template < typename... Ts >
-struct Typelist {
-  using type = Typelist;
-  static constexpr size_t size() noexcept { return sizeof...(Ts); }
-};
-
-using Typelist_empty = Typelist<>;
+/*****************************************************************************/
 
 
-/*
-  typelist operations
-//*/
 namespace TL
 {
   /*
-    Indexed Access
+    TypeList
 
-    The declaration of a template for an indexed operation would look like this:
-      template< class TList, unsigned int index > struct TypeAt;
+    NOTE: before a typelist needed always to contain at least one element,
+    this made an empty element necessary, in this cpp11 implementation also an
+    empty Typelist is possible
 
-    Algorithm:
-    IF TList is non-null and i is zero, then Result is the head of TList
-    ELSE
-      IF TList is non-null and index i is nonzero, then Result is obtained by
-applying TypeAt to the tail of TList and i-1 ELSE there is an out-of-bound
-access that translates into a compile-time error
+    usage:
+      using MyList = Typelist< Type1, Type2, Type3 >;
+  //*/
+  template < typename... Ts >
+  struct Typelist {
+    using type = Typelist;
 
+    // cpp11: number of elements is 'sizeof...(Ts)'
+    static constexpr size_t size() noexcept { return sizeof...(Ts); }
+  };
 
-  cpp11: TypeAt
+  using Typelist_empty = Typelist<>;
 
-  usage:
-  using type_at_4 = TypeAt<4, MyList>::type;
-// */
+  // is list empty? member definition: type, value_type and value
+  template < class List >
+  struct isEmpty {
+    using type = std::false_type; // integral_constant< bool, false >;
+    using value_type = typename type::value_type;
+    static constexpr value_type value = type::value;
+  };
+
+  // empty list
+  template <>
+  struct isEmpty< Typelist<> > {
+    using type = std::true_type; // integral_constant< bool, true >;
+    using value_type = type::value_type;
+    static constexpr value_type value = type::value;
+  };
+
+  /*
+    TypeAt
+
+    type at index
+
+    usage:
+      using type_at_4 = typename TypeAt< 4, MyList >::type;
+  // */
   template < size_t idx, class List >
   struct TypeAt_impl;
 
@@ -119,25 +158,19 @@ access that translates into a compile-time error
   public:
     using type = typename TypeAt_impl< idx, Typelist< Ts... > >::type;
   };
-
+  // */
 
   /*
-    Searching Typelists
+    IndexOf
 
-    Algorithm:
-    IF TList is NIL, then value is -1
-    ELSE
-      IF the head of TList is T, then value is 0
-      ELSE
-        Compute the result of IndexOf applied to TList's tail and T into a
-temporary value temp IF temp is -1, then value is -1 ELSE value is 1 plus temp
+    indexed access
 
+    NOTE: the int should be 'constexpr static' to let the compiler do all the
+  work, leaving away 'constexpr static' is not an error, though
 
-  cpp11: version of IndexOf
-
-  usage:
-  using idx = IndexOf< Type, MyList>::type;
-// */
+    usage:
+      constexpr static auto idx = IndexOf< Type, MyList >::value;
+  // */
   template < size_t idx, typename T, class List >
   struct IndexOf_impl; // has index as template parameter
 
@@ -168,10 +201,70 @@ temporary value temp IF temp is -1, then value is -1 ELSE value is 1 plus temp
     using value_type = typename type::value_type;
     static constexpr value_type value = type::value;
   };
+  // */
+
+  /*
+    PushBack/PushFront
+
+    appending to Typelists
+
+    NOTE: since a typelist defines a compile time static type, every
+    modification will result in a new typelist definition, thus 'MyList' becomes
+    'MyNewList'
+
+    Usage:
+      using MyNewList = typename PushBack< Type, MyList >::type;
+    or
+      using MyNewList = typename PushFront< Type, MyList >::type;
+  // */
+  template < typename T, class List >
+  struct PushFront;
+
+  template < typename T, typename... Ts >
+  struct PushFront< T, Typelist< Ts... > > {
+    using type = Typelist< T, Ts... >;
+  };
+
+  template < typename T, class List >
+  struct PushBack;
+
+  template < typename T, typename... Ts >
+  struct PushBack< T, Typelist< Ts... > > {
+    using type = Typelist< Ts..., T >;
+  };
+  // */
+
+
+  /*
+    Erase
+
+    erase a Type from a Typelist
+
+    usage:
+      using MyNewList = typename Erase< Type, MyList >::type;
+  // */
+  template < typename T, class List >
+  struct Erase;
+
+  template < typename T >
+  struct Erase< T, Typelist<> > {
+    using type = Typelist<>;
+  };
+
+  template < typename T, typename... Ts >
+  struct Erase< T, Typelist< T, Ts... > > {
+    using type = Typelist< Ts... >;
+  };
+
+  template < typename T, typename H, typename... Ts >
+  struct Erase< T, Typelist< H, Ts... > > {
+    using type = typename PushFront<
+        H, typename Erase< T, Typelist< Ts... > >::type >::type;
+  };
 } // namespace TL
 
 
-/*************************** Traits ******************************************/
+/*****************************************************************************/
 
 
 /*
@@ -179,55 +272,54 @@ temporary value temp IF temp is -1, then value is -1 ELSE value is 1 plus temp
 
   - parameter type
   returns the optimal type to be used as a parameter for functions that take Ts
+
+  [historic C++98 implementation, polished]
 //*/
 template < typename T >
 class TypeTraits
 {
 private:
   // private block - the traits itself
-  template < typename U >
-  struct PointerTraits {
-    static constexpr auto result = false;
-    typedef NIL PointeeType;
-  };
 
-  template < typename U >
-  struct PointerTraits< U * > {
-    static constexpr auto result = true;
-    typedef U PointeeType;
-  };
-
+  // kept as demo: for 'isReference()' and 'get referred type'
   template < typename U >
   struct ReferenceTraits {
-    static constexpr auto result = false;
-    typedef U ReferredType;
+    // 'enum { result = false };' converts to modern C++ as follows
+    // NOTE: ReferenceTrais are covered by std::is_reference and so on in C++11
+    // already
+    using type = std::false_type;
+    using value_type = type::value_type;
+    static constexpr value_type result = type::value;
+
+    using ReferredType = U;
   };
 
   template < typename U >
   struct ReferenceTraits< U & > {
-    static constexpr auto result = true;
-    typedef U ReferredType;
-  };
+    // 'enum { result = true };' converts to modern (variadic) C++ as follows
+    // NOTE: ReferenceTrais are covered by std::is_reference and so on in C++11
+    // already
+    using type = std::true_type;
+    using value_type = type::value_type;
+    static constexpr value_type result = type::value;
 
-  template < typename U >
-  struct PToMTraits {
-    static constexpr auto result = false;
-  };
-
-  template < typename U, typename V >
-  struct PToMTraits< U V::* > {
-    static constexpr auto result = false;
+    using ReferredType = U;
   };
 
 public:
-  using UnsignedInts_t = Typelist< unsigned char, unsigned short int,
-                                   unsigned int, unsigned long int >;
-  using SignedInts_t = Typelist< signed char, short int, int, long int >;
-  using OtherInts_t = Typelist< bool, char >;
-  using Floats_t = Typelist< float, double >;
+  // typelists
+  using UnsignedInts_t = TL::Typelist< unsigned char, unsigned short int,
+                                       unsigned int, unsigned long int >;
+  using SignedInts_t = TL::Typelist< signed char, short int, int, long int >;
+  using OtherInts_t = TL::Typelist< bool, char >;
+  using Floats_t = TL::Typelist< float, double >;
 
   // isStdArith
-  // *
+  // NOTE: C++11 offers std::is_unsigned< T >::value, std::is_signed< T
+  // >::value,... NOTE: conversion of 'enum { isStdUnsignedInt = TL::IndexOf< T,
+  // UnsignedInts_t >::value >= 0 };'
+  // ..into..
+  // 'static constexpr auto' definitions
   static constexpr auto isStdUnsignedInt =
       TL::IndexOf< T, UnsignedInts_t >::value >= 0;
   static constexpr auto isStdSignedInt =
@@ -237,179 +329,363 @@ public:
       TL::IndexOf< T, OtherInts_t >::value >= 0;
   static constexpr auto isStdFloat = TL::IndexOf< T, Floats_t >::value >= 0;
   static constexpr auto isStdArith = isStdIntegral || isStdFloat;
-  /*/
-  // TODO: check if not actually the second should be correct?
-    static constexpr auto isStdUnsignedInt = TL::IndexOf< UnsignedInts_t, T
-  >::value >= 0; static constexpr auto isStdSignedInt = TL::IndexOf<
-  SignedInts_t, T >::value >= 0; static constexpr auto isStdIntegral =
-  isStdUnsignedInt || isStdSignedInt || TL::IndexOf< OtherInts_t, T >::value >=
-  0; static constexpr auto isStdFloat = TL::IndexOf< Floats_t, T >::value >= 0;
-    static constexpr auto isStdArith = isStdIntegral || isStdFloat;
-  // */
+
   // isPointer
-  static constexpr auto isPointer = PointerTraits< T >::result;
+  static constexpr auto isPointer = std::is_pointer< T >::value;
 
   // isMemberPointer
-  static constexpr auto isMemberPointer = PToMTraits< T >::result;
+  static constexpr auto isMemberPointer = std::is_member_pointer< T >::value;
 
-  // ReferredType
+  // ReferredType, alternative use 'std::is_reference< T >::value'
   static constexpr auto isReference = ReferenceTraits< T >::result;
-  typedef typename ReferenceTraits< T >::ReferredType ReferredType;
+
+  // get referred type
+  using ReferredType = typename ReferenceTraits< T >::ReferredType;
 
   // -> ParameterType
-  typedef typename Select< isStdArith || isPointer || isMemberPointer, T,
-                           ReferredType & >::Result ParameterType;
+  using ParameterType =
+      typename Select< isStdArith || isPointer || isMemberPointer, T,
+                       ReferredType & >::Result;
 };
 
 
-/*************************** Functor *****************************************/
+/*****************************************************************************/
 
 
-/*
-  Functor implementation base class (as struct)
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorImpl (internal)
+////////////////////////////////////////////////////////////////////////////////
 
-  Base class for a hierarchy of functors. The FunctorImpl class is not used
-directly; rather, the Functor class manages and forwards to a pointer to
-FunctorImpl
-
-  You may want to derive your own funcotrs from FunctorImpl. Specializations of
-  FunctorImpl for up to 2 template parameter types.
-//*/
 namespace Private
 {
-  template < typename ResultType >
-  struct FunctorImpl_Base {
-    typedef ResultType ResultType_t;
-    typedef EmptyType Arg1_t;
-    typedef EmptyType Arg2_t;
+  //  template <typename R, template <class> class ThreadingModel>
+  //  struct FunctorImplBase : public SmallObject<ThreadingModel>
+  template < typename R >
+  struct FunctorImplBase {
+    virtual ~FunctorImplBase() = default;
+
+    using ResultType = R;
+    using Parm1 = EmptyType;
+    using Parm2 = EmptyType;
+
+    virtual FunctorImplBase *DoClone() const = 0;
+
+    template < class U >
+    static U *Clone(U *pObj)
+    {
+      if (!pObj)
+        return nullptr;
+      auto pClone = static_cast< U * >(pObj->DoClone());
+      assert(typeid(*pClone) == typeid(*pObj));
+      return pClone;
+    }
   };
 } // namespace Private
 
 
-/*
-  FunctorImpl
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorImpl
+// The base class for a hierarchy of functors. The FunctorImpl class is not used
+//     directly; rather, the Functor class manages and forwards to a pointer to
+//     FunctorImpl
+// You may want to derive your own functors from FunctorImpl.
+// Specializations of FunctorImpl for up to 15 parameters follow
+////////////////////////////////////////////////////////////////////////////////
 
-  The base class for a hierarchy of funcotrs. The FunctorImpl class is not used
-  directly; rather, the Functor class manages and forwards to a pointer to
-  FunctorImpl
-//*/
-template < typename ResultType, typename TList >
+template < typename R, class TList >
 class FunctorImpl;
 
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorImpl
+// Specialization for 0 (zero) parameters
+////////////////////////////////////////////////////////////////////////////////
 
-/*
-  implementation, 0 args
-//*/
-template < typename ResultType >
-class FunctorImpl< ResultType, NIL >
-    : public Private::FunctorImpl_Base< ResultType >
+template < typename R >
+class FunctorImpl< R, NIL > : public Private::FunctorImplBase< R >
 {
 public:
-  typedef ResultType ResultType_t;
+  using ResultType = R;
 
-  virtual ResultType operator()() = 0;
+  virtual R operator()() = 0;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorImpl
+// Specialization for 1 parameter
+////////////////////////////////////////////////////////////////////////////////
+
+// totally abstract!!!
+template < typename R, typename P1 >
+class FunctorImpl< R, TL::Typelist< P1 > >
+    : public Private::FunctorImplBase< R >
+{
+public:
+  using ResultType = R;
+  using Parm1 = typename TypeTraits< P1 >::ParameterType;
+
+  virtual R operator()(Parm1) = 0;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorImpl
+// Specialization for 2 parameters
+////////////////////////////////////////////////////////////////////////////////
+
+// totally abstract!!!
+template < typename R, typename P1, typename P2 >
+class FunctorImpl< R, TL::Typelist< P1, P2 > >
+    : public Private::FunctorImplBase< R >
+{
+public:
+  using ResultType = R;
+  using Parm1 = typename TypeTraits< P1 >::ParameterType;
+  using Parm2 = typename TypeTraits< P2 >::ParameterType;
+
+  virtual R operator()(Parm1, Parm2) = 0;
 };
 
 
-/*
-  implementation, 1 arg
-//class FunctorImpl< ResultType, TYPELIST_1( Arg1 ) >
-//*/
-template < typename ResultType, typename Arg1 >
-class FunctorImpl< ResultType, Typelist< Arg1 > >
-    : public Private::FunctorImpl_Base< ResultType >
-{
-public:
-  typedef ResultType ResultType_t;
-  typedef typename TypeTraits< Arg1 >::ParameterType Arg1_t;
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorHandler
+// Wraps functors and pointers to functions
+////////////////////////////////////////////////////////////////////////////////
 
-  virtual ResultType operator()(Arg1) = 0;
-};
-
-
-/*
-  implementation, 2 args
-//class FunctorImpl< ResultType, TYPELIST_2( Arg1, Arg2 ) >
-//*/
-template < typename ResultType, typename Arg1, typename Arg2 >
-class FunctorImpl< ResultType, Typelist< Arg1, Arg2 > >
-    : public Private::FunctorImpl_Base< ResultType >
-{
-public:
-  typedef ResultType ResultType_t;
-  typedef typename TypeTraits< Arg1 >::ParameterType Arg1_t;
-  typedef typename TypeTraits< Arg2 >::ParameterType Arg2_t;
-
-  virtual ResultType operator()(Arg1, Arg2) = 0;
-};
-
-
-/*
-  Functor handler
-
-  Wraps functors and pointers to functions.
-//*/
 template < class ParentFunctor, typename Fun >
-class FunctorHandler : public ParentFunctor::Impl_t
+class FunctorHandler : public ParentFunctor::Impl
 {
-private:
-  typedef typename ParentFunctor::Impl_t Base_t;
+  using Base = typename ParentFunctor::Impl;
 
 public:
-  typedef typename Base_t::ResultType_t ResultType_t;
-  typedef typename Base_t::Arg1_t Arg1_t;
-  typedef typename Base_t::Arg2_t Arg2_t;
+  using ResultType = typename Base::ResultType;
+  using Parm1 = typename Base::Parm1;
+  using Parm2 = typename Base::Parm2;
 
+  // functor handler function
+  //
+  // the private 'f_()' will be initialized with *this, this has op(), op(p1),
+  // op(p1, p2) overloaded, thus the passed object of template Fun via '*this'
+  // can be called as a function via ops()
   FunctorHandler(const Fun &fun) : f_(fun) {}
 
-  // operator()
-  ResultType_t operator()() { return f_(); }
+  virtual FunctorHandler *DoClone() const { return new FunctorHandler(*this); }
 
-  ResultType_t operator()(Arg1_t arg1) { return f_(arg1); }
+  // operator() implementations
+  ResultType operator()() { return f_(); }
 
-  ResultType_t operator()(Arg1_t arg1, Arg2_t arg2) { return f_(arg1, arg2); }
+  ResultType operator()(Parm1 p1) { return f_(p1); }
+
+  ResultType operator()(Parm1 p1, Parm2 p2) { return f_(p1, p2); }
 
 private:
   Fun f_;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+// class template FunctorHandler
+// Wraps pointers to member functions
+////////////////////////////////////////////////////////////////////////////////
 
-/*
-  Functor
-
-  A generalized Functor implementation with value semantics.
-//*/
-template < typename ResultType, typename TList = NIL >
-class Functor
+template < class ParentFunctor, typename PointerToObj, typename PointerToMemFn >
+class MemFunHandler : public ParentFunctor::Impl
 {
+  using Base = typename ParentFunctor::Impl;
+
 public:
-  typedef FunctorImpl< ResultType, TList > Impl_t;
-  typedef ResultType ResultType_t;
-  typedef TList ArgList_t;
-  typedef typename Impl_t::Arg1_t Arg1_t;
-  typedef typename Impl_t::Arg2_t Arg2_t;
+  using ResultType = typename Base::ResultType;
+  using Parm1 = typename Base::Parm1;
+  using Parm2 = typename Base::Parm2;
 
-  // Member functions
-  Functor() : spImpl_(0) {}
-
-  // ctor for the 'ctor method with static_cast<>()'
-  template < typename Fun >
-  Functor(Fun fun) : spImpl_(new FunctorHandler< Functor, Fun >(fun))
+  MemFunHandler(const PointerToObj &pObj, PointerToMemFn pMemFn)
+      : pObj_(pObj), pMemFn_(pMemFn)
   {
   }
 
-  ResultType_t operator()() { return (*spImpl_)(); }
+  virtual MemFunHandler *DoClone() const { return new MemFunHandler(*this); }
 
-  ResultType_t operator()(Arg1_t arg1) { return (*spImpl_)(arg1); }
+  ResultType operator()() { return ((*pObj_).*pMemFn_)(); }
 
-  ResultType_t operator()(Arg1_t arg1, Arg2_t arg2)
+  ResultType operator()(Parm1 p1) { return ((*pObj_).*pMemFn_)(p1); }
+
+  ResultType operator()(Parm1 p1, Parm2 p2)
   {
-    return (*spImpl_)(arg1, arg2);
+    return ((*pObj_).*pMemFn_)(p1, p2);
   }
 
 private:
-  std::unique_ptr< Impl_t > spImpl_;
+  PointerToObj pObj_;
+  PointerToMemFn pMemFn_;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+// class template Functor
+// A generalized functor implementation with value semantics
+////////////////////////////////////////////////////////////////////////////////
 
-#endif
+template < typename R, class TList = NIL >
+class Functor
+{
+public:
+  // Handy type definitions for the body type
+  using Impl = FunctorImpl< R, TList >;
+  using ResultType = R;
+  using ParmList = TList;
+  using Parm1 = typename Impl::Parm1;
+  using Parm2 = typename Impl::Parm2;
+
+  // Member functions
+
+  Functor() : spImpl_(0) { std::cout << "Functor()\n"; }
+
+  Functor(const Functor &rhs) : spImpl_(Impl::Clone(rhs.spImpl_.get()))
+  {
+    std::cout << "Functor(const Functor& rhs)\n";
+  }
+
+  Functor(std::shared_ptr< Impl > spImpl) : spImpl_(std::move(spImpl))
+  {
+    std::cout << "Functor(std::shared_ptr<Impl> spImpl)\n";
+  }
+
+  template < typename Fun >
+  Functor(Fun fun) : spImpl_(new FunctorHandler< Functor, Fun >(fun))
+  {
+    std::cout << "template <typename Fun>\n\tFunctor(Fun fun)\n";
+  }
+
+  template < class PtrObj, typename MemFn >
+  Functor(const PtrObj &p, MemFn memFn)
+      : spImpl_(new MemFunHandler< Functor, PtrObj, MemFn >(p, memFn))
+  {
+    std::cout << "template <class PtrObj, typename MemFn>\n\tFunctor(const "
+                 "PtrObj& p, MemFn memFn)\n";
+  }
+
+  Functor &operator=(const Functor &rhs)
+  {
+    Functor copy(rhs);
+
+    // swap smart ptrs by hand
+    auto *pImpl = spImpl_.release();
+    spImpl_.reset(copy.spImpl_.release());
+    copy.spImpl_.reset(pImpl);
+
+    return *this;
+  }
+
+  ResultType operator()() { return (*spImpl_)(); }
+
+  ResultType operator()(Parm1 p1) { return (*spImpl_)(p1); }
+
+  ResultType operator()(Parm1 p1, Parm2 p2) { return (*spImpl_)(p1, p2); }
+
+private:
+  std::shared_ptr< Impl > spImpl_;
+};
+
+namespace Private
+{
+  template < class Fctor >
+  struct BinderFirstTraits;
+
+  template < typename R, class TList >
+  struct BinderFirstTraits< Functor< R, TList > > {
+    using ParmList = typename TL::Erase< typename TL::TypeAt< 0, TList >::type,
+                                         TList >::type;
+    using BoundFunctorType = Functor< R, ParmList >;
+    using Impl = typename BoundFunctorType::Impl;
+  };
+} // namespace Private
+
+////////////////////////////////////////////////////////////////////////////////
+// class template BinderFirst
+// Binds the first parameter of a Functor object to a specific value
+////////////////////////////////////////////////////////////////////////////////
+
+template < class OriginalFunctor >
+class BinderFirst : public Private::BinderFirstTraits< OriginalFunctor >::Impl
+{
+  using Base = typename Private::BinderFirstTraits< OriginalFunctor >::Impl;
+  using ResultType = typename OriginalFunctor::ResultType;
+  using BoundType = typename OriginalFunctor::Parm1;
+  using Parm1 = typename OriginalFunctor::Parm2;
+  using Param2 = EmptyType;
+
+public:
+  BinderFirst(const OriginalFunctor &fun, BoundType bound) : f_(fun), b_(bound)
+  {
+  }
+
+  virtual BinderFirst *DoClone() const { return new BinderFirst(*this); }
+
+  ResultType operator()() { return f_(b_); }
+
+  ResultType operator()(Parm1 p1) { return f_(b_, p1); }
+
+private:
+  OriginalFunctor f_;
+  BoundType b_;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// function template BindFirst
+// Binds the first parameter of a Functor object to a specific value
+////////////////////////////////////////////////////////////////////////////////
+
+template < class Fctor >
+typename Private::BinderFirstTraits< Fctor >::BoundFunctorType
+BindFirst(const Fctor &fun, typename Fctor::Parm1 bound)
+{
+  using Outgoing =
+      typename Private::BinderFirstTraits< Fctor >::BoundFunctorType;
+
+  return Outgoing(std::shared_ptr< typename Outgoing::Impl >(
+      new BinderFirst< Fctor >(fun, bound)));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// class template Chainer
+// Chains two functor calls one after another
+////////////////////////////////////////////////////////////////////////////////
+
+template < typename Fun1, typename Fun2 >
+class Chainer : public Fun2::Impl
+{
+  using Base = Fun2;
+
+public:
+  using ResultType = typename Base::ResultType;
+  using Parm1 = typename Base::Parm1;
+  using Parm2 = typename Base::Parm2;
+
+  Chainer(const Fun1 &fun1, const Fun2 &fun2) : f1_(fun1), f2_(fun2) {}
+
+  virtual Chainer *DoClone() const { return new Chainer(*this); }
+
+  // operator() implementations for up to 15 arguments
+
+  ResultType operator()() { return f1_(), f2_(); }
+
+  ResultType operator()(Parm1 p1) { return f1_(p1), f2_(p1); }
+
+  ResultType operator()(Parm1 p1, Parm2 p2) { return f1_(p1, p2), f2_(p1, p2); }
+
+private:
+  Fun1 f1_;
+  Fun2 f2_;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// function template Chain
+// Chains two functor calls one after another
+////////////////////////////////////////////////////////////////////////////////
+
+
+template < class Fun1, class Fun2 >
+Fun2 Chain(const Fun1 &fun1, const Fun2 &fun2)
+{
+  return Fun2(std::shared_ptr< typename Fun2::Impl >(
+      new Chainer< Fun1, Fun2 >(fun1, fun2)));
+}
+
+
+#endif // FUNCTOR_INC_

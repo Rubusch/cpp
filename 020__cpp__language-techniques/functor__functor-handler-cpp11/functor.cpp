@@ -48,7 +48,7 @@ int main()
   // 1. test class
   cout << "1. Functor Class\n";
   TestClassFunctor func;
-  Functor< void, Typelist< int, double > > cmd_1(func);
+  Functor< void, TL::Typelist< int, double > > cmd_1(func);
   cmd_1(1, 2.3);
   cout << endl;
 
@@ -56,7 +56,7 @@ int main()
   // 2. test function
   // pass function implicit function pointer to the functor implementation
   cout << "2. Functor Function\n";
-  Functor< void, Typelist< int, double > > cmd_2(testFunctionFunctor);
+  Functor< void, TL::Typelist< int, double > > cmd_2(testFunctionFunctor);
   cmd_2(1, 2.3);
   cout << endl;
 
@@ -69,12 +69,12 @@ int main()
   // method 1: use an initialization
   cout << "3.a Method: initialized function pointer\n";
   pFun_t pF = testFunctionFunctor;
-  Functor< void, Typelist< int, double > > cmd_3a(pF);
+  Functor< void, TL::Typelist< int, double > > cmd_3a(pF);
   cmd_3a(1, 2.3);
 
   // method 2: use a cast
   cout << "3.b Method: constructor call and static_cast<>()\n";
-  Functor< void, Typelist< int, double > > cmd_3b(
+  Functor< void, TL::Typelist< int, double > > cmd_3b(
       static_cast< pFun_t >(testFunctionFunctor));
   cmd_3b(1, 2.3);
   cout << endl;
