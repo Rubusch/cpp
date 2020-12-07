@@ -1,9 +1,10 @@
 # circle ci config (github)
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:20.04
+#      - image: gcc:latest
+      - image: ubuntu:18.04
 
     steps:
       - checkout
