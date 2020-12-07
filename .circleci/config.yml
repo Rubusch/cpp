@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: ubuntu:20.04
 
-	environment:
+    environment:
       TZ: "America/Los_Angeles"
 
     steps:
