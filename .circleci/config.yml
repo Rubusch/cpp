@@ -3,13 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: ubuntu:20.04
-        environment:
-          TZ: "America/Los_Angeles"
-
-    environment:
-      TZ: "America/Los_Angeles"
-
+      - image: ubuntu:18.04
     steps:
       - checkout
 
