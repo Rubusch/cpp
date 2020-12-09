@@ -36,6 +36,9 @@ jobs:
 
       - run:
           name: Install CMAKE
+          environment:
+            TZ: "America/Los_Angeles"
+            DEBIAN_FRONTEND: "noninteractive"
           command: 'apt-get update && apt-get install -y cmake'
 
 #      - run:
