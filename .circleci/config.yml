@@ -11,28 +11,36 @@ jobs:
 #          name: Greeting
 #          command: echo Hello, world.
 
-      - run:
-          name: Installing SUDO
-          command: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
+#      - run:
+#          name: Installing SUDO
+#          command: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
 
       - run:
-          name: Installing GIT
-          environment:
-            TZ: "America/Los_Angeles"
-            DEBIAN_FRONTEND: "noninteractive"
-          command: 'apt-get update && apt-get install -y git-all'
+          name: Installing BUILD-ESSENTIAL
+          command: 'apt-get update && apt-get install -y build-essential'
+
+#      - run:
+#          name: Installing GIT
+#          environment:
+#            TZ: "America/Los_Angeles"
+#            DEBIAN_FRONTEND: "noninteractive"
+#          command: 'apt-get update && apt-get install -y git-all'
 
       - run:
           name: Installing GCC
           command: 'apt-get update && apt-get install -y gcc g++'
 
       - run:
+          name: Installing CLANG
+          command: 'apt-get update && apt-get install -y clang clang-tools clang-format'
+
+      - run:
           name: Install CMAKE
           command: 'apt-get update && sudo apt-get install -y cmake'
 
-      - run:
-          name: Install NINJA
-          command: 'apt-get update && sudo apt-get install -y ninja-build'
+#      - run:
+#          name: Install NINJA
+#          command: 'apt-get update && sudo apt-get install -y ninja-build'
 
 
 
