@@ -4,30 +4,33 @@
 
 
 
-  PROVIDE A VIRTUAL DESTRUCTOR IF A BASE CLASS CONTAINS VIRTUAL FUNCTIONS!!!
+  PROVIDE A VIRTUAL DESTRUCTOR IF A BASE CLASS CONTAINS VIRTUAL
+  FUNCTIONS!!!
 
 
 
-  If a virtual destructor is missing, destruction of a dynamically allocated
-  derrived class object won't call the correct base class destructor, memory
-  and/or resource leaks are the consequence. Probably compilers won't complain
-  about.
+  If a virtual destructor is missing, destruction of a dynamically
+  allocated derrived class object won't call the correct base class
+  destructor, memory and/or resource leaks are the
+  consequence. Probably compilers won't complain about.
 
-  Virtual function need to have a default implementation or result in a Linker
-Error! Alternatively make the function declarations "pure virtual" using: =0
-  Then the default implementation is optional.
+  Virtual function need to have a default implementation or result in
+  a Linker Error! Alternatively make the function declarations "pure
+  virtual" using: =0 Then the default implementation is optional.
 
-  A destructor should never throw any exception, it should absorb them and/or
-  not forward them.
+  A destructor should never throw any exception, it should absorb them
+  and/or not forward them.
 
   ---
 
   Generally try to avoid inheritance in favor of aggregation patterns.
-  Inheritance is only needed when virtual functions (functions need to be
-  overwriteable), or members are within a protected block are around.
-  By Liskov public inheritance implements a 'IS-A' relation. Everything else
-  should be modeled as aggregation 'HAS-A', or 'IS-IMPLEMENTED-WITH' (which
-  can also be private inheritance). [Sutter, 2000]
+  Inheritance is only needed when virtual functions (functions need to
+  be overwriteable), or members are within a protected block are
+  around.
+  By Liskov public inheritance implements a 'IS-A'
+  relation. Everything else should be modeled as aggregation 'HAS-A',
+  or 'IS-IMPLEMENTED-WITH' (which can also be private
+  inheritance). [Sutter, 2000]
 
 
   RESOURCES
