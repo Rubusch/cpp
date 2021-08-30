@@ -3,11 +3,11 @@
 
   ---
 
-  lvalue    - has an address, e.g. a user maintained variable or memory with
-              accessible address
+  lvalue - has an address, e.g. a user maintained variable or memory
+           with accessible address
 
-  rvalue    - has no accessible address, e.g. a plain number value (stored only
-              temporarlily)
+  rvalue - has no accessible address, e.g. a plain number value
+           (stored only temporarlily)
 
 
   conclusion:
@@ -35,7 +35,8 @@ int main(void)
   func(0);
   cout << endl;
 
-  // might not compile (NULL is ambiguous)! typically calls int overload
+  // might not compile (NULL is ambiguous)!
+  // typically calls int overload
   cout << "func(NULL) - might not compile" << endl;
   //  func(NULL);
   cout << endl;
@@ -44,9 +45,9 @@ int main(void)
   func(nullptr);
   cout << endl;
 
-  // nullptr offers better recognition as pointer type 'null' than NULL, but
-  // especially in combination with 'auto' avoid overloading of different
-  // pointer types in functions
+  // nullptr offers better recognition as pointer type 'null' than
+  // NULL, but especially in combination with 'auto' avoid overloading
+  // of different pointer types in functions
 
   cout << "READY." << endl;
 }
