@@ -2,8 +2,8 @@
 /*
   Pointer & References
 
-  Initialisation of pointers with numbers works only,
-  if the the pointer already points to some space.
+  Initialization of pointers with numbers works only, if the the
+  pointer already points to some space.
 
   1. Declare the pointer
   2. Point to a variable or space

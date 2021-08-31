@@ -51,7 +51,7 @@ int main()
   };
   {
     cout << "The pointer pointer has only the same value as the other ponter\n"
-         << "if one changes the content of the pointer pointer doesn't change:"
+         << "if one changes, the content of the pointer pointer doesn't change:"
          << endl;
 
     cout << "**ppVar = *pVar;" << endl;

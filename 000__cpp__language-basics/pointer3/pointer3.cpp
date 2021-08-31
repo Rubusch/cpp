@@ -23,7 +23,7 @@ int main()
   cout << endl;
   {
     cout << "Both pointers share the same addresses\n"
-         << "if one changes the content of the other changes, too:" << endl;
+         << "if one changes, the content of the other changes, too:" << endl;
 
     cout << "pB = pA;" << endl;
     cout << endl;
@@ -53,7 +53,7 @@ int main()
   };
   {
     cout << "Both pointers have different addresses\n"
-         << "if one changes the content of the other doesn't change:" << endl;
+         << "if one changes, the content of the other doesn't change:" << endl;
 
     cout << "*pB = *pA;" << endl;
     cout << endl;
