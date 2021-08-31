@@ -1,15 +1,17 @@
 // ambiguous.cpp
 /*
-  ambiguous naming is possible due to different parameters, a different return
-  value leads to a compile error!
+  ambiguous naming is possible due to different parameters, a
+  different return value leads to a compile error!
 
 
   Generally try to avoid inheritance in favor of aggregation patterns.
-  Inheritance is only needed when virtual functions (functions need to be
-  overwriteable), or members are within a protected block are around.
-  By Liskov public inheritance implements a 'IS-A' relation. Everything else
-  should be modeled as aggregation 'HAS-A', or 'IS-IMPLEMENTED-WITH' (which
-  can also be private inheritance). [Sutter, 2000]
+  Inheritance is only needed when virtual functions (functions need to
+  be overwriteable), or members are within a protected block are
+  around.
+  By Liskov public inheritance implements a 'IS-A'
+  relation. Everything else should be modeled as aggregation 'HAS-A',
+  or 'IS-IMPLEMENTED-WITH' (which can also be private
+  inheritance). [Sutter, 2000]
 
 
   RESOURCES
