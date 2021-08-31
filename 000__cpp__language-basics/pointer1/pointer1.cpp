@@ -9,18 +9,18 @@
       // pVar points to var
 
   Declaration and Initialisation (later):
-      int* pVar=NULL;
+      int* pVar=nullptr;
       pVar = &var;
       // same as above
   or
-      int* pVar=NULL;
+      int* pVar=nullptr;
       // pVar here needs allocation 'pVar = new int;'
       *pVar = var;
       // then pVar needs 'delete pVar;'
 
-  here the value is copied into some space the pointer
-  points to, thus the pointer first needs to have 'valid'
-  memory e.g. by dynamic allocation
+  here the value is copied into some space the pointer points to, thus
+  the pointer first needs to have 'valid' memory e.g. by dynamic
+  allocation
 //*/
 
 #include <iostream>
