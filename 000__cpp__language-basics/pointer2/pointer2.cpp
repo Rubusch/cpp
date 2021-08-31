@@ -20,7 +20,7 @@ int main()
   cout << endl;
   {
     cout << "The pointer shares the same address with a variable\n"
-         << "if the variable changes the content of the pointer changes, too:"
+         << "if the variable changes, the content of the pointer changes, too:"
          << endl;
 
     cout << "pVar = &var;" << endl;
@@ -46,7 +46,7 @@ int main()
   };
   {
     cout << "The pointer shares the value with a variable\n"
-         << "if the variable changes the content of the pointer doesn't change:"
+         << "if the variable changes, the content of the pointer doesn't change:"
          << endl;
 
     cout << "*pVar = var;" << endl;
