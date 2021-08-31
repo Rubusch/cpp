@@ -1,32 +1,34 @@
 /*
-  C++11 - rvalue reference, move semantics and perfect forwarding (Meyers / item
-  23)
+  C++11 - rvalue reference, move semantics and perfect forwarding
+  (Meyers / item 23)
 
 
 
   DEFINITIONS (by Scott Meyers)
 
-  lvalue    - has an address, e.g. a user maintained variable or memory with
-              accessible address
+  lvalue - has an address, e.g. a user maintained variable or memory
+           with accessible address
 
-  rvalue    - has no accessible address, e.g. a plain number value (stored only
-              temporarlily)
+  rvalue - has no accessible address, e.g. a plain number value
+           (stored only temporarlily)
 
-  universal reference - the type of the function parameter is rvalue reference
-              to type template parameter
+  universal reference
+         - the type of the function parameter is rvalue
+           reference to type template parameter
 
 
-  move semantics: makes it possible for compilers to replace expensive copying
-  operations with less expensive moves. In the same way that copy constructors
-  and copy assignment operators give you control over what it means to copy
-  objects, move constructors and move assignment operators offer control over
-  the semantics of moving. Move semantics also enables the creation of move-only
-  types, such as 'std::unique_ptr', 'std::future' and 'std::thread'.
+  move semantics: makes it possible for compilers to replace expensive
+  copying operations with less expensive moves. In the same way that
+  copy constructors and copy assignment operators give you control
+  over what it means to copy objects, move constructors and move
+  assignment operators offer control over the semantics of
+  moving. Move semantics also enables the creation of move-only types,
+  such as 'std::unique_ptr', 'std::future' and 'std::thread'.
 
-  perfect forwarding: makes it possible to write function templates that take
-  arbitrary arguments and forward them to other functions such that the target
-  funcitons receive exactly the same arguments as were passed to the forwarding
-  functions
+  perfect forwarding: makes it possible to write function templates
+  that take arbitrary arguments and forward them to other functions
+  such that the target funcitons receive exactly the same arguments as
+  were passed to the forwarding functions
 
 
 
@@ -55,13 +57,13 @@
           right-hand side of an assignment expression) is a prvalue or an xvalue
           examples: &a, a--, a++
 
-  Names of rvalue reference variables are lvalues and have to be converted to
-  xvalues to be bound to the function overloads that accept rvalue reference
-  parameters, which is why move constructors and move assignment operators
-  typically use std::move
-  One exception is when the type of the function parameter is rvalue reference
-  to type template parameter ("forwarding reference" or "universal reference"),
-  in which case std::forward is used instead.
+  Names of rvalue reference variables are lvalues and have to be
+  converted to xvalues to be bound to the function overloads that
+  accept rvalue reference parameters, which is why move constructors
+  and move assignment operators typically use std::move
+  One exception is when the type of the function parameter is rvalue
+  reference to type template parameter ("forwarding reference" or
+  "universal reference"), in which case std::forward is used instead.
 
 
 
