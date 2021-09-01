@@ -4,7 +4,8 @@
 
   Only one pure virtual function is enough to make a class abstract.
 
-  Use Virtual Functions for functions to be overwritten (dynamic binding).
+  Use Virtual Functions for functions to be overwritten (dynamic
+  binding).
 
   Without "virtual" you have static binding with some side effects at
   overwriting a method.
@@ -28,39 +29,44 @@
 
   Generally prefer looser relations!!!
 
-  Closer:                                                               Looser:
+  Closer:                                                    Looser:
 
-  friend / composition < pub. inheritance < priv. inheritance < aggr. < assoc.
+  friend / compositn. < pub. inhrit. < priv. inhrit. < aggr. < assoc.
 
 
   ---
 
   Member functions can be
-  * hidden: without any 'virtual' declaration functions in Base are not
-    reachable at assignments, such as (might need down cast at dynamic
-    binding):
-    Base* pB = new Derived();
-    Hidden functions in Base can be accessed via using the Base namespace, too.
+  * hidden: without any 'virtual' declaration functions in Base are
+    not reachable at assignments, such as (might need down cast at
+    dynamic binding):
+
+        Base* pB = new Derived();
+
+    Hidden functions in Base can be accessed via using the Base
+    namespace, too.
 
   * virtual: virtual functions in Base can be overwritten. One or more
-    pure virtual functions make the class 'abstract'. Base classes always
-    need a virtual destructor!
+    pure virtual functions make the class 'abstract'. Base classes
+    always need a virtual destructor!
 
   * override: functions that must be re-implemented in a derived class
 
   * final: virtual functions that cannot be overwritten anymore
 
-  * try to avoid public virtual method, in favor of the Template Pattern
+  * try to avoid public virtual method, in favor of the Template
+    Pattern
 
 
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   Generally try to avoid inheritance in favor of aggregation patterns.
-  Inheritance is only needed when virtual functions (functions need to be
-  overwriteable), or members are within a protected block are around.
-  By Liskov public inheritance implements a 'IS-A' relation. Everything else
-  should be modeled as aggregation 'HAS-A', or 'IS-IMPLEMENTED-WITH' (which
-  can also be private inheritance). [Sutter, 2000]
+  Inheritance is only needed when virtual functions (functions need to
+  be overwriteable), or members are within a protected block are
+  around. By Liskov public inheritance implements a 'IS-A'
+  relation. Everything else should be modeled as aggregation 'HAS-A',
+  or 'IS-IMPLEMENTED-WITH' (which can also be private
+  inheritance). [Sutter, 2000]
 
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
