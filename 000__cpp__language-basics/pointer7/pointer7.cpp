@@ -14,13 +14,9 @@ int main()
   // pointer pa points to address of a
   cout << "int *pa = &a;" << endl;
   int *pa = &a;
-  cout << endl;
-
   cout << "*pa = 6;" << endl;
   *pa = 6; // assign *pa, pa has memory - the variable 'a' - to be assigned
   cout << "\t// " << "a: " << a << " [6]" << endl;
-  cout << endl;
-
   a = 7;
   cout << "a = " << a << ";\t\t// [7]" << endl;
   cout << "\t// " << "*pa: " << *pa << " [7]" << endl;
