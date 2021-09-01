@@ -1,14 +1,17 @@
 // missingvirtual.cpp
 /*
   Demonstrates the miss of a "virtual" declaration. The output will be
-"Base::play()" and not, as expected to be, "Derived::play()", the new
-implementation will be hidden!
+  "Base::play()" and not, as expected to be, "Derived::play()", the
+  new implementation will be hidden!
 
-  But: multiple inheritance as also virtual functions (represented as vptrs in a
-vtbl per class) cost more memory and lower performance, due to they avoid
-inlining. (More Effective C++ / 23 / Meyers)
+  But: multiple inheritance as also virtual functions (represented as
+  vptrs in a vtbl per class) cost more memory and lower performance,
+  due to they avoid inlining.
 
-  The solution is to prefer pure virtual functions and abstract classes!
+  (More Effective C++ / 23 / Meyers)
+
+  The solution is to prefer pure virtual functions and abstract
+  classes!
 
   The RTTI information can be accessed via type_info and typeid
 //*/
@@ -22,17 +25,19 @@ class Base
 public:
   virtual ~Base() {}
   /*
-    virtual - the as BASE passed object will call the function of the instance,
-  hence of the derived class!
+    virtual - the as BASE passed object will call the function of the
+    instance, hence of the derived class!
 
-    non-virtual - the as BASE passed object will call the (hidden) function of
-  the base class, this can be dangerous, since it's normally undesirable
-  behaviour!!
+    non-virtual - the as BASE passed object will call the (hidden)
+    function of the base class, this can be dangerous, since it's
+    normally undesirable behaviour!!
   //*/
 
-  //  virtual void play();      // virtual version
-
+/* // tap to turn on/off
+  virtual void play();      // virtual version
+/*/
   void play(); // non-virtual version
+// */
 };
 
 template < class T >
@@ -69,11 +74,16 @@ void someFunction(Base< T > &obj)
 int main()
 {
   // instantiation of "Derived" obj
+  std::cout << "Derived< std::string > d;" << std::endl;
   Derived< std::string > d;
 
-  // call and pass-by-reference - func takes anything derived from "Base"
+  // call and pass-by-reference - func takes anything derived from
+  // "Base"
+  std::cout << "someFunction(d);" << std::endl;
+
+  std::cout << "\t";
   someFunction(d);
 
-  std::cout << "READY.\n";
+  std::cout << "READY." << std::endl;
   return 0;
 }
