@@ -26,5 +26,6 @@ int main()
 
   cout << "var: " << var << endl;
 
+  cout << "READY." << endl;
   return 0;
 };
