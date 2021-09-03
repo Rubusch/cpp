@@ -78,5 +78,6 @@ int main()
     delete pVar;
   };
 
+  cout << "READY." << endl;
   return 0;
 };

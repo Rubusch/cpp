@@ -84,5 +84,6 @@ int main()
     cout << endl;
   };
 
+  cout << "READY." << endl;
   return 0;
 };

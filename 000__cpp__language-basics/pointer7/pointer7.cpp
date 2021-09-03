@@ -66,5 +66,6 @@ int main()
   cout << "\t// " << "c: " << c << " [2]" << endl;
   cout << endl;
 
+  cout << "READY." << endl;
   return 0;
 };
