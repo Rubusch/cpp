@@ -150,6 +150,6 @@ int main()
   std::cout << "the value was: " << d.getValue() << std::endl;
 
 
-  std::cout << "READY.\n" << std::endl;
+  std::cout << "READY." << std::endl;
   return 0;
 }

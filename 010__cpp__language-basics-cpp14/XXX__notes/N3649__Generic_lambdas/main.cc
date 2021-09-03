@@ -34,4 +34,3 @@ int main()
   cout << product(7, 3) << endl;
   return 0;
 }
-
