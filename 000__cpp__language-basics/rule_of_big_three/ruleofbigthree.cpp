@@ -6,18 +6,21 @@
   2. destructor
   3. operator= - deep copy (or shally copy)
 
-  Important: doing a shallow copy on ALLOCATED pointers on members is dangerous!
-  since the destructor should do a delete on all members, the destructor of the
-  "shallow copy object" will fail, since the "first" member already deleted the
-  memory and set its (the original object's) pointer to NULL. The pointer of the
-  "shallow copy object" still points on somewhere, but there is no allocated
-  memory anymore.
+  Important: doing a shallow copy on ALLOCATED pointers on members is
+  dangerous!
+
+  since the destructor should do a delete on all members, the
+  destructor of the "shallow copy object" will fail, since the "first"
+  member already deleted the memory and set its (the original
+  object's) pointer to NULL. The pointer of the "shallow copy object"
+  still points on somewhere, but there is no allocated memory anymore.
 
   The problem is:
   - the allocated memory will be deleted
   - the pointer will be set to NULL
-  -> the pointer of the "shallow copy object" is NOT set to NULL, a delete
-sigsegv's
+
+  -> the pointer of the "shallow copy object" is NOT set to NULL, a
+     delete sigsegv's
 
   A strategy is to check a pointer to the original.
 //*/

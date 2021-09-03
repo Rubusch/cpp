@@ -4,16 +4,19 @@
 
   NOTE
   - 'std::weak_ptr' can dangle!
-  - 'std::weak_ptr' can't be dereferenced (conversion to a 'std::shared_ptr' via
- lock(), then dereference the 'std::shared_ptr')
+  - 'std::weak_ptr' can't be dereferenced (conversion to a
+       'std::shared_ptr' via lock(), then dereference the
+       'std::shared_ptr')
   - 'std::weak_ptr' can't be tested for nullness
-  - 'std::weak_ptr' is an augmentation to 'std::shared_ptr' and not a standalone
- smartpointer
+  - 'std::weak_ptr' is an augmentation to 'std::shared_ptr' and not a
+       standalone smartpointer
 
   CONCLUSION
-  - use 'std::weak_ptr' for 'std::shared_ptr' like pointers that can dangle
-  - potential use cases for 'std::weak_ptr' include caching, observer lists, and
- the prevention of 'std::shared_ptr' cycles
+  - use 'std::weak_ptr' for 'std::shared_ptr' like pointers that can
+    dangle
+  - potential usecases for 'std::weak_ptr' include caching, observer
+    lists, and the prevention of 'std::shared_ptr' cycles
+
 
   resource: Effective Modern C++, Scott Meyers, 2015
 
@@ -81,9 +84,9 @@ int main(void)
   else
     cout << "FAILED" << endl;
 
-  // get content of weak pointer: lock() converts to shared_ptr
-  // a 'std::weak_ptr' can dangle i.e. the returned pointer needs not to be
-  // valid!
+  // get content of weak pointer: lock() converts to shared_ptr a
+  // 'std::weak_ptr' can dangle i.e. the returned pointer needs not to
+  // be valid!
   if (auto content = pAnotherBox.lock())
     cout << "FAILED! pAnotherBox contains " << content->box_content() << " toys"
          << endl;
@@ -98,8 +101,9 @@ int main(void)
   cout << endl;
 
 
-  // 'std::weak_ptr's can be converted to 'std::shard_ptr's via constructor
-  // if the 'std::weak_ptr' is a dangling pointer, an exception is thrown
+  // 'std::weak_ptr's can be converted to 'std::shard_ptr's via
+  // constructor if the 'std::weak_ptr' is a dangling pointer, an
+  // exception is thrown
   cout << "conversion to shared_ptr is possible, but may fail if weak_ptr is "
           "dangling"
        << endl;

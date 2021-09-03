@@ -1,7 +1,8 @@
 // opassignment.cpp
 /*
-  demonstrates a overloaded copy assignment operator working in a derived class
-in conjunction with a overloaded assignment operator of a base class.
+  demonstrates a overloaded copy assignment operator working in a
+  derived class in conjunction with a overloaded assignment operator
+  of a base class.
 //*/
 
 #include <cstdlib>
