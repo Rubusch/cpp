@@ -1,8 +1,8 @@
 // strategy.cpp
 /*
   Define a family of algorithms, encapsulate each one, and make them
-interchangeble. Strategy lets the algorithm vary independently from clients that
-use it.
+  interchangeble. Strategy lets the algorithm vary independently from
+  clients that use it.
 
   +---------------------+                     +-----------------------+
   | Context             |<>------------------>| Strategy              |
@@ -13,8 +13,7 @@ use it.
   +-|-------------------+                     +-----------------------+
     |                                                    /_\
   +-----------------------+\                              |
-  | Strategy->algorithm() +-+ +------------------------+----------------------
-...
+  | Strategy->algorithm() +-+ ---+------------------------+----------------------...
   +-------------------------+    |                        |
                                  |                        |
                       +---------------------+  +----------------------+
@@ -23,13 +22,14 @@ use it.
                       | algorithm()         |  | algorithm()          |
                       +---------------------+  +----------------------+
 
-  Similarity to State Pattern - if you want to vary the algorithm or a behavior,
-  take the Strategy Pattern, if you want to vary the value, take the State
-Pattern.
+  Similarity to State Pattern - if you want to vary the algorithm or a
+  behavior, take the Strategy Pattern, if you want to vary the value,
+  take the State Pattern.
 
 
-  The current implementation avoids inheritance, and favors aggregation.
-  Aggregation is better to maintain and leads to less complexity.
+  The current implementation avoids inheritance, and favors
+  aggregation.  Aggregation is better to maintain and leads to less
+  complexity.
 
 
 
@@ -50,8 +50,8 @@ Pattern.
   Strategy
 
   - declares an interface common to all supported algorithms. Context
-  uses this interface to call the algorithm defined by a concrete
-  strategy.
+    uses this interface to call the algorithm defined by a concrete
+    strategy.
 //*/
 struct Impl_Strategy {
   virtual ~Impl_Strategy() {}
