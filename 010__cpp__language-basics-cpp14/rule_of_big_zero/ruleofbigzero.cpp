@@ -19,7 +19,8 @@
 
  - no destructor is declared in the class
 
- @author: lothar Rubusch
+ @author: Lothar Rubusch
+ by example of Scott Meyers (c) 2017
  */
 
 #include <iostream>

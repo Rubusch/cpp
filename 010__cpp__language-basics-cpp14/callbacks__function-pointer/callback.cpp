@@ -1,7 +1,8 @@
 /*
   callbacks in cpp
 
-  example based on the example of the blog post of davis vigneault on the topic
+  example based on the example of the blog post of davis vigneault on
+  the topic
 
   resources:
   https://sudomakeinstall.io/posts/2017/11/30/callbacks-in-cpp11/

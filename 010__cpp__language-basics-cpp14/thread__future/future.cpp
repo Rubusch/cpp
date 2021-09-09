@@ -2,8 +2,9 @@
   futures
 
 
-  The 'std::future' provides a mechanism for communication among threads, pass
-  values or retrieve resulting values in an asynchronous operation.
+  The 'std::future' provides a mechanism for communication among
+  threads, pass values or retrieve resulting values in an asynchronous
+  operation.
 
 
 
@@ -11,25 +12,27 @@
 
   The three meanings of 'thread' in concurrent C++ software:
 
-  * Hardware Threads: are the threads that actually perform computation.
-    Contemporary machine architectures offer one or more hardware threads per
-    CPU core.
+  * Hardware Threads: are the threads that actually perform
+    computation.  Contemporary machine architectures offer one or more
+    hardware threads per CPU core.
 
-  * Software Threads: (also known as OS threads or system threads) are the
-    threads that the operating system manages across all processes and schedules
-    for execution on hardware threads. It's typically possible to create more
-    software threads than hardware threads, because when a software thread is
-    blocked (e.g. on I/O or waiting for a mutex or condition variable),
-    throughput can be improved by executing other, unblocked threads.
+  * Software Threads: (also known as OS threads or system threads) are
+    the threads that the operating system manages across all processes
+    and schedules for execution on hardware threads. It's typically
+    possible to create more software threads than hardware threads,
+    because when a software thread is blocked (e.g. on I/O or waiting
+    for a mutex or condition variable), throughput can be improved by
+    executing other, unblocked threads.
 
-  * std::threads are objects in a C++ process that act as handles to underlying
-    software threads. Some 'std::thread' objects represent "null" handles, i.e.,
-    correspond to no software thread, because they're in a default-constructed
-    state (hence have no function to execute), have been moved from (the
-    moved-to 'std::thread' then acts as the handle to the underlying software
-    thread), have been joined (the function they were to run has finished), or
-    have been detached (the connection between them and their underlying
-    software thread has been severed).
+  * std::threads are objects in a C++ process that act as handles to
+    underlying software threads. Some 'std::thread' objects represent
+    "null" handles, i.e., correspond to no software thread, because
+    they're in a default-constructed state (hence have no function to
+    execute), have been moved from (the moved-to 'std::thread' then
+    acts as the handle to the underlying software thread), have been
+    joined (the function they were to run has finished), or have been
+    detached (the connection between them and their underlying
+    software thread has been served).
 
 
 
@@ -45,10 +48,11 @@
 
   CONCLUSION
 
-  * Future destructors normally just destroy the future's data members.
+  * Future destructors normally just destroy the future's data
+    members.
 
-  * The final future referring to a shared state for a non-deferred task
-    launched via 'std::async' blocks until the task completes.
+  * The final future referring to a shared state for a non-deferred
+    task launched via 'std::async' blocks until the task completes.
 
 
 
