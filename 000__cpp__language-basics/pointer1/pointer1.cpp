@@ -31,8 +31,8 @@ using namespace std;
 
 void display(string szName, string szCommand, int *p)
 {
-  cout << szCommand << "   :\t" << szName << " = " << p << ",\t*" << szName
-       << " = " << *p << ",\t&" << szName << " = " << &p << endl;
+  cout << szCommand << ":\t" << szName << " = " << p << ";\t*" << szName
+       << " = " << *p << ";\t&" << szName << " = " << &p << endl;
 };
 
 
@@ -43,65 +43,74 @@ int main()
 
   cout << "Declaration of Variables:" << endl;
 
+  cout << "int var = 777;" << endl;
   int var = 777;
-  cout << "var = 777   :\t\tvar = " << var << ",\t&var = " << &var << endl;
+  cout << "content:\t\tvar = " << var << ";\t&var = " << &var << ";" << endl; // TODO xxx
   cout << endl;
 
   cout << "Declaration and initialisation of a pointer:" << endl;
   {
     int *pVar1 = &var;
-    display("pVar1", "int* pVar1 = &var", pVar1);
-    cout << endl;
+    display("pVar1", "content", pVar1);
   };
 
   {
-    //        int* pVar2 = var;
-    cout << "int* pVar2 = var, Invalid conversion from \'int\' to \'int*\'"
+    cout << "int* pVar2 = var;\t// Invalid conversion from \'int\' to \'int*\'"
          << endl;
+//  int* pVar2 = var; // FAILS!
     cout << endl;
   };
 
 
   cout << "Initialisation of an already declared pointer:" << endl;
   {
+	cout << "int *pVar3 = NULL;" << endl;
     int *pVar3 = NULL;
-    //        pVar3 = var;
-    cout << "pVar3 = var, Invalid conversion from \'int\' to \'int*\'" << endl;
+//  pVar3 = var; // FAILS!
+    cout << "pVar3 = var;\t// Invalid conversion from \'int\' to \'int*\'" << endl;
     cout << endl;
   };
   {
+	cout << "int *pVar4 = NULL;" << endl;
     int *pVar4 = NULL;
+	cout << "pVar4 = &var;" << endl;
     pVar4 = &var;
-    display("pVar4", "pVar4 = &var", pVar4);
+    display("pVar4", "content", pVar4);
     cout << endl;
   };
   {
-    int *pVar5 = NULL;
+    cout << "int *pVar5 = NULL;" << endl;
+	int *pVar5 = NULL;
+	cout << "pVar5 = new int;" << endl;
     pVar5 = new int; // ATTENTION! *pVar5 until now still had no memory!
-    *pVar5 = var;
-    display("pVar5", "*pVar5 = var", pVar5);
+    cout << "*pVar5 = var;" << endl;
+	*pVar5 = var;
+    display("pVar5", "content", pVar5);
     delete pVar5; // don't forget to free the memory
     cout << endl;
     /* without allocation of *pVar5 it even may work by chance,
        or more likely it may throw a segmentation fault */
   };
   {
+	cout << "int *pVar6 = NULL;" << endl;
     int *pVar6 = NULL;
-    //        *pVar6 = &var;
-    cout << "*pVar6 = &var, Invalid conversion from \'int*\' to \'int\'"
+    cout << "*pVar6 = &var;\t// Invalid conversion from \'int*\' to \'int\'"
          << endl;
+//  *pVar6 = &var; // FAILS!
     cout << endl;
   };
   {
+	cout << "int *pVar7 = NULL;" << endl;
     int *pVar7 = NULL;
-    //        &pVar7 = var;
-    cout << "&pVar7 = var, Invalid lvalue in assignment" << endl;
-    cout << endl;
+    cout << "&pVar7 = var;\t// Invalid lvalue in assignment" << endl;
+//  &pVar7 = var; // FAILS!
+	cout << endl;
   };
   {
+	cout << "int *pVar8 = NULL;" << endl;
     int *pVar8 = NULL;
-    //        &pVar8 = &var;
-    cout << "&pVar8 = &var, Invalid lvalue in assignment" << endl;
+    cout << "&pVar8 = &var;\t// Invalid lvalue in assignment" << endl;
+//  &pVar8 = &var; // FAILS!
     cout << endl;
   };
 
