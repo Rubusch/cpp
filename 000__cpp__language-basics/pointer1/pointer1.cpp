@@ -47,7 +47,7 @@ int main()
   cout << "var = 777   :\t\tvar = " << var << ",\t&var = " << &var << endl;
   cout << endl;
 
-  cout << "Deklaration and initialisation of a pointer:" << endl;
+  cout << "Declaration and initialisation of a pointer:" << endl;
   {
     int *pVar1 = &var;
     display("pVar1", "int* pVar1 = &var", pVar1);
