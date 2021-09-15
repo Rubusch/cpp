@@ -20,12 +20,13 @@ int main()
   cout << endl;
   {
     cout << "The pointer shares the same address with a variable\n"
-         << "if the variable changes, the content of the pointer changes, too:"
          << endl;
 
-    cout << "pVar = &var;" << endl;
+    cout << "\tpVar = &var;" << endl;
     cout << endl;
 
+    cout << "if the variable changes, the content of the pointer changes, too:"
+         << endl;
     int var = 7;
     int *pVar = NULL; // same as: int* pVar = &var
     pVar = &var;
@@ -46,12 +47,13 @@ int main()
   };
   {
     cout << "The pointer shares the value with a variable\n"
-         << "if the variable changes, the content of the pointer doesn't change:"
          << endl;
 
-    cout << "*pVar = var;" << endl;
+    cout << "\t*pVar = var;" << endl;
     cout << endl;
 
+    cout << "if the variable changes, the content of the pointer doesn't change:"
+         << endl;
     int var = 7;
     int *pVar = NULL;
 
