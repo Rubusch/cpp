@@ -36,11 +36,12 @@ using namespace std;
 
 
 /*
-  the C++ standard library provides std::pow(), which is the mathematical
-  functionality we need, but, for our purposes, there are two problems with it.
-  First, std::pow() works on floating-point types, and we need an integral
-  result. Second, std::pow() isn't constexpr (i.e. guaranteed to return a
-  compile-time result when called with compile-time values).
+  The C++ standard library provides std::pow(), which is the
+  mathematical functionality we need, but, for our purposes, there are
+  two problems with it. First, std::pow() works on floating-point
+  types, and we need an integral result. Second, std::pow() isn't
+  constexpr (i.e. guaranteed to return a compile-time result when
+  called with compile-time values).
  */
 
 /* // C++11
@@ -81,12 +82,12 @@ int main(void)
 
 
   // CONCLUSION:
-  // - constexpr functions can be used in contexts that demand compile-time
-  //   constants
+  // - constexpr functions can be used in contexts that demand
+  //   compile-time constants
   //
-  // - when a constexpr function is called with one or more values that are not
-  //   known during compilation, it acts like a normal function, computing its
-  //   result at runtime
+  // - when a constexpr function is called with one or more values
+  //   that are not known during compilation, it acts like a normal
+  //   function, computing its result at runtime
 
 
   cout << "READY." << endl;

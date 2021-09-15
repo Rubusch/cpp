@@ -3,22 +3,23 @@
 
   ---
 
-  lvalue    - has an address, e.g. a user maintained variable or memory with
-              accessible address
+  lvalue  - has an address, e.g. a user maintained variable or memory
+            with accessible address
 
-  rvalue    - has no accessible address, e.g. a plain number value (stored only
-              temporarlily)
+  rvalue  - has no accessible address, e.g. a plain number value
+            (stored only temporarlily)
 
 
   conclusion:
 
-  - auto variables must be initialized, are generally immune to type mismatches
-    that can lead to portability or efficiency problems, can ease the process of
-    refactoring, and typically require less typing than variables with
-    explicitly specified types.
+  - auto variables must be initialized, are generally immune to type
+    mismatches that can lead to portability or efficiency problems,
+    can ease the process of refactoring, and typically require less
+    typing than variables with explicitly specified types.
 
-  - auto-typed variables are subject to the pitfalls such as proxy classes (with
-    invisible types) and auto type deductions (as undesired fallback)
+  - auto-typed variables are subject to the pitfalls such as proxy
+    classes (with invisible types) and auto type deductions (as
+    undesired fallback)
 
   resources: Effective Modern C++, Scott Meyers, 2015
  */

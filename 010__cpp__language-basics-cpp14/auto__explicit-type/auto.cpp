@@ -12,11 +12,11 @@
 
   conclusion:
 
-  - invisible proxy types can cause auto to deduce the wrong type for an
-  initializing expression
+  - invisible proxy types can cause auto to deduce the wrong type for
+    an initializing expression
 
-  - the explicitly typed initializer idiom forces auto to deduce the type you
-  want it to have
+  - the explicitly typed initializer idiom forces auto to deduce the
+    type you want it to have
 
   resources: Effective Modern C++, Scott Meyers, 2015
  */
@@ -40,10 +40,10 @@ int main(void)
   // problem: hidden types, now auto can't identify correctly
   //
   // example:
-  // indexed access of a vector<bool>, i.e. a vector templated with 'bool' does
-  // not allow 'auto' to identify its template type in C++11, it falls back to
-  // 'const int' - operator[]() for vector hides vectors template type, it is
-  // similar to a proxy pattern
+  // indexed access of a vector<bool>, i.e. a vector templated with
+  // 'bool' does not allow 'auto' to identify its template type in
+  // C++11, it falls back to 'const int' - operator[]() for vector
+  // hides vectors template type, it is similar to a proxy pattern
   vector< bool > vec(10, true);
   auto prio = vec[7];
   cout << "vector<bool> vec(10, true);" << endl;

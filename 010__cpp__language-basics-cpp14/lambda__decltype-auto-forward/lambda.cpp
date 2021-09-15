@@ -1,9 +1,10 @@
 // lambda.cpp
 /*
-  Lambda (>=cpp11) constructs a closure: an unnamed function object capable of
-capturing variables in scope.
+  Lambda (>=cpp11) constructs a closure: an unnamed function object
+  capable of capturing variables in scope.
 
-  This example shows to use 'decltype' on 'auto&&' paramters for 'std::forward'.
+  This example shows to use 'decltype' on 'auto&&' paramters for
+  'std::forward'.
 
 
   ---

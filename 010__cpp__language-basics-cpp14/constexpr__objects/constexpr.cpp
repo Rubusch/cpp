@@ -41,8 +41,7 @@ int main(void)
 
 
   // 1. the problem:
-  int size1 =
-      10; // size1's value not known at compile time, neither can't be derrived
+  int size1 = 10; // size1's value not known at compile time, neither can't be derrived
   //  constexpr auto arraySize1 = size1; // ERROR! size1 is not useable in a
   //  constant expression std::array<int, size1> data1; // ERROR! same problem
 
@@ -58,12 +57,13 @@ int main(void)
   const auto arraySize3 = size3; // OK (never read, will cause warnings!)
   //  std::array<int, arraySize3> data3; // ERROR!
 
-  // a 'const' can't be used in this literal expression, since a 'const' needs
-  // not to be initialized!
+  // a 'const' can't be used in this literal expression, since a
+  // 'const' needs not to be initialized!
 
 
   // CONCLUSION:
-  // - all constexpr objects are const, but not all const objects are constexpr
+  // - all constexpr objects are const, but not all const objects are
+  //   constexpr
 
 
   cout << "READY." << endl;
