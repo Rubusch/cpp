@@ -22,11 +22,15 @@ int main()
   cout << " - Usage of Pointers - " << endl;
   cout << endl;
   {
-    cout << "Both pointers share the same addresses\n"
-         << "if one changes, the content of the other changes, too:" << endl;
+    cout << "Both pointers share the same addresses"
+         << endl;
 
-    cout << "pB = pA;" << endl;
     cout << endl;
+    cout << "\tpB = pA;" << endl;
+    cout << endl;
+
+    cout << "if one changes, the content of the other changes, too:"
+         << endl;
 
     int *pA = NULL;
     int *pB = NULL;
@@ -53,10 +57,14 @@ int main()
   };
   {
     cout << "Both pointers have different addresses\n"
-         << "if one changes, the content of the other doesn't change:" << endl;
+         << endl;
 
-    cout << "*pB = *pA;" << endl;
     cout << endl;
+    cout << "\t*pB = *pA;" << endl;
+    cout << endl;
+
+    cout << "if one changes, the content of the other doesn't change:"
+         << endl;
 
     int *pA;
     int *pB;
