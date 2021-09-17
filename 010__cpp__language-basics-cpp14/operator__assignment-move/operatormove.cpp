@@ -1,11 +1,12 @@
 // operator move - no, actually the assignment move operator
 /*
-  move is called via std::move() or inside the stl for certain operations,
-  e.g. swap, it improves performance, and when using the STL might be applied
-  implicitely also in older codes by recompilation
+  move is called via std::move() or inside the stl for certain
+  operations, e.g. swap, it improves performance, and when using the
+  STL might be applied implicitely also in older codes by
+  recompilation
 
-  the following demonstrates writing a move operator and how the content of
-  objects should behave
+  the following demonstrates writing a move operator and how the
+  content of objects should behave
 //*/
 
 #include <iostream>
@@ -30,9 +31,9 @@ public:
 
   // copy move constructor
   //
-  // The copy constructor is a special function:
-  // Doesn't matter if these were declared "private" or "protected" - the access
-  // within the copy constructor works like a friend declared function!!
+  // The copy constructor is a special function: Doesn't matter if
+  // these were declared "private" or "protected" - the access within
+  // the copy constructor works like a friend declared function!!
   // Everything's "public" here!
   Box &operator=(Box &&box)
   {
