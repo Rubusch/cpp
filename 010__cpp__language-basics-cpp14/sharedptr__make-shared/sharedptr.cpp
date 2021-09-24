@@ -7,17 +7,20 @@
 
   CONCLUSION:
 
-  - compared to direct use of 'new', 'make' functions eliminate source code
-    duplication, improve exception safety, and, for 'std::make_shared()' and
-    'std::allocate_shared()', generate code that's smaller and faster
+  - compared to direct use of 'new', 'make' functions eliminate source
+    code duplication, improve exception safety, and, for
+    'std::make_shared()' and 'std::allocate_shared()', generate code
+    that's smaller and faster
 
-  - situations where use of 'make' functions is inappropriate include the need
-    to specify custom deleters and a desire to pass braced initializers
+  - situations where use of 'make' functions is inappropriate include
+    the need to specify custom deleters and a desire to pass braced
+    initializers
 
-  - for 'std::shared_ptr's, additional situations where 'make' functions may be
-    ill-advised include (1) classes with custom memory management and
-    (2) systems with memory concerns, very large objects, and 'std::weak_ptr's
-    that outlive the corresponding 'std::shared_ptrs'
+  - for 'std::shared_ptr's, additional situations where 'make'
+    functions may be ill-advised include (1) classes with custom
+    memory management and (2) systems with memory concerns, very large
+    objects, and 'std::weak_ptr's that outlive the corresponding
+    'std::shared_ptrs'
 
   resources: Effective Modern C++, Scott Meyers, 2015
 
@@ -88,7 +91,6 @@ int main(void)
   auto *pVal = pInt.get();
   cout << "yet another smartpointer, the raw pointer '*pVal' shows: " << *pVal
        << endl;
-
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
