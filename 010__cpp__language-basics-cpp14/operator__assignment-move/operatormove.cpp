@@ -46,9 +46,9 @@ public:
 
       // deep move (reference)!
       //
-      // the move passes the content to the receiving object, the moved one may
-      // lose its contents or allocations entirely (needs care of explicit
-      // implementation)
+      // the move passes the content to the receiving object, the
+      // moved one may lose its contents or allocations entirely
+      // (needs care of explicit implementation)
       pItem = box.pItem;
       box.pItem = nullptr;
     }
