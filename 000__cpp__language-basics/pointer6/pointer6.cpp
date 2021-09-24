@@ -35,6 +35,5 @@ int main()
 
   *pErr = var; /* Segmentation Fault - Copy the Value of var to where again? */
 
-
   return 0;
 };
