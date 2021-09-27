@@ -5,17 +5,17 @@
 
   CONCLUSION
 
-  * Make 'const' member functions thread safe unless you're certain they'll
-    never (!) be used in a concurrent context.
+  * Make 'const' member functions thread safe unless you're certain
+    they'll never (!) be used in a concurrent context.
 
-  * Use of 'std::atomic' variables may offer better performance than a mutex,
-    but they're suited for manipulation of only a single variable or memory
-    location.
+  * Use of 'std::atomic' variables may offer better performance than a
+    mutex, but they're suited for manipulation of only a single
+    variable or memory location.
 
-  * For a single variable or memory location requiring synchronization, use
-    of a 'std::atomic' is adequate, but once you get to two or more variables
-    or memory locations that require manipulations as a unit, you should
-    reach for a mutex.
+  * For a single variable or memory location requiring
+    synchronization, use of a 'std::atomic' is adequate, but once you
+    get to two or more variables or memory locations that require
+    manipulations as a unit, you should reach for a mutex.
 
 
 

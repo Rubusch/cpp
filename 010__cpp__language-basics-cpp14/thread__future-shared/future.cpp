@@ -1,31 +1,34 @@
 /*
-  C++11 - prefer task-based programming to thread-based (Meyers / item 35)
+  C++11 - prefer task-based programming to thread-based
+  (Meyers / item 35)
 
 
-  The 'std::future' provides a mechanism for communication among threads, pass
-  values or retrieve resulting values in an asynchronous operation.
+  The 'std::future' provides a mechanism for communication among
+  threads, pass values or retrieve resulting values in an asynchronous
+  operation.
 
-  Shared futures share their state and TLS (thread local storage) among tasks
-  or threads, respectively. Thus one future's value can be checked in several
-  threads.
+  Shared futures share their state and TLS (thread local storage)
+  among tasks or threads, respectively. Thus one future's value can be
+  checked in several threads.
 
 
-  The example shows signaling a kickoff to two threads and measure their
-  execution time. In order to realize a start and retrieve mechanism the
-  start promise will run in a shared future.
+  The example shows signaling a kickoff to two threads and measure
+  their execution time. In order to realize a start and retrieve
+  mechanism the start promise will run in a shared future.
 
   The example uses chrono, promise, shared futures and async.
 
 
-  The class template std::shared_future provides a mechanism to access the
-  result of asynchronous operations, similar to std::future, except that
-  multiple threads are allowed to wait for the same shared state. Unlike
-  std::future, which is only moveable (so only one instance can refer to any
-  particular asynchronous result), std::shared_future is copyable and multiple
-  shared future objects may refer to the same shared state.
+  The class template std::shared_future provides a mechanism to access
+  the result of asynchronous operations, similar to std::future,
+  except that multiple threads are allowed to wait for the same shared
+  state. Unlike std::future, which is only moveable (so only one
+  instance can refer to any particular asynchronous result),
+  std::shared_future is copyable and multiple shared future objects
+  may refer to the same shared state.
 
-  Access to the same shared state from multiple threads is safe if each thread
-  does it through its own copy of a shared_future object.
+  Access to the same shared state from multiple threads is safe if
+  each thread does it through its own copy of a shared_future object.
 
 
 
@@ -33,39 +36,42 @@
 
   The three meanings of 'thread' in concurrent C++ software:
 
-  * Hardware Threads: are the threads that actually perform computation.
-    Contemporary machine architectures offer one or more hardware threads per
-    CPU core.
+  * Hardware Threads: are the threads that actually perform
+    computation. Contemporary machine architectures offer one or more
+    hardware threads per CPU core (HarT).
 
-  * Software Threads: (also known as OS threads or system threads) are the
-    threads that the operating system manages across all processes and schedules
-    for execution on hardware threads. It's typically possible to create more
-    software threads than hardware threads, because when a software thread is
-    blocked (e.g. on I/O or waiting for a mutex or condition variable),
-    throughput can be improved by executing other, unblocked threads.
+  * Software Threads: (also known as OS threads or system threads) are
+    the threads that the operating system manages across all processes
+    and schedules for execution on hardware threads. It's typically
+    possible to create more software threads than hardware threads,
+    because when a software thread is blocked (e.g. on I/O or waiting
+    for a mutex or condition variable), throughput can be improved by
+    executing other, unblocked threads.
 
-  * std::threads are objects in a C++ process that act as handles to underlying
-    software threads. Some 'std::thread' objects represent "null" handles, i.e.,
-    correspond to no software thread, because they're in a default-constructed
-    state (hence have no function to execute), have been moved from (the
-    moved-to 'std::thread' then acts as the handle to the underlying software
-    thread), have been joined (the function they were to run has finished), or
-    have been detached (the connection between them and their underlying
+  * std::threads are objects in a C++ process that act as handles to
+    underlying software threads. Some 'std::thread' objects represent
+    "null" handles, i.e., correspond to no software thread, because
+    they're in a default-constructed state (hence have no function to
+    execute), have been moved from (the moved-to 'std::thread' then
+    acts as the handle to the underlying software thread), have been
+    joined (the function they were to run has finished), or have been
+    detached (the connection between them and their underlying
     software thread has been severed).
 
 
 
   CONCLUSION
 
-  * The 'std::thread' API offers no direct way to get return values from
-    asynchronously run functions, and if those functions throw, the program is
-    terminated.
+  * The 'std::thread' API offers no direct way to get return values
+    from asynchronously run functions, and if those functions throw,
+    the program is terminated.
 
-  * Thread-based programming calls for manual management of thread exhaustion,
-    oversubscription, load balancing, and adaptation to new platforms.
+  * Thread-based programming calls for manual management of thread
+    exhaustion, oversubscription, load balancing, and adaptation to
+    new platforms.
 
-  * Task-based programming via 'std::async' with the default launch policy
-    handles most of these issues for you.
+  * Task-based programming via 'std::async' with the default launch
+    policy handles most of these issues for you.
 
 
 

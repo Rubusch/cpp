@@ -3,38 +3,39 @@
   (Meyers / item 39)
 
 
-  A normal 'std::promise' prepares a one-shot communication and cannot be
-  reused.
+  A normal 'std::promise' prepares a one-shot communication and cannot
+  be reused.
 
-  The 'std::future' provides a mechanism for communication among threads, pass
-  values or retrieve resulting values in an asynchronous operation.
+  The 'std::future' provides a mechanism for communication among
+  threads, pass values or retrieve resulting values in an asynchronous
+  operation.
 
-  Shared futures share their state and TLS (thread local storage) among tasks
-  or threads, respectively. Thus one future's value can be checked in several
-  threads.
+  Shared futures share their state and TLS (thread local storage)
+  among tasks or threads, respectively. Thus one future's value can be
+  checked in several threads.
 
-
-  In the example a promise provides a one-shot 'std::future' for passing a
-  return value and for passing a barrier. Parallelism is implemented via
-  'std::async'.
+  In the example a promise provides a one-shot 'std::future' for
+  passing a return value and for passing a barrier. Parallelism is
+  implemented via 'std::async'.
 
 
 
   CONCLUSION
 
-  * For simple event communication, condvar-based design require a superfluous
-    mutex, impose constraints on the relative progress of detecting and reacting
-    tasks, and require reacting tasks to verify that the event has taken place.
+  * For simple event communication, condvar-based design require a
+    superfluous mutex, impose constraints on the relative progress of
+    detecting and reacting tasks, and require reacting tasks to verify
+    that the event has taken place.
 
-  * Designs employing a flag avoid those problems, but are based on polling not
-    blocking.
+  * Designs employing a flag avoid those problems, but are based on
+    polling not blocking.
 
-  * A condvar and flag can be used together, but the resulting communications
-    mechanism is somewhat stilted.
+  * A condvar and flag can be used together, but the resulting
+    communications mechanism is somewhat stilted.
 
-  * Using 'std::promises' and 'std::futures' dodges these issues, but the
-    approach uses heap memory for shared states, and it's limited to one-shot
-    communication.
+  * Using 'std::promises' and 'std::futures' dodges these issues, but
+    the approach uses heap memory for shared states, and it's limited
+    to one-shot communication.
 
 
 

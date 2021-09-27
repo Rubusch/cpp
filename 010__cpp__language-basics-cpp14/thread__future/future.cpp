@@ -13,8 +13,8 @@
   The three meanings of 'thread' in concurrent C++ software:
 
   * Hardware Threads: are the threads that actually perform
-    computation.  Contemporary machine architectures offer one or more
-    hardware threads per CPU core.
+    computation. Contemporary machine architectures offer one or more
+    hardware threads per CPU core (HarT).
 
   * Software Threads: (also known as OS threads or system threads) are
     the threads that the operating system manages across all processes
@@ -118,8 +118,8 @@ int doAsyncWork(string str)
 int main(void)
 {
   cout << "future from a packaged task" << endl;
-  // set up a packaged_task with a lambda, then obtain the future out of the
-  // task
+  // set up a packaged_task with a lambda, then obtain the future out
+  // of the task
   std::packaged_task< int() > task([]() { return doAsyncWork("task"); });
   std::future< int > future_from_task = task.get_future();
   // move the task into a separate thread, to set it "join()" later
@@ -155,8 +155,8 @@ int main(void)
   cout << "result from promise: " << res_from_promise << endl;
 
   // join the first task's thread, this will actually start the thread
-  thr.join(); // if this is missing: 'ERROR terminate called without an active
-              // exception'
+  thr.join(); // if this is missing: 'ERROR terminate called without
+              // an active exception'
 
   cout << "READY." << endl;
   return EXIT_SUCCESS;
