@@ -1,30 +1,30 @@
 /*
-  C++11 - declare functions noexcept if they won't emit exceptions (Meyers /
-  item 14)
+  C++11 - declare functions noexcept if they won't emit exceptions
+  (Meyers / item 14)
 
   ---
 
-  lvalue    - has an address, e.g. a user maintained variable or memory with
-              accessible address
+  lvalue - has an address, e.g. a user maintained variable or memory
+           with accessible address
 
-  rvalue    - has no accessible address, e.g. a plain number value (stored only
-              temporarlily)
+  rvalue - has no accessible address, e.g. a plain number value
+           (stored only temporarlily)
 
 
   conclusion:
 
-  - noexcept is part of a function's interface, and that means that callers may
-    depend on it
+  - noexcept is part of a function's interface, and that means that
+    callers may depend on it
 
   - noexcept functions are more optimizable than non-except functions
 
-  - noexcept is particularly valuable for the move operations, swap, memory
-    deallocation functions and destructors
+  - noexcept is particularly valuable for the move operations, swap,
+    memory deallocation functions and destructors
 
   - most functions are exception-neutral rather than noexcept
 
-  - if noexcept is missing, default is noexcept(false), only exception are
-    constructors and destructors which are noexcept(true)
+  - if noexcept is missing, default is noexcept(false), only exception
+    are constructors and destructors which are noexcept(true)
 
   resources: Effective Modern C++, Scott Meyers, 2015
  */
