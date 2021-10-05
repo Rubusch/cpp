@@ -145,11 +145,12 @@ public:
 /*
   Visitor
 
-  - declares a Visit operation for each class of ConcreteElement in the object
-structure. The operation's name and signature identifies the class that sends
-the Visit request to the visitor. That lets the visitor determine the concrete
-class of the element being visited. Then the visitor can access the element
-directly through its particular interface.
+  - declares a Visit operation for each class of ConcreteElement in
+    the object structure. The operation's name and signature
+    identifies the class that sends the Visit request to the
+    visitor. That lets the visitor determine the concrete class of the
+    element being visited. Then the visitor can access the element
+    directly through its particular interface.
 //*/
 class Visitor
 {
@@ -164,11 +165,12 @@ public:
 /*
   ConcreteVisitor
 
-  - implements each operation declared by Visitor. Each operation implements a
-fragment of the algorithm defined for the corresponding class of object in the
-structure. ConcreteVisitor provides the context for the algorithm and stores its
-local state. This state often accumulates results during the traversal of the
-structure.
+  - implements each operation declared by Visitor. Each operation
+    implements a fragment of the algorithm defined for the
+    corresponding class of object in the structure. ConcreteVisitor
+    provides the context for the algorithm and stores its local
+    state. This state often accumulates results during the traversal
+    of the structure.
 //*/
 class ConcreteVisitor : public Visitor
 {

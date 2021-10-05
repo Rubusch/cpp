@@ -9,16 +9,21 @@
 
 
  in context of move and copy constructors:
- - a copy constructor creates a deep copy of an object with out changing the
- object's content
- - a move constructor creates a deep copy of an object, allowing to change even
- the object itself (rhs)
+
+ - a copy constructor creates a deep copy of an object with out
+   changing the object's content
+
+ - a move constructor creates a deep copy of an object, allowing to
+   change even the object itself (rhs)
+
 
  purpose of move:
- - performance increase and under the hood optimizations when using STL
- containers (return value optimization, rvo)
- - non-copiable objects: parallel execution of a function of a non-copiable
- object e.g. inside threads
+
+ - performance increase and under the hood optimizations when using
+   STL containers (return value optimization, rvo)
+
+ - non-copiable objects: parallel execution of a function of a
+   non-copiable object e.g. inside threads
 
  caution:
  use of moved objects after the move can implicitely be dangerous,
