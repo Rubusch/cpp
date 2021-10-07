@@ -56,7 +56,6 @@ int main(void)
   // 'std::make_shared(arg)'
   auto pBox = make_shared< Box >(12); // MAKE determines the type of pBox!!!
 
-
   // check if a pointer is empty
   auto content = pBox->box_content();
   cout << "the pBox contains " << content << " toys" << endl;
