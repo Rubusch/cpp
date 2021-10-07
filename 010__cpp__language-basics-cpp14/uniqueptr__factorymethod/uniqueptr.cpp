@@ -1,27 +1,28 @@
 /*
-  C++11 - prefer unique_ptr to auto_ptr and raw pointers (Meyers / item 18)
+  C++11 - prefer unique_ptr to auto_ptr and raw pointers
+  (Meyers / item 18)
 
 
   // factory method:
   // with default delete type
   template< typename... Ts>
-  std::unique_ptr< Fruit >
-  makeJuice(Ts&&... params);
+  std::unique_ptr< Fruit > makeJuice(Ts&&... params);
 
 
  Conclusion:
 
- - 'std::unique_ptr' is a small, fast, move-only smart pointer for managing
-   resources with exclusive-ownership semantics
+ - 'std::unique_ptr' is a small, fast, move-only smart pointer for
+   managing resources with exclusive-ownership semantics
 
- - by default, resource destruction takes place via 'delete', but custom
-   deleters can be specified. Stateful deleters and function pointers as
-   deleters increase the size of 'std::unique_ptr' objects
+ - by default, resource destruction takes place via 'delete', but
+   custom deleters can be specified. Stateful deleters and function
+   pointers as deleters increase the size of 'std::unique_ptr' objects
 
  - converting a 'std::unique_ptr' to a 'std::shared_ptr' is easy
-  resources: Effective Modern C++, Scott Meyers, 2015
 
- @author: lothar Rubusch
+ resources: Effective Modern C++, Scott Meyers, 2015
+
+ @author: Lothar Rubusch <l.rubusch@gmail.com>
  */
 
 #include <iostream>

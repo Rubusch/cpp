@@ -10,7 +10,7 @@
   demonstrates basic operations with unique_ptr
   resources: Effective Modern C++, Scott Meyers, 2015
 
- @author: lothar Rubusch
+ @author: Lothar Rubusch <L.Rubusch@gmail.com>
  */
 
 #include <iostream>
