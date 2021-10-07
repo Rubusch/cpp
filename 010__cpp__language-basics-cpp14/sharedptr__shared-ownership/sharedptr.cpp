@@ -1,6 +1,6 @@
 /*
-  C++11 - use 'std::shared_ptr' for shared-ownership resource management
-  (Meyers / item 19)
+  C++11 - use 'std::shared_ptr' for shared-ownership resource
+  management (Meyers / item 19)
 
   'std::shared_ptr' may transfer ownership to other smartpointers,
   uses refcnt
@@ -32,7 +32,7 @@
 
   resources: Effective Modern C++, Scott Meyers, 2015
 
-  @author: lothar Rubusch
+  @author: Lothar Rubusch <L.Rubusch@gmail.com>
  */
 
 #include <iostream>
@@ -51,9 +51,9 @@ public:
 int main(void)
 {
   // unique_ptr to shared_ptr
-  cout << "create unique_ptr pLemon" << endl;
-  std::unique_ptr< Lemon > pLemon(new Lemon());
-  cout << "pLemon->juice(): " << pLemon->juice() << endl;
+  cout << "create unique_ptr pUniqueLemon" << endl;
+  std::unique_ptr< Lemon > pUniqueLemon(new Lemon());
+  cout << "pUniqueLemon->juice(): " << pUniqueLemon->juice() << endl;
 
   std::shared_ptr< Lemon > pSharedLemon;
   if (nullptr == pSharedLemon) {
@@ -61,11 +61,11 @@ int main(void)
   }
 
   cout << "moving unique_ptr() to shared_ptr()" << endl;
-  pSharedLemon = std::move(pLemon);
+  pSharedLemon = std::move(pUniqueLemon);
   cout << "pSharedLemon->juice(): " << pSharedLemon->juice() << endl;
 
-  if (nullptr == pLemon) {
-    cout << "pLemon is now null" << endl;
+  if (nullptr == pUniqueLemon) {
+    cout << "pUniqueLemon is now null" << endl;
   }
 
   // ERROR! shared_ptr cannot be converted to unique_ptr
