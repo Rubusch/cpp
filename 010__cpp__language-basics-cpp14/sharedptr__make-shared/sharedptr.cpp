@@ -1,6 +1,6 @@
 /*
-  C++11 - prefer 'std::make_unique()' and 'std::make_shared()' to direct use
-  of 'new' (Meyers / item 21)
+  C++11 - prefer 'std::make_unique()' and 'std::make_shared()' to
+  direct use of 'new' (Meyers / item 21)
 
   demonstrates operations with 'std::make_shared()'
 
@@ -24,7 +24,7 @@
 
   resources: Effective Modern C++, Scott Meyers, 2015
 
-  @author: lothar Rubusch
+  @author: Lothar Rubusch <l.rubusch@gmail.com>
  */
 
 #include <iostream>
