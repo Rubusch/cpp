@@ -30,8 +30,8 @@ class Test__CBasicMath : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE_END();
 
 public:
-	void setUp(void);
-	void tearDown(void);
+	void setUp(void) override;
+	void tearDown(void) override;
 
 protected:
 	void test__add(void);
