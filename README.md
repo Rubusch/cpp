@@ -20,6 +20,9 @@ $ make
 $ ./*.exe
 ```
 
+``.exe`` is not used on Linux? I understand. Tell me more..
+
+
 ## DISCLAIMER
 
 No liability for the contents of this repository can be accepted. Use the codes,
@@ -28,6 +31,3 @@ inaccuracies, that may of course be damaging to your system.
 
 You should proceed with caution. The author does not accept any responsibility
 for any damage incurred.
-
-
-Lothar Rubusch
