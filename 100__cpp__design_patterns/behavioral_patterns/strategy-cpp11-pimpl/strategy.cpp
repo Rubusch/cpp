@@ -46,6 +46,7 @@
 #include <iostream>
 #include <memory>
 
+
 /*
   Strategy
 
@@ -54,9 +55,10 @@
     strategy.
 //*/
 struct Impl_Strategy {
-  virtual ~Impl_Strategy() {}
+  virtual ~Impl_Strategy() = default;
   virtual double algorithm(double arg) = 0;
 };
+
 
 /*
   StrategyA - a concrete strategy
