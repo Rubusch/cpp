@@ -81,14 +81,14 @@ int main()
 
   int dynBaseVar = 3;
   cout << "Base* pBase = new Base(" << dynBaseVar << ");" << endl;
-  Base *pBase = new Base(dynBaseVar);
+  Base *pBase = new Base(dynBaseVar); /* NB: usually take shared_ptr/unique_ptr instead of new/delete */
   cout << "> pBase->getVar() = " << pBase->getVar() << endl;
   cout << endl;
 
   int dynDerivedVar = 4, dynDerivedNewVar = 44;
   cout << "Derived* pDerived = new Derived(" << dynDerivedVar << ", "
        << dynDerivedNewVar << ");" << endl;
-  Derived *pDerived = new Derived(dynDerivedVar, dynDerivedNewVar);
+  Derived *pDerived = new Derived(dynDerivedVar, dynDerivedNewVar); /* NB: usually take shared_ptr/unique_ptr instead of new/delete */
   cout << "> pDerived->getVar() = " << pDerived->getVar() << endl;
   cout << "> pDerived->getNewVar() = " << pDerived->getNewVar() << endl;
   cout << "> pDerived->me() = " << pDerived->me()
