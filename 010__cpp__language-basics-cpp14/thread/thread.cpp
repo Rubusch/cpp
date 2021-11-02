@@ -6,12 +6,13 @@
 
   RAII (resource acquisition is initialization)
 
-  Any time you want to perform some action along every path out of a block, the
-  normal approach is to put that action in the destructor of a local object.
-  Such objects are known as RAII objects, and the classes they come from are
-  known as RAII classes. (RAII itself stands for Resource Acquisition Is
-  Initialization, although the crux of the technique is descruction, not
-  initialization.) RAII classes are common in the Standard Library.
+  Any time you want to perform some action along every path out of a
+  block, the normal approach is to put that action in the destructor
+  of a local object.  Such objects are known as RAII objects, and the
+  classes they come from are known as RAII classes. (RAII itself
+  stands for Resource Acquisition Is Initialization, although the crux
+  of the technique is destruction, not initialization.) RAII classes
+  are common in the Standard Library.
 
 
 
