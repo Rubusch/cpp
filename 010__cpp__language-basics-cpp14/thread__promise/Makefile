@@ -5,13 +5,14 @@ OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES	= .cpp .o
 CC		= g++
 CPPFLAGS	= -g -Wall -Werror
+LDFLAGS         = -lpthread
 RM		= rm -f
 
 .c.o:
 	$(CC) $(CPPFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lpthread -lm
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) $(LDFLAGS)
 
 all: $(TARGET)
 
