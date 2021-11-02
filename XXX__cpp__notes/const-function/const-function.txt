@@ -1,0 +1,49 @@
+const correctness
+
+REFERENCE
+https://isocpp.org/wiki/faq/const-correctness
+https://gcc.gnu.org/onlinedocs/gcc-4.7.2/gcc/Function-Attributes.html
+
+
+    void f1(const std::string& s);      // Pass by reference-to-const
+    void f2(const std::string* sptr);   // Pass by pointer-to-const
+    void f3(std::string s);             // Pass by value
+
+In the pass by reference-to-const and pass by pointer-to-const cases,
+any attempts to change the caller’s std::string within the f()
+functions would be flagged by the compiler as an error at
+compile-time.
+
+
+
+
+
+FAQ
+Q: What do "X const& x" and "X const* p" mean?
+A: X const& x is equivalent to const X& x, and X const* x is equivalent to const X* x.
+
+Q: Does "X& const x" make any sense?
+A: No
+
+Q: What is a "const member function"?
+A: A member function that inspects (rather than mutates) its object.
+
+
+
+
+NOTE
+
+- Note that a function that has pointer arguments and examines the
+  data pointed to must not be declared const.
+
+- Likewise, a function that calls a non-const function usually must
+  not be const.
+
+- It does not make sense for a const function to return void.
+
+- const is pointless when the argument is passed by-value, since you
+  will not be modifying the caller's object.
+
+
+
+
