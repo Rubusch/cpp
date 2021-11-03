@@ -4,7 +4,8 @@
 
 
 SOURCE = passbywhat.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
+TARGET = $(SOURCE:.cpp=.exe)
 
 .PREFIXES = .cpp .o
 CC = g++
@@ -12,14 +13,14 @@ CFLAGS = -g -Wall
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) -c $(CFLAGS) $<
 
-passbywhat.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS)
 
-all: passbywhat.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) passbywhat.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~
 
-
+.PHONY: all clean $(TARGET)
