@@ -4,7 +4,8 @@
 
 
 SOURCE = typeinfotypeof.cpp
-OBJECTS = ${SOURCE:.cpp=.o}
+OBJECTS = $(SOURCE:.cpp=.o)
+TARGET = typeinfotypeof.exe
 
 .PREFIXES = .cpp .o
 CC = g++
@@ -12,14 +13,14 @@ CFLAGS = -g -Wall
 RM = rm -f
 
 .cpp.o:
-	${CC} -c ${CFLAGS} $<
+	$(CC) -c $(CFLAGS) $<
 
-typeinfotypeof.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS)
 
-all: typeinfotypeof.exe
+all: $(TARGET)
 
 clean:
-	${RM} $(OBJECTS) typeinfotypeof.exe *~ core
+	$(RM) $(OBJECTS) $(TARGET) *~
 
 
