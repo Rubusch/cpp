@@ -3,7 +3,6 @@
   Inheritance and abstract base class
 
   Only one pure virtual function is enough to make a class abstract.
-
   Use Virtual Functions for functions to be overwritten (dynamic
   binding).
 
@@ -74,8 +73,8 @@
 
   RESOURCES
 
-  * Exceptional C++, Herb Sutter, 2000
-//*/
+  Exceptional C++, Herb Sutter, 2000
+*/
 
 #include <iostream>
 #include <string>
@@ -95,7 +94,7 @@ public:
   void name() { cout << "Bird"; };
   virtual void sound() { cout << "nothing"; };
   // pure virtual function - makes the class abstract
-  virtual void fly() = 0;
+  virtual void fly() {}; // = 0; /* ideally make this class abstract */
 };
 
 
@@ -155,7 +154,11 @@ int main()
   p->sound();
   cout << '.' << endl;
 
-  Vulture *v = new Vulture();
+  // use derived class instance
+//  Vulture *v = new Vulture();
+
+  // use base class pointer (w/o dynamic_cast stays baseclass)
+  Bird *v = new Vulture();
   cout << "The ";
   v->name();
   cout << ' ';
