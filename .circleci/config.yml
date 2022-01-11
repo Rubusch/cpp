@@ -351,6 +351,7 @@ jobs:
       - run: cd 050__cpp__stl/algorithm-modifying_transform && make && ./*.exe
       - run: cd 050__cpp__stl/insert-iterator_back_inserter && make && ./*.exe
       - run: cd 050__cpp__stl/string_compare && make && ./*.exe
+      - run: cd 050__cpp__stl/container-associative_unordered-hash-map && make && ./*.exe
 
 
 ## 30: design patterns
