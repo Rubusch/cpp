@@ -1,6 +1,19 @@
 /*
   C++11 - make 'const' member functions thread safe (Meyers / item 16)
 
+  NB: Manually locking a mutex using mutex.lock()/unlock() is a bad
+  idea and typically never done anymore with c++11 or above.
+
+  Use: lock_guard< std::mutex > guard(mx);
+
+
+  Q: When needed, is it possible and how to unlock lock_guard()?
+
+  A: No, you should not call std::mutex::unlock() directly in this
+     case, as std::lock_guard destructor would call
+     std::mutex::unlock() again. You can use std::unique_lock instead,
+     which is not lightweight as std::lock_guard but allows you to
+     call unlock() on it
 
 
   CONCLUSION
