@@ -54,7 +54,6 @@ it.
   (GoF, 1995)
 //*/
 
-
 #include <iostream>
 #include <memory>
 
@@ -80,6 +79,12 @@ public:
 
   // no assignment -> private
   const Singleton &operator=(Singleton const &) = delete;
+
+  // no move copy ctor
+  Singleton(Singleton&&) = delete;
+
+  // no move assignment operator
+  Singleton& operator=(Singleton&&) = delete;
 
   // no public dtor -> private, will never be called
   ~Singleton() = delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
