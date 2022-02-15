@@ -6,14 +6,11 @@ it.
   +-----------------------+
   | Singleton             |
   +-----------------------+
-  | private:              |
-  | Singleton *pInstance_ |<----+
-  +-----------------------+     |
-  | private:              |     |
+  | private:              |<----+
   | Singleton()           |     |
   |                       |     |
   | public:               |     |
-  | getInstance()         |-----+
+  | static getInstance()  |-----+
   +-----------------------+
 
   Destruction of the Singelton
@@ -85,7 +82,7 @@ private:
   Singleton& operator=(Singleton&&) = delete;
 
   // no public dtor -> private, will never be called
-  ~Singleton() = delete; // NOTE: depends... see discussion in Alexandrescu's Modern C++
+  ~Singleton() = default; // NOTE: depends... see discussion in Alexandrescu's Modern C++
 
   // deleter for smart pointer
   struct Singleton_deleter;
@@ -106,7 +103,9 @@ struct Singleton::Singleton_deleter
 {
   void operator()(const Singleton* const ptr)
   {
+    std::cout << "destroy Singleton...";
     delete ptr;
+    std::cout << "done\n";
   }
 };
 
@@ -115,11 +114,6 @@ Singleton& Singleton::getInstance()
   static std::unique_ptr< Singleton, Singleton_deleter > inst(new Singleton());
   return *inst;
 }
-
-
-
-// static initialization: outside of class definition!
-Singleton *Singleton::pInstance_ = nullptr;
 
 
 /*
@@ -136,8 +130,6 @@ int main()
   cout << "use the Singleton\n";
   sing.doSomething();
   cout << endl;
-
-  cout << "destroy Singleton.. - is not permitted!\n";
 
   cout << "READY.\n";
   return 0;
