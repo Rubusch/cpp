@@ -40,7 +40,7 @@
 
   the const casts from "foobar" to char* are not needed, but without we get
   warnings!
-//*/
+*/
 
 #include <iostream>
 using namespace std;

@@ -21,7 +21,7 @@
              +-----------+
              | Client    |
              +-----------+
-//*/
+*/
 
 
 #include <iostream>
@@ -29,7 +29,7 @@
 
 /*
   Base
-//*/
+*/
 class Base
 {
 protected:
@@ -46,7 +46,7 @@ public:
 
   if this inheritance doesn't have "virtual" the class would have a separate
   "base" instance - "variable" would be different!
-//*/
+*/
 class DerivedA : public virtual Base
 {
 public:
@@ -63,7 +63,7 @@ public:
 
 /*
   DerivedB
-//*/
+*/
 class DerivedB : public virtual Base
 {
 public:
@@ -80,7 +80,7 @@ public:
 
 /*
   Client
-//*/
+*/
 class Client : public DerivedA, public DerivedB
 {
 };
@@ -88,7 +88,7 @@ class Client : public DerivedA, public DerivedB
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;
