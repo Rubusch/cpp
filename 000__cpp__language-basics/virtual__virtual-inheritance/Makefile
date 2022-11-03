@@ -5,6 +5,7 @@
 
 SOURCE = virtualvirtualinheritance.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
+TARGET = ${SOURCE:.cpp=.elf}
 
 .PREFIXES = .cpp .o
 CC = g++
@@ -14,12 +15,12 @@ RM = rm -f
 .cpp.o:
 	${CC} -c ${CFLAGS} $<
 
-virtualvirtualinheritance.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+${TARGET}: ${OBJECTS}
+	${CC} -o $@ ${OBJECTS}
 
-all: virtualvirtualinheritance.exe
+all: ${TARGET}
 
 clean:
-	${RM} $(OBJECTS) virtualvirtualinheritance.exe *~ core
+	${RM} $(OBJECTS) ${TARGET} *~
 
 

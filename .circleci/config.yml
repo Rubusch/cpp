@@ -105,7 +105,7 @@ jobs:
       - run: cd 000__cpp__language-basics/virtual__missing-virtual && make && ./*.exe
       - run: cd 000__cpp__language-basics/virtual__nonvirtual-inheritance && make && ./*.exe
       - run: cd 000__cpp__language-basics/virtual__virtual-destructor && make && ./*.exe
-      - run: cd 000__cpp__language-basics/virtual__virtual-inheritance && make && ./*.exe
+      - run: cd 000__cpp__language-basics/virtual__virtual-inheritance && make && ./*.elf
       - run: cd 000__cpp__language-basics/returntypes && make && ./*.exe
       - run: cd 000__cpp__language-basics/returntypes__scope && make && ./*.exe
       - run: cd 000__cpp__language-basics/new-delete3__memleak && make && ./*.exe
