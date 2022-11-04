@@ -1,0 +1,653 @@
+callbacks in C++
+
+
+REFERENCE
+https://stackoverflow.com/questions/2298242/callback-functions-in-c
+
+
+
+What are callbacks(?) and why to use them(!)
+
+A callback is a callable (see further down) accepted by a class or
+function, used to customize the current logic depending on that
+callback.
+
+One reason to use callbacks is to write generic code which is
+independant from the logic in the called function and can be reused
+with different callbacks.
+
+Many functions of the standard algorithms library <algorithm> use
+callbacks. For example the for_each algorithm applies an unary
+callback to every item in a range of iterators:
+
+template<class InputIt, class UnaryFunction>
+UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f)
+{
+  for (; first != last; ++first) {
+    f(*first);
+  }
+  return f;
+}
+
+which can be used to first increment and then print a vector by
+passing appropriate callables for example:
+
+std::vector<double> v{ 1.0, 2.2, 4.0, 5.5, 7.2 };
+double r = 4.0;
+std::for_each(v.begin(), v.end(), [&](double & v) { v += r; });
+std::for_each(v.begin(), v.end(), [](double v) { std::cout << v << " "; });
+
+which prints
+
+5 6.2 8 9.5 11.2
+
+Another application of callbacks is the notification of callers of
+certain events which enables a certain amount of static / compile time
+flexibility.
+
+Personally, I use a local optimization library that uses two different
+callbacks:
+
+    The first callback is called if a function value and the gradient
+    based on a vector of input values is required (logic callback:
+    function value determination / gradient derivation).
+
+    The second callback is called once for each algorithm step and
+    receives certain information about the convergence of the
+    algorithm (notification callback).
+
+Thus, the library designer is not in charge of deciding what happens
+with the information that is given to the programmer via the
+notification callback and he needn't worry about how to actually
+determine function values because they're provided by the logic
+callback. Getting those things right is a task due to the library user
+and keeps the library slim and more generic.
+
+Furthermore, callbacks can enable dynamic runtime behaviour.
+
+Imagine some kind of game engine class which has a function that is
+fired, each time the users presses a button on his keyboard and a set
+of functions that control your game behaviour. With callbacks you can
+(re)decide at runtime which action will be taken.
+
+void player_jump();
+void player_crouch();
+
+class game_core
+{
+    std::array<void(*)(), total_num_keys> actions;
+    //
+    void key_pressed(unsigned key_id)
+    {
+        if(actions[key_id]) actions[key_id]();
+    }
+    // update keybind from menu
+    void update_keybind(unsigned key_id, void(*new_action)())
+    {
+        actions[key_id] = new_action;
+    }
+};
+
+Here the function key_pressed uses the callbacks stored in actions to
+obtain the desired behaviour when a certain key is pressed. If the
+player chooses to change the button for jumping, the engine can call
+
+game_core_instance.update_keybind(newly_selected_key, &player_jump);
+
+and thus change the behaviour of a call to key_pressed (which the
+calls player_jump) once this button is pressed the next time ingame.
+
+
+
+
+
+What are callables in C++(11)?
+
+See C++ concepts: Callable on cppreference for a more formal
+description.
+
+Callback functionality can be realized in several ways in C++(11)
+since several different things turn out to be callable*:
+
+    Function pointers (including pointers to member functions)
+    std::function objects
+    Lambda expressions
+    Bind expressions
+    Function objects (classes with overloaded function call operator operator())
+
+* Note: Pointer to data members are callable as well but no function
+  is called at all.
+
+
+
+Several important ways to write callbacks in detail
+
+    X.1 "Writing" a callback in this post means the syntax to declare and name the callback type.
+    X.2 "Calling" a callback refers to the syntax to call those objects.
+    X.3 "Using" a callback means the syntax when passing arguments to a function using a callback.
+
+Note: As of C++17, a call like f(...) can be written as
+
+    std::invoke(f,...)
+
+ which also handles the pointer to member case.
+
+
+
+1. Function pointers
+
+A function pointer is the 'simplest' (in terms of generality; in terms
+of readability arguably the worst) type a callback can have.
+
+Let's have a simple function foo:
+
+int foo (int x) { return 2+x; }
+
+1.1 Writing a function pointer / type notation
+
+A function pointer type has the notation
+
+return_type (*)(parameter_type_1, parameter_type_2, parameter_type_3)
+// i.e. a pointer to foo has the type:
+int (*)(int)
+
+where a named function pointer type will look like
+
+return_type (* name) (parameter_type_1, parameter_type_2, parameter_type_3)
+
+// i.e. f_int_t is a type: function pointer taking one int argument, returning int
+typedef int (*f_int_t) (int);
+
+// foo_p is a pointer to function taking int returning int
+// initialized by pointer to function foo taking int returning int
+int (* foo_p)(int) = &foo;
+// can alternatively be written as
+f_int_t foo_p = &foo;
+
+The using declaration gives us the option to make things a little bit
+more readable, since the typedef for f_int_t can also be written as:
+
+using f_int_t = int(*)(int);
+
+Where (at least for me) it is clearer that f_int_t is the new type
+alias and recognition of the function pointer type is also easier
+
+And a declaration of a function using a callback of function pointer
+type will be:
+
+// foobar having a callback argument named moo of type 
+// pointer to function returning int taking int as its argument
+int foobar (int x, int (*moo)(int));
+// if f_int is the function pointer typedef from above we can also write foobar as:
+int foobar (int x, f_int_t moo);
+
+1.2 Callback call notation
+
+The call notation follows the simple function call syntax:
+
+int foobar (int x, int (*moo)(int))
+{
+    return x + moo(x); // function pointer moo called using argument x
+}
+// analog
+int foobar (int x, f_int_t moo)
+{
+    return x + moo(x); // function pointer moo called using argument x
+}
+
+
+
+1.3 Callback use notation and compatible types
+
+A callback function taking a function pointer can be called using
+function pointers.
+
+Using a function that takes a function pointer callback is rather
+simple:
+
+ int a = 5;
+ int b = foobar(a, foo); // call foobar with pointer to foo as callback
+ // can also be
+ int b = foobar(a, &foo); // call foobar with pointer to foo as callback
+
+
+
+1.4 Example
+
+A function ca be written that doesn't rely on how the callback works:
+
+void tranform_every_int(int * v, unsigned n, int (*fp)(int))
+{
+  for (unsigned i = 0; i < n; ++i)
+  {
+    v[i] = fp(v[i]);
+  }
+}
+
+where possible callbacks could be
+
+int double_int(int x) { return 2*x; }
+int square_int(int x) { return x*x; }
+
+used like
+
+int a[5] = {1, 2, 3, 4, 5};
+tranform_every_int(&a[0], 5, double_int);
+// now a == {2, 4, 6, 8, 10};
+tranform_every_int(&a[0], 5, square_int);
+// now a == {4, 16, 36, 64, 100};
+
+
+
+2. Pointer to member function
+
+A pointer to member function (of some class C) is a special type of
+(and even more complex) function pointer which requires an object of
+type C to operate on.
+
+struct C
+{
+    int y;
+    int foo(int x) const { return x+y; }
+};
+
+
+
+2.1 Writing pointer to member function / type notation
+
+A pointer to member function type for some class T has the notation
+
+// can have more or less parameters
+return_type (T::*)(parameter_type_1, parameter_type_2, parameter_type_3)
+// i.e. a pointer to C::foo has the type
+int (C::*) (int)
+
+where a named pointer to member function will -in analogy to the
+function pointer- look like this:
+
+return_type (T::* name) (parameter_type_1, parameter_type_2, parameter_type_3)
+
+// i.e. a type `f_C_int` representing a pointer to member function of `C`
+// taking int returning int is:
+typedef int (C::* f_C_int_t) (int x);
+
+// The type of C_foo_p is a pointer to member function of C taking int returning int
+// Its value is initialized by a pointer to foo of C
+int (C::* C_foo_p)(int) = &C::foo;
+// which can also be written using the typedef:
+f_C_int_t C_foo_p = &C::foo;
+
+Example: Declaring a function taking a pointer to member function callback as one of its arguments:
+
+// C_foobar having an argument named moo of type pointer to member function of C
+// where the callback returns int taking int as its argument
+// also needs an object of type c
+int C_foobar (int x, C const &c, int (C::*moo)(int));
+// can equivalently declared using the typedef above:
+int C_foobar (int x, C const &c, f_C_int_t moo);
+
+
+
+2.2 Callback call notation
+
+The pointer to member function of C can be invoked, with respect to an
+object of type C by using member access operations on the dereferenced
+pointer. Note: Parenthesis required!
+
+int C_foobar (int x, C const &c, int (C::*moo)(int))
+{
+    return x + (c.*moo)(x); // function pointer moo called for object c using argument x
+}
+// analog
+int C_foobar (int x, C const &c, f_C_int_t moo)
+{
+    return x + (c.*moo)(x); // function pointer moo called for object c using argument x
+}
+
+Note: If a pointer to C is available the syntax is equivalent (where
+the pointer to C must be dereferenced as well):
+
+int C_foobar_2 (int x, C const * c, int (C::*meow)(int))
+{
+    if (!c) return x;
+    // function pointer meow called for object *c using argument x
+    return x + ((*c).*meow)(x);
+}
+// or equivalent:
+int C_foobar_2 (int x, C const * c, int (C::*meow)(int))
+{
+    if (!c) return x;
+    // function pointer meow called for object *c using argument x
+    return x + (c->*meow)(x);
+}
+
+
+
+2.3 Callback use notation and compatible types
+
+A callback function taking a member function pointer of class T can be
+called using a member function pointer of class T.
+
+Using a function that takes a pointer to member function callback is
+-in analogy to function pointers- quite simple as well:
+
+ C my_c{2}; // aggregate initialization
+ int a = 5;
+ int b = C_foobar(a, my_c, &C::foo); // call C_foobar with pointer to foo as its callback
+
+
+
+3. std::function objects (header <functional>)
+
+The std::function class is a polymorphic function wrapper to store,
+copy or invoke callables.
+
+
+
+3.1 Writing a std::function object / type notation
+
+The type of a std::function object storing a callable looks like:
+
+std::function<return_type(parameter_type_1, parameter_type_2, parameter_type_3)>
+
+// i.e. using the above function declaration of foo:
+std::function<int(int)> stdf_foo = &foo;
+// or C::foo:
+std::function<int(const C&, int)> stdf_C_foo = &C::foo;
+
+
+
+3.2 Callback call notation
+
+The class std::function has operator() defined which can be used to
+invoke its target.
+
+int stdf_foobar (int x, std::function<int(int)> moo)
+{
+    return x + moo(x); // std::function moo called
+}
+// or
+int stdf_C_foobar (int x, C const &c, std::function<int(C const &, int)> moo)
+{
+    return x + moo(c, x); // std::function moo called using c and x
+}
+
+
+
+3.3 Callback use notation and compatible types
+
+The std::function callback is more generic than function pointers or
+pointer to member function since different types can be passed and
+implicitly converted into a std::function object.
+
+
+
+3.3.1 Function pointers and pointers to member functions
+
+A function pointer
+
+int a = 2;
+int b = stdf_foobar(a, &foo);
+// b == 6 ( 2 + (2+2) )
+
+or a pointer to member function
+
+int a = 2;
+C my_c{7}; // aggregate initialization
+int b = stdf_C_foobar(a, c, &C::foo);
+// b == 11 == ( 2 + (7+2) )
+
+can be used.
+
+
+
+3.3.2 Lambda expressions
+
+An unnamed closure from a lambda expression can be stored in a
+std::function object:
+
+int a = 2;
+int c = 3;
+int b = stdf_foobar(a, [c](int x) -> int { return 7+c*x; });
+// b == 15 ==  a + (7*c*a) == 2 + (7+3*2)
+
+
+
+3.3.3 std::bind expressions
+
+The result of a std::bind expression can be passed. For example by
+binding parameters to a function pointer call:
+
+int foo_2 (int x, int y) { return 9*x + y; }
+using std::placeholders::_1;
+
+int a = 2;
+int b = stdf_foobar(a, std::bind(foo_2, _1, 3));
+// b == 23 == 2 + ( 9*2 + 3 )
+int c = stdf_foobar(a, std::bind(foo_2, 5, _1));
+// c == 49 == 2 + ( 9*5 + 2 )
+
+Where also objects can be bound as the object for the invocation of
+pointer to member functions:
+
+int a = 2;
+C const my_c{7}; // aggregate initialization
+int b = stdf_foobar(a, std::bind(&C::foo, my_c, _1));
+// b == 1 == 2 + ( 2 + 7 )
+
+
+
+3.3.4 Function objects
+
+Objects of classes having a proper operator() overload can be stored
+inside a std::function object, as well.
+
+struct Meow
+{
+  int y = 0;
+  Meow(int y_) : y(y_) {}
+  int operator()(int x) { return y * x; }
+};
+int a = 11;
+int b = stdf_foobar(a, Meow{8});
+// b == 99 == 11 + ( 8 * 11 )
+
+
+
+3.4 Example
+
+Changing the function pointer example to use std::function
+
+void stdf_tranform_every_int(int * v, unsigned n, std::function<int(int)> fp)
+{
+  for (unsigned i = 0; i < n; ++i)
+  {
+    v[i] = fp(v[i]);
+  }
+}
+
+gives a whole lot more utility to that function because (see 3.3) we
+have more possibilities to use it:
+
+// using function pointer still possible
+int a[5] = {1, 2, 3, 4, 5};
+stdf_tranform_every_int(&a[0], 5, double_int);
+// now a == {2, 4, 6, 8, 10};
+
+// use it without having to write another function by using a lambda
+stdf_tranform_every_int(&a[0], 5, [](int x) -> int { return x/2; });
+// now a == {1, 2, 3, 4, 5}; again
+
+// use std::bind :
+int nine_x_and_y (int x, int y) { return 9*x + y; }
+using std::placeholders::_1;
+// calls nine_x_and_y for every int in a with y being 4 every time
+stdf_tranform_every_int(&a[0], 5, std::bind(nine_x_and_y, _1, 4));
+// now a == {13, 22, 31, 40, 49};
+
+
+
+4. Templated callback type
+
+Using templates, the code calling the callback can be even more
+general than using std::function objects.
+
+Note that templates are a compile-time feature and are a design tool
+for compile-time polymorphism. If runtime dynamic behaviour is to be
+achieved through callbacks, templates will help but they won't induce
+runtime dynamics.
+
+
+
+4.1 Writing (type notations) and calling templated callbacks
+
+Generalizing i.e. the std_ftransform_every_int code from above even
+further can be achieved by using templates:
+
+template<class R, class T>
+void stdf_transform_every_int_templ(int * v,
+  unsigned const n, std::function<R(T)> fp)
+{
+  for (unsigned i = 0; i < n; ++i)
+  {
+    v[i] = fp(v[i]);
+  }
+}
+
+with an even more general (as well as easiest) syntax for a callback
+type being a plain, to-be-deduced templated argument:
+
+template<class F>
+void transform_every_int_templ(int * v,
+  unsigned const n, F f)
+{
+  std::cout << "transform_every_int_templ<"
+    << type_name<F>() << ">\n";
+  for (unsigned i = 0; i < n; ++i)
+  {
+    v[i] = f(v[i]);
+  }
+}
+
+Note: The included output prints the type name deduced for templated
+type F. The implementation of type_name is given at the end of this
+post.
+
+The most general implementation for the unary transformation of a
+range is part of the standard library, namely std::transform, which is
+also templated with respect to the iterated types.
+
+template<class InputIt, class OutputIt, class UnaryOperation>
+OutputIt transform(InputIt first1, InputIt last1, OutputIt d_first,
+  UnaryOperation unary_op)
+{
+  while (first1 != last1) {
+    *d_first++ = unary_op(*first1++);
+  }
+  return d_first;
+}
+
+
+
+4.2 Examples using templated callbacks and compatible types
+
+The compatible types for the templated std::function callback method
+stdf_transform_every_int_templ are identical to the above mentioned
+types (see 3.4).
+
+Using the templated version however, the signature of the used
+callback may change a little:
+
+// Let
+int foo (int x) { return 2+x; }
+int muh (int const &x) { return 3+x; }
+int & woof (int &x) { x *= 4; return x; }
+
+int a[5] = {1, 2, 3, 4, 5};
+stdf_transform_every_int_templ<int,int>(&a[0], 5, &foo);
+// a == {3, 4, 5, 6, 7}
+stdf_transform_every_int_templ<int, int const &>(&a[0], 5, &muh);
+// a == {6, 7, 8, 9, 10}
+stdf_transform_every_int_templ<int, int &>(&a[0], 5, &woof);
+
+Note: std_ftransform_every_int (non templated version; see above) does
+work with foo but not using muh.
+
+// Let
+void print_int(int * p, unsigned const n)
+{
+  bool f{ true };
+  for (unsigned i = 0; i < n; ++i)
+  {
+    std::cout << (f ? "" : " ") << p[i];
+    f = false;
+  }
+  std::cout << "\n";
+}
+
+The plain templated parameter of transform_every_int_templ can be
+every possible callable type.
+
+int a[5] = { 1, 2, 3, 4, 5 };
+print_int(a, 5);
+transform_every_int_templ(&a[0], 5, foo);
+print_int(a, 5);
+transform_every_int_templ(&a[0], 5, muh);
+print_int(a, 5);
+transform_every_int_templ(&a[0], 5, woof);
+print_int(a, 5);
+transform_every_int_templ(&a[0], 5, [](int x) -> int { return x + x + x; });
+print_int(a, 5);
+transform_every_int_templ(&a[0], 5, Meow{ 4 });
+print_int(a, 5);
+using std::placeholders::_1;
+transform_every_int_templ(&a[0], 5, std::bind(foo_2, _1, 3));
+print_int(a, 5);
+transform_every_int_templ(&a[0], 5, std::function<int(int)>{&foo});
+print_int(a, 5);
+
+The above code prints:
+
+1 2 3 4 5
+transform_every_int_templ <int(*)(int)>
+3 4 5 6 7
+transform_every_int_templ <int(*)(int&)>
+6 8 10 12 14
+transform_every_int_templ <int& (*)(int&)>
+9 11 13 15 17
+transform_every_int_templ <main::{lambda(int)#1} >
+27 33 39 45 51
+transform_every_int_templ <Meow>
+108 132 156 180 204
+transform_every_int_templ <std::_Bind<int(*(std::_Placeholder<1>, int))(int, int)>>
+975 1191 1407 1623 1839
+transform_every_int_templ <std::function<int(int)>>
+977 1193 1409 1625 1841
+
+type_name implementation used above
+
+    #include <type_traits>
+    #include <typeinfo>
+    #include <string>
+    #include <memory>
+    #include <cxxabi.h>
+
+    template <class T>
+    std::string type_name()
+    {
+      typedef typename std::remove_reference<T>::type TR;
+      std::unique_ptr<char, void(*)(void*)> own
+        (abi::__cxa_demangle(typeid(TR).name(), nullptr,
+        nullptr, nullptr), std::free);
+      std::string r = own != nullptr?own.get():typeid(TR).name();
+      if (std::is_const<TR>::value)
+        r += " const";
+      if (std::is_volatile<TR>::value)
+        r += " volatile";
+      if (std::is_lvalue_reference<T>::value)
+        r += " &";
+      else if (std::is_rvalue_reference<T>::value)
+        r += " &&";
+      return r;
+    }
+
