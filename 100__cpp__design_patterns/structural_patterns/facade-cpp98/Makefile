@@ -2,7 +2,7 @@
 #
 # use -O, -O1, -O2 for optimization
 
-TARGET = facade.exe
+TARGET = facade.elf
 SOURCE = *.cpp
 OBJECTS = $(SOURCE:.cpp=.o)
 
