@@ -1,6 +1,7 @@
 // proxy.cpp
 /*
-  Provide a surrogate or placeholder for another object to control access to it.
+  Provide a surrogate or placeholder for another object to control
+  access to it.
 
 
   +--------+        +---------------------+
@@ -15,18 +16,15 @@
              +-----------------+-----------------+
              |                                   |
   +---------------------+             +---------------------+
-  | RealSubject         |<----------<>| Proxy               |
-+-------------------------+\
-  +=====================+             +=====================+      | ... +-+ |
-|             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
-  +---------------------+             +---------------------+      | ... | |
-request()           |             | request()           |
-+---------------------------+
+  | RealSubject         |<----------<>| Proxy               |      +-------------------------+\
+  +=====================+             +=====================+      | ...                     +-+
+  |                     |             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
+  +---------------------+             +---------------------+      | ...                       |
+  | request()           |             | request()           |      +---------------------------+
   +---------------------+             | getSubject()        |
                                       +---------------------+
-
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -76,7 +74,7 @@ protected:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

@@ -25,7 +25,7 @@ independently.
   +---------------------+                       +---------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -92,7 +92,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

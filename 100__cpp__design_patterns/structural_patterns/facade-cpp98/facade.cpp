@@ -1,10 +1,11 @@
 // facade.cpp
 /*
-  Provide a unified interace to a set of interfaces in a subsystem. Facade
-defines a higher-level interface that makes the subsystem easier to use. (GoF)
+  Provide a unified interace to a set of interfaces in a
+  subsystem. Facade defines a higher-level interface that makes the
+  subsystem easier to use. (GoF)
 
-  Demonstrates the implementation of a facade - in C++ the facade class should
-contain the "rule of three" functions!
+  Demonstrates the implementation of a facade - in C++ the facade
+  class should contain the "rule of three" functions!
 
 
   Example here:
@@ -28,7 +29,7 @@ contain the "rule of three" functions!
                                  |              +---------------+
                                  +------------->| Assistant_3   |
                                                 +---------------+
-//*/
+*/
 
 
 #include <iostream>
@@ -128,7 +129,7 @@ public:
 
 /*
   ..main
-//*/
+*/
 int main()
 {
   cout << "init..\n";

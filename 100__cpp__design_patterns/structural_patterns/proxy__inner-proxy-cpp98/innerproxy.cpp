@@ -1,22 +1,25 @@
 // innerproxy.cpp
 /*
-  Provide a surrogate or placeholder for another object to control access to it.
+  Provide a surrogate or placeholder for another object to control
+  access to it.
 
-  We will see the code for this in a moment, but first it is important to
-understand the proxies we'll be using. There are only three things you can do
-with a proxy:
+  We will see the code for this in a moment, but first it is important
+  to understand the proxies we'll be using. There are only three
+  things you can do with a proxy:
 
   - Create it, i.e., specify which string character it stands for.
 
-  - Use it as the target of an assignment, in which case you are really making
-an assignment to the string character it stands for. When used in this way, a
-proxy represents an lvalue use of the string on which operator[] was invoked.
+  - Use it as the target of an assignment, in which case you are
+    really making an assignment to the string character it stands
+    for. When used in this way, a proxy represents an lvalue use of
+    the string on which operator[] was invoked.
 
-  - Use it in any other way. When used like this, a proxy represents an rvalue
-use of the string on which operator[] was invoked.
+  - Use it in any other way. When used like this, a proxy represents
+    an rvalue use of the string on which operator[] was invoked.
 
-  Here are the class definitions for a reference-counted String class using a
-proxy class to distinguish between lvalue and rvalue usages of operator[]
+  Here are the class definitions for a reference-counted String class
+  using a proxy class to distinguish between lvalue and rvalue usages
+  of operator[]
 
 
 
@@ -25,7 +28,7 @@ proxy class to distinguish between lvalue and rvalue usages of operator[]
   * Design Patterns, Gang of Four, 1995
 
   * More Effective C++ / 30, Scott Meyers
-//*/
+*/
 
 #include <cstdlib>
 #include <iostream>
@@ -46,7 +49,7 @@ private:
     In this case it is necessary since there is no "operator[][]".
 
     The proxy implements only the interface necessary!
-  //*/
+  */
   class Proxy
   {
   private:
@@ -64,7 +67,7 @@ private:
 public:
   /*
     some idividual exception - this is optional and can be also a catch(...)
-  //*/
+  */
   class BadProxyException : public exception
   {
   private:
@@ -78,7 +81,7 @@ public:
 
   /*
     Matrix_2D<T> stuff
-  //*/
+  */
   Matrix_2D(const int max_x, const int max_y,
             const T &dummy) throw(BadProxyException);
   ~Matrix_2D();
@@ -94,7 +97,7 @@ public:
 
 /*
    proxy function definitions
-//*/
+*/
 
 template < class T >
 Matrix_2D< T >::Proxy::Proxy(const Matrix_2D< T > &matrix, const int x)
@@ -123,7 +126,7 @@ T &Matrix_2D< T >::Proxy::operator[](int y_coord)
 
 /*
   "real subject's" definitions"
-//*/
+*/
 
 template < class T >
 Matrix_2D< T >::Matrix_2D(
@@ -190,7 +193,7 @@ typename Matrix_2D< T >::Proxy Matrix_2D< T >::operator[](int x)
 
 /*
   some main
-//*/
+*/
 int main()
 {
   // init
@@ -201,10 +204,10 @@ int main()
     Matrix_2D< string > data(maxx, maxy, "xxx");
 
     /*
-      This normally shouldn't be possible since "data" is instantiated only
-      as object. Through the proxy class the index usage becomes easily
-      available - returned will be only one value, here!
-    //*/
+      This normally shouldn't be possible since "data" is instantiated
+      only as object. Through the proxy class the index usage becomes
+      easily available - returned will be only one value, here!
+    */
     for (int idx = 0; idx < maxx; ++idx) {
       for (int idy = 0; idy < maxy; ++idy) {
         cout << "\"" << data[idx][idy] << "\" ";

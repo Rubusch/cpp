@@ -1,8 +1,8 @@
 // adapter.cpp
 /*
-  Convert the interface of a class into another intarface clients expect.
-  Adapter lets classes work together that couldn't otherwise because of
-  incompatible interfaces.
+  Convert the interface of a class into another intarface clients
+  expect. Adapter lets classes work together that couldn't otherwise
+  because of incompatible interfaces.
 
   Adapter - Type 1: Target == Adapter, Adaptee is stored as member
 
@@ -33,7 +33,7 @@
                 +---------------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -43,7 +43,7 @@
   Adaptee
 
   - defines an existing interface that needs adapting
-//*/
+*/
 class Adaptee
 {
 public:
@@ -60,7 +60,7 @@ public:
   Target
 
   - defines the domain-specific interface that Client uses
-//*/
+*/
 class Target
 {
 public:
@@ -74,7 +74,7 @@ public:
 
   - adapts the interface of Adaptee to the Target interface
   - uses delegation to connect the Adaptee
-//*/
+*/
 class Adapter : public Target
 {
 private:
@@ -94,7 +94,7 @@ public:
   Client
 
   - collaborates with objects conforming to the Target interface
-//*/
+*/
 int main()
 {
   using namespace std;
