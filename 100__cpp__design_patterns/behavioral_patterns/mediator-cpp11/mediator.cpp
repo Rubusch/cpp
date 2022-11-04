@@ -16,19 +16,18 @@
              |                                            |
              |                             +--------------+--------------+
              |                             |                             |
-  +---------------------+       +---------------------+ +---------------------+
-  | ConcreteMediator    |       | ConcreteColleague1  |       |
-ConcreteColleague2  |
-  +=====================+       +=====================+ +=====================+
-  |                     |       |                     |       | |
-  +---------------------+       +---------------------+ +---------------------+
-  |                     |------>|                     |    +->| |
-  +---------------------+       +---------------------+    |
-+---------------------+ |                                             |
+  +---------------------+       +---------------------+       +---------------------+
+  | ConcreteMediator    |       | ConcreteColleague1  |       | ConcreteColleague2  |
+  +=====================+       +=====================+       +=====================+
+  |                     |       |                     |       |                     |
+  +---------------------+       +---------------------+       +---------------------+
+  |                     |------>|                     |    +->|                     |
+  +---------------------+       +---------------------+    |  +---------------------+
+             |                                             |
              +---------------------------------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -38,7 +37,7 @@ ConcreteColleague2  |
   Mediator
 
   - defines an interface for communicating with Collegue objects.
-//*/
+*/
 class Mediator
 {
 public:
@@ -54,7 +53,7 @@ Mediator::~Mediator() { std::cout << "\tMediator::~Mediator()\n"; }
   - each Collegue class knows its Mediator object.
   - each Collegue communicates with its mediator whenever it
   would have otherwise communicated with another Collegue.
-//*/
+*/
 class Collegue
 {
 protected:
@@ -82,7 +81,7 @@ public:
 
   - implements cooperative behavior by coordinating Collegue objects.
   - knows and maintains its collegues.
-//*/
+*/
 class ConcreteMediator : public Mediator
 {
 private:
@@ -131,7 +130,7 @@ public:
   Concrete Collegue (1)
 
   - implements the Collegue interface
-//*/
+*/
 class ConcreteCollegue1 : public Collegue
 {
 public:
@@ -159,7 +158,7 @@ public:
   Concrete Collegue (2)
 
   - implements the Collegue interface
-//*/
+*/
 class ConcreteCollegue2 : public Collegue
 {
 public:
@@ -185,7 +184,7 @@ public:
 
 /*
   main...
-//*/
+*/
 int main()
 {
   using namespace std;

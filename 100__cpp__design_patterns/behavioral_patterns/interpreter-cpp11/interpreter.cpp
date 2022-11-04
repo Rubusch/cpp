@@ -1,8 +1,8 @@
 // inerpreter.cpp
 /*
-  Given a language, define a representation for its grammar along with an
-  interpreter that uses the representation to interpret sentences in the
-language.
+  Given a language, define a representation for its grammar along with
+  an interpreter that uses the representation to interpret sentences
+  in the language.
 
                          +---------------------+
                 +------->| Context             |
@@ -35,14 +35,14 @@ language.
           +---------------------+       +---------------------+
 
   Indications:
-  - the grammar is simple (for complex grammars parser generators are more
-  usefull)
+  - the grammar is simple (for complex grammars parser generators are
+    more usefull)
   - efficiency is not a critical concern.
 
   Similarities in the tree with chain of responsibility?!
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -53,7 +53,7 @@ language.
   Context
 
   - contains information that's global to the interpreter
-//*/
+*/
 class Context
 {
 private:
@@ -80,9 +80,9 @@ public:
 /*
   AbstractExpression
 
-  - declares an abstract Interpret operation that is common to all nodes in the
-  abstract syntax tree
-//*/
+  - declares an abstract Interpret operation that is common to all
+    nodes in the abstract syntax tree
+*/
 class AbstractExpression
 {
 public:
@@ -95,9 +95,9 @@ public:
   TerminalExpression / LiteralExpression
 
   - implements an Interpret operation associated with terminal symbols
-  in the grammar
+    in the grammar
   - an instance is required for every terminal symbol in a sentence
-//*/
+*/
 class TerminalExpression_bool : public AbstractExpression
 {
 public:
@@ -115,13 +115,14 @@ public:
 /*
   NonterminalExpression / AlternationExpression
 
-  - one such class is required for every rule R ::= R1 R2 ... Rn in the grammar
-  - maintains instance variables of type AbstractExpression for each of the
-  symbols R1 through Rn
-  - implements an Interpret operation for nonterminal symbols in the grammar.
-  Interpret typically calls itself recursively on the variables representing
-  R1 through Rn
-//*/
+  - one such class is required for every rule R ::= R1 R2 ... Rn in
+    the grammar
+  - maintains instance variables of type AbstractExpression for each
+    of the symbols R1 through Rn
+  - implements an Interpret operation for nonterminal symbols in the
+    grammar. Interpret typically calls itself recursively on the
+    variables representing R1 through Rn
+*/
 class NonterminalExpression_equals : public AbstractExpression
 {
 private:
@@ -157,12 +158,12 @@ public:
 /*
   Client
 
-  - builds (or is given) an abstract syntax tree representing a particular
-  sentence in the language that the grammar defines. The abstract syntax tree
-  is assembled from instances of the NonterminalExpression and
-TerminalExpression classes.
+  - builds (or is given) an abstract syntax tree representing a
+    particular sentence in the language that the grammar defines. The
+    abstract syntax tree is assembled from instances of the
+    NonterminalExpression and TerminalExpression classes.
   - invokes the Interpret operation
-//*/
+*/
 int main()
 {
   using namespace std;

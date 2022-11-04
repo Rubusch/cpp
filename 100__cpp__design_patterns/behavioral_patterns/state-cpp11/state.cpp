@@ -9,21 +9,21 @@
   +=====================+                     +=====================+
   | request()           |                     | handleRequest()     |
   +---|-----------------+                     +---------------------+
-                                                  /_\         /_\
-      |                                            |           |
-                                           +-------+           +-------+
+                                                        /_\
+      |                                                  |
+                                           +-------------+-------------+
       |                                    |                           |
-  +-----------------------+\   +---------------------+ +---------------------+
-  | state.handleRequest() +-+  | StateA              |     | StateB | | |
-+=====================+     +=====================+
-  +-------------------------+  | handleRequest()     |     | handleRequest() |
-                               +---------------------+ +---------------------+
+  +-----------------------+\   +---------------------+     +---------------------+
+  | state.handleRequest() +-+  | StateA              |     | StateB              |
+  |                         |  +=====================+     +=====================+
+  +-------------------------+  | handleRequest()     |     | handleRequest()     |
+                               +---------------------+     +---------------------+
 
  (GoF, 1995)
 
  The 'State' pattern can be used to replace 'switch' (extendibility!) and
  'if' statements which can be difficult to maintain and are less type-safe.
-//*/
+*/
 
 
 #include <cstdlib>
@@ -40,7 +40,7 @@ class State;
   - defines the interface of interest to clients.
   - maintains an instance of a ConcreteState subclass that defines the
   current state.
-//*/
+*/
 class Context
 {
 private:
@@ -67,7 +67,7 @@ public:
 
   - defines an interface for encapsulating the behavior associated with a
   particular state of the Context.
-//*/
+*/
 class State
 {
 public:
@@ -89,7 +89,7 @@ protected:
   StateA
 
   - each subclass implements a behavior associated with a state of the Context.
-//*/
+*/
 class StateA : public State
 {
 private:
@@ -121,7 +121,7 @@ public:
   StateB
 
   - each subclass implements a behavior associated with a state of the Context.
-//*/
+*/
 class StateB : public State
 {
 private:
@@ -153,7 +153,7 @@ public:
 
 /*
   Context.. implementation
-//*/
+*/
 
 Context::Context()
 {
@@ -187,7 +187,7 @@ void Context::changeState(State *state)
 
 /*
   main()
-//*/
+*/
 int main()
 {
   using namespace std;

@@ -52,10 +52,7 @@
                                     +--------------------+      +--------------------+
 
   (GoF, 1995)
-
-
-  (GoF, 1995)
-//*/
+*/
 
 
 #include <algorithm>
@@ -71,7 +68,7 @@ class Visitor;
   Element
 
   - defines an Accept operation that takes a visitor as an argument.
-//*/
+*/
 class Element
 {
 public:
@@ -84,7 +81,7 @@ public:
   Element1 - a ConcreteElement
 
   - impelments an accept operation that takes a visistor as an argument.
-//*/
+*/
 class Element1 : public Element
 {
 public:
@@ -100,7 +97,7 @@ public:
 
 /*
   Element2 - another concrete element
-//*/
+*/
 class Element2 : public Element
 {
 private:
@@ -127,11 +124,11 @@ std::ostream &operator<<(std::ostream &os, Element2 &element)
   ObjectStructure
 
   - can enumerate its elements.
-  - may provide a high-level interface to allow the visitor to visit its
-elements
+  - may provide a high-level interface to allow the visitor to visit
+    its elements
   - may either be a composite or a collection such as a sequential or
-associative structure
-//*/
+    associative structure
+*/
 class ObjectStructure
 {
 private:
@@ -151,7 +148,7 @@ public:
     visitor. That lets the visitor determine the concrete class of the
     element being visited. Then the visitor can access the element
     directly through its particular interface.
-//*/
+*/
 class Visitor
 {
 public:
@@ -171,7 +168,7 @@ public:
     provides the context for the algorithm and stores its local
     state. This state often accumulates results during the traversal
     of the structure.
-//*/
+*/
 class ConcreteVisitor : public Visitor
 {
 public:
@@ -194,20 +191,20 @@ public:
       return;
     std::for_each(os->elements().begin(), os->elements().end(),
                   std::bind2nd(std::mem_fun(&Element::accept), this));
-    /* same as:
+/* same as:
     std::vector< Element* >& elements = os->elements();
     for( std::vector< Element* >::iterator iter = elements.begin(); iter !=
     elements.end(); ++iter){
        (*iter)->accept(*this);
     }
-    //*/
+*/
   }
 };
 
 
 /*
   definitions here due to declaration issues
-//*/
+*/
 
 void Element1::accept(Visitor *visitor)
 {
@@ -225,7 +222,7 @@ void Element2::accept(Visitor *visitor)
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

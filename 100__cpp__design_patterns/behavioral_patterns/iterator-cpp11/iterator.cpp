@@ -28,15 +28,14 @@
                 | return new ConcreteIterator(this) +-+
                 +-------------------------------------+
   (GoF, 1995)
-//*/
-
+*/
 
 #include <iostream>
 
 
 /*
   forward declaration and additional "helpers"
-//*/
+*/
 struct IteratorOutOfBounds : public std::exception {
 };
 
@@ -54,7 +53,7 @@ class ConcreteIterator;
   Aggregate, e.g. a list, vector, or something like
 
   - defines an interface for creating an Iterator object
-//*/
+*/
 template < class Item >
 class Aggregate
 {
@@ -99,9 +98,9 @@ public:
 /*
   ConcreteAggregate
 
-  - implements the Iterator creation interface to return an instance of the
-  proper ConcreteIterator
-//*/
+  - implements the Iterator creation interface to return an instance
+    of the proper ConcreteIterator
+*/
 template < class Item >
 class ConcreteAggregate : public Aggregate< Item >
 {
@@ -149,7 +148,7 @@ public:
   Iterator
 
   - defines an interface for accessing and traversing elements
-//*/
+*/
 template < class Item >
 class Iterator
 {
@@ -166,7 +165,7 @@ public:
 
   - implements the Iterator Interface
   - keeps track of the current position in the traversal of the aggregate
-//*/
+*/
 template < class Item >
 class ConcreteIterator : public Iterator< Item >
 {
@@ -213,7 +212,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

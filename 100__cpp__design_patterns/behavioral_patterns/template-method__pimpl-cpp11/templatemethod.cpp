@@ -1,9 +1,10 @@
 // templatemethod.cpp
 /*
-  Define the skeleton of an algorithm in an operation, deferring some steps
-  to subclasses.
-  Template Method lets a subclasses redefine certain steps in an algorithm
-  without changing the algorithm's structure.
+  Define the skeleton of an algorithm in an operation, deferring some
+  steps to subclasses.
+  Template Method lets a subclasses redefine
+  certain steps in an algorithm without changing the algorithm's
+  structure.
 
   +---------------------+             +---------------------+
   | Worker              |             | WorkerImpl          |
@@ -27,21 +28,23 @@
 
 
   template methods call the following kinds of operations:
-  - concrete operations (either on the ConcreteClass or on client classes)
+  - concrete operations (either on the ConcreteClass or on client
+    classes)
   - concrete Worker operations (i.e., operations that are generally
-  useful to subclasses)
+    useful to subclasses)
   - primitive operations (i.e., abstract operations)
   - factory methods
   - hook operations which provide default behavior that subclasses can
-  extend if necessary. A hook operation often does nothing by default.
+    extend if necessary. A hook operation often does nothing by
+    default.
 
 
 
   NOTE
 
-  This design works rather with aggregation instead of inheritance, which is
-  preferable. Inheritance brings in a higher complexity and thus more problems
-  in maintenance.
+  This design works rather with aggregation instead of inheritance,
+  which is preferable. Inheritance brings in a higher complexity and
+  thus more problems in maintenance.
 
 
 
@@ -50,7 +53,7 @@
   * Design Patterns, GoF, 1995
 
   * Exceptional C++, Herb Sutter, 2000
-//*/
+*/
 
 #include <iostream>
 #include <memory> /* smart pointers */
@@ -113,7 +116,7 @@ struct ConcWorkerImpl : public WorkerImpl {
   - implements a template method defining the skeleton of an algorithm. The
   template method calls primitive operations as well as operations defined in
   Worker or those of other objects.
-//*/
+*/
 class Worker
 {
 public:

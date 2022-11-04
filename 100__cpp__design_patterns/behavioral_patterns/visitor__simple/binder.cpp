@@ -5,7 +5,7 @@
   Visitor::visitAll() calls for each element
   -> Element::accept( Visitor& ) so each element then calls
   -> Visitor::visit( Element& ) which will print "Element visited!"
-//*/
+*/
 
 #include <algorithm>
 #include <functional>

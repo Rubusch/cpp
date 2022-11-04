@@ -1,13 +1,12 @@
 // memento.cpp
 /*
   Without violating encapsulation, capture and externalize an objects internal
-state so that the object can be restored to this state later.
+  state so that the object can be restored to this state later.
 
-  +---------------------+           +---------------------+  memento
-+---------------------+ | Originator          |---------->| Memento
-|<--------<>| Caretaker           |
-  +=====================+           +=====================+
-+---------------------+ | setMemento(Memento) o---+       | getState() : State |
+  +---------------------+           +---------------------+   memento +---------------------+
+  | Originator          |---------->| Memento             |<--------<>| Caretaker           |
+  +=====================+           +=====================+           +---------------------+
+  | setMemento(Memento) o---+       | getState() : State  |
   | createMemento()   o |   |       | setState( State)    |
   +-------------------|-+   |       +---------------------+
   | state : State     | |   |
@@ -23,7 +22,7 @@ state so that the object can be restored to this state later.
                                +-------------------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 #include <cstdlib>
 #include <exception>
@@ -36,7 +35,7 @@ class Originator;
 
 /*
   State - helper
-//*/
+*/
 class State
 {
 private:
@@ -75,7 +74,7 @@ std::ostream &operator<<(std::ostream &os, State &state)
   restore itself to its previous state. Ideally, only the
   Originator that produced the memento would be permitted to
   access the memento's internal state.
-//*/
+*/
 class Memento
 {
 private:
@@ -118,7 +117,7 @@ private:
 
   - creates a memento containing a snapshot of its current internal state
   - uses the memento to restore its internal state
-//*/
+*/
 class Originator
 {
 private:
@@ -157,7 +156,7 @@ public:
       creation and destruction of the object.
       Never return local variables (only new/delete enables to explicitly
       control this)
-    //*/
+    */
     Memento *pMemento = nullptr;
     try {
       pMemento = new Memento();
@@ -226,7 +225,7 @@ public:
 
   - is responsible for the memento's safekeeping
   - never operates on or examines the contents of a memento
-//*/
+*/
 int main()
 {
   using namespace std;

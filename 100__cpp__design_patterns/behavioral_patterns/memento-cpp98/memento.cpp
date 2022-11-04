@@ -3,11 +3,10 @@
   Without violating encapsulation, capture and externalize an objects internal
 state so that the object can be restored to this state later.
 
-  +---------------------+           +---------------------+  memento
-+---------------------+ | Originator          |---------->| Memento
-|<--------<>| Caretaker           |
-  +=====================+           +=====================+
-+---------------------+ | setMemento(Memento) o---+       | getState() : State |
+  +---------------------+           +---------------------+  memento  +---------------------+
+  | Originator          |---------->| Memento             |<--------<>| Caretaker           |
+  +=====================+           +=====================+           +---------------------+
+  | setMemento(Memento) o---+       | getState() : State  |
   | createMemento()   o |   |       | setState( State)    |
   +-------------------|-+   |       +---------------------+
   | state : State     | |   |

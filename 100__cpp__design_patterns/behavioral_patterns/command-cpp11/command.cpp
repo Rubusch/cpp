@@ -20,42 +20,38 @@
   +=====================+                      +=====================+
   | action()            |                      | pReceiver_          |
   +---------------------+      +--------+      |    : Receiver       |
-  |                     |<-----| Client |- - ->+---------------------+
-+--------------------+\
-  +---------------------+      +--------+      | execute()      - - - - - - |
-receiver->action() +-+
-                                               +---------------------+
-+----------------------+
-
-
+  |                     |<-----| Client |- - ->+---------------------+      +--------------------+\
+  +---------------------+      +--------+      | execute()      - - - - - - | receiver->action() +-+
+                                               +---------------------+      +----------------------+
 
   (GoF, Design Patterns)
 
 
-  "The design that describes encapsulated requests, and that generalized
-  functors follow, is Command."
+  "The design that describes encapsulated requests, and that
+  generalized functors follow, is Command."
 
-  "The command pattern thus ensures an important separation between the invoker
-  and the receiver."
+  "The command pattern thus ensures an important separation between
+  the invoker and the receiver."
 
-  "The command pattern enables delayed calls."
-  (Alexandrescu, 2001)
+  "The command pattern enables delayed calls."  (Alexandrescu, 2001)
 
 
-  The following example implements operations on an array, in the example case:
+  The following example implements operations on an array, in the
+  example case:
 
   sorting
 
-  The dualism of Receiver and ConcreteCommand can be implemented like a brigde,
-  hence another action() in another Receiver could implement a complete
-  different sort algorithm or even mixing. Operations on other structures, say,
-  searching on binary trees for instance, could be implemented using another
-  ConcreteCommand.
+  The dualism of Receiver and ConcreteCommand can be implemented like
+  a brigde, hence another action() in another Receiver could implement
+  a complete different sort algorithm or even mixing. Operations on
+  other structures, say, searching on binary trees for instance, could
+  be implemented using another ConcreteCommand.
 
-  The client builds up one 'set' and passes it to the invoker. The invoker calls
-  the functor command and activates execution. The ConcreteCommand instance
-shall be queued in the invoker. The re-do of the data happens in the receiver().
-//*/
+  The client builds up one 'set' and passes it to the invoker. The
+  invoker calls the functor command and activates execution. The
+  ConcreteCommand instance shall be queued in the invoker. The re-do
+  of the data happens in the receiver().
+*/
 
 
 #include <cstdlib>
@@ -71,7 +67,7 @@ shall be queued in the invoker. The re-do of the data happens in the receiver().
   - knows how to perform the operations associated with carrying out the request
 
   NOTE: this example Receiver capsulates rather C(-like) code
-//*/
+*/
 class Receiver
 {
 private:
@@ -84,7 +80,7 @@ private:
   /*
     this is just some operation to be performed on the data..
     can be anything, here it's a sort
-  //*/
+  */
   void doSort()
   {
     std::cout << "\tReceiver::doSort()\n";
@@ -162,7 +158,7 @@ public:
   Command
 
   - declares an interface for executing an operation
-//*/
+*/
 struct Command {
   virtual ~Command() = default;
   virtual void execute(){};
@@ -174,8 +170,9 @@ struct Command {
   ConcreteCommand
 
   - defines a binding between a Receiver object and an action
-  - implements execute() by invoking the corresponding operation(s) on Receiver
-//*/
+  - implements execute() by invoking the corresponding operation(s) on
+    Receiver
+*/
 class ConcreteCommand : public Command
 {
 private:
@@ -236,7 +233,7 @@ public:
   Client
 
   creates a ConcreteCommand object and sets its receiver
-//*/
+*/
 class Client
 {
 public:
@@ -253,7 +250,7 @@ public:
 
 /*
   show
-//*/
+*/
 void show(unsigned int *arr, unsigned int size)
 {
   std::cout << "content:\n";
@@ -266,7 +263,7 @@ void show(unsigned int *arr, unsigned int size)
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

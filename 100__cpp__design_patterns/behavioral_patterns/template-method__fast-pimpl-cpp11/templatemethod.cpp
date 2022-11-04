@@ -1,15 +1,17 @@
 // templatemethod.cpp
 /*
-  The Fast Impl is a tuning for the Template Method, in case allocation /
-  deallocation becomes a performance issue. Further it shows a combination of
-  the Template Pattern with a use case for a Singleton Pattern.
+  The Fast Impl is a tuning for the Template Method, in case
+  allocation / deallocation becomes a performance issue. Further it
+  shows a combination of the Template Pattern with a use case for a
+  Singleton Pattern.
 
-  First make things correct, before trying to make them fast (tuning)!!!
+  First make things correct, before trying to make them fast
+  (tuning)!!!
 
-  Define the skeleton of an algorithm in an operation, deferring some steps
-  to subclasses.
-  Template Method lets a subclasses redefine certain steps in an algorithm
-  without changing the algorithm's structure.
+  Define the skeleton of an algorithm in an operation, deferring some
+  steps to subclasses.
+  Template Method lets a subclasses redefine certain steps in an
+  algorithm without changing the algorithm's structure.
 
   +---------------------+             +---------------------+
   | Worker              |             | WorkerImpl          |
@@ -31,23 +33,23 @@
                                       +---------------------+
 
 
-
   template methods call the following kinds of operations:
-  - concrete operations (either on the ConcreteClass or on client classes)
+  - concrete operations (either on the ConcreteClass or on client
+    classes)
   - concrete Worker operations (i.e., operations that are generally
-  useful to subclasses)
+    useful to subclasses)
   - primitive operations (i.e., abstract operations)
   - factory methods
   - hook operations which provide default behavior that subclasses can
-  extend if necessary. A hook operation often does nothing by default.
-
+    extend if necessary. A hook operation often does nothing by
+    default.
 
 
   NOTE
 
-  This design works rather with aggregation instead of inheritance, which is
-  preferable. Inheritance brings in a higher complexity and thus more problems
-  in maintenance.
+  This design works rather with aggregation instead of inheritance,
+  which is preferable. Inheritance brings in a higher complexity and
+  thus more problems in maintenance.
 
 
   RESOURCES
@@ -55,7 +57,7 @@
   * Design Patterns, GoF, 1995
 
   * Exceptional C++, Herb Sutter, 2000
-// */
+*/
 
 #include <exception>
 #include <iostream>
@@ -71,10 +73,10 @@ public:
 /*
   Small allocator as Singleton.
 
-  NOTE: this allocator is a hip shot and not tested at all, the purpose
-  of the implementation is to show where and how to fix in a customized
-allocator and not how to implement a correct allocator
-// */
+  NOTE: this allocator is a hip shot and not tested at all, the
+  purpose of the implementation is to show where and how to fix in a
+  customized allocator and not how to implement a correct allocator
+*/
 class FixedAllocator
 {
   static FixedAllocator *pInstance_;
@@ -239,13 +241,13 @@ struct ConcWorkerImpl : public WorkerImpl {
 /*
   Workers
 
-  - defines abstract primitive operations that concrete subclasses define to
-  implement steps of an algorithm.
+  - defines abstract primitive operations that concrete subclasses
+    define to implement steps of an algorithm.
 
-  - implements a template method defining the skeleton of an algorithm. The
-  template method calls primitive operations as well as operations defined in
-  Worker or those of other objects.
-//*/
+  - implements a template method defining the skeleton of an
+    algorithm. The template method calls primitive operations as well
+    as operations defined in Worker or those of other objects.
+*/
 class Worker
 {
 public:

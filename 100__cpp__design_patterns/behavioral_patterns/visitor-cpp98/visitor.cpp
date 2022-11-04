@@ -52,7 +52,7 @@
                                     +--------------------+      +--------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <algorithm>
@@ -149,7 +149,7 @@ void Element2::accept(Visitor *visitor) { visitor->visit(*this); }
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;
