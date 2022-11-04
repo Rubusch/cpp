@@ -4,31 +4,32 @@
   when one object changes state, all its dependents are
   notified and updated automatically.
 
-  +---------------------+ observers +---------------------+ | Subject
-|------------------------------------------------>| Observer            |
-  +=====================+ +=====================+ | attach(Observer)    |
-+-------------------------+                    | update()            | |
-detach(Observer)    |  | for all o in observers{ | \ +---------------------+
-  | notify()  o - - - - - -|   o->update();          +--+ /_\
-  +---------------------+  | }                          | |
-           /_\             +----------------------------+ | | | |
-+---------------------+ | | ConcreteObserver    |
-  +---------------------+                                         subject
-+=====================+ | ConcreteSubject
-|<------------------------------------------------| update()         o  |
-  +=====================+        +----------------------+ +------------------
---+ | getState() o - - - - - - - - | return subjectState; +-+               |
-observerState    |  | | setState()          |        |                        |
-+------------------ --+
-  +---------------------+        +------------------------+ | | subjectState_ |
-|
-  +---------------------+ |
-                                                                      +-------------------------+
-                                                                      |
-observerState =         | \ |   subject->getState()   +--+ | |
-                                                                      +----------------------------+
+  +---------------------+                                       observers +---------------------+
+  | Subject             |------------------------------------------------>| Observer            |
+  +=====================+                                                 +=====================+
+  | attach(Observer)    |  +-------------------------+                    | update()            |
+  | detach(Observer)    |  | for all o in observers{ | \                  +---------------------+
+  | notify()  o - - - - - -|   o->update();          +--+                          /_\
+  +---------------------+  | }                          |                           |
+           /_\             +----------------------------+                           |
+            |                                                                       |
+            |                                                             +---------------------+
+            |                                                             | ConcreteObserver    |
+  +---------------------+                                         subject +=====================+
+  | ConcreteSubject     |<------------------------------------------------| update()         o  |
+  +=====================+      +----------------------+                   +------------------ --+
+  | getState() o - - - - - - - | return subjectState; +-+                 | observerState    |  |
+  | setState()          |      |                        |                 +------------------ --+
+  +---------------------+      +------------------------+                                    |
+  | subjectState_       |                                                                    |
+  +---------------------+                                                                    |
+                                                                     +-------------------------+
+                                                                     | observerState =         | \
+                                                                     |   subject->getState()   +--+
+                                                                     |                            |
+                                                                     +----------------------------+
   (GoF, 1995)
-//*/
+*/
 
 
 #include <algorithm>
@@ -45,7 +46,7 @@ class ConcreteObserver;
 
 /*
   State
-//*/
+*/
 class State
 {
 private:
@@ -74,7 +75,7 @@ std::ostream &operator<<(std::ostream &os, State &state)
 
   - defines an updating interface for objects that should be notified
   of changes in a subject.
-//*/
+*/
 class Observer
 {
 public:
@@ -88,7 +89,7 @@ public:
 
   - knows its observers. Any number of Observer objects may obserer a subject.
   - provides an interface for attaching and detaching Observer objects.
-//*/
+*/
 class Subject
 {
 private:
@@ -126,7 +127,7 @@ public:
 
   - stores state of interest to ConcreteObserver objects.
   - sends a notification to its observers when its state changes.
-//*/
+*/
 class ConcreteSubject : public Subject
 {
 private:
@@ -179,7 +180,7 @@ public:
   - stores state that should stay consistent with the subject's.
   - implements the Observer updating interface to keep its state consistent with
   the subject's.
-//*/
+*/
 class ConcreteObserver : public Observer
 {
 private:
@@ -224,7 +225,7 @@ public:
 
 /*
   main
-//*/
+*/
 int main()
 {
   using namespace std;

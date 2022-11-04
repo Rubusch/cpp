@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 SOURCE = command.cpp
-TARGET = $(SOURCE:.cpp=.exe)
+TARGET = $(SOURCE:.cpp=.elf)
 OBJECTS = $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++
@@ -14,11 +14,9 @@ RM = rm -f
 	$(CC) $(CFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS)
 
 all: $(TARGET)
 
 clean:
-	$(RM) $(OBJECTS) $(TARGET) *~ core
-
-
+	$(RM) $(OBJECTS) $(TARGET) *~

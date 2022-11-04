@@ -38,7 +38,7 @@
   * Design Patterns, GoF, 1995
 
   * Exceptional C++, Herb Sutter, 2000
-//*/
+*/
 
 
 #include <cmath>
@@ -53,7 +53,7 @@
   - declares an interface common to all supported algorithms. Context
     uses this interface to call the algorithm defined by a concrete
     strategy.
-//*/
+*/
 struct Impl_Strategy {
   virtual ~Impl_Strategy() = default;
   virtual double algorithm(double arg) = 0;
@@ -64,7 +64,7 @@ struct Impl_Strategy {
   StrategyA - a concrete strategy
 
   - implements the algorithm using the Strategy interface
-//*/
+*/
 struct Impl_StrategyA : public Impl_Strategy {
   double algorithm(double arg)
   {
@@ -78,7 +78,7 @@ struct Impl_StrategyA : public Impl_Strategy {
   StrategyB - a concrete strategy
 
   - implements the algorithm using the Strategy interface
-//*/
+*/
 struct Impl_StrategyB : public Impl_Strategy {
   double algorithm(double arg)
   {
@@ -94,7 +94,7 @@ struct Impl_StrategyB : public Impl_Strategy {
   - is configured with a concrete Strategy object
   - maintains a reference to a Strategy object
   - may define an interface that lets Strategy access its data
-//*/
+*/
 class Context
 {
 private:
@@ -120,7 +120,7 @@ public:
 
 /*
   main
-//*/
+*/
 int main()
 {
   using namespace std;

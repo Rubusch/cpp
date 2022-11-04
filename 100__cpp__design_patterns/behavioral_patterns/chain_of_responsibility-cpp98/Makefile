@@ -3,7 +3,7 @@
 # use -O, -O1, -O2 for optimization
 
 SOURCE = chainofresponsibility.cpp
-TARGET = $(SOURCE:.cpp=.exe)
+TARGET = $(SOURCE:.cpp=.elf)
 OBJECTS = $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++
@@ -14,11 +14,9 @@ RM = rm -f
 	$(CC) $(CPPFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS)
 
 all: $(TARGET)
 
 clean:
-	$(RM) $(OBJECTS) $(TARGET) *~ core
-
-
+	$(RM) $(OBJECTS) $(TARGET) *~
