@@ -1,7 +1,7 @@
 // singleton.cpp
 /*
-  Ensure a class only has one instance, and provide a global point of access to
-it.
+  Ensure a class only has one instance, and provide a global point of
+  access to it.
 
   +-----------------------+
   | Singleton             |
@@ -23,14 +23,15 @@ it.
   the application's shutdown.
 
   No Memory leak?
-  Actually, if Singleton is not deleted, that's not a memory leak. Memory
-  leaks appear when you allocate accumulating data and lose all references
-  to it. This is not the caase here: Nothing is accumulating, and we hold
-  knowledge about the allocated memory until the end of the application.
-  Furthermore, all modern operating systems take care of completely
-  deallocating a process's memory upon termination. (For an interesting
-  discussion on what is and is not a memory leak, refer to Item 10 in
-  Effective C++, Meyers, 1998).
+
+  Actually, if Singleton is not deleted, that's not a memory
+  leak. Memory leaks appear when you allocate accumulating data and
+  lose all references to it. This is not the caase here: Nothing is
+  accumulating, and we hold knowledge about the allocated memory until
+  the end of the application.  Furthermore, all modern operating
+  systems take care of completely deallocating a process's memory upon
+  termination. (For an interesting discussion on what is and is not a
+  memory leak, refer to Item 10 in Effective C++, Meyers, 1998).
 
   However, there is a leak, and a more insidious one: a resource leak.
 
@@ -52,7 +53,7 @@ it.
      avoid deleting the instance.
 
   (GoF, 1995)
-//*/
+*/
 
 #include <iostream>
 #include <memory>
@@ -60,11 +61,11 @@ it.
 /*
   Singleton
 
-  - defines an instance operation that lets clients access its unique instance.
-  Instance  is a class operation (that is, a class method in Smalltalk and a
-static member function in C++)
+  - defines an instance operation that lets clients access its unique
+    instance.  Instance is a class operation (that is, a class method
+    in Smalltalk and a static member function in C++)
   - may be responsible for creating its own unique instance
-//*/
+*/
 class Singleton
 {
 private:
@@ -116,7 +117,7 @@ Singleton *Singleton::pInstance_ = nullptr;
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

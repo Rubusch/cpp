@@ -33,7 +33,7 @@
                                                +---------------------+
   (GoF, 1995)
 
-//*/
+*/
 
 #include <exception>
 #include <iostream>
@@ -43,7 +43,7 @@ using namespace std;
 
 /*
   forward delcalartions
-//*/
+*/
 
 template < class T >
 class MonsterProtocol;
@@ -60,7 +60,7 @@ ostream &operator<<(ostream &out, MonsterProtocol< T > &rhs);
   qualities - here these clases have to provide at least one mechanism that
   returns a string variable (since T already will be string we're on the safe
   side already ;-)
-//*/
+*/
 template < class T >
 class Size_type
 {
@@ -92,7 +92,7 @@ public:
 
 /*
   protocol class
-//*/
+*/
 template < class T >
 class MonsterProtocol
 {
@@ -144,7 +144,7 @@ inline ostream &operator<<(ostream &out, MonsterProtocol< T > &rhs)
 /*
   the actual factory method, implemented as "static" function in the protocol
 class
-//*/
+*/
 template < class T >
 MonsterProtocol< T > *
 MonsterProtocol< T >::factory(const T &name, const Size_type< T > &size,
@@ -213,7 +213,7 @@ string RealMonster< T >::getColor() const
 
 /*
   some main
-//*/
+*/
 int main()
 {
   cout << "1. Get a pointer to MonsterProtocol - the base..\n";

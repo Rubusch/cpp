@@ -1,7 +1,8 @@
 // builder.cpp
 /*
-  Separate the construction of a complex object from its representation so
-  that the same construction process can create different representations.
+  Separate the construction of a complex object from its
+  representation so that the same construction process can create
+  different representations.
 
   +---------------------+                       +---------------------+
   | Director            |                       | Builder             |
@@ -14,25 +15,27 @@
                     |                                      |
                                                            |
                     |                                      |
-  +---------------------+                       +---------------------+
-+-----------+ | For all objects in  |\                      | ConcreteBuilder |-
-- - - - >| Product   | | structure           | \ +=====================+
-+===========+ | {                   +--+                    | |           | | |
-builder->buildPart() |                    +---------------------+ +-----------+
+  +---------------------+                       +---------------------+           +-----------+
+  | For all objects in  |\                      | ConcreteBuilder     |- - - - - >| Product   |
+  | structure           | \                     +=====================+           +===========+
+  | {                   +--+                    |                     |           |           |
+  |   builder->buildPart() |                    +---------------------+           +-----------+
   | }                      |                    | buildPart()         |
   +------------------------+                    | getResult()         |
                                                 +---------------------+
 
   Collaboration:
 
-  - The client creates the Director object and configures it with the desired
-Buidler object
-  - Director notifies the builder whenever a part of the product should be built
-  - Builder handles requests from the director and adds parts to the product
+  - The client creates the Director object and configures it with the
+    desired Buidler object
+  - Director notifies the builder whenever a part of the product
+    should be built
+  - Builder handles requests from the director and adds parts to the
+    product
   - The client retrieves the product from the builder
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -43,12 +46,12 @@ Buidler object
 /*
   Product
 
-  - represents the complex object under construction. ConcreteBuilder builds the
-  product's internal representation and defines the process by which it's
-assembled
-  - includes classes that define the constituent parts, including interfaces for
-  assembling the parts into the final result
-//*/
+  - represents the complex object under construction. ConcreteBuilder
+    builds the product's internal representation and defines the
+    process by which it's assembled
+  - includes classes that define the constituent parts, including
+    interfaces for assembling the parts into the final result
+*/
 class Product
 {
 private:
@@ -84,7 +87,7 @@ public:
   Builder (abstract)
 
   - specifies an abstract interface for creating parts of a Product object
-//*/
+*/
 class Builder
 {
 protected:
@@ -119,7 +122,7 @@ public:
 interface
   - defines and keeps track of the representation it creates
   - provides an interface for retrieving the product
-//*/
+*/
 class ConcreteBuilderA : public Builder
 {
 public:
@@ -149,7 +152,7 @@ public:
 
 /*
   Concrete Builder B - another Concrete Builder type
-//*/
+*/
 class ConcreteBuilderB : public Builder
 {
 public:
@@ -181,7 +184,7 @@ public:
   Director
 
   - constructs an object using the Builder interface
-//*/
+*/
 class Director
 {
 private:
@@ -216,7 +219,7 @@ public:
 
 /*
   main()
-//*/
+*/
 int main()
 {
   using namespace std;

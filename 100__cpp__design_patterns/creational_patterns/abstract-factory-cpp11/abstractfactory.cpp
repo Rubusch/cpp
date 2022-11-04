@@ -12,19 +12,19 @@
     |  |   +---------------------+                  | createProductA()    |
     |  +-->| abstract Product A  |                  | createProductB()    |
     |      +=====================+                  +---------------------+
-    |      |                     |                     /_\           /_\
-    |      +---------------------+                      |             |
-    |      |                     |                  +---+             +---+
+    |      |                     |                           /_\
+    |      +---------------------+                            |
+    |      |                     |                  +---------+-----------+
     |      +---------------------+                  |                     |
-    |         /_\           /_\         +-------------------+
-+-------------------+ |          |             |          | concrete Factory1 |
-| concrete Factory2 | |          |             |          +===================+
-+===================+ |          |             |          |                   |
-|                   | |          |             |          +-------------------+
-+-------------------+ |          |        +-----------+   | createProductA()  |
-| createProductA()  | |          |        | concrete  |   | createProductB()  |
-| createProductB()  | |          |        | ProductA2 |   +-------------------+
-+-------------------+ |   +-----------+   +===========+        |         | | |
+    |         /_\           /_\         +-------------------+    +-------------------+
+    |          |             |          | concrete Factory1 |    | concrete Factory2 |
+    |          |             |          +===================+    +===================+
+    |          |             |          |                   |    |                   |
+    |          |             |          +-------------------+    +-------------------+
+    |          |        +-----------+   | createProductA()  |    | createProductA()  |
+    |          |        | concrete  |   | createProductB()  |    | createProductB()  |
+    |          |        | ProductA2 |   +-------------------+    +-------------------+
+    |   +-----------+   +===========+        |         |           |         |
     |   | concrete  |   |           |<-------|---------|-----------+         |
     |   | ProductA1 |   +-----------+        |         |                     |
     |   +===========+                        |         |                     |
@@ -58,7 +58,7 @@
 
 
   Use dynamic_cast<>() when downcasting!
-//*/
+*/
 
 
 #include <iostream>
@@ -68,7 +68,7 @@
   Abstract Product A
 
   - declares an interface for a type of product object
-//*/
+*/
 class ProductA
 {
 public:
@@ -85,7 +85,7 @@ ProductA::~ProductA() { std::cout << "\t\t\tProductA::~Product() - dtor\n"; }
 
   - defines a product object to be created by the corresponding concrete factory
   - implements the AbstractProduct interface
-//*/
+*/
 class ConcreteProductA1 : public ProductA
 {
 public:
@@ -103,7 +103,7 @@ public:
 
 /*
   Concrete Product A2 - another type of a concrete product
-//*/
+*/
 class ConcreteProductA2 : public ProductA
 {
 public:
@@ -121,7 +121,7 @@ public:
 
 /*
   Abstract Product B - another type of product
-//*/
+*/
 class ProductB
 {
 public:
@@ -135,7 +135,7 @@ ProductB::~ProductB() { std::cout << "\t\t\tProductB::~ProductB() - dtor\n"; }
 
 /*
   Concrete Product B1 - another type of a concrete product
-//*/
+*/
 class ConcreteProductB1 : public ProductB
 {
 public:
@@ -153,7 +153,7 @@ public:
 
 /*
   Concrete Product B2 - another type of a concrete product
-//*/
+*/
 class ConcreteProductB2 : public ProductB
 {
 public:
@@ -172,8 +172,9 @@ public:
 /*
   Abstract Factory
 
-  - declares an interface for operations that create abstract product objects
-//*/
+  - declares an interface for operations that create abstract product
+    objects
+*/
 class AbstractFactory
 {
 public:
@@ -188,7 +189,7 @@ public:
 
   - instantiate 'concrete product', but pass as 'abstract product'
   - implements the operations to create concrete product objects
-//*/
+*/
 class ConcreteFactory1 : public AbstractFactory
 {
 public:
@@ -208,7 +209,7 @@ public:
 
 /*
   Concrete Factory 2 - another concrete factory
-//*/
+*/
 class ConcreteFactory2 : public AbstractFactory
 {
 public:
@@ -228,7 +229,7 @@ public:
 
 /*
   main()..
-//*/
+*/
 int main()
 {
   using namespace std;

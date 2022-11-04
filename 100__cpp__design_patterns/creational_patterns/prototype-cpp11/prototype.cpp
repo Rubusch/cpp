@@ -1,7 +1,7 @@
 // prototype.cpp
 /*
-  Specify the kinds of objects to create using a prototypical instance,
-  and create new objects by copying this prototype.
+  Specify the kinds of objects to create using a prototypical
+  instance, and create new objects by copying this prototype.
 
 
   +--------+        +---------------------+
@@ -22,7 +22,7 @@
   +---------------------+             +---------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -32,7 +32,7 @@
   Prototype
 
   - declares an interface for cloning itself
-//*/
+*/
 class Prototype
 {
 private:
@@ -63,7 +63,7 @@ public:
   Concrete Prototype 1
 
   - implements an operation for cloning itself
-//*/
+*/
 class ConcretePrototype1 : public Prototype
 {
 private:
@@ -104,7 +104,7 @@ public:
 
 /*
   Concrete Prototype 2 - another Concrete Prototyp
-//*/
+*/
 class ConcretePrototype2 : public Prototype
 {
 private:
@@ -147,7 +147,7 @@ public:
   Client
 
   - creates a new object by asking a prototype to clone itself
-//*/
+*/
 class Client
 {
 private:
@@ -190,7 +190,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

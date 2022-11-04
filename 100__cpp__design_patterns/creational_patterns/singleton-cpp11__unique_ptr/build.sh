@@ -8,5 +8,4 @@ cd ${WHERE}/build
 
 cmake ..
 make
-./*.exe
-
+./*.elf

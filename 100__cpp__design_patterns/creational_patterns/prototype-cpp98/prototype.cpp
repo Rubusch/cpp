@@ -22,7 +22,7 @@
   +---------------------+             +---------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -80,7 +80,7 @@ public:
 
 /*
   Concrete Prototype 2 - another Concrete Prototyp
-//*/
+*/
 class ConcretePrototype2 : public Prototype
 {
 private:
@@ -114,7 +114,7 @@ public:
   Client
 
   - creates a new object by asking a prototype to clone itself
-//*/
+*/
 class Client
 {
 private:
@@ -153,7 +153,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;
