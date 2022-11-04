@@ -384,31 +384,31 @@ jobs:
       - run: cd 100__cpp__design_patterns/creational_patterns/prototype-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/singleton-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/command-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/mediator-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor__simple && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/observer-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/visitor__simple && make && ./*.elf
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/observer-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/observer-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__pimpl-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/behavioral_patterns/template-method__fast-pimpl-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/interpreter-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/chain_of_responsibility-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/chain_of_responsibility-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/chain_of_responsibility-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp98 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp11 && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp11-pimpl && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy__template && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp98 && make && ./*.elf
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp11 && make && ./*.elf
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy-cpp11-pimpl && make && ./*.elf
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/strategy__template && make && ./*.elf
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/iterator-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/state-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/state-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/state-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/state__switch-version && make && ./*.exe
-      - run: cd 100__cpp__design_patterns/behavioral_patterns/memento-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/state__switch-version && make && ./*.elf
+      - run: cd 100__cpp__design_patterns/behavioral_patterns/memento-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/behavioral_patterns/memento-cpp11 && ./build.sh
 
