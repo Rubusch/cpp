@@ -18,10 +18,9 @@
    | ConcreteComponent   |   | Decorator           |     |
    +=====================+   +=====================+     |
    |                     |   | pComp : Component*  |<>---+
-   +---------------------+   +---------------------+ +--------------------+\ |
-operation()         |   | operation() - - - - - - - - - - - - -|
-pComp->Operation() +-+
-   +---------------------+   +---------------------+ +----------------------+
+   +---------------------+   +---------------------+                +--------------------+\
+   | operation()         |   | operation() - - - - - - - - - - - - -| pComp->Operation() +-+
+   +---------------------+   +---------------------+                +----------------------+
                                        /_\
                                         |
                            +------------+------------+
@@ -30,16 +29,13 @@ pComp->Operation() +-+
                 | ConcreteDecoratorA  |   | ConcreteDecoratorB  |
                 +=====================+   +=====================+
                 | addedState          |   |                     |
-                +---------------------+   +---------------------+
-+-------------------------+\ | operation()         |   | operation()         |
-| Decorator::operation(); +-+
-                +---------------------+   | addedBehavior() - - - - |
-addedBehavior();          |
-                                          +---------------------+
-+---------------------------+
+                +---------------------+   +---------------------+   +-------------------------+\
+                | operation()         |   | operation()         |   | Decorator::operation(); +-+
+                +---------------------+   | addedBehavior() - - - - | addedBehavior();          |
+                                          +---------------------+   +---------------------------+
 
    (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -50,7 +46,7 @@ addedBehavior();          |
 
   - defines the interface for objects that can have responsibilities added
   to them dynamically
-//*/
+*/
 class Component
 {
 public:
@@ -67,7 +63,7 @@ public:
   ConcreteComponent
 
   - defines an object to which additional responsibilities can be attached
-//*/
+*/
 class ConcreteComponent : public Component
 {
 public:
@@ -84,7 +80,7 @@ public:
 
   - maintains a reference to a Component object and defines an interface that
   conforms to Component's interface
-//*/
+*/
 class Decorator : public Component
 {
 private:
@@ -108,7 +104,7 @@ public:
   ConcreteDecoratorA
 
   - adds responsibilities to the component
-//*/
+*/
 class ConcreteDecoratorA : public Decorator
 {
 private:
@@ -132,7 +128,7 @@ public:
 
 /*
   ConcreteDecoratorB - another Concrete Decorator
-//*/
+*/
 class ConcreteDecoratorB : public Decorator
 {
 public:
@@ -158,7 +154,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

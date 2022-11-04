@@ -15,18 +15,16 @@
              +-----------------+-----------------+
              |                                   |
   +---------------------+             +---------------------+
-  | RealSubject         |<----------<>| Proxy               |
-+-------------------------+\
-  +=====================+             +=====================+      | ... +-+ |
-|             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
-  +---------------------+             +---------------------+      | ... | |
-request()           |             | request()           |
-+---------------------------+
+  | RealSubject         |<----------<>| Proxy               |      +-------------------------+\
+  +=====================+             +=====================+      | ...                     +-+
+  |                     |             | pRealSubject_ - - - - - - -| pRealSubject_->request(); |
+  +---------------------+             +---------------------+      | ...                       |
+  | request()           |             | request()           |      +---------------------------+
   +---------------------+             | getSubject()        |
                                       +---------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -38,7 +36,7 @@ request()           |             | request()           |
 
   - defines the common interface for RealSubject and Proxy so that a Proxy
   can be used anywhere a RealSubject is expected
-//*/
+*/
 class Subject
 {
 public:
@@ -51,7 +49,7 @@ public:
   RealSubject
 
   - defines the real object that the proxy represents
-//*/
+*/
 class RealSubject : public Subject
 {
 public:
@@ -86,7 +84,7 @@ public:
 
   -> protection proxies check that the caller has the access
   permissions required to perform a request
-//*/
+*/
 class Proxy : public Subject
 {
 private:
@@ -119,7 +117,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

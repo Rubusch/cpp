@@ -36,7 +36,7 @@
                                 +---------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -69,7 +69,7 @@ struct Adapter : public Adaptee, public Target {
 
 /*
   main..
-//*/
+*/
 int main()
 {
   Target *pTarget = new Adapter();

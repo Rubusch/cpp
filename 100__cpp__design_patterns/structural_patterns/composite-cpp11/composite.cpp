@@ -21,23 +21,22 @@
   +---------------------+        +---------------------+     |
   | Leaf                |        | Composite           |<>---+
   +=====================+        +=====================+
-  |                     |        |                     |
-+----------------------+\
-  +---------------------+        +---------------------+      | for all g :
-children +-+ | operation()         |        | operation() - - - - - - - -|
-g.operation()          |
-  +---------------------+        | add( Component*)    |
-+------------------------+ | remove( Component*) | | getChild( int)      |
+  |                     |        |                     |      +----------------------+\
+  +---------------------+        +---------------------+      | for all g:children   +-+
+  | operation()         |        | operation() - - - - - - - -| g.operation()          |
+  +---------------------+        | add( Component*)    |      +------------------------+
+                                 | remove( Component*) |
+                                 | getChild( int)      |
                                  +---------------------+
                                            /_\
                                             |
                                             ... (next category level)
 
   Basic idea is to treat categories or compositions of objects equally as
-individual objects.
+  individual objects.
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <algorithm>
@@ -55,7 +54,7 @@ individual objects.
   - declares an interface for accesing and managing its child components
   - (optional) defines an interface for accessing a component's parent in
      the recursive structure, and implements it if that's appropriate
-//*/
+*/
 class Component
 {
 public:
@@ -72,7 +71,7 @@ public:
 
   - represents leaf objects in the composition. A leaf has no children
   - defines behavior for primitive objects in the composition
-//*/
+*/
 class Leaf : public Component
 {
 public:
@@ -90,7 +89,7 @@ public:
   - defines behavior for components having children
   - stores child components
   - implements child-related operations in the Component interface
-//*/
+*/
 class Composite : public Component
 {
 private:
@@ -150,7 +149,7 @@ public:
   main... - client
 
   - manipulates objects in the composition through the Component interface
-//*/
+*/
 int main()
 {
   using namespace std;

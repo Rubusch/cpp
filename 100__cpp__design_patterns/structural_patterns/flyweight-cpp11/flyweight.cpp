@@ -10,25 +10,27 @@
        |     | getFlyweight(key)   |        | operation(          |
        |     +---------------------+        |    intrinsic state) |
        |                                    +---------------------+
-       |                                              /_\
-       |                                               |
-       |                                +--------------+--------------+
-       |                                |                             |
-       |                     +---------------------+ +---------------------+ |
-| ConcreteFlyweight   |       | Unshared            | |                  +->| |
-+->|   ConcreteFlyweight | |                  |  +=====================+    |
-+=====================+ |                  |  |                     |    |  | |
-       |                  |  +---------------------+    |
-+---------------------+ |                  |  | operation(          |    |  |
-operation(          | |                  |  |   intrinsic state)  |    |  |
-intrinsic state)  | |                  |  +---------------------+    |
-+---------------------+ |                  |                             | | | |
-  +--------+              |                             |
-  | client |--------------+-----------------------------+
+       |                                           /_\
+       |                                            |
+       |                             +--------------+--------------+
+       |                             |                             |
+       |                  +---------------------+       +---------------------+
+       |                  | ConcreteFlyweight   |       | Unshared            |
+       |               +->|                     |    +->|   ConcreteFlyweight |
+       |               |  +=====================+    |  +=====================+
+       |               |  |                     |    |  |                     |
+       |               |  +---------------------+    |  +---------------------+
+       |               |  | operation(          |    |  | operation(          |
+       |               |  |   intrinsic state)  |    |  |   intrinsic state)  |
+       |               |  +---------------------+    |  +---------------------+
+       |               |                             |
+       |               |                             |
+  +--------+           |                             |
+  | client |-----------+-----------------------------+
   +--------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -41,7 +43,7 @@ intrinsic state)  | |                  |  +---------------------+    |
 
   - declares an interface through which flyweights can receive and act on
   extrinsic state
-//*/
+*/
 class Flyweight
 {
 public:
@@ -86,7 +88,7 @@ enables sharing; it doesn't enforce it. It's common for
 UnsharedConcreteFlyweight objects to have CocnreteFlyweight objects as children
 at some level in the flyweight object structure (as the Row and Column classes
 have).
-//*/
+*/
 class UnsharedConcreteFlyweight : public Flyweight
 {
 private:
@@ -117,7 +119,7 @@ public:
   - ensures that flyweights are shared properly. When a client requests a
 flyweight, the FlyweightFactory object supplies an existing instance or creates
 one, if none exists.
-//*/
+*/
 class FlyweightFactory
 {
 private:
@@ -154,7 +156,7 @@ public:
 
   - maintains a reference to flyweight(s).
   - computes or stores the extrinsic state of flyweight(s)
-//*/
+*/
 int main()
 {
   using namespace std;
