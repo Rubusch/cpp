@@ -355,24 +355,24 @@ jobs:
 
 
 ## 30: design patterns
-      - run: cd 100__cpp__design_patterns/structural_patterns/adapter-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/adapter-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter-inheritance-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/adapter-wrapper-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/adapter-wrapper-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter-wrapper-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/structural_patterns/adapter-nested-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/bridge-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/bridge-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/bridge-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/composite-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/decorator-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/decorator-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/decorator-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/flyweight-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/flyweight-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/flyweight-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/facade-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/facade-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/facade-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/structural_patterns/proxy-cpp11 && ./build.sh
-      - run: cd 100__cpp__design_patterns/structural_patterns/proxy__inner-proxy-cpp98 && make && ./*.exe
+      - run: cd 100__cpp__design_patterns/structural_patterns/proxy__inner-proxy-cpp98 && make && ./*.elf
       - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory-cpp98 && make && ./*.exe
       - run: cd 100__cpp__design_patterns/creational_patterns/abstract-factory-cpp11 && ./build.sh
       - run: cd 100__cpp__design_patterns/creational_patterns/builder-cpp98 && make && ./*.exe
