@@ -1,8 +1,9 @@
 // chainofresponsibility.cpp
 /*
-  Avoid coupling the sender of a request to its receiver by giving more than one
-object a chance to handle the request. Chain the receiving objects and pass the
-request along the chain until an object handles it.
+  Avoid coupling the sender of a request to its receiver by giving
+  more than one object a chance to handle the request. Chain the
+  receiving objects and pass the request along the chain until an
+  object handles it.
 
   +--------+                       +---------------------+
   | Client |---------------------->| Handler             |<--+
@@ -27,13 +28,16 @@ request along the chain until an object handles it.
 
 
   There are two possibile ways to implement the successor chain:
-  a) define new links (usually in the handler, but ConcreteHandler could define
-them instead) b) use existing links
+
+  a) define new links (usually in the handler, but ConcreteHandler
+     could define them instead)
+
+  b) use existing links
 
   Also known as "EventHandler", "BureauCat" or "Responder"
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -41,7 +45,7 @@ them instead) b) use existing links
 
 /*
   Request
-//*/
+*/
 class Request
 {
 private:
@@ -115,7 +119,7 @@ struct ConcreteHandler2 : public Handler {
 
 /*
   Client
-//*/
+*/
 int main()
 {
   using namespace std;

@@ -1,8 +1,8 @@
 // inerpreter.cpp
 /*
-  Given a language, define a representation for its grammar along with an
-  interpreter that uses the representation to interpret sentences in the
-language.
+  Given a language, define a representation for its grammar along with
+  an interpreter that uses the representation to interpret sentences
+  in the language.
 
                          +---------------------+
                 +------->| Context             |
@@ -42,7 +42,7 @@ language.
   Similarities in the tree with chain of responsibility?!
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -113,7 +113,7 @@ public:
 
 /*
   Client
-//*/
+*/
 int main()
 {
   using namespace std;

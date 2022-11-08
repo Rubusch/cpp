@@ -21,7 +21,7 @@ state so that the object can be restored to this state later.
                                +-------------------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 #include <cstdlib>
 #include <exception>
@@ -172,7 +172,7 @@ public:
 
 /*
   main / Caretaker (mementos are passive!)
-//*/
+*/
 int main()
 {
   using namespace std;

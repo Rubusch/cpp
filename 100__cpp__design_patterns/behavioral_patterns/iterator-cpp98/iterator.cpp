@@ -28,7 +28,7 @@
                 | return new ConcreteIterator(this) +-+
                 +-------------------------------------+
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -36,7 +36,7 @@
 
 /*
   forward declaration and additional "helpers"
-//*/
+*/
 struct IteratorOutOfBounds : public std::exception {
 };
 
@@ -149,7 +149,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

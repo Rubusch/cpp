@@ -1,32 +1,35 @@
 // observer.cpp
 /*
-  Define a one-to-many dependency between objects so that when one object
-  changes state, all its dependents are notified and updated automatically.
+  Define a one-to-many dependency between objects so that when one
+  object changes state, all its dependents are notified and updated
+  automatically.
 
-  +---------------------+ observers +---------------------+ | Subject
-|------------------------------------------------>| Observer            |
-  +=====================+ +=====================+ | attach(Observer)    |
-+-------------------------+                    | update()            | |
-detach(Observer)    |  | for all o in observers{ | \ +---------------------+
-  | notify()  o - - - - - -|   o->update();          +--+ /_\
-  +---------------------+  | }                          | |
-           /_\             +----------------------------+ | | | |
-+---------------------+ | | ConcreteObserver    |
-  +---------------------+                                         subject
-+=====================+ | ConcreteSubject
-|<------------------------------------------------| update()         o  |
-  +=====================+        +----------------------+ +------------------
---+ | getState() o - - - - - - - - | return subjectState; +-+               |
-observerState    |  | | setState()          |        |                        |
-+------------------ --+
-  +---------------------+        +------------------------+ | | subjectState_ |
-  +---------------------+ |
+  +---------------------+                                       observers +---------------------+
+  | Subject             |------------------------------------------------>| Observer            |
+  +=====================+                                                 +=====================+
+  | attach(Observer)    |  +-------------------------+                    | update()            |
+  | detach(Observer)    |  | for all o in observers{ | \                  +---------------------+
+  | notify()  o - - - - - -|   o->update();          +--+                         /_\
+  +---------------------+  | }                          |                          |
+           /_\             +----------------------------+                          |
+            |                                                                      |
+            |                                                             +---------------------+
+            |                                                             | ConcreteObserver    |
+  +---------------------+                                         subject +=====================+
+  | ConcreteSubject     |<------------------------------------------------| update()         o  |
+  +=====================+      +----------------------+                   +------------------ --+
+  | getState() o - - - - - - - | return subjectState; +-+                 | observerState    |  |
+  | setState()          |      |                        |                 +------------------ --+
+  +---------------------+      +------------------------+                                    |
+  | subjectState_       |
+  +---------------------+                                                                    |
                                                                       +-------------------------+
-                                                                      |
-observerState =         | \ |   subject->getState()   +--+ | |
+                                                                      | observerState =         | \
+                                                                      |   subject->getState()   +--+
+                                                                      |                            |
                                                                       +----------------------------+
   (GoF, 1995)
-//*/
+*/
 
 
 #include <algorithm>
@@ -42,7 +45,7 @@ class ConcreteObserver;
 
 /*
   State
-//*/
+*/
 class State
 {
 private:
@@ -180,7 +183,7 @@ public:
 
 /*
   main
-//*/
+*/
 int main()
 {
   using namespace std;

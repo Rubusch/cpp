@@ -1,8 +1,8 @@
 // command.cpp
 /*
-  "Encapsulate a request as an object, thereby letting you parametrize clients
-  with different requests, queue or log requests, and support undo-able
-  operations."
+  "Encapsulate a request as an object, thereby letting you parametrize
+  clients with different requests, queue or log requests, and support
+  undo-able operations."
 
   +---------------------+                      +---------------------+
   | Invoker             |<>--------------------| Command             |
@@ -51,7 +51,7 @@
   the functor command and activates execution. The ConcreteCommand instance
   shall be queued in the invoker. The re-do of the data happens in the
   receiver().
-//*/
+*/
 
 
 #include <cstdlib>
@@ -165,7 +165,7 @@ public:
 
 /*
   main..
-//*/
+*/
 int main()
 {
   using namespace std;

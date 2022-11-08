@@ -28,7 +28,7 @@ ConcreteColleague2  |
              +---------------------------------------------+
 
   (GoF, 1995)
-//*/
+*/
 
 
 #include <iostream>
@@ -125,7 +125,7 @@ struct ConcreteCollegue2 : public Collegue {
 
 /*
   main...
-//*/
+*/
 int main()
 {
   using namespace std;

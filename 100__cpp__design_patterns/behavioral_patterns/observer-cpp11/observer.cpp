@@ -21,7 +21,7 @@
   | getState() o - - - - - - - | return subjectState; +-+                 | observerState    |  |
   | setState()          |      |                        |                 +------------------ --+
   +---------------------+      +------------------------+                                    |
-  | subjectState_       |                                                                    |
+  | subjectState_       |
   +---------------------+                                                                    |
                                                                      +-------------------------+
                                                                      | observerState =         | \
