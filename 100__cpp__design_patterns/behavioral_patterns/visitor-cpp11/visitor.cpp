@@ -67,7 +67,7 @@ class Visitor;
 /*
   Element
 
-  - defines an Accept operation that takes a visitor as an argument.
+  - Defines an Accept operation that takes a visitor as an argument.
 */
 class Element
 {
@@ -80,7 +80,7 @@ public:
 /*
   Element1 - a ConcreteElement
 
-  - impelments an accept operation that takes a visistor as an argument.
+  - Impelments an accept operation that takes a visistor as an argument.
 */
 class Element1 : public Element
 {
@@ -123,11 +123,11 @@ std::ostream &operator<<(std::ostream &os, Element2 &element)
 /*
   ObjectStructure
 
-  - can enumerate its elements.
-  - may provide a high-level interface to allow the visitor to visit
-    its elements
-  - may either be a composite or a collection such as a sequential or
-    associative structure
+  - Can enumerate its elements.
+  - May provide a high-level interface to allow the visitor to visit
+    its elements.
+  - May either be a composite or a collection such as a sequential or
+    associative structure.
 */
 class ObjectStructure
 {
@@ -142,7 +142,7 @@ public:
 /*
   Visitor
 
-  - declares a Visit operation for each class of ConcreteElement in
+  - Declares a Visit operation for each class of ConcreteElement in
     the object structure. The operation's name and signature
     identifies the class that sends the Visit request to the
     visitor. That lets the visitor determine the concrete class of the
@@ -162,7 +162,7 @@ public:
 /*
   ConcreteVisitor
 
-  - implements each operation declared by Visitor. Each operation
+  - Implements each operation declared by Visitor. Each operation
     implements a fragment of the algorithm defined for the
     corresponding class of object in the structure. ConcreteVisitor
     provides the context for the algorithm and stores its local
@@ -197,7 +197,7 @@ public:
     elements.end(); ++iter){
        (*iter)->accept(*this);
     }
-*/
+// */
   }
 };
 

@@ -1,8 +1,8 @@
 // factorymethod.cpp
 /*
-  Define an interface for creating an object, but let the subclasses decide
-  which class to instantiate. The factory method lets a class defer
-  instantiation to its subclasses.
+  Define an interface for creating an object, but let the subclasses
+  decide which class to instantiate. The factory method lets a class
+  defer instantiation to its subclasses.
 
   +---------------------+                      +---------------------+
   | Product             |                      | Creator             |
@@ -35,9 +35,9 @@
 
   (GoF, 1995)
 
-  The Product in the below example could also consist of two different classes
-  and not only two different constructors.
-//*/
+  The Product in the below example could also consist of two different
+  classes and not only two different constructors.
+*/
 
 #include <iostream>
 
@@ -45,8 +45,8 @@
 /*
   Product
 
-  - defines the interface of objects the factory method creates
-//*/
+  - Defines the interface of objects the factory method creates
+*/
 class Product
 {
 public:
@@ -57,8 +57,8 @@ public:
 /*
   ConcreteProduct
 
-  - implements the Product interface
-//*/
+  - Implements the Product interface
+*/
 class ConcreteProduct : public Product
 {
 public:
@@ -79,11 +79,12 @@ public:
 /*
   Creator
 
-  - declares the factory method which returns an object of type Product.
-  Creator may also define a default implementation of the factory method
-  that returns a default ConcreteProduct object.
-  - may call the factory method to create a Product object
-//*/
+  - Declares the factory method which returns an object of type
+    Product. Creator may also define a default implementation of the
+    factory method that returns a default ConcreteProduct object.
+
+  - May call the factory method to create a Product object
+*/
 class Creator
 {
 public:
@@ -95,8 +96,9 @@ public:
 /*
   ConcreteCreator (1)
 
-  - overrides the factory method to return an instance of a ConcreteProduct
-//*/
+  - Overrides the factory method to return an instance of a
+    ConcreteProduct
+*/
 class ConcreteCreator1 : public Creator
 {
 public:
@@ -110,7 +112,7 @@ public:
 
 /*
   ConcreteCreator (2) - another Concrete Creator
-//*/
+*/
 class ConcreteCreator2 : public Creator
 {
 public:
@@ -124,7 +126,7 @@ public:
 
 /*
   main...
-//*/
+*/
 int main()
 {
   using namespace std;

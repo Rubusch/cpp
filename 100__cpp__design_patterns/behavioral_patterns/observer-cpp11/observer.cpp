@@ -74,7 +74,7 @@ std::ostream &operator<<(std::ostream &os, State &state)
   Observer
 
   - defines an updating interface for objects that should be notified
-  of changes in a subject.
+    of changes in a subject.
 */
 class Observer
 {
@@ -87,7 +87,8 @@ public:
 /*
   Subject
 
-  - knows its observers. Any number of Observer objects may obserer a subject.
+  - knows its observers. Any number of Observer objects may obserer a
+    subject.
   - provides an interface for attaching and detaching Observer objects.
 */
 class Subject
@@ -177,9 +178,9 @@ public:
   ConcreteObserver
 
   - maintains a reference to a ConcreteSubject object.
-  - stores state that should stay consistent with the subject's.
-  - implements the Observer updating interface to keep its state consistent with
-  the subject's.
+  - stores state that should stay consistent with the subject's
+  - implements the Observer updating interface to keep its state
+    consistent with the subject's
 */
 class ConcreteObserver : public Observer
 {
