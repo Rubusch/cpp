@@ -97,7 +97,7 @@ private:
   std::list< Observer * > lst_;
 
 public:
-  virtual ~Subject() { std::cout << "\tSubject::~Subject() - dtor\n"; }
+//  virtual ~Subject() { std::cout << "\tSubject::~Subject() - dtor\n"; }         
 
   void attach(Observer *pObserver)
   {

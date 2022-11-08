@@ -1,8 +1,8 @@
 // nonvirtualinheritance.cpp
 /*
   virtual inheritance - in a "diamond" situation, EACH derived class
-  will have the SAME base instance. Modified attributes in a base class
-  will be commonly shared!
+  will have the SAME base instance. Modified attributes in a base
+  class will be commonly shared!
 
              +-----------+
              | Base (1)  |

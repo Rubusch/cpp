@@ -8,7 +8,7 @@
   1. Declare the pointer
   2. Point to a variable or space
   3. Initialize the pointer (and the corresponding variable!)
-//*/
+*/
 
 #include <iostream>
 #include <string>

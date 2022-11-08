@@ -27,6 +27,7 @@
   Inheritance is only needed when virtual functions (functions need to
   be overwriteable), or members are within a protected block are
   around.
+
   By Liskov public inheritance implements a 'IS-A'
   relation. Everything else should be modeled as aggregation 'HAS-A',
   or 'IS-IMPLEMENTED-WITH' (which can also be private
@@ -36,7 +37,7 @@
   RESOURCES
 
   * Exceptional C++, Herb Sutter, 2000
-//*/
+*/
 
 
 #include <iostream>
@@ -49,7 +50,7 @@ class Derived;
 
 /*
   base class
-//*/
+*/
 template < class T >
 class Base
 {
@@ -69,7 +70,7 @@ public:
   error!
     - only pure virtual function (= 0) won't lead to a linker error without
   implementation.
-  //*/
+  */
 
   virtual void setValue(T val);
   virtual T getValue() = 0; // should be defined "= 0" or should contain code to
@@ -99,7 +100,7 @@ T Base< T >::getValue()
 
 /*
   some derived class
-//*/
+*/
 template < class T >
 class Derived : public Base< T >
 {
@@ -136,7 +137,7 @@ T Derived< T >::getValue()
 
 /*
   some main()
-//*/
+*/
 int main()
 {
   // init

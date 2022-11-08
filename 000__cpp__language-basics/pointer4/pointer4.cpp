@@ -7,7 +7,7 @@
 
   The pointer pointer contains the same content but uses different address:
       *pVar = var;
-//*/
+*/
 
 #include <iostream>
 #include <string>

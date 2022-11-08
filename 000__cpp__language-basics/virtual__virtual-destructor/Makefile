@@ -1,8 +1,3 @@
-# Makefile (simple)
-#
-# use -O, -O1, -O2 for optimization
-
-
 SOURCE = virtualvirtualdestructor.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 
@@ -15,11 +10,9 @@ RM = rm -f
 	${CC} -c ${CFLAGS} $<
 
 virtualvirtualdestructor.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+	${CC} -o $@ ${OBJECTS}
 
 all: virtualvirtualdestructor.exe
 
 clean:
-	${RM} $(OBJECTS) virtualvirtualdestructor.exe *~ core
-
-
+	${RM} $(OBJECTS) virtualvirtualdestructor.exe *~

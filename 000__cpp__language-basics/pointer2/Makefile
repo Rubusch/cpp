@@ -1,4 +1,3 @@
-# Makefile for C++ Class
 SOURCE	= pointer2.cpp
 #HEADERS	=
 OBJECTS	= ${SOURCE:.c=.o}
@@ -14,9 +13,9 @@ CP		= cp -f
 	${CC} -c ${CPPFLAGS} $<
 
 pointer2.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+	${CC} -o $@ ${OBJECTS}
 
 all: pointer2.exe
 
 clean:
-	-${RM} pointer2.exe *.o core
+	-${RM} pointer2.exe *.o

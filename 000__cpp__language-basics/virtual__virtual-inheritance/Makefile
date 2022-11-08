@@ -1,8 +1,3 @@
-# Makefile (simple)
-#
-# use -O, -O1, -O2 for optimization
-
-
 SOURCE = virtualvirtualinheritance.cpp
 OBJECTS = ${SOURCE:.cpp=.o}
 TARGET = ${SOURCE:.cpp=.elf}
@@ -22,5 +17,3 @@ all: ${TARGET}
 
 clean:
 	${RM} $(OBJECTS) ${TARGET} *~
-
-

@@ -6,7 +6,7 @@
   same address.  It can only be initialized at Deklaration time.
 
   A reference cannot be NULL!
-//*/
+*/
 
 #include <iostream>
 #include <string>

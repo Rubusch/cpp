@@ -14,11 +14,11 @@ CP		= cp -f
 	${CC} -c ${CPPFLAGS} $<
 
 pointer6.exe: ${OBJECTS}
-	${CC} -o $@ ${OBJECTS} -lm
+	${CC} -o $@ ${OBJECTS}
 
 all: pointer6.exe
 
 clean:
-	-${RM} pointer6.exe *.o core
+	-${RM} pointer6.exe *.o
 
 .PHONY: clean
