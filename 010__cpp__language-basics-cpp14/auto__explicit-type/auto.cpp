@@ -3,11 +3,11 @@
 
   ---
 
-  lvalue    - has an address, e.g. a user maintained variable or memory with
-              accessible address
+  lvalue - has an address, e.g. a user maintained variable or memory
+           with accessible address
 
-  rvalue    - has no accessible address, e.g. a plain number value (stored only
-              temporarlily)
+  rvalue - has no accessible address, e.g. a plain number value
+           (stored only temporarlily)
 
 
   conclusion:
