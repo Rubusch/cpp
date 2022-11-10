@@ -160,17 +160,17 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/thread__mutex && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/thread__packed-task && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/thread__promise && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/uniqueptr && make && ./*.exe
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod && make && ./*.elf
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp11 && make && ./*.elf
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__factorymethod-params-cpp14 && make && ./*.elf
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr && make && ./*.elf
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pimpl && make && ./*.elf
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__iterator && make && ./*.elf
       - run: cd 010__cpp__language-basics-cpp14/sharedptr && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/sharedptr__shared-ownership && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/sharedptr__delete && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/weakptr && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/sharedptr__make-shared && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pimpl && make && ./*.exe
-      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__iterator && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/move__forward && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/explicit_constructor && make && ./*.exe
