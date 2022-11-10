@@ -1,5 +1,4 @@
-# Makefile for C++ Class
-TARGET = uniqueptr.exe
+TARGET = uniqueptr.elf
 SOURCE	= uniqueptr.cpp
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES	= .cpp .o

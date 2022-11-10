@@ -1,6 +1,5 @@
-# Makefile for C++ Class
 SOURCE	= uniqueptr.cpp
-TARGET = $(SOURCE:.cpp=.exe)
+TARGET = $(SOURCE:.cpp=.elf)
 OBJECTS	= $(SOURCE:.cpp=.o)
 .PREFIXES = .cpp .o
 CC = g++
@@ -11,11 +10,11 @@ RM = rm -f
 	$(CC) $(CPPFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS) -lm
+	$(CC) $(CPPFLAGS) -o $@ $(OBJECTS)
 
 all: $(TARGET)
 
 clean:
-	-$(RM) $(TARGET) $(OBJECTS) *~ core
+	-$(RM) $(TARGET) $(OBJECTS) *~
 
 .PHONY: clean
