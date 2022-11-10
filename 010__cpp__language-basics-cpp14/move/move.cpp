@@ -27,7 +27,7 @@
 
   perfect forwarding: makes it possible to write function templates
   that take arbitrary arguments and forward them to other functions
-  such that the target funcitons receive exactly the same arguments as
+  such that the target functions receive exactly the same arguments as
   were passed to the forwarding functions
 
 
