@@ -166,6 +166,7 @@ jobs:
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr && make && ./*.elf
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pimpl && make && ./*.elf
       - run: cd 010__cpp__language-basics-cpp14/uniqueptr__iterator && make && ./*.elf
+      - run: cd 010__cpp__language-basics-cpp14/uniqueptr__pass-to-function && make && ./*.elf
       - run: cd 010__cpp__language-basics-cpp14/sharedptr && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/sharedptr__shared-ownership && make && ./*.exe
       - run: cd 010__cpp__language-basics-cpp14/sharedptr__delete && make && ./*.exe
