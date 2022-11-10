@@ -1,14 +1,29 @@
 // Main.cpp
 /*
-  Template works for the whole class.
+  Template works for the entire class
 
-  1. other class wide declared class variables should be
-  defined in a initialisation list (or be passed).
+  1. Other class wide declared class variables should be defined in a
+     initialisation list (or be passed).
 
-  2. so far it's not possible to separate .cpp and .h file
-  with the same template.
-  declaration (put all in one .h file, or write an .impl file).
-//*/
+  2. So far it's not possible to separate a template class into .cpp
+     and .h file with the same template.
+
+     The declaration put all in one .h file, or write an .impl file
+     https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
+
+
+
+     A typical pattern is
+
+     - Abstract class uses templates and template implementations all
+       in .h
+
+     - Derrived concrete class is NOT a template class, but sets the
+       parent template, separated into .cpp and .h
+
+     - The user of the derrived concrete class instanciates directly,
+       separation of the user class into .cpp and .h
+*/
 
 #include <iostream>
 #include <string>
