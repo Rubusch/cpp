@@ -29,6 +29,33 @@
                                                                      |                            |
                                                                      +----------------------------+
   (GoF, 1995)
+
+
+  NB: in terms of Makefile... (cyclic dependency situation)
+
+  This pattern can be a challenging pain-in-the.. talking about a
+  setup in make/cmake. In case Observer is setup by template< T > and
+  ConcreteObserver will instanciate Observer< ConreteSubject >. On the
+  other side if ConcreteSubject needs to access functionality of
+  ConcreteObserver, then easily a cyclic vice-versa dependency may
+  result in terms of instantiation. For not discussing being good or
+  bad having a cyclic dependency in this context, there is a solution
+  for make / cmake to handle this.
+
+  -> separate every declaration and definition by a file .cpp and .hpp, respectively
+  -> put every class into a separate file pair
+  -> ConcreteSubject.hpp: forward declaration "class ConcreteObserver;"
+  -> ConcreteObserver.hpp: forward declaration "class ConcreteSubject;"
+
+  When this is not done cleanly a very nasty "ConcreteObserver has
+  incomplete type" error may result, no matter if the .hpp file was
+  included or not.
+
+  Another approach might be to solve the cyclic dependency by
+  instantiating the abstract classes of the others, then using
+  downcasts when working with the concrete. If this downcasting should
+  be avoided the template approach with forward declaration (and
+  cyclic declaration dependency) is the alternative.
 */
 
 
