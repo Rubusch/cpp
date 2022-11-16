@@ -1,4 +1,3 @@
-// explicitconstructor.cpp
 /*
   Constructors can be declared explicit
 
@@ -6,7 +5,7 @@
   implicit type conversion. Explicit conversions are still legal, however.
 
   further demonstrates a simple checked input conversion from string to int
-//*/
+*/
 
 
 #include <iostream>
@@ -16,7 +15,7 @@ using namespace std;
 
 /*
   some element type
-//*/
+*/
 class ContainerType
 {
 protected:
@@ -37,7 +36,7 @@ int ContainerType::getVal() const { return value; }
 
 /*
   some user
-//*/
+*/
 void useContainer(const ContainerType &ct)
 {
   cout << "\tthe stored value is: " << ct.getVal() << endl;
@@ -46,7 +45,7 @@ void useContainer(const ContainerType &ct)
 
 /*
   some main
-//*/
+*/
 int main()
 {
   // error, implicit type conversion
@@ -72,7 +71,7 @@ int main()
   /*
     Caution: in case using a cast on a template, e.g. static_cast< Foobar<int>>(
   ... ) - will be read as operator >> !!!
-  //*/
+  */
   cout << "3. explicit type conversion - static cast (bad, wrong logic)"
        << endl;
   useContainer(static_cast< ContainerType >(123));
