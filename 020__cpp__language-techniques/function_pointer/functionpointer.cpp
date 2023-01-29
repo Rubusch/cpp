@@ -1,4 +1,3 @@
-// functionpointer.cpp
 /*
   Function pointer example. Best practices around function pointers,
   which may be rather C style than C++.
@@ -6,8 +5,9 @@
   (idea taken from Alexandrescu, 2001)
 
 
-  The usages of an index into a vector and dereferencing a function pointer is
-most times more efficient than processing lots of if-then-else statements.
+  The usages of an index into a vector and dereferencing a function
+  pointer is most times more efficient than processing lots of
+  if-then-else statements.
 
   (More Effective C++ / 31 / Meyers)
 //*/

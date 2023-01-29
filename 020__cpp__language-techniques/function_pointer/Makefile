@@ -1,8 +1,4 @@
-# Makefile (simple)
-#
-# use -O, -O1, -O2 for optimization
-
-TARGET = functionpointer.exe
+TARGET = functionpointer.elf
 SOURCE =  functionpointer.cpp
 OBJECTS = $(SOURCE:.cpp=.o)
 
@@ -15,11 +11,9 @@ RM = rm -f
 	$(CC) $(CFLAGS) -c $<
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -lm
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS)
 
 all: $(TARGET)
 
 clean:
-	$(RM) $(OBJECTS) $(TARGET) *~ core
-
-
+	$(RM) $(OBJECTS) $(TARGET) *~

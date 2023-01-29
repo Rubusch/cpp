@@ -1,6 +1,5 @@
 /*
-  C++11 - prefer unique_ptr to auto_ptr and raw pointers
-  (Meyers / item 18)
+  C++11 - prefer unique_ptr
 
   unique_ptr is always the unique owner of the raw pointer resource!
   thus a unique_ptr object cannot be copied - only moved (i.e. the

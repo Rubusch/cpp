@@ -43,7 +43,3 @@ NOTE
 
 - const is pointless when the argument is passed by-value, since you
   will not be modifying the caller's object.
-
-
-
-
