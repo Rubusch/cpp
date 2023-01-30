@@ -252,6 +252,7 @@ jobs:
       - run: cd 020__cpp__language-techniques/typemapping__type_to_type && make && ./*.exe
       - run: cd 020__cpp__language-techniques/number_to_string_to_number && make && ./*.exe
       - run: cd 020__cpp__language-techniques/testing__cppunit01 && make && ./*.exe
+      - run: cd 020__cpp__language-techniques/exception-handler__async && ./build.sh
 
 ## 20: stl
       - run: cd 050__cpp__stl/algorithm-modifying_fill && make && ./*.exe
