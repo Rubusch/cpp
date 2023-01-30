@@ -4,16 +4,12 @@
 #ifndef EXCEPTION_HANDLER_H__
 #define EXCEPTION_HANDLER_H__
 
-
-//#define _POSIX_C_SOURCE 199309L
-
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
 #include <signal.h>
 #include <unistd.h>
-#include <sys/wait.h>
 
 #include <iostream>
 #include <memory>
@@ -67,8 +63,6 @@ struct Exception_handler::Exception_handler_deleter
 };
 
 
-// c code
-
 static void
 sighandler(int signum, siginfo_t *info, void *ptr)
 {
@@ -80,7 +74,6 @@ sighandler(int signum, siginfo_t *info, void *ptr)
 
 //*
   // passing a string "bla bla"
-  void (*fptr)(const char *);
   const char * msg = (const char *) info->si_value.sival_ptr;
   fprintf(stderr, "%s(): message '%s' received\n", __func__, msg);
 /*/
@@ -92,8 +85,6 @@ sighandler(int signum, siginfo_t *info, void *ptr)
 
   Exception_handler::do_action();
 }
-
-// c code - end
 
 
 #endif /* EXCEPTION_HANDLER_H__ */
