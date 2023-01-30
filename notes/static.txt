@@ -1,0 +1,34 @@
+static
+
+static = known expecially fixed statically to the compile unit!!!
+
+
+
+C++: static class member
+
+NB: static class members have a DECLARATION in the header file, and
+will need a DEFINITION separately in the .cpp file. If not, the code
+will compile, but the linker will claim about missing symbol
+definitions
+
+in foo.hpp
+    class Foo
+    {
+      ...
+      private:
+        static int my_member_;
+      ...
+      void some_func();
+    };
+
+in foo.cpp
+    ...
+    int Foo::my_member_;
+    ...
+    void
+    Foo::some_func()
+    {
+        ...
+        Foo::my_member_ = 123;
+        ...
+    }
