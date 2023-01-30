@@ -1,0 +1,70 @@
+# std::function<>()
+
+
+## Callbacks in CPP
+
+use std::function<>() for functors, e.g. when implementing callbacks,
+e.g. as follows.  
+
+in IDataReceiver.hpp  
+```
+    ...
+    using ReceiveCallback = std::function<void(void*)>;
+    ...
+```
+
+
+in DataReceiver.hpp  
+```
+    ...
+    class DataReceiver : public IDataReceiver
+    {
+    private:
+        ReceiveCallback _callbackHandler;
+    ...
+        inline void RegisterReceiveHandler(ReceiveCallback handler)
+        { _callbackHandler = handler; }
+    ...
+```
+
+in Stream.hpp  
+```
+    class Stream
+    ...
+    protected:
+        std::shared_ptr<Dma::IDataReceiver> _dataReceiver;
+    ...
+```
+
+in Stream.cpp  
+```
+    ...
+    // in ctor
+        Dma::IDataReceiver::ReceiveCallback dmaCallback;
+        dmaCallback = std::bind(&Stream::DmaCallback, this, std::placeholders::_1);
+        _dataReceiver->RegisterReceiveHandler(dmaCallback);
+    ...
+    void
+    Stream::DmaCallback(void* bd)
+    {
+        ...
+```
+
+NB: The approach works well everywhere, but is utterly C like. In
+general it could probably in most cases be replaced by a better
+object-orientated approach  
+
+
+
+## Test for validity
+
+``std::function<>()`` implements ``std::function::operator bool``, so
+it is directly possible to check for vailidity.  
+
+```
+    if (_callbackHandler)
+        _callbackHandler(&descr);
+```
+
+
+ref: https://en.cppreference.com/w/cpp/utility/functional/function/operator_bool
