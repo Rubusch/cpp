@@ -25,7 +25,8 @@ int main()
   fprintf(stderr, "%s(): initialize\n", __func__);    
   Exception_handler &eh = Exception_handler::get_instance();
   {
-    auto future = std::async(std::launch::async, [&eh]{eh.serve_async_exceptions;});
+//    auto future = std::async(std::launch::async, [&eh]{eh.serve_async_exceptions;});
+    auto future = std::async(std::launch::async, &Exception_handler::serve_async_exceptions);
   }
 
   fprintf(stderr, "%s(): execute some code\n", __func__);    
