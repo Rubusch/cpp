@@ -120,11 +120,11 @@ public:
 */
 class Subject
 {
-private:
+protected:
   std::list< Observer * > lst_;
 
 public:
-//  virtual ~Subject() { std::cout << "\tSubject::~Subject() - dtor\n"; }         
+  virtual ~Subject() = default;
 
   void attach(Observer *pObserver)
   {
